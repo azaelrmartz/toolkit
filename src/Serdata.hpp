@@ -1,5 +1,5 @@
-#ifndef __BusinessDatabase_H__
-#define __BusinessDatabase_H__
+#ifndef __BusinessSerdata_hpp__
+#define __BusinessSerdata_hpp__
 
 
 #include "Business.hpp"
@@ -32,7 +32,14 @@ namespace serdata
         Connector(DatconectionMySQL& connector);
         void connect(DatconectionMySQL& connector) throw(Exception);
         const char* serverDescription();
+        bool query(const char*);
+        void commit() throw(Exception);
+        void rollback() throw(Exception);
     };
+
+
+
+
 }
 }
 
