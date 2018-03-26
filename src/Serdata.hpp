@@ -1,12 +1,13 @@
 #ifndef __BusinessDatabase_H__
 #define __BusinessDatabase_H__
 
+
 #include "Business.hpp"
 
 
-namespace serdata
+namespace business
 {
-namespace database
+namespace serdata
 {
     struct DatconectionMySQL
     {
@@ -17,6 +18,9 @@ namespace database
         unsigned int port;
         const char *unix_socket;
         unsigned long client_flag;
+
+        int last_errono;
+        const char * last_errmsg;
     };
 
     class Connector
@@ -26,9 +30,10 @@ namespace database
     public:
         Connector();
         Connector(DatconectionMySQL& connector);
-        bool connect(DatconectionMySQL& connector) throw(Exception);
+        void connect(DatconectionMySQL& connector) throw(Exception);
         const char* serverDescription();
     };
 }
 }
+
 #endif
