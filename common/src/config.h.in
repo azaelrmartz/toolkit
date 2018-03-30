@@ -1,0 +1,4 @@
+// the configured options and settings for Tutorial
+#define Common_VERSION_MAJOR @Common_VERSION_MAJOR@
+#define Common_VERSION_MINOR @Common_VERSION_MINOR@
+

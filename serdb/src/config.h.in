@@ -1,0 +1,4 @@
+// the configured options and settings for Tutorial
+#define Developing_VERSION_MAJOR @Developing_VERSION_MAJOR@
+#define Developing_VERSION_MINOR @Developing_VERSION_MINOR@
+
