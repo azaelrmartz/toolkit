@@ -2,7 +2,7 @@
 #define __BusinessSerdata_hpp__
 
 
-#include "Business.hpp"
+#include "toolkit.hpp"
 
 
 namespace business
@@ -35,6 +35,7 @@ namespace serdata
         bool query(const char*);
         void commit() throw(Exception);
         void rollback() throw(Exception);
+        void* getServerConnector();
     };
 
 
