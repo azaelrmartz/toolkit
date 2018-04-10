@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <iostream>
 #include "Serdata.hpp"
 
 int main(int argc, char **argv)
@@ -8,7 +9,17 @@ int main(int argc, char **argv)
     mysqlConnector.database = "business.alpha";
     mysqlConnector.usuario = "root";
     mysqlConnector.password = "k3yL0c41";
-    business::serdata::Connector connector(mysqlConnector);
-    printf("MySQL client version: %s\n", connector.serverDescription());
-    connector.connect(mysqlConnector);
+    mysqlConnector.port = 3306;    
+    business::serdata::Connector connector;
+    
+    business::Message flag = connector.connect(mysqlConnector);
+    if(flag.isPass())
+    {
+        printf("MySQL client version: %s\n", connector.serverDescription());
+    }
+    else
+    {
+        std::cerr<<"Fallo la conexion el servidor de datos el cual respondio; "<<flag.what()<<std::endl;
+    }
+    
 }

@@ -30,7 +30,7 @@ namespace serdata
     public:
         Connector();
         Connector(DatconectionMySQL& connector);
-        void connect(DatconectionMySQL& connector) throw(Exception);
+        Message connect(DatconectionMySQL& connector);
         const char* serverDescription();
         bool query(const char*);
         void commit() throw(Exception);

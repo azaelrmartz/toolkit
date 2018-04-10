@@ -3,24 +3,18 @@
 
 namespace business
 {
-    Exception::Exception(Code code,const char* description) throw() : Message(Message::FAIL,description)
+    Exception::Exception(Code code,const char* description) throw() : Message(code,description)
     {
     }
-    /*Exception::Exception() throw() : Message(Message::FAIL,description)
-    {
-
-    }*/
+    
     const char* Exception::what() const throw()
     {
         return Message::what();
     }
 
-    Confirmation::Confirmation(Code code,const char* description) throw() : Message(Message::SUCCEED,description)
+    Confirmation::Confirmation(Code code,const char* description) throw() : Message(code,description)
     {
     }
-    /*Confirmation::Confirmation() throw() : Message(Message::SUCCEED,description)
-    {
-    }*/
 
     bool Message::isPass()
     {
