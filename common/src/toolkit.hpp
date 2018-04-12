@@ -1,11 +1,11 @@
-#ifndef __Business_HPP__
-#define __Business_HPP__
+#ifndef __toolkit_hpp__
+#define __toolkit_hpp__
 
 #include <exception>
 #include <string>
 
 
-namespace business
+namespace toolkit
 {
     class Message
     {

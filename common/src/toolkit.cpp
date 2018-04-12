@@ -1,7 +1,7 @@
 
 #include "toolkit.hpp"
 
-namespace business
+namespace toolkit
 {
     Exception::Exception(Code code,const char* description) throw() : Message(code,description)
     {
