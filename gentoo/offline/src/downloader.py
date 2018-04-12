@@ -1,5 +1,6 @@
 
 import wget
+import os.path
 
 class Downloader(object):
 	def __init__(self, filename):
@@ -33,7 +34,6 @@ class Downloader(object):
 				line = file.readline()   		
 		finally:
 			file.close()
-			
 
 	def display(self):		
 		for key in self.listing:
@@ -42,16 +42,22 @@ class Downloader(object):
     
 	def download(self,dirDownload):
 		for key in self.listing:
-			if isinstance(self.listing[key],str):
-				print('Donwloading {}...'.format(self.listing[key]))
-				downFilename = wget.download(self.listing[key],out=dirDownload)
+			print('\n')
+			if isinstance(self.listing[key],str):	
+				if not os.path.lexists(dirDownload + '/' + key):
+					print('Donwloading {} from {}..\n'.format(key,self.listing[key]))				
+					downFilename = wget.download(self.listing[key],out=dirDownload)
+				else:
+					print('Already exist ' + dirDownload + '/' + self.listing[key])	
 			elif isinstance(self.listing[key],list):
 				for i in len(self.listing[key]):
-					print('Donwloading {} from {}...'.format(key,self.listing[key]))
-					downFilename = wget.download(self.listing[key][i],out=dirDownload)
-					if(downFilename):
-						break
-		
+					if not os.path.exists(dirDownload + '/' + key):
+						print('Donwloading {} from {}...\n'.format(key,self.listing[key][i]))
+						downFilename = wget.download(self.listing[key][i],out=dirDownload)
+						if(downFilename):
+							break
+					else:
+						print('Already exist ' + dirDownload + '/' + self.listing[key][i])
 					
 
             
