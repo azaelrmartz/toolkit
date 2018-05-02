@@ -1,8 +1,7 @@
-#ifndef __BusinessSerdataER_hpp__
-#define __BusinessSerdataER_hpp__
+#ifndef toolkit_clientdb_er_hpp
+#define toolkit_clientdb_er_hpp
 
-
-#include "Serdata.hpp"
+#include "clientdb.hpp"
 
 
 namespace toolkit

@@ -1,6 +1,5 @@
-#ifndef __BusinessSerdata_hpp__
-#define __BusinessSerdata_hpp__
-
+#ifndef toolkit_clientdb_hpp
+#define toolkit_clientdb_hpp
 
 #include "toolkit.hpp"
 
