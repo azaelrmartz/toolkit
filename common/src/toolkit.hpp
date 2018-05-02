@@ -4,7 +4,6 @@
 #include <exception>
 #include <string>
 
-
 namespace toolkit
 {
     class Message
@@ -49,7 +48,23 @@ namespace toolkit
         //Exception()throw();
     };
 
-
+	class Version
+	{
+	private:
+		short major;
+		short minor;
+		short patch;
+	public:
+		Version();
+		Version(short major);
+		Version(short major,short minor);
+		Version(short major,short minor,short patch);
+		short getMajor();
+		short getMinor();
+		short getPatch();		
+	};
+	
+	Version getVersionCommon();	
 }
 
 #endif
