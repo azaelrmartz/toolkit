@@ -5,6 +5,8 @@
 namespace toolkit
 {
 	
+	
+	
 	Version::Stage Version::getStage()
 	{
 		return stage;
@@ -126,7 +128,7 @@ namespace toolkit
 	
 	
 	
-    Exception::Exception(Code code,const char* description) throw() : Message(code,description)
+    Exception::Exception(Message::Fails code,const std::string &description) throw() : Message(Message::Code(code),description)
     {
     }
     
@@ -135,9 +137,11 @@ namespace toolkit
         return Message::what();
     }
 
-    Confirmation::Confirmation(Code code,const char* description) throw() : Message(code,description)
+    Confirmation::Confirmation(Message::Succeeds code,const std::string &description) throw() : Message(Message::Code(code),description)
     {
     }
+    
+    
 
     bool Message::isPass()
     {
@@ -149,17 +153,34 @@ namespace toolkit
         if(code < 0) return true;
         return false;
     }
-    Message::Message(Code code,const char* description)
+    Message::Message(Message::Code code,const std::string &description)
     {
         this->code = code;
         this->description = description;
     }
     const char* Message::what() const throw()
     {
-        return this->description;
+        return this->description.c_str();
     }
     Message::Code Message::getCode()const
     {
         return code;
     }
+	Message::Code::Code()
+	{
+		this->code = 0;
+	}
+	Message::Code::operator int() const
+	{
+		return code;
+	}
+	Message::Code::Code(Message::Succeeds succeeds)
+	{
+		this->succeeds = succeeds;
+	}
+	Message::Code::Code(Message::Fails fail)
+	{
+		this->fail = fail;
+	}
+
 }

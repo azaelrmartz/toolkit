@@ -7,7 +7,7 @@
 namespace toolkit
 {
 	/**
-	 * \brief Get version info
+	 * \brief Informacion de version
 	 * 
 	 **/
 	class Version
@@ -42,12 +42,12 @@ namespace toolkit
 	};
 	
 	/**
-	 * \brief return tha actual version of common component
+	 * \brief returna la version actual de componente common
 	 **/
 	Version getVersionCommon();
 	
 	/**
-	 * \brief Gets infor of status and description of operation
+	 * \brief Guarda la informacion de estatus.
 	 * 
 	 **/
     class Message
@@ -56,15 +56,32 @@ namespace toolkit
 		/**
 		 * \brief Status code
 		 **/
-        enum Code
+        enum Fails
         {
             FAIL_SRD_CONNECTION     =   -1001,
             FAIL_SERVER_DATABASE    =   -1000,
-            FAIL    =   -1,
-            NOTHINK =   0,
+            FAIL					=	-1
+        };
+        enum Succeeds
+        {
             SUCCEED =   1,
             SUCCEED_SERVER_DATABASE =   1000,
-        };
+		};
+		class Code
+		{
+		private:
+			union
+			{
+				Message::Fails fail;
+				Message::Succeeds succeeds;	
+				int code;			
+			};
+		public:
+			Code();
+			Code(Message::Fails fail);
+			Code(Message::Succeeds succeeds);
+			operator int() const;
+		};
         /**
          * \return true if code is greater than zero
          **/
@@ -73,28 +90,28 @@ namespace toolkit
          * \return true if code is smaller than zero
          **/
         bool isFail();        
-        //Message();
-        Message(Code, const char* description);
+        //Message();        
         virtual const char* what() const throw();
         Code getCode() const;
+	protected:
+		Message(Code code,const std::string &description);
     private:
-        const char* description;
+        std::string description;               
         Code code;
     };
 	
 	/**
-	 * \brief A Message qith status corect.
+	 * \brief Es un mesaje con status pass
 	 **/
     class Confirmation : public Message
     {
     public:
-        Confirmation(Code number, const char* description) throw();
+        Confirmation(Succeeds number,const std::string &description) throw();
         //Confirmation() throw();
     };
 	
 	/**
-	 * \brief Implmetation of std::exception with support for Message,
-	 *        it mean the process fail.
+	 * \brief Es un mensaje con estatus fail.
 	 */
     class Exception : public Message, public std::exception
     {
@@ -104,7 +121,7 @@ namespace toolkit
         //exception& operator= (const exception&) throw();
         //virtual ~exception() throw();
         virtual const char* what() const throw();
-        Exception(Code number,const char* description) throw();
+        Exception(Fails code,const std::string &description) throw();
         //Exception()throw();
     };	
 	
