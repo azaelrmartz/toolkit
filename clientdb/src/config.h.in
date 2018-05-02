@@ -1,4 +1,6 @@
 // the configured options and settings for Tutorial
-#define Developing_VERSION_MAJOR @Developing_VERSION_MAJOR@
-#define Developing_VERSION_MINOR @Developing_VERSION_MINOR@
+#define MAJOR @toolkit-clientdb_VERSION_MAJOR@
+#define MINOR @toolkit-clientdb_MINOR@
+#define PATCH @toolkit-clientdb_PATCH@
+#define STAGE Version::Stage::@toolkit-clientdb_STAGE@
 

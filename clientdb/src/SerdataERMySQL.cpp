@@ -8,7 +8,7 @@
 
 namespace toolkit
 {
-namespace serdata
+namespace clientdb
 {
     bool Persons::download(Connector& connector)
     {

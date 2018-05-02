@@ -7,7 +7,7 @@
 
 namespace toolkit
 {
-namespace serdata
+namespace clientdb
 {
 	typedef unsigned int ID;
 	

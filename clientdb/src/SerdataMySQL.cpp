@@ -6,7 +6,7 @@
 
 namespace toolkit
 {
-namespace serdata
+namespace clientdb
 {
     const char* Connector::serverDescription()
     {
@@ -28,7 +28,7 @@ namespace serdata
             msg = msg + std::to_string(mysql_errno((MYSQL*)serverConnector));
             msg = msg + "' ";
             msg = msg + mysql_error((MYSQL*)serverConnector);
-            return Message(Message::Code::FAIL_SERVER_DATABASE,msg.c_str());
+            return Exception(Message::FAIL_SERVER_DATABASE,msg.c_str());
         }
 
         if (mysql_real_connect((MYSQL*)serverConnector, conection.host, conection.usuario, conection.password,conection.database,conection.port, NULL, 0) == NULL)
@@ -39,7 +39,7 @@ namespace serdata
             msg = msg + std::to_string(mysql_errno((MYSQL*)serverConnector));
             msg = msg + "' ";
             msg = msg + mysql_error((MYSQL*)serverConnector);
-            return Message(Message::Code::FAIL_SERVER_DATABASE,msg.c_str());
+            return Exception(Message::FAIL_SERVER_DATABASE,msg.c_str());
         }
         
         return Confirmation(Message::SUCCEED,"Conexion completa");

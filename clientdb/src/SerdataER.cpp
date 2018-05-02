@@ -8,7 +8,7 @@
 
 namespace toolkit
 {
-namespace serdata
+namespace clientdb
 {
     const char* Persons::TABLE_NAME = "Persons";
     bool Persons::insert(Connector& connector,const char* n1)
