@@ -42,7 +42,7 @@ int clean_toolkit_common(void)
 void testVersion()
 {
 	//for class Version
-	toolkit::Version ver = toolkit::getVersionCommon();
+	toolkit::Version ver = toolkit::getVersion();
 
 	
 	CU_ASSERT(ver.getMajor() > -1)
@@ -84,7 +84,7 @@ int main()
 	/* initialize the CUnit test registry */
 	if (CUE_SUCCESS != CU_initialize_registry()) return CU_get_error();
 
-	toolkit::Version ver = toolkit::getVersionCommon();
+	toolkit::Version ver = toolkit::getVersion();
 	std::string classVersionString = "Testing Componete toolkit-common v";
 	classVersionString = classVersionString + ver.toString();
 	pSuite = CU_add_suite(classVersionString.c_str(), init_toolkit_common, clean_toolkit_common);

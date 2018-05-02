@@ -1,4 +1,3 @@
-// the configured options and settings for Tutorial
 #define MAJOR @toolkit-common_VERSION_MAJOR@
 #define MINOR @toolkit-common_VERSION_MINOR@
 #define PATCH @toolkit-common_VERSION_PATCH@

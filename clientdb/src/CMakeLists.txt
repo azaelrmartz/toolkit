@@ -4,6 +4,8 @@ SET(CMAKE_CXX_STANDARD 14)
 SET(CMAKE_CXX_STANDARD_REQUIRED ON)
 SET(CMAKE_CXX_EXTENSIONS OFF)
 SET(toolkit-clientdb_VERSION_STAGE "alpha")
+configure_file ("${PROJECT_SOURCE_DIR}/config.h.in" "${PROJECT_BINARY_DIR}/config.h")
+
 
 FIND_PACKAGE(MySQL REQUIRED PATHS ${PROJECT_SOURCE_DIR}/../../cmake/Modules/)
 IF(MySQL_FOUND)
@@ -15,9 +17,11 @@ IF(TOOLKIT_COMMON_FOUND)
 ENDIF()
 
 
-#ADD_EXECUTABLE(developing SerdataMySQL.cpp SerdataERMySQL.cpp SerdataER.cpp Serdata.cpp developing.cpp)
-#TARGET_LINK_LIBRARIES(developing ${TOOLKIT_COMMON_LIBRARY} ${MYSQL_LIBRARY})
+ADD_EXECUTABLE(developing clientdb-mysql.cpp clientdb-er-mysql.cpp clientdb-er.cpp clientdb.cpp developing.cpp)
+TARGET_LINK_LIBRARIES(developing ${TOOLKIT_COMMON_LIBRARY} ${MYSQL_LIBRARY})
 ADD_LIBRARY(toolkit-clientdb STATIC clientdb-mysql.cpp clientdb-er-mysql.cpp clientdb-er.cpp clientdb.cpp)
+TARGET_LINK_LIBRARIES(toolkit-clientdb ${TOOLKIT_COMMON_LIBRARY} ${MYSQL_LIBRARY})
+ADD_LIBRARY(toolkit-clientdb.${toolkit-clientdb_VERSION_MAJOR}.${toolkit-clientdb_VERSION_MINOR}.${toolkit-clientdb_VERSION_PATCH} SHARED clientdb-mysql.cpp clientdb-er-mysql.cpp clientdb-er.cpp clientdb.cpp)
 TARGET_LINK_LIBRARIES(toolkit-clientdb ${TOOLKIT_COMMON_LIBRARY} ${MYSQL_LIBRARY})
 
 include (InstallRequiredSystemLibraries)

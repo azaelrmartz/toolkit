@@ -120,7 +120,7 @@ namespace toolkit
 	
 	
 		
-	Version getVersionCommon()
+	Version getVersion()
 	{
 		return Version(MAJOR,MINOR,PATCH,STAGE);		
 	}

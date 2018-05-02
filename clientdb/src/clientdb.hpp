@@ -8,6 +8,9 @@ namespace toolkit
 {
 namespace clientdb
 {
+	Version getPakageVersion();
+	const char* getPakageName();
+	
     struct DatconectionMySQL
     {
         const char *host;

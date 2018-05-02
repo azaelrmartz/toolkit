@@ -1,6 +1,7 @@
 // the configured options and settings for Tutorial
-#define MAJOR @toolkit-clientdb_VERSION_MAJOR@
-#define MINOR @toolkit-clientdb_MINOR@
-#define PATCH @toolkit-clientdb_PATCH@
-#define STAGE Version::Stage::@toolkit-clientdb_STAGE@
+#define VERSION_MAJOR @toolkit-clientdb_VERSION_MAJOR@
+#define VERSION_MINOR @toolkit-clientdb_VERSION_MINOR@
+#define VERSION_PATCH @toolkit-clientdb_VERSION_PATCH@
+#define VERSION_STAGE Version::Stage::@toolkit-clientdb_VERSION_STAGE@
+#define PAKAGENAME "@PROJECT_NAME@"
 
