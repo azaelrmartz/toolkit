@@ -6,8 +6,7 @@ SET(CMAKE_CXX_EXTENSIONS OFF)
  
 # configure a header file to pass some of the CMake settings
 # to the source code
-set (Tutorial_VERSION_MAJOR 1)
-set (Tutorial_VERSION_MINOR 0)
+SET(toolkit-common_VERSION_STAGE "alpha")
 configure_file ("${PROJECT_SOURCE_DIR}/config.h.in" "${PROJECT_BINARY_DIR}/config.h")
 
 FIND_PACKAGE(CUnit REQUIRED PATHS ${PROJECT_SOURCE_DIR}/../../cmake/Modules/)

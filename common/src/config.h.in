@@ -2,4 +2,5 @@
 #define MAJOR @toolkit-common_VERSION_MAJOR@
 #define MINOR @toolkit-common_VERSION_MINOR@
 #define PATCH @toolkit-common_VERSION_PATCH@
+#define STAGE Version::Stage::@toolkit-common_VERSION_STAGE@
 
