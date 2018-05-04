@@ -4,7 +4,6 @@ SET(CMAKE_CXX_STANDARD 14)
 SET(CMAKE_CXX_STANDARD_REQUIRED ON)
 SET(CMAKE_CXX_EXTENSIONS OFF)
 SET(toolkit-clientdb_VERSION_STAGE "alpha")
-#set(CMAKE_CXX_FLAGS "-x objective-c++")
 configure_file ("${PROJECT_SOURCE_DIR}/config.h.in" "${PROJECT_BINARY_DIR}/config.h")
 
 
