@@ -11,11 +11,40 @@ namespace toolkit
 namespace clientdb
 {
     const char* Persons::TABLE_NAME = "Persons";
+    
+    bool Persons::insert(Connector& connector,const char* n1,const char* am,const char* ap)
+    {
+        std::string str = "";
+        str = str + "INSERT INTO " + TABLE_NAME + "(n1,am,ap) VALUES('" ;
+        str += n1 ;
+        str += "','";
+        str += am ; 
+        str += "','";
+        str += ap ; 
+        str += "')";
+        id = connector.insert(str.c_str());
+        if(id > 0) return true;
+        return false;
+    }
+    bool Persons::insert(Connector& connector,const char* n1,const char* am)
+    {
+        std::string str = "";
+        str = str + "INSERT INTO " + TABLE_NAME + "(n1,am) VALUES('" ;
+        str += n1 ;
+        str += "','";
+        str += am ; 
+        str += "')";
+        id = connector.insert(str.c_str());
+        if(id > 0) return true;
+        return false;
+    }
     bool Persons::insert(Connector& connector,const char* n1)
     {
         std::string str = "";
         str = str + "INSERT INTO " + TABLE_NAME + "(n1) VALUES('" + n1 + "')";
-        return connector.query(str.c_str());
+        id = connector.insert(str.c_str());
+        if(id > 0) return true;
+        return false;
     }
     const char* Persons::toString()
     {

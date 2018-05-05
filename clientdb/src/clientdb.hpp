@@ -9,8 +9,9 @@ namespace toolkit
 namespace clientdb
 {
 	Version getPakageVersion();
-	const char* getPakageName();
-	
+	const char* getPakageName();	
+	typedef unsigned int ID;
+    
     struct DatconectionMySQL
     {
         const char *host;
@@ -35,13 +36,11 @@ namespace clientdb
         Message connect(DatconectionMySQL& connector);
         const char* serverDescription();
         bool query(const char*);
-        void commit() throw(Exception);
+        ID insert(const char*);
+        bool commit() throw(Exception);
         void rollback() throw(Exception);
         void* getServerConnector();
     };
-
-
-
 
 }
 }

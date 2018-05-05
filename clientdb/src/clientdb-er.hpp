@@ -8,7 +8,6 @@ namespace toolkit
 {
 namespace clientdb
 {
-	typedef unsigned int ID;
 	
     class ER
     {

@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <iostream>
-#include "clientdb.hpp"
+#include <stdlib.h> 
+
+#include "clientdb-er.hpp"
 
 int main(int argc, char **argv)
 {
@@ -22,4 +24,45 @@ int main(int argc, char **argv)
         std::cerr<<"Fallo la conexion el servidor de datos el cual respondio; "<<flag.what()<<std::endl;
     }
     
+    
+    srand((unsigned)time(0)); 
+    int randNumber = 0;
+    
+    randNumber = (rand() % 10000) + 1;
+    std::string n1 = "n1-";
+    n1 += std::to_string(randNumber);
+    toolkit::clientdb::Persons person1;
+    if(person1.insert(connector,n1.c_str()))
+    {
+        std::cout<<"Inserting "<< n1 << "..." <<std::endl;
+    }
+    else
+    {
+        std::cerr<<"Fail "<< n1 << "..." <<std::endl;        
+    }
+    randNumber = (rand() % 10000) + 1;
+    std::string am = "am-";
+    am += std::to_string(randNumber);
+    if(person1.insert(connector,n1.c_str(),am.c_str()))
+    {
+        std::cout<<"Inserting "<< n1 << " "<< am << "..." <<std::endl;
+    }
+    else
+    {
+        std::cerr<<"Fail "<< n1 <<" "<< am << "..." <<std::endl;        
+    }
+    randNumber = (rand() % 10000) + 1;
+    std::string ap = "ap-";
+    ap += std::to_string(randNumber);
+    if(person1.insert(connector,n1.c_str(),am.c_str(),ap.c_str()))
+    {
+        std::cout<<"Inserting "<< n1 << " "<< am << " " << ap << "..." <<std::endl;
+    }
+    else
+    {
+        std::cerr<<"Fail "<< n1 <<" "<< am << " " << ap << "..." <<std::endl;        
+    }
+    
+    
+    connector.commit();
 }
