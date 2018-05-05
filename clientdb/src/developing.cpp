@@ -34,35 +34,47 @@ int main(int argc, char **argv)
     toolkit::clientdb::Persons person1;
     if(person1.insert(connector,n1.c_str()))
     {
-        std::cout<<"Inserting "<< n1 << "..." <<std::endl;
+        //std::cout<<"Inserting "<< n1 << "..." <<std::endl;
     }
     else
     {
-        std::cerr<<"Fail "<< n1 << "..." <<std::endl;        
+        //std::cerr<<"Fail "<< n1 << "..." <<std::endl;        
     }
     randNumber = (rand() % 10000) + 1;
     std::string am = "am-";
     am += std::to_string(randNumber);
     if(person1.insert(connector,n1.c_str(),am.c_str()))
     {
-        std::cout<<"Inserting "<< n1 << " "<< am << "..." <<std::endl;
+        //std::cout<<"Inserting "<< n1 << " "<< am << "..." <<std::endl;
     }
     else
     {
-        std::cerr<<"Fail "<< n1 <<" "<< am << "..." <<std::endl;        
+        //std::cerr<<"Fail "<< n1 <<" "<< am << "..." <<std::endl;        
     }
     randNumber = (rand() % 10000) + 1;
     std::string ap = "ap-";
     ap += std::to_string(randNumber);
     if(person1.insert(connector,n1.c_str(),am.c_str(),ap.c_str()))
     {
-        std::cout<<"Inserting "<< n1 << " "<< am << " " << ap << "..." <<std::endl;
+        //std::cout<<"Inserting "<< n1 << " "<< am << " " << ap << "..." <<std::endl;
     }
     else
     {
-        std::cerr<<"Fail "<< n1 <<" "<< am << " " << ap << "..." <<std::endl;        
+        //std::cerr<<"Fail "<< n1 <<" "<< am << " " << ap << "..." <<std::endl;        
     }
     
+    //std::cout<<"comiting..."<<std::endl;
     
     connector.commit();
+    
+    if(person1.download(connector))
+    {
+        //std::cout<<"prev person1.toString(): "<<std::endl;
+        std::cout<<"person1: " << person1.toString()<<std::endl;
+        //std::cout<<"post person1.toString(): "<<std::endl;
+    }
+    else
+    {
+        std::cerr<<"person1: view Fail."<<std::endl;
+    }   
 }

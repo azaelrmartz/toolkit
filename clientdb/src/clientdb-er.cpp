@@ -46,23 +46,24 @@ namespace clientdb
         if(id > 0) return true;
         return false;
     }
-    const char* Persons::toString()
+    std::string Persons::toString()
     {
         std::string str = "";
-        if(this->n1 != NULL) str = str + n1;
-        if(this->n2 != NULL) str = str + " " + n2;
-        if(this->ns != NULL) str = str + " " + ns;
-        if(this->ap != NULL) str = str + " " + ap;
-        if(this->am != NULL) str = str + " " + am;
-        return str.c_str();
+        if(n1.length() > 0) str = n1;
+        if(n2.length() > 0) str = str + " " + n2;
+        if(ns.length() > 0) str = str + " " + ns;
+        if(ap.length() > 0) str = str + " " + ap;
+        if(am.length() > 0) str = str + " " + am;
+        return str;
     }
     void Persons::clean()
     {
-        this->n1 = NULL;
-        this->n2 = NULL;
-        this->ns = NULL;
-        this->ap = NULL;
-        this->am = NULL;
+        id = 0;
+        n1 = "";
+        n2 = "";
+        ns = "";
+        ap = "";
+        am = "";
     }
 
 

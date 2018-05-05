@@ -12,7 +12,7 @@ namespace clientdb
     class ER
     {
     public:
-        virtual const char* toString() = 0;
+        virtual std::string toString() = 0;
         virtual void clean() = 0;
     };
 
@@ -20,11 +20,11 @@ namespace clientdb
     class Persons : public ER
     {
     private:
-        const char* n1;
-        const char* n2;
-        const char* ns;
-        const char* ap;
-        const char* am;
+        std::string n1;
+        std::string n2;
+        std::string ns;
+        std::string ap;
+        std::string am;
         static const char* TABLE_NAME;
         ID id;
 
@@ -33,8 +33,9 @@ namespace clientdb
         bool insert(Connector& connector,const char* n1,const char* am);
         bool insert(Connector& connector,const char* n1,const char* am,const char* ap);
 		bool download(Connector& connector);
+        bool selectRamdom(Connector& connector);
 		
-        virtual const char* toString();
+        virtual std::string toString();
         virtual void clean();
     };
 

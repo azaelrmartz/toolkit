@@ -12,7 +12,11 @@ namespace clientdb
 	const char* getPakageName();	
 	typedef unsigned int ID;
     
-    struct DatconectionMySQL
+    struct Datconection    
+    {        
+        
+    };
+    struct DatconectionMySQL : public Datconection
     {
         const char *host;
         const char *usuario;
@@ -30,6 +34,7 @@ namespace clientdb
     {
     private:
         void* serverConnector;
+        Datconection* datconection;
     public:
         Connector();
         Connector(DatconectionMySQL& connector);
@@ -40,6 +45,7 @@ namespace clientdb
         bool commit() throw(Exception);
         void rollback() throw(Exception);
         void* getServerConnector();
+        const Datconection* getDatconection() const;
     };
 
 }
