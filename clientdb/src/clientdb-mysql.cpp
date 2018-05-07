@@ -8,15 +8,11 @@ namespace toolkit
 {
 namespace clientdb
 {
-    const Datconection* Connector::getDatconection() const
-    {
-        return datconection;
-    }
-    bool Connector::commit() throw(Exception)
+    bool Connector::commit() throw(toolkit::Exception)
     {
         if (serverConnector != NULL)
         {
-            if(mysql_commit((MYSQL*)serverConnector))
+            if(mysql_commit((MYSQL*)serverConnector) == 0)
             {
                 return true;
             }
@@ -24,18 +20,6 @@ namespace clientdb
         
         return false; 
     }
-    ID Connector::insert(const char* str)
-    {
-		if (mysql_query((MYSQL*)serverConnector, str) == 0) 
-		{
-			return mysql_insert_id((MYSQL*)serverConnector);
-		}
-		else
-        {   
-            return 0; 
-        }		
-    }
-    
     const char* Connector::serverDescription()
     {
         return mysql_get_client_info();
@@ -70,25 +54,6 @@ namespace clientdb
             return Exception(Message::FAIL_SERVER_DATABASE,msg.c_str());
         }
         
-        /*if(mysql_select_db((MYSQL*)serverConnector,conection.database) != 0)
-        {
-            if(conection.database == NULL)
-            {
-                return Exception(Message::FAIL_SERVER_DATABASE,"Should set database name.");
-            }
-            else
-            {
-                return Exception(Message::FAIL_SERVER_DATABASE,"Fail on selecting BD, mey be the database name is incorrect.");
-            }
-        }*/
-        
-        if(mysql_autocommit((MYSQL*)serverConnector,0) != 0)
-        {
-            return Exception(Message::FAIL_SERVER_DATABASE,"Fail on disable commit.");
-        }
-        
-        datconection = &conection;
-        
         return Confirmation(Message::SUCCEED,"Conexion completa");
     }
     
@@ -99,7 +64,7 @@ namespace clientdb
 	
     bool Connector::query(const char* str)
     {
-		if (mysql_query((MYSQL*)serverConnector, str) == 0) 
+		if (mysql_query((MYSQL*)serverConnector, str)  == 0) 
 		{
 			return true;
 		}

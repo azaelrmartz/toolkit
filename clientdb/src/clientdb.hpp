@@ -9,14 +9,9 @@ namespace toolkit
 namespace clientdb
 {
 	Version getPakageVersion();
-	const char* getPakageName();	
-	typedef unsigned int ID;
-    
-    struct Datconection    
-    {        
-        
-    };
-    struct DatconectionMySQL : public Datconection
+	const char* getPakageName();
+	
+    struct DatconectionMySQL
     {
         const char *host;
         const char *usuario;
@@ -34,19 +29,19 @@ namespace clientdb
     {
     private:
         void* serverConnector;
-        Datconection* datconection;
     public:
         Connector();
         Connector(DatconectionMySQL& connector);
         Message connect(DatconectionMySQL& connector);
         const char* serverDescription();
         bool query(const char*);
-        ID insert(const char*);
         bool commit() throw(Exception);
         void rollback() throw(Exception);
         void* getServerConnector();
-        const Datconection* getDatconection() const;
     };
+
+
+
 
 }
 }

@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <iostream>
-#include <stdlib.h> 
+#include <stdlib.h>     /* srand, rand */
+#include <time.h> 
+#include <string>
 
 #include "clientdb-er.hpp"
 
@@ -21,60 +23,41 @@ int main(int argc, char **argv)
     }
     else
     {
-        std::cerr<<"Fallo la conexion el servidor de datos el cual respondio; "<<flag.what()<<std::endl;
+        std::cerr<<"Fallo la conexion el servidor de datos el cual respondio; "<< flag.what() << std::endl;
     }
     
+    srand (time(NULL));
+	int random = rand() % 10000 + 1;
     
-    srand((unsigned)time(0)); 
-    int randNumber = 0;
-    
-    randNumber = (rand() % 10000) + 1;
+    toolkit::clientdb::Persons* person1 = new toolkit::clientdb::Persons();
     std::string n1 = "n1-";
-    n1 += std::to_string(randNumber);
-    toolkit::clientdb::Persons person1;
-    if(person1.insert(connector,n1.c_str()))
+    n1 += std::to_string(random);
+    if(person1->insert(connector,n1))
     {
-        //std::cout<<"Inserting "<< n1 << "..." <<std::endl;
-    }
-    else
-    {
-        //std::cerr<<"Fail "<< n1 << "..." <<std::endl;        
-    }
-    randNumber = (rand() % 10000) + 1;
-    std::string am = "am-";
-    am += std::to_string(randNumber);
-    if(person1.insert(connector,n1.c_str(),am.c_str()))
-    {
-        //std::cout<<"Inserting "<< n1 << " "<< am << "..." <<std::endl;
-    }
-    else
-    {
-        //std::cerr<<"Fail "<< n1 <<" "<< am << "..." <<std::endl;        
-    }
-    randNumber = (rand() % 10000) + 1;
-    std::string ap = "ap-";
-    ap += std::to_string(randNumber);
-    if(person1.insert(connector,n1.c_str(),am.c_str(),ap.c_str()))
-    {
-        //std::cout<<"Inserting "<< n1 << " "<< am << " " << ap << "..." <<std::endl;
-    }
-    else
-    {
-        //std::cerr<<"Fail "<< n1 <<" "<< am << " " << ap << "..." <<std::endl;        
-    }
+		std::cout << "Inserted "<< n1 << std::endl;
+	}
+	else
+	{
+		std::cerr << "Fail "<< n1 << std::endl;
+	}
     
-    //std::cout<<"comiting..."<<std::endl;
-    
-    connector.commit();
-    
-    if(person1.download(connector))
+    if(connector.commit())
     {
-        //std::cout<<"prev person1.toString(): "<<std::endl;
-        std::cout<<"person1: " << person1.toString()<<std::endl;
-        //std::cout<<"post person1.toString(): "<<std::endl;
-    }
-    else
+		std::cout << "Commit done " << std::endl;
+	}
+	else
+	{
+		std::cerr << "Commit fail"<< std::endl;
+	}
+	
+    toolkit::clientdb::Persons* person2 = new toolkit::clientdb::Persons();
+    if(person2->selectRandom(connector))
     {
-        std::cerr<<"person1: view Fail."<<std::endl;
-    }   
+		std::cout << "Select Random "<< person2->toString() << std::endl;
+	}
+	else
+	{
+		std::cerr << "Fail Slected random "<< n1 << std::endl;
+	}
+    
 }

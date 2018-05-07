@@ -8,11 +8,12 @@ namespace toolkit
 {
 namespace clientdb
 {
+	typedef unsigned int ID;
 	
     class ER
     {
     public:
-        virtual std::string toString() = 0;
+        virtual const char* toString() = 0;
         virtual void clean() = 0;
     };
 
@@ -29,13 +30,13 @@ namespace clientdb
         ID id;
 
     public:
-        bool insert(Connector& connector,const char* n1);
-        bool insert(Connector& connector,const char* n1,const char* am);
-        bool insert(Connector& connector,const char* n1,const char* am,const char* ap);
+        bool insert(Connector& connector,const std::string& n1);
+        bool insert(Connector& connector,const std::string& n1,const std::string& am);
+        bool insert(Connector& connector,const std::string& n1,const std::string& am,const std::string& ap);
 		bool download(Connector& connector);
-        bool selectRamdom(Connector& connector);
+        bool selectRandom(Connector& connector);
 		
-        virtual std::string toString();
+        virtual const char* toString();
         virtual void clean();
     };
 
