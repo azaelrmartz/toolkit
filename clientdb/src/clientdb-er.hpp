@@ -1,5 +1,5 @@
-#ifndef toolkit_clientdb_er_hpp
-#define toolkit_clientdb_er_hpp
+#ifndef TOOLKIT_CLIENTDB_ER_HPP
+#define TOOLKIT_CLIENTDB_ER_HPP
 
 #include "clientdb.hpp"
 

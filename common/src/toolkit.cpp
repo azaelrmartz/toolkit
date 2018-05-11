@@ -4,9 +4,6 @@
 
 namespace toolkit
 {
-	
-	
-	
 	Version::Stage Version::getStage()
 	{
 		return stage;

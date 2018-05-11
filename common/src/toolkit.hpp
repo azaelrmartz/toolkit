@@ -1,5 +1,5 @@
-#ifndef __toolkit_hpp__
-#define __toolkit_hpp__
+#ifndef TOOLKIT_HPP
+#define TOOLKIT_HPP
 
 #include <exception>
 #include <string>

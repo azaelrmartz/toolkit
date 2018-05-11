@@ -14,12 +14,12 @@ static FILE* temp_file = NULL;
  */
 int init_toolkit_common(void)
 {
-   if (NULL == (temp_file = fopen("temp.txt", "w+"))) {
+   /*if (NULL == (temp_file = fopen("temp.txt", "w+"))) {
       return -1;
    }
    else {
       return 0;
-   }
+   }*/
 }
 
 /* The suite cleanup function.
@@ -40,16 +40,11 @@ int clean_toolkit_common(void)
 
 void testConection()
 {
-    toolkit::clientdb::DatconectionMySQL mysqlConnector;
-    mysqlConnector.host = "192.168.0.101";
-    mysqlConnector.database = "business.alpha";
-    mysqlConnector.usuario = "root";
-    mysqlConnector.password = "k3yL0c41";
-    mysqlConnector.port = 3306;    
+    toolkit::clientdb::DatconectionMySQL mysqlConnector("192.168.0.101",3306,"business.alpha","root","k3yL0c41");  
     toolkit::clientdb::Connector connector;
     
-    toolkit::Message flag = connector.connect(mysqlConnector);
-    CU_ASSERT(flag.isPass())    
+    bool flag = connector.connect(mysqlConnector);
+    CU_ASSERT(flag)    
 }
 
 

@@ -8,22 +8,16 @@
 
 int main(int argc, char **argv)
 {
-    toolkit::clientdb::DatconectionMySQL mysqlConnector;
-    mysqlConnector.host = "192.168.0.101";
-    mysqlConnector.database = "business.alpha";
-    mysqlConnector.usuario = "root";
-    mysqlConnector.password = "k3yL0c41";
-    mysqlConnector.port = 3306;    
-    toolkit::clientdb::Connector connector;
-    
-    toolkit::Message flag = connector.connect(mysqlConnector);
-    if(flag.isPass())
+    toolkit::clientdb::DatconectionMySQL mysqlConnector("192.168.0.101",3306,"business.alpha","root","k3yL0c41");  
+    toolkit::clientdb::Connector connector;   
+    bool flag = connector.connect(mysqlConnector);
+    if(flag)
     {
         printf("SQL Server version: %s\n", connector.serverDescription());
     }
     else
     {
-        std::cerr<<"Fallo la conexion el servidor de datos el cual respondio; "<< flag.what() << std::endl;
+        std::cerr<<"Fallo la conexion el servidor."<< std::endl;
     }
     
     srand (time(NULL));
@@ -58,6 +52,5 @@ int main(int argc, char **argv)
 	else
 	{
 		std::cerr << "Fail Slected random "<< n1 << std::endl;
-	}
-    
+	}    
 }
