@@ -45,7 +45,7 @@ namespace clientdb
     {
         if (serverConnector != NULL)
         {
-            if(mysql_commit((MYSQL*)serverConnector))
+            if(mysql_commit((MYSQL*)serverConnector) == 0)
             {
                 return true;
             }

@@ -119,7 +119,7 @@ namespace toolkit
         //exception () throw();
         //exception (const exception&) throw();
         //exception& operator= (const exception&) throw();
-        //virtual ~exception() throw();
+        virtual ~Exception() throw();
         virtual const char* what() const throw();
         Exception(Fails code,const std::string &description) throw();
         //Exception()throw();

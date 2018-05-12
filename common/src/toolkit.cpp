@@ -4,6 +4,9 @@
 
 namespace toolkit
 {
+	Exception::~Exception() throw()
+	{
+	}
 	Version::Stage Version::getStage()
 	{
 		return stage;
@@ -81,13 +84,13 @@ namespace toolkit
 		this->patch = patch;
 		this->stage = unknown;
 	}
-	Version::Version(short major,short minor,short patch,Stage stage)
+	Version::Version(short major,short minor,short patch,Version::Stage stage)
 	{
 		this->major = major;
 		this->minor = minor;
 		this->patch = patch;
 		this->stage = stage;
-	}	
+	}
 	short Version::getMajor()
 	{
 		return major;
@@ -100,14 +103,14 @@ namespace toolkit
 	{
 		return patch;
 	}		
-	Version::Version(short major,Stage stage)
+	Version::Version(short major,Version::Stage stage)
 	{
 		this->major = major;
 		this->minor = -1;
 		this->patch = -1;
 		this->stage = stage;
 	}
-	Version::Version(short major,short minor,Stage stage)
+	Version::Version(short major,short minor,Version::Stage stage)
 	{
 		this->major = major;
 		this->minor = minor;

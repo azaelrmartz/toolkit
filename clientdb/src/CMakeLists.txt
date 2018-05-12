@@ -1,11 +1,12 @@
 CMAKE_MINIMUM_REQUIRED(VERSION 3.0)
-PROJECT(toolkit-clientdb VERSION 0.6.1.1 LANGUAGES CXX)
+PROJECT(toolkit-clientdb VERSION 0.6.2.1 LANGUAGES CXX)
 SET(CMAKE_CXX_STANDARD 14)
 SET(CMAKE_CXX_STANDARD_REQUIRED ON)
 SET(CMAKE_CXX_EXTENSIONS OFF)
-SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g")
+SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -Wall")
+
 SET(toolkit-clientdb_VERSION_STAGE "alpha")
-configure_file ("${PROJECT_SOURCE_DIR}/config.h.in" "${PROJECT_BINARY_DIR}/config.h")
+configure_file ("${PROJECT_SOURCE_DIR}/config.h.in" "${PROJECT_SOURCE_DIR}/config.h")
 
 SET(SOURCES_BUILDING clientdb.cpp clientdb-mysql.cpp clientdb-er-mysql.cpp clientdb-er.cpp)
 

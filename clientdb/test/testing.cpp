@@ -14,12 +14,12 @@ static FILE* temp_file = NULL;
  */
 int init_toolkit_common(void)
 {
-   /*if (NULL == (temp_file = fopen("temp.txt", "w+"))) {
+   if (NULL == (temp_file = fopen("temp.txt", "w+"))) {
       return -1;
    }
    else {
       return 0;
-   }*/
+   }
 }
 
 /* The suite cleanup function.
