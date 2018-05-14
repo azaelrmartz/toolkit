@@ -37,10 +37,6 @@ namespace clientdb
 		return false;
 	}*/
 	
-    const Datconection& Connector::getDatconection() const
-    {
-        return *datconection;
-    }
     bool Connector::commit()
     {
         if (serverConnector != NULL)
@@ -70,48 +66,44 @@ namespace clientdb
         return mysql_get_client_info();
     }
 
-    Connector::Connector()
-    {
-    }
 
-    bool Connector::connect(DatconectionMySQL& conection)
+    bool Connector::connect(const Datconection& conection)
     {
-        serverConnector = (void*)mysql_init(NULL);
-        datconection = new DatconectionMySQL(conection);
-        if (serverConnector == NULL)
-        {
-            std::string msg = "";
-            msg = msg + " MySQL server return error number '";
-            msg = msg + std::to_string(mysql_errno((MYSQL*)serverConnector));
-            msg = msg + "' ";
-            msg = msg + mysql_error((MYSQL*)serverConnector);
-            return false;//return toolkit::Exception(toolkit::Message::FAIL_SERVER_DATABASE,msg.c_str());            
-        }
-
-        if (mysql_real_connect((MYSQL*)serverConnector, conection.getHost().c_str(), conection.getUsuario().c_str(), conection.getPassword().c_str(),conection.getDatabase().c_str(),conection.getPort(), NULL, 0) == NULL)
-        {
-            std::string msg = "";
-            msg = msg + " MySQL server return error number '";
-            msg = msg + std::to_string(mysql_errno((MYSQL*)serverConnector));
-            msg = msg + "' ";
-            msg = msg + mysql_error((MYSQL*)serverConnector);
-            return false;//return toolkit::Exception(toolkit::Message::FAIL_SERVER_DATABASE,msg.c_str());
-        }
-        
-        if(mysql_autocommit((MYSQL*)serverConnector,0) != 0)
-        {
-            return false;//return toolkit::Exception(toolkit::Message::FAIL_SERVER_DATABASE,"Fail on disable commit.");
-        }
-        
-        datconection = &conection;
-        
-        return true;//return toolkit::Confirmation(toolkit::Message::SUCCEED,"Conexion completa");
+		//for MySQL
+		if(conection.getServerType() == Datconection::ServerType::MySQL)
+		{
+			serverConnector = (void*)mysql_init(NULL);
+			if (serverConnector == NULL)
+			{
+				std::string msg = "";
+				msg = msg + " MySQL Server Error No. : '";
+				msg = msg + std::to_string(mysql_errno((MYSQL*)serverConnector));
+				msg = msg + "' ";
+				msg = msg + mysql_error((MYSQL*)serverConnector);
+				throw SQLException(msg);           
+			}
+			if (mysql_real_connect((MYSQL*)serverConnector, ((const DatconectionMySQL&)conection).getHost().c_str(), ((const DatconectionMySQL&)conection).getUsuario().c_str(), ((const DatconectionMySQL&)conection).getPassword().c_str(),((const DatconectionMySQL&)conection).getDatabase().c_str(),((const DatconectionMySQL&)conection).getPort(), NULL, 0) == NULL)
+			{
+				std::string msg = "";
+				msg = msg + " MySQL Server Error No. : '";
+				msg = msg + std::to_string(mysql_errno((MYSQL*)serverConnector));
+				msg = msg + "' ";
+				msg = msg + mysql_error((MYSQL*)serverConnector);
+				throw SQLException(msg);
+			}        
+			if(mysql_autocommit((MYSQL*)serverConnector,0) != 0)
+			{
+				return false;
+			}        
+			datconection = new DatconectionMySQL((const DatconectionMySQL&)conection);
+			return true;
+		}
+		else
+		{
+			return false;
+		}
     }
     
-    void* Connector::getServerConnector()
-    {
-        return this->serverConnector;
-    }
 	
     bool Connector::query(const std::string& str)
     {

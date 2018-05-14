@@ -40,7 +40,7 @@ int clean_toolkit_common(void)
 
 void testConection()
 {
-    toolkit::clientdb::DatconectionMySQL mysqlConnector("192.168.0.101",3306,"business.alpha","root","k3yL0c41");  
+    toolkit::clientdb::DatconectionMySQL mysqlConnector("192.168.0.101",3306,"business.alpha","root","k3yL0c41");
     toolkit::clientdb::Connector connector;
     
     bool flag = connector.connect(mysqlConnector);
@@ -55,11 +55,11 @@ int main()
 	/* initialize the CUnit test registry */
 	if (CUE_SUCCESS != CU_initialize_registry()) return CU_get_error();
 
-	toolkit::Version ver = toolkit::clientdb::getPakageVersion();
+	//toolkit::Version ver = toolkit::clientdb::getPakageVersion();
 	std::string classVersionString = "Testing Componete ";
 	classVersionString += toolkit::clientdb::getPakageName();
 	classVersionString += " v";
-	classVersionString = classVersionString + ver.toString();
+	//classVersionString = classVersionString + ver.toString();
 	pSuite = CU_add_suite(classVersionString.c_str(), init_toolkit_common, clean_toolkit_common);
 	if (NULL == pSuite) 
 	{

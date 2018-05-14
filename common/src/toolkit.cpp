@@ -120,7 +120,7 @@ namespace toolkit
 	
 	
 		
-	Version getVersion()
+	Version getPakageVersion()
 	{
 		return Version(MAJOR,MINOR,PATCH,STAGE);		
 	}
@@ -182,5 +182,4 @@ namespace toolkit
 	{
 		this->fail = fail;
 	}
-
 }

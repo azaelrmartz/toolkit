@@ -44,7 +44,7 @@ namespace toolkit
 	/**
 	 * \brief returna la version actual de componente common
 	 **/
-	Version getVersion();
+	Version getPakageVersion();
 	
 	/**
 	 * \brief Guarda la informacion de estatus.

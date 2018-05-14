@@ -6,11 +6,31 @@
 namespace toolkit
 {
 namespace clientdb
-{
-	DatconectionMySQL::DatconectionMySQL()
-	{		
+{	
+	Datconection::ServerType Datconection::getServerType()const
+	{
+		return type;
 	}
-	DatconectionMySQL::DatconectionMySQL(const DatconectionMySQL& obj)
+	Datconection::Datconection(ServerType serverType)
+	{
+		this->type = serverType;
+	}
+	Connector::~Connector()
+	{
+		delete datconection;
+	}
+    void* Connector::getServerConnector()
+    {
+        return this->serverConnector;
+    }
+    Connector::Connector()
+    {
+    }
+    const Datconection& Connector::getDatconection() const
+    {
+        return *datconection;
+    }
+	const DatconectionMySQL& DatconectionMySQL::operator=(const DatconectionMySQL& obj)
 	{
 		this->host = obj.host;
 		this->usuario = obj.usuario;
@@ -18,7 +38,30 @@ namespace clientdb
 		this->database = obj.database;
 		this->port = obj.port;		
 	}
-	DatconectionMySQL::DatconectionMySQL(const std::string& host, unsigned int port,const std::string& database,const std::string& usuario,const std::string& password)
+    const char* SQLException::what() const throw()
+    {
+        return this->description.c_str();
+    }
+	SQLException::SQLException(const std::string &description) throw()
+	{
+		this->description = description;
+	}
+	SQLException::~SQLException() throw()
+	{
+		
+	}
+	/*DatconectionMySQL::DatconectionMySQL()
+	{
+	}*/
+	DatconectionMySQL::DatconectionMySQL(const DatconectionMySQL& obj) : Datconection(Datconection::ServerType::MySQL)
+	{
+		this->host = obj.host;
+		this->usuario = obj.usuario;
+		this->password = obj.password;
+		this->database = obj.database;
+		this->port = obj.port;		
+	}
+	DatconectionMySQL::DatconectionMySQL(const std::string& host, unsigned int port,const std::string& database,const std::string& usuario,const std::string& password) : Datconection(Datconection::ServerType::MySQL)
 	{
 		this->host = host;
 		this->usuario = usuario;
@@ -51,10 +94,10 @@ namespace clientdb
 	{
 		return std::string(PAKAGENAME);
 	}
-	toolkit::Version getPakageVersion()
+	/*toolkit::Version getPakageVersion()
 	{
 		return toolkit::Version(VERSION_MAJOR,VERSION_MINOR,VERSION_PATCH,VERSION_STAGE);		
-	}	
+	}*/	
 	
 }	
 }

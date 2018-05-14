@@ -9,8 +9,16 @@
 int main(int argc, char **argv)
 {
     toolkit::clientdb::DatconectionMySQL mysqlConnector("192.168.0.101",3306,"business.alpha","root","k3yL0c41");  
-    toolkit::clientdb::Connector connector;   
-    bool flag = connector.connect(mysqlConnector);
+    toolkit::clientdb::Connector connector; 
+    bool flag = false;  
+    try
+    {
+		flag = connector.connect(mysqlConnector);
+	}
+	catch(toolkit::clientdb::SQLException ex)
+	{
+		std::cerr<<ex.what()<< std::endl;
+	}
     if(flag)
     {
         printf("SQL Server version: %s\n", connector.serverDescription());
@@ -53,4 +61,7 @@ int main(int argc, char **argv)
 	{
 		std::cerr << "Fail Slected random "<< n1 << std::endl;
 	}    
+	
+	std::string db = ((toolkit::clientdb::DatconectionMySQL&)(connector.getDatconection())).getDatabase();
+	std::cout<<db<<std::endl;
 }
