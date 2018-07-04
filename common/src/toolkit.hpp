@@ -33,6 +33,8 @@ namespace toolkit
 		short getPatch();
 		Stage getStage();
 		std::string toString();	
+		void set(short major,short minor);
+		void set(short major,short minor,short patch,Stage stage);
 		
 	private:
 		short major;

@@ -4,6 +4,21 @@
 
 namespace toolkit
 {
+		
+	void Version::set(short major,short minor,short patch,Stage stage)
+	{
+		this->major = major;
+		this->minor = minor;
+		this->patch = patch;
+		this->stage = stage;
+	}
+	
+	void Version::set(short major,short minor)
+	{
+		this->major = major;
+		this->minor = minor;
+	}
+	
 	Exception::~Exception() throw()
 	{
 	}

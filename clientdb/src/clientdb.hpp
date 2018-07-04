@@ -2,6 +2,7 @@
 #define TOOLKIT_CLIENTDB_HPP
 
 #include "toolkit.hpp"
+#include <vector>
 
 namespace toolkit
 {
@@ -10,6 +11,7 @@ namespace clientdb
 	//toolkit::Version getPakageVersion();
 	std::string getPakageName();	
 	typedef unsigned int ID;
+    
     
     class SQLException : public std::exception
     {
@@ -47,12 +49,8 @@ namespace clientdb
         std::string password;
         std::string database;
         unsigned int port;
-        //const char *unix_socket;
-        //unsigned long client_flag;
-        //int last_errono;
-        //const char * last_errmsg;
-    public:
-		//DatconectionMySQL();
+        
+    public:    
 		DatconectionMySQL(const std::string& host, unsigned int port,const std::string& database,const std::string& usuario,const std::string& password);
 		DatconectionMySQL(const DatconectionMySQL& obj);
 		const std::string& getHost()const;
@@ -81,6 +79,7 @@ namespace clientdb
         bool rollback();
         void* getServerConnector();
         const Datconection& getDatconection() const;  
+        void close();
     };
 }
 }

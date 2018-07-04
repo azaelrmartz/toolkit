@@ -8,6 +8,18 @@ namespace toolkit
 {
 namespace clientdb
 {
+	void Connector::close()
+	{
+		
+	}
+	Connector::~Connector()
+	{
+		if(datconection->getServerType() == Datconection::ServerType::MySQL)
+		{
+			//if(serverConnector != NULL) mysql_close((MYSQL*)serverConnector);
+		}
+	}
+	
     bool Connector::rollback()
     {
         if (serverConnector != NULL)

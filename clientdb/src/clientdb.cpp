@@ -7,6 +7,7 @@ namespace toolkit
 {
 namespace clientdb
 {	
+
 	Datconection::ServerType Datconection::getServerType()const
 	{
 		return type;
@@ -15,10 +16,7 @@ namespace clientdb
 	{
 		this->type = serverType;
 	}
-	Connector::~Connector()
-	{
-		delete datconection;
-	}
+
     void* Connector::getServerConnector()
     {
         return this->serverConnector;
