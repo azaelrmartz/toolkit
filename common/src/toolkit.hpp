@@ -36,7 +36,6 @@ namespace toolkit
 		void set(short major,short minor);
 		void set(short major,short minor,short patch,Stage stage);
 		
-	private:
 		short major;
 		short minor;
 		short patch;

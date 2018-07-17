@@ -8,7 +8,7 @@
 
 int main(int argc, char **argv)
 {
-    toolkit::clientdb::DatconectionMySQL mysqlConnector("192.168.0.101",3306,"business.alpha","root","k3yL0c41");  
+    toolkit::clientdb::DatconectionMySQL mysqlConnector("192.168.0.101",3306,"business.alpha","develop","123456");  
     toolkit::clientdb::Connector connector; 
     bool flag = false;  
     try
