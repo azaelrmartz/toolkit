@@ -44,13 +44,14 @@ namespace clientdb
     
     class DatconectionMySQL : public Datconection
     {
+    public: 
         std::string host;
         std::string usuario;
         std::string password;
         std::string database;
         unsigned int port;
         
-    public:    
+        DatconectionMySQL();
 		DatconectionMySQL(const std::string& host, unsigned int port,const std::string& database,const std::string& usuario,const std::string& password);
 		DatconectionMySQL(const DatconectionMySQL& obj);
 		const std::string& getHost()const;

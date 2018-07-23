@@ -7,7 +7,20 @@ namespace toolkit
 {
 namespace clientdb
 {	
+	SQLException::SQLException(const std::string &description) throw()
+	{
+		this->description = description;
+	}
+	SQLException::~SQLException() throw()
+	{
+		
+	}
+    const char* SQLException::what() const throw()
+    {
+        return this->description.c_str();
+    }
 
+	
 	Datconection::ServerType Datconection::getServerType()const
 	{
 		return type;
@@ -16,6 +29,8 @@ namespace clientdb
 	{
 		this->type = serverType;
 	}
+
+
 
     void* Connector::getServerConnector()
     {
@@ -28,6 +43,16 @@ namespace clientdb
     {
         return *datconection;
     }
+    
+    
+	/*DatconectionMySQL::DatconectionMySQL()
+	{
+	}*/
+	
+	
+	
+	
+	
 	const DatconectionMySQL& DatconectionMySQL::operator=(const DatconectionMySQL& obj)
 	{
 		this->host = obj.host;
@@ -36,21 +61,11 @@ namespace clientdb
 		this->database = obj.database;
 		this->port = obj.port;		
 	}
-    const char* SQLException::what() const throw()
-    {
-        return this->description.c_str();
-    }
-	SQLException::SQLException(const std::string &description) throw()
+	
+	DatconectionMySQL::DatconectionMySQL() : Datconection(Datconection::ServerType::MySQL)
 	{
-		this->description = description;
+		this->port = 3306;
 	}
-	SQLException::~SQLException() throw()
-	{
-		
-	}
-	/*DatconectionMySQL::DatconectionMySQL()
-	{
-	}*/
 	DatconectionMySQL::DatconectionMySQL(const DatconectionMySQL& obj) : Datconection(Datconection::ServerType::MySQL)
 	{
 		this->host = obj.host;
