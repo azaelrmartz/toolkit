@@ -1,20 +1,48 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
 #include "config.h"
-
 #include "clientdb.hpp"
 
 namespace toolkit
 {
 namespace clientdb
 {	
+	std::string DatconectionMySQL::toString() const
+	{
+		std::string constr = "";
+		if(!host.empty())
+		{
+			constr = host;
+		}
+		if(port > 0)
+		{
+			constr =  constr + ":";
+			constr =  constr + std::to_string(port);
+		}		
+		if(!database.empty())
+		{
+			constr += "/" + database;
+		}					
+		if(!password.empty())
+		{
+			constr += " - with password.";
+		}
+		
+		return constr;
+	}
+	
 	SQLException::SQLException(const std::string &description) throw()
 	{
 		this->description = description;
 	}
+	
 	SQLException::~SQLException() throw()
 	{
 		
 	}
+	
     const char* SQLException::what() const throw()
     {
         return this->description.c_str();

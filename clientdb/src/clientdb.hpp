@@ -60,6 +60,7 @@ namespace clientdb
 		const std::string& getDatabase()const;
 		unsigned int getPort()const;
 		const DatconectionMySQL& operator=(const DatconectionMySQL&);
+		std::string toString() const;
     };
 	
     class Connector
