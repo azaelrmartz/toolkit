@@ -32,7 +32,7 @@ namespace toolkit
 		short getMinor();
 		short getPatch();
 		Stage getStage();
-		std::string toString();	
+		std::string toString() const;	
 		void set(short major,short minor);
 		void set(short major,short minor,short patch,Stage stage);
 		

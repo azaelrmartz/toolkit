@@ -33,7 +33,7 @@ namespace toolkit
 		this->patch = version.patch;
 		this->stage = version.stage;
 	}
-	std::string Version::toString()
+	std::string Version::toString() const
 	{
 		std::string ver = "";
 		if(major > -1)
@@ -56,6 +56,7 @@ namespace toolkit
 			}
 			ver += std::to_string(patch);
 		}
+		
 		if(stage == alpha)
 		{
 			ver += "-alpha";
@@ -69,7 +70,7 @@ namespace toolkit
 			ver += "-release";
 		}
 		
-		return ver.c_str();
+		return ver;
 	}
 	Version::Version()
 	{
