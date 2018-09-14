@@ -22,7 +22,7 @@ ENDIF()
 
 ADD_EXECUTABLE(developing ${SOURCES_BUILDING} developing.cpp)
 TARGET_LINK_LIBRARIES(developing ${TOOLKIT_COMMON_LIBRARY} ${MYSQL_LIBRARY})
-ADD_LIBRARY(toolkit-clientdb STATIC ${SOURCES_BUILDING})
+ADD_LIBRARY(toolkit-clientdb SHARED ${SOURCES_BUILDING})
 TARGET_LINK_LIBRARIES(toolkit-clientdb ${TOOLKIT_COMMON_LIBRARY} ${MYSQL_LIBRARY})
 #ADD_LIBRARY(toolkit-clientdb.${toolkit-clientdb_VERSION_MAJOR}.${toolkit-clientdb_VERSION_MINOR}.${toolkit-clientdb_VERSION_PATCH} SHARED ${SOURCES_BUILDING})
 #TARGET_LINK_LIBRARIES(toolkit-clientdb.${toolkit-clientdb_VERSION_MAJOR}.${toolkit-clientdb_VERSION_MINOR}.${toolkit-clientdb_VERSION_PATCH} ${TOOLKIT_COMMON_LIBRARY} ${MYSQL_LIBRARY})
