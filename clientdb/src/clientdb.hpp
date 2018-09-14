@@ -8,7 +8,7 @@ namespace toolkit
 {
 namespace clientdb
 {
-	//toolkit::Version getPakageVersion();
+	toolkit::Version getPakageVersion();
 	std::string getPakageName();	
 	typedef unsigned int ID;
     
@@ -46,7 +46,7 @@ namespace clientdb
     {
     public: 
         std::string host;
-        std::string usuario;
+        std::string user;
         std::string password;
         std::string database;
         unsigned int port;

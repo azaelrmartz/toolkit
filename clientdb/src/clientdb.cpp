@@ -84,7 +84,7 @@ namespace clientdb
 	const DatconectionMySQL& DatconectionMySQL::operator=(const DatconectionMySQL& obj)
 	{
 		this->host = obj.host;
-		this->usuario = obj.usuario;
+		this->user = obj.user;
 		this->password = obj.password;
 		this->database = obj.database;
 		this->port = obj.port;		
@@ -97,7 +97,7 @@ namespace clientdb
 	DatconectionMySQL::DatconectionMySQL(const DatconectionMySQL& obj) : Datconection(Datconection::ServerType::MySQL)
 	{
 		this->host = obj.host;
-		this->usuario = obj.usuario;
+		this->user = obj.user;
 		this->password = obj.password;
 		this->database = obj.database;
 		this->port = obj.port;		
@@ -105,7 +105,7 @@ namespace clientdb
 	DatconectionMySQL::DatconectionMySQL(const std::string& host, unsigned int port,const std::string& database,const std::string& usuario,const std::string& password) : Datconection(Datconection::ServerType::MySQL)
 	{
 		this->host = host;
-		this->usuario = usuario;
+		this->user = usuario;
 		this->password = password;
 		this->database = database;
 		this->port = port;
@@ -116,7 +116,7 @@ namespace clientdb
 	}
 	const std::string& DatconectionMySQL::getUsuario()const
 	{
-		return usuario;
+		return user;
 	}
 	const std::string& DatconectionMySQL::getPassword()const
 	{
@@ -135,10 +135,10 @@ namespace clientdb
 	{
 		return std::string(PAKAGENAME);
 	}
-	/*toolkit::Version getPakageVersion()
+	toolkit::Version getPakageVersion()
 	{
 		return toolkit::Version(VERSION_MAJOR,VERSION_MINOR,VERSION_PATCH,VERSION_STAGE);		
-	}*/	
+	}	
 	
 }	
 }
