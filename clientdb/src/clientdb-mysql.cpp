@@ -94,7 +94,7 @@ namespace clientdb
 				msg = msg + mysql_error((MYSQL*)serverConnector);
 				throw SQLException(msg);           
 			}
-			if (mysql_real_connect((MYSQL*)serverConnector, ((const DatconectionMySQL&)conection).getHost().c_str(), ((const DatconectionMySQL&)conection).getUsuario().c_str(), ((const DatconectionMySQL&)conection).getPassword().c_str(),((const DatconectionMySQL&)conection).getDatabase().c_str(),((const DatconectionMySQL&)conection).getPort(), NULL, 0) == NULL)
+			if (mysql_real_connect((MYSQL*)serverConnector, ((const DatconectionMySQL&)conection).getHost().c_str(), ((const DatconectionMySQL&)conection).user.c_str(), ((const DatconectionMySQL&)conection).password.c_str(),((const DatconectionMySQL&)conection).database.c_str(),((const DatconectionMySQL&)conection).port, NULL, 0) == NULL)
 			{
 				std::string msg = "";
 				msg = msg + " MySQL Server Error No. : '";

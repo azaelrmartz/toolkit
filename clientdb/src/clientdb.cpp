@@ -114,7 +114,7 @@ namespace clientdb
 	{
 		return host;
 	}
-	const std::string& DatconectionMySQL::getUsuario()const
+	const std::string& DatconectionMySQL::getUser()const
 	{
 		return user;
 	}

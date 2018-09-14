@@ -55,7 +55,7 @@ namespace clientdb
 		DatconectionMySQL(const std::string& host, unsigned int port,const std::string& database,const std::string& usuario,const std::string& password);
 		DatconectionMySQL(const DatconectionMySQL& obj);
 		const std::string& getHost()const;
-		const std::string& getUsuario()const;
+		const std::string& getUser()const;
 		const std::string& getPassword()const;
 		const std::string& getDatabase()const;
 		unsigned int getPort()const;
