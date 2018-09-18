@@ -88,6 +88,8 @@ namespace clientdb
 		this->password = obj.password;
 		this->database = obj.database;
 		this->port = obj.port;		
+		
+		return obj;
 	}
 	
 	DatconectionMySQL::DatconectionMySQL() : Datconection(Datconection::ServerType::MySQL)
