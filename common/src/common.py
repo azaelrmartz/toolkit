@@ -35,7 +35,4 @@ class Version:
 		return ver
 
 
-vers = Version()
-print(vers.toString())
-
 

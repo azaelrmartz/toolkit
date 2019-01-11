@@ -1,5 +1,9 @@
 #define MAJOR @toolkit-common_VERSION_MAJOR@
 #define MINOR @toolkit-common_VERSION_MINOR@
 #define PATCH @toolkit-common_VERSION_PATCH@
+#ifdef __cplusplus
 #define STAGE Version::Stage::@toolkit-common_VERSION_STAGE@
+#else
+#define STAGE @toolkit-common_VERSION_STAGE@
+#endif
 
