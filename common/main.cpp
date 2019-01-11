@@ -1,8 +1,10 @@
+#include <iostream>
+
 
 #include "common.hpp"
 
 int main()
 {
 	toolkit::Version version(toolkit::getPakageVersion());
-	printf("%s\n", version.toString());
+	std::cout<< version.toString()<<std::endl;
 }

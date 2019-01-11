@@ -1,3 +1,8 @@
+//to fix:   warning: implicit declaration of function ‘asprintf’; did you mean ‘vsprintf’....
+#ifndef _GNU_SOURCE
+#define _GNU_SOURCE 1
+#endif
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -6,13 +11,22 @@
 #include "common.h"
 #include "config.h"
 
-
+struct Version Version(short major,short minor,short patch,enum Stage stage)
+{
+	struct Version version;
+	version.major = major;
+	version.minor = minor;
+	version.patch = patch;
+	version.stage = stage;
+	
+	return version;	
+}
 const char* toString(const struct Version* version)
 {
-	const char* verstr = NULL;
+	char* verstr = NULL;
 	if(version->major > -1)
 	{
-		const char* verstrMa;
+		char* verstrMa;
 		asprintf(&verstrMa, "%i", version->major);
 		verstr = verstrMa;
 	}
@@ -22,7 +36,7 @@ const char* toString(const struct Version* version)
 	}
 	if(version->minor > -1)
 	{
-		const char* verstrMi;
+		char* verstrMi;
 		asprintf(&verstrMi, "%i", version->minor);
 		if(verstr != NULL) 
 		{
@@ -36,7 +50,7 @@ const char* toString(const struct Version* version)
 	}
 	if(version->patch > -1)
 	{
-		const char* verstrPa;
+		char* verstrPa;
 		asprintf(&verstrPa, "%i", version->patch);
 		if(verstr != NULL) 
 		{

@@ -22,7 +22,7 @@ struct Version {
 };
 
 const char* toString(const struct Version* version);
-
+struct Version Version(short major,short minor,short patch,enum Stage stage);
 	
 /**
 * \brief returna la version actual de componente common
