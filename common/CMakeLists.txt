@@ -1,6 +1,8 @@
 CMAKE_MINIMUM_REQUIRED(VERSION 3.0)
-PROJECT(toolkit-common VERSION 1.0.0.0)
-#SET(LANG "CXX" CACHE STRING "CXX")
+PROJECT(toolkit-common VERSION 1.0.0)
+
+
+execute_process(COMMAND date +"%Y%m%d%H%I" OUTPUT_VARIABLE toolkit-common_VERSION_BUILD)
 
 if(${LANG} STREQUAL "CXX")
 	MESSAGE("Generando componete en C++ ...")	
