@@ -127,7 +127,7 @@ namespace toolkit
 	}
 		
 		
-	Version getVersionComponetCommon()
+	Version getVersionCommon()
 	{
 		return Version(MAJOR,MINOR,PATCH,STAGE);		
 	}
