@@ -1,9 +1,12 @@
 #ifndef TOOLKIT_COMMON_HPP
 #define TOOLKIT_COMMON_HPP
 
-#define FIELDS_NUMBER 3
-#define FIELD_STAGE true
-
+#ifndef FIELDS_NUMBER
+	#define FIELDS_NUMBER 3
+#endif
+#ifndef FIELD_STAGE
+	#define FIELD_STAGE true
+#endif
 #include <string>
 
 namespace toolkit
@@ -64,6 +67,6 @@ namespace toolkit
 	/**
 	 * \brief returna la version actual de componente common
 	 **/
-	Version getPakageVersion();	
+	Version getVersionComponetCommon();	
 }
 #endif

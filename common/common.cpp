@@ -76,32 +76,40 @@ namespace toolkit
 		{//falla devido a que no esta inicializado
 			return "";
 		}
-#endif
-#if FIELDS_NUMBER == 2
+#elif FIELDS_NUMBER == 2
 		if((major < 0) | (minor < 0) )
 		{//falla devido a que no esta inicializado
 			return "";
 		}
-#endif
-#if FIELDS_NUMBER == 3
+#elif FIELDS_NUMBER == 3
 		if((major < 0) | (minor < 0) | (patch < 0) )
 		{//falla devido a que no esta inicializado
 			return "";
 		}
 #endif
-		
+#if FIELD_STAGE	
 		if(stage == unknown)
 		{//falla devido a que no esta inicializado
 			return "";
 		}
+#endif
 
 		std::string ver = "";
+#if FIELDS_NUMBER == 1
+		ver += std::to_string(major);
+#elif FIELDS_NUMBER == 2		
+		ver += std::to_string(major);
+		ver += ".";
+		ver += std::to_string(minor);
+#elif FIELDS_NUMBER == 3
 		ver += std::to_string(major);
 		ver += ".";
 		ver += std::to_string(minor);
 		ver += ".";
 		ver += std::to_string(patch);
+#endif
 		
+#if FIELD_STAGE
 		if(stage == alpha)
 		{
 			ver += "-alpha";
@@ -114,12 +122,12 @@ namespace toolkit
 		{
 			ver += "-release";
 		}
-		
+#endif
 		return ver;
 	}
 		
 		
-	Version getPakageVersion()
+	Version getVersionComponetCommon()
 	{
 		return Version(MAJOR,MINOR,PATCH,STAGE);		
 	}
