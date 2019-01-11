@@ -13,8 +13,7 @@ IF (TOOLKIT_COMMON_INCLUDE_DIR)
 ENDIF (TOOLKIT_COMMON_INCLUDE_DIR)
 
 FIND_PATH(TOOLKIT_COMMON_INCLUDE_DIR toolkit.hpp
-  /home/arm/development/toolkit/common/src
-  $ENV{HOME}/root/include/toolkit
+  $ENV{HOME}/development/toolkit/common/src
   /usr/local/include/toolkit
   /usr/include/toolkit
 )

@@ -143,7 +143,10 @@ namespace toolkit
 	
 	
 	
-	
+    Exception::Exception(const std::string &description) throw() : Message(toolkit::Message::Fails::FAIL,description)
+    {
+    }
+
     Exception::Exception(Message::Fails code,const std::string &description) throw() : Message(Message::Code(code),description)
     {
     }

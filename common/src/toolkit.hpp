@@ -123,6 +123,7 @@ namespace toolkit
         virtual ~Exception() throw();
         virtual const char* what() const throw();
         Exception(Fails code,const std::string &description) throw();
+	Exception(const std::string &description) throw();
         //Exception()throw();
     };	
 	
