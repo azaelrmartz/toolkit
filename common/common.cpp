@@ -129,7 +129,20 @@ namespace toolkit
 		
 	Version getVersionCommon()
 	{
-		return Version(MAJOR,MINOR,PATCH,STAGE);		
+#if FIELDS_NUMBER == 1 && !FIELD_STAGE
+		return Version(MAJOR);
+#elif FIELDS_NUMBER == 2 && !FIELD_STAGE		
+		return Version(MAJOR,MINOR);
+#elif FIELDS_NUMBER == 3 && !FIELD_STAGE
+		return Version(MAJOR,MINOR,PATCH);
+#endif
+#if FIELDS_NUMBER == 1 && FIELD_STAGE
+		return Version(MAJOR,STAGE);
+#elif FIELDS_NUMBER == 2 && FIELD_STAGE		
+		return Version(MAJOR,MINOR,STAGE);
+#elif FIELDS_NUMBER == 3 && FIELD_STAGE
+		return Version(MAJOR,MINOR,PATCH,STAGE);
+#endif			
 	}
 	
 	

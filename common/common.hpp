@@ -7,6 +7,7 @@
 #ifndef FIELD_STAGE
 	#define FIELD_STAGE true
 #endif
+
 #include <string>
 
 namespace toolkit
