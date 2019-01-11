@@ -1,0 +1,30 @@
+#CMAKE_MINIMUM_REQUIRED(VERSION 3.0)
+
+#set(CMAKE_C_COMPILER /usr/bin/gcc-7 CACHE PATH "" FORCE)
+#set(CMAKE_CXX_COMPILER /usr/bin/g++-7 CACHE PATH "" FORCE)
+
+#PROJECT(toolkit-common VERSION 0.4.0.0 LANGUAGES CXX)
+SET(CMAKE_CXX_STANDARD 14)
+SET(CMAKE_CXX_STANDARD_REQUIRED ON)
+SET(CMAKE_CXX_EXTENSIONS OFF)
+SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -Wall")
+
+SET(toolkit-common_VERSION_STAGE "alpha")
+configure_file ("${PROJECT_SOURCE_DIR}/config.h.in" "${PROJECT_SOURCE_DIR}/config.h")
+
+ADD_LIBRARY(toolkit-common STATIC toolkit.cpp)
+TARGET_LINK_LIBRARIES(toolkit-common)
+#ADD_LIBRARY(toolkit-common SHARED toolkit.cpp)
+ADD_LIBRARY(toolkit-common.${toolkit-common_VERSION_MAJOR} SHARED toolkit.cpp)
+TARGET_LINK_LIBRARIES(toolkit-common.${toolkit-common_VERSION_MAJOR})
+#ADD_LIBRARY(toolkit-common.${toolkit-common_VERSION_MAJOR}.${toolkit-common_VERSION_MINOR} SHARED toolkit.cpp)
+#ADD_LIBRARY(toolkit-common.${toolkit-common_VERSION_MAJOR}.${toolkit-common_VERSION_MINOR}.${toolkit-common_VERSION_PATCH}  SHARED toolkit.cpp)
+#TARGET_LINK_LIBRARIES(toolkit-common.${toolkit-common_VERSION_MAJOR}.${toolkit-common_VERSION_MINOR}.${toolkit-common_VERSION_PATCH} ${CUNIT_LIBRARY})
+
+
+include (InstallRequiredSystemLibraries)
+set (CPACK_RESOURCE_FILE_LICENSE "${CMAKE_CURRENT_SOURCE_DIR}/License.txt")
+set (CPACK_PACKAGE_VERSION_MAJOR "${toolkit-common_VERSION_MAJOR}")
+set (CPACK_PACKAGE_VERSION_MINOR "${toolkit-common_VERSION_MINOR}")
+set (CPACK_PACKAGE_VERSION_PATCH "${toolkit-common_VERSION_PATCH}")
+include (CPack)
