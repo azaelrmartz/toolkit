@@ -8,15 +8,17 @@ namespace toolkit
 
 	Version::Version()
 	{
-#if FIELDS_NUMBER > 0
+#if FIELDS_NUMBER == 1
 		major = -1;
-#endif
-#if FIELDS_NUMBER > 1
+#elif FIELDS_NUMBER == 2		
+		major = -1;
 		minor = -1;
-#endif
-#if FIELDS_NUMBER > 2
+#elif FIELDS_NUMBER == 3
+		major = -1;
+		minor = -1;
 		patch = -1;
 #endif
+
 #if FIELD_STAGE
 		stage = unknown;
 #endif

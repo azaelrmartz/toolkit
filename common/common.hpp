@@ -28,37 +28,40 @@ namespace toolkit
 			release
 		};	
 #endif
-#if FIELDS_NUMBER > 0
+
+#if FIELDS_NUMBER == 1
 		short major;
-#endif
-#if FIELDS_NUMBER > 1
+#elif FIELDS_NUMBER == 2		
+		short major;
 		short minor;
-#endif
-#if FIELDS_NUMBER > 2
+#elif FIELDS_NUMBER == 3
+		short major;
+		short minor;
 		short patch;
 #endif
 #if FIELD_STAGE
 		Stage stage;
 #endif
-
 		Version();
-#if FIELDS_NUMBER > 0
+#if FIELDS_NUMBER == 1
 		Version(short major);
-#endif
-#if FIELDS_NUMBER > 1
+#elif FIELDS_NUMBER == 2 	
+		Version(short major);
 		Version(short major,short minor);
-#endif
-#if FIELDS_NUMBER > 2
+#elif FIELDS_NUMBER == 3 
+		Version(short major);
+		Version(short major,short minor);
 		Version(short major,short minor,short patch);
 #endif
-#if FIELDS_NUMBER > 2 && FIELD_STAGE
-		Version(short major,short minor,short patch,Stage stage);
-#endif
-#if FIELDS_NUMBER > 0 && FIELD_STAGE
+#if FIELDS_NUMBER == 1 && FIELD_STAGE
 		Version(short major,Stage stage);
-#endif
-#if FIELDS_NUMBER > 1 && FIELD_STAGE
-		Version(short major, short minor, Stage stage);
+#elif FIELDS_NUMBER == 2 && FIELD_STAGE		
+		Version(short major,Stage stage);
+		Version(short major,short minor,Stage stage);
+#elif FIELDS_NUMBER == 3 && FIELD_STAGE		
+		Version(short major,Stage stage);
+		Version(short major,short minor,Stage stage);
+		Version(short major,short minor,short patch,Stage stage);
 #endif
 		std::string toString() const;
 	};
