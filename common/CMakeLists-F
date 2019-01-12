@@ -1,0 +1,27 @@
+
+ENABLE_LANGUAGE(Fortran)
+
+SET(toolkit-common_VERSION_STAGE "alpha")
+CONFIGURE_FILE("${PROJECT_SOURCE_DIR}/config.h.in" "${PROJECT_SOURCE_DIR}/config.h")
+
+if(CMAKE_Fortran_COMPILER_ID MATCHES "GNU")
+    set(dialect "-ffree-form -std=f2008 -fimplicit-none")
+    set(bounds "-fbounds-check")
+endif()
+if(CMAKE_Fortran_COMPILER_ID MATCHES "Intel")
+    set(dialect "-stand f08 -free -implicitnone")
+    set(bounds "-check bounds")
+endif()
+if(CMAKE_Fortran_COMPILER_ID MATCHES "PGI")
+    set(dialect "-Mfreeform -Mdclchk -Mstandard -Mallocatable=03")
+    set(bounds "-C")
+endif()
+
+set(CMAKE_Fortran_FLAGS_DEBUG "${CMAKE_Fortran_FLAGS_DEBUG} ${bounds}")
+set(CMAKE_Fortran_FLAGS "${CMAKE_Fortran_FLAGS} ${dialect}")
+
+#
+# Compile.
+#
+file(GLOB_RECURSE sources  *.f08 *.f90 *.h)
+add_executable(prog ${sources})
