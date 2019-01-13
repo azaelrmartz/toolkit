@@ -1,7 +1,7 @@
 #ifndef TOOLKIT_CLIENTDB_HPP
 #define TOOLKIT_CLIENTDB_HPP
 
-#include "toolkit.hpp"
+#include "common.hpp"
 #include <vector>
 
 namespace toolkit

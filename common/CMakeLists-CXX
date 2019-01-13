@@ -1,5 +1,4 @@
-#SET(CMAKE_C_COMPILER /usr/bin/gcc-7 CACHE PATH "" FORCE)
-#SET(CMAKE_CXX_COMPILER /usr/bin/g++-7 CACHE PATH "" FORCE)
+
 ENABLE_LANGUAGE(CXX)
 SET(CMAKE_CXX_STANDARD 14)
 SET(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -9,13 +8,14 @@ ADD_DEFINITIONS(-DFIELDS_NUMBER=3 -DFIELD_STAGE=true)
 
 SET(toolkit-common_VERSION_STAGE "alpha")
 CONFIGURE_FILE("${PROJECT_SOURCE_DIR}/config.h.in" "${PROJECT_SOURCE_DIR}/config.h")
+SET(targetName toolkit-common-c++)
 
 ADD_EXECUTABLE(main main.cpp common.cpp)
-ADD_LIBRARY(toolkit-common STATIC common.cpp)
-TARGET_LINK_LIBRARIES(toolkit-common)
-ADD_LIBRARY(toolkit-common.${toolkit-common_VERSION_MAJOR} SHARED common.cpp)
-TARGET_LINK_LIBRARIES(toolkit-common.${toolkit-common_VERSION_MAJOR})
+ADD_LIBRARY(${targetName} STATIC common.cpp)
+TARGET_LINK_LIBRARIES(${targetName})
 
+INSTALL(TARGETS ${targetName} DESTINATION lib/toolkit)
+INSTALL(FILES common.hpp DESTINATION include/toolkit)
 
 INCLUDE (InstallRequiredSystemLibraries)
 SET (CPACK_RESOURCE_FILE_LICENSE "${CMAKE_CURRENT_SOURCE_DIR}/License.txt")

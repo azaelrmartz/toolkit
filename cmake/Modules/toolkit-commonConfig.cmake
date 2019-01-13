@@ -1,28 +1,21 @@
-# - Find mysqlclient
-# Find the native MySQL includes and library
-#
-#  BUSINESSSERDB_INCLUDE_DIR - where to find Business.h, etc.
-#  BUSINESSSERDB_LIBRARIES   - List of libraries when using Business Ser DB.
-#  BUSINESSSERDB_FOUND       - True if business-serdb found.
-
-
+SET(TARGET_OBJECT_SUFFIX toolkit-common-c++)
 
 IF (TOOLKIT_COMMON_INCLUDE_DIR)
   # Already in cache, be silent
   SET(TOOLKIT_COMMON_FIND_QUIETLY TRUE)
 ENDIF (TOOLKIT_COMMON_INCLUDE_DIR)
 
-FIND_PATH(TOOLKIT_COMMON_INCLUDE_DIR toolkit.hpp
-  $ENV{HOME}/development/toolkit/common/src
-  /usr/local/include/toolkit
+FIND_PATH(TOOLKIT_COMMON_INCLUDE_DIR common.hpp
   /usr/include/toolkit
+  /usr/local/include/toolkit
+  
 )
 
-SET(TOOLKIT_COMMON_NAMES toolkit-common)
+SET(TOOLKIT_COMMON_NAMES ${TARGET_OBJECT_SUFFIX})
 FIND_LIBRARY(TOOLKIT_COMMON_LIBRARY
   NAMES ${TOOLKIT_COMMON_NAMES}
-  PATHS /home/arm/development/toolkit/common/src $ENV{HOME}/root/usr/lib /usr/lib /usr/local/lib /usr/lib/x86_64-linux-gnu
-  PATH_SUFFIXES toolkit-common
+  PATHS /usr/lib/toolkit /usr/local/lib/toolkit $ENV{HOME}/development/toolkit/common/build-c++
+  PATH_SUFFIXES ${TARGET_OBJECT_SUFFIX}
 )
 
 IF (TOOLKIT_COMMON_INCLUDE_DIR AND TOOLKIT_COMMON_LIBRARY)
@@ -35,12 +28,12 @@ ENDIF (TOOLKIT_COMMON_INCLUDE_DIR AND TOOLKIT_COMMON_LIBRARY)
 
 IF (TOOLKIT_COMMON_FOUND)
   IF (NOT TOOLKIT_COMMON_FIND_QUIETLY)
-    MESSAGE(STATUS "Found toolkit-common: ${TOOLKIT_COMMON_LIBRARY}")
+    MESSAGE(STATUS "Found ${TARGET_OBJECT_SUFFIX}: ${TOOLKIT_COMMON_LIBRARY}")
   ENDIF (NOT TOOLKIT_COMMON_FIND_QUIETLY)
 ELSE (TOOLKIT_COMMON_FOUND)
   IF (TOOLKIT_COMMON_FIND_REQUIRED)
-    MESSAGE(STATUS "Looked for toolkit-common libraries named ${TOOLKIT_COMMON_NAMES}.")
-    MESSAGE(FATAL_ERROR "Could NOT find toolkit-common library")
+    MESSAGE(STATUS "Looked for ${TARGET_OBJECT_SUFFIX} libraries named ${TOOLKIT_COMMON_NAMES}.")
+    MESSAGE(FATAL_ERROR "Could NOT find ${TARGET_OBJECT_SUFFIX} library")
   ENDIF (TOOLKIT_COMMON_FIND_REQUIRED)
 ENDIF (TOOLKIT_COMMON_FOUND)
 
