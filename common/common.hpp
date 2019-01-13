@@ -71,6 +71,6 @@ namespace toolkit
 	/**
 	 * \brief returna la version actual de componente common
 	 **/
-	Version getVersionCommon();	
+	Version getVersion();	
 }
 #endif

@@ -5,6 +5,6 @@
 
 int main()
 {
-	toolkit::Version version(toolkit::getVersionCommon());
+	toolkit::Version version(toolkit::getVersion());
 	std::cout<< version.toString()<<std::endl;
 }

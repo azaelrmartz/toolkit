@@ -129,7 +129,7 @@ namespace toolkit
 	}
 		
 		
-	Version getVersionCommon()
+	Version getVersion()
 	{
 #if FIELDS_NUMBER == 1 && !FIELD_STAGE
 		return Version(MAJOR);
