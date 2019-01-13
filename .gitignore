@@ -30,3 +30,4 @@ common/tests/cmake_install.cmake
 common/tests/temp.txt
 common/tests/testing
 clientdb/src/src.kdev4
+common/build-*/
