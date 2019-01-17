@@ -8,30 +8,7 @@
 namespace toolkit
 {
 namespace clientdb
-{	
-	std::string DatconectionMySQL::toString() const
-	{
-		std::string constr = "";
-		if(!host.empty())
-		{
-			constr = host;
-		}
-		if(port > 0)
-		{
-			constr =  constr + ":";
-			constr =  constr + std::to_string(port);
-		}		
-		if(!database.empty())
-		{
-			constr += "/" + database;
-		}					
-		if(!password.empty())
-		{
-			constr += " - with password.";
-		}
-		
-		return constr;
-	}
+{
 	
 	SQLException::SQLException(const std::string &description) throw()
 	{
@@ -49,90 +26,6 @@ namespace clientdb
     }
 
 	
-	Datconection::ServerType Datconection::getServerType()const
-	{
-		return type;
-	}
-	Datconection::Datconection(ServerType serverType)
-	{
-		this->type = serverType;
-	}
-
-
-
-    void* Connector::getServerConnector()
-    {
-        return this->serverConnector;
-    }
-    Connector::Connector()
-    {
-    }
-    const Datconection& Connector::getDatconection() const
-    {
-        return *datconection;
-    }
-    
-    
-	/*DatconectionMySQL::DatconectionMySQL()
-	{
-	}*/
-	
-	
-	
-	
-	
-	const DatconectionMySQL& DatconectionMySQL::operator=(const DatconectionMySQL& obj)
-	{
-		this->host = obj.host;
-		this->user = obj.user;
-		this->password = obj.password;
-		this->database = obj.database;
-		this->port = obj.port;		
-		
-		return obj;
-	}
-	
-	DatconectionMySQL::DatconectionMySQL() : Datconection(Datconection::ServerType::MySQL)
-	{
-		this->port = 3306;
-	}
-	DatconectionMySQL::DatconectionMySQL(const DatconectionMySQL& obj) : Datconection(Datconection::ServerType::MySQL)
-	{
-		this->host = obj.host;
-		this->user = obj.user;
-		this->password = obj.password;
-		this->database = obj.database;
-		this->port = obj.port;		
-	}
-	DatconectionMySQL::DatconectionMySQL(const std::string& host, unsigned int port,const std::string& database,const std::string& usuario,const std::string& password) : Datconection(Datconection::ServerType::MySQL)
-	{
-		this->host = host;
-		this->user = usuario;
-		this->password = password;
-		this->database = database;
-		this->port = port;
-	}
-	const std::string& DatconectionMySQL::getHost()const
-	{
-		return host;
-	}
-	const std::string& DatconectionMySQL::getUser()const
-	{
-		return user;
-	}
-	const std::string& DatconectionMySQL::getPassword()const
-	{
-		return password;
-	}
-	const std::string& DatconectionMySQL::getDatabase()const
-	{
-		return database;
-	}
-	unsigned int DatconectionMySQL::getPort()const
-	{
-		return port;
-	}
-	
 	std::string getPakageName()
 	{
 		return std::string(PAKAGENAME);
@@ -141,7 +34,151 @@ namespace clientdb
 	{
 		return toolkit::Version(VERSION_MAJOR,VERSION_MINOR,VERSION_PATCH,VERSION_STAGE);		
 	}	
+	namespace datasourcies
+	{
+        Datasource::ServerType Datasource::getServerType() const
+        {
+            return serverType;
+        }
 	
+        void Datasource::set(ServerType serverType,const std::string& host, unsigned int port,const std::string& database,const std::string& usuario,const std::string& password)
+        {
+            this->host = host;
+            this->user = usuario;
+            this->password = password;
+            this->database = database;
+            this->port = port;
+            this->serverType = serverType;        
+        }
+        const Datasource& Datasource::operator=(const Datasource& obj)
+        {
+            this->host = obj.host;
+            this->user = obj.user;
+            this->password = obj.password;
+            this->database = obj.database;
+            this->port = obj.port;		
+            this->serverType = obj.serverType;
+            
+            return obj;
+        }
+        
+        std::string Datasource::toString() const
+        {
+            std::string constr = "";
+            if(!host.empty())
+            {
+                constr = host;
+            }
+            if(port > 0)
+            {
+                constr =  constr + ":";
+                constr =  constr + std::to_string(port);
+            }		
+            if(!database.empty())
+            {
+                constr += "/" + database;
+            }					
+            if(!password.empty())
+            {
+                constr += " - with password.";
+            }
+            
+            return constr;
+        }
+        
+        Datasource::Datasource(const Datasource& obj)
+        {
+            this->host = obj.host;
+            this->user = obj.user;
+            this->password = obj.password;
+            this->database = obj.database;
+            this->port = obj.port;		
+        }
+        
+        Datasource::Datasource(ServerType serverType,const std::string& host, unsigned int port,const std::string& database,const std::string& usuario,const std::string& password)
+        {
+            this->host = host;
+            this->user = usuario;
+            this->password = password;
+            this->database = database;
+            this->port = port;
+            this->serverType = serverType;
+        }
+        
+        const std::string& Datasource::getHost()const
+        {
+            return host;
+        }
+        const std::string& Datasource::getUser()const
+        {
+            return user;
+        }
+        const std::string& Datasource::getPassword()const
+        {
+            return password;
+        }
+        const std::string& Datasource::getDatabase()const
+        {
+            return database;
+        }
+        unsigned int Datasource::getPort()const
+        {
+            return port;
+        }
+        
+        std::string MySQL::toString() const
+        {		
+            return Datasource::toString();
+        }
+        
+        
+
+        MySQL::MySQL(const MySQL& obj) : Datasource(obj)
+        {
+            
+        }
+        const MySQL& MySQL::operator=(const MySQL& obj)
+        {		
+            ((Datasource&)*this)=obj;
+            return *this;
+        }
+        MySQL::MySQL(const std::string& host, unsigned int port,const std::string& database,const std::string& usuario,const std::string& password) : Datasource(ServerType::MySQL,host,port,database,usuario,password)
+        {
+        }
+        
+    }
+	namespace connectors
+    {
+
+        Connector::Connector()
+        {
+        }
+        void* Connector::getServerConnector()
+        {
+            return this->serverConnector;
+        }
+        Connector::~Connector()
+        {
+        }
+        const datasourcies::Datasource& Connector::getDatconection() const
+        {
+            return *datconection;
+        }
+    
+    
+    
+        void* MySQL::getServerConnector()
+        {
+            return Connector::getServerConnector();
+        }
+        MySQL::MySQL()
+        {
+        }
+        const datasourcies::MySQL& MySQL::getDatconection() const
+        {
+            return (const datasourcies::MySQL&)Connector::getDatconection();
+        } 
+    }
 }	
 }
 

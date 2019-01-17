@@ -30,11 +30,11 @@ namespace clientdb
         ID id;
 
     public:
-        bool insert(Connector& connector,const std::string& n1);
-        bool insert(Connector& connector,const std::string& n1,const std::string& am);
-        bool insert(Connector& connector,const std::string& n1,const std::string& am,const std::string& ap);
-		bool download(Connector& connector);
-        bool selectRandom(Connector& connector);
+        bool insert(connectors::MySQL& connector,const std::string& n1);
+        bool insert(connectors::MySQL& connector,const std::string& n1,const std::string& am);
+        bool insert(connectors::MySQL& connector,const std::string& n1,const std::string& am,const std::string& ap);
+		bool download(connectors::MySQL& connector);
+        bool selectRandom(connectors::MySQL& connector);
 		
         virtual const char* toString();
         virtual void clean();

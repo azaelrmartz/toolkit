@@ -8,8 +8,8 @@
 
 int main(int argc, char **argv)
 {
-    toolkit::clientdb::DatconectionMySQL mysqlConnector("192.168.0.101",3306,"business.alpha","develop","123456");  
-    toolkit::clientdb::Connector connector; 
+    toolkit::clientdb::datasourcies::MySQL mysqlConnector("192.168.0.101",3306,"business.alpha","develop","123456");  
+    toolkit::clientdb::connectors::MySQL connector; 
     bool flag = false;  
     try
     {
@@ -62,6 +62,6 @@ int main(int argc, char **argv)
 		std::cerr << "Fail Slected random "<< n1 << std::endl;
 	}    
 	
-	std::string db = ((toolkit::clientdb::DatconectionMySQL&)(connector.getDatconection())).getDatabase();
+	std::string db = ((toolkit::clientdb::datasourcies::MySQL&)(connector.getDatconection())).getDatabase();
 	std::cout<<db<<std::endl;
 }

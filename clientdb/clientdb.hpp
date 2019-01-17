@@ -11,8 +11,7 @@ namespace clientdb
 	toolkit::Version getPakageVersion();
 	std::string getPakageName();	
 	typedef unsigned int ID;
-    
-    
+        
     class SQLException : public std::exception
     {
     public:
@@ -25,64 +24,89 @@ namespace clientdb
         //Exception()throw();
 	private:
         std::string description;
-    };	
-    
-    class Datconection    
+    };	    
+    namespace datasourcies
     {
-	public:
-		enum ServerType
-		{
-			MySQL,
-			PostgresSQL
-		};
-	public:
-		Datconection(ServerType typeServer);
-		ServerType getServerType()const;
-	private:
-		ServerType type;
-    };
-    
-    class DatconectionMySQL : public Datconection
+        class Datasource
+        {
+        public:
+            enum ServerType
+            {
+                MySQL,
+                PostgreSQL
+            };            
+            Datasource(const Datasource&);
+            Datasource(ServerType serverType,const std::string& host, unsigned int port,const std::string& database,const std::string& usuario,const std::string& password);
+            const Datasource& operator=(const Datasource& obj);
+            void set(ServerType serverType,const std::string& host, unsigned int port,const std::string& database,const std::string& usuario,const std::string& password);
+            
+            virtual std::string toString() const;
+            const std::string& getHost()const;
+            const std::string& getUser()const;
+            const std::string& getPassword()const;
+            const std::string& getDatabase()const;
+            ServerType getServerType()const;		
+            unsigned int getPort()const;
+            
+        private:
+            ServerType serverType;
+            std::string host;
+            std::string user;
+            std::string password;
+            std::string database;
+            unsigned int port;        
+        };        
+        class MySQL : public Datasource
+        {
+        public:         
+            MySQL(const std::string& host, unsigned int port,const std::string& database,const std::string& usuario,const std::string& password);
+            MySQL(const MySQL& obj);
+
+            const MySQL& operator=(const MySQL&);
+            virtual std::string toString() const;
+        };	
+    }
+    namespace connectors
     {
-    public: 
-        std::string host;
-        std::string user;
-        std::string password;
-        std::string database;
-        unsigned int port;
+        class Connector
+        {
+        protected:
+            void* serverConnector;
+            datasourcies::Datasource* datconection;
+        public:
+            virtual ~Connector();
+            Connector();
+            Connector(datasourcies::Datasource& connector);
+            bool connect(const datasourcies::Datasource& connector);
+            const char* serverDescription();
+            virtual bool query(const std::string&) = 0;
+            //bool query(const std::string&,Rows&);
+            ID insert(const std::string&);
+            bool commit();
+            bool rollback();
+            void* getServerConnector();
+            const datasourcies::Datasource& getDatconection() const;  
+            void close();
+        };
         
-        DatconectionMySQL();
-		DatconectionMySQL(const std::string& host, unsigned int port,const std::string& database,const std::string& usuario,const std::string& password);
-		DatconectionMySQL(const DatconectionMySQL& obj);
-		const std::string& getHost()const;
-		const std::string& getUser()const;
-		const std::string& getPassword()const;
-		const std::string& getDatabase()const;
-		unsigned int getPort()const;
-		const DatconectionMySQL& operator=(const DatconectionMySQL&);
-		std::string toString() const;
-    };
-	
-    class Connector
-    {
-    private:
-        void* serverConnector;
-        Datconection* datconection;
-    public:
-		~Connector();
-        Connector();
-        Connector(DatconectionMySQL& connector);
-        bool connect(const Datconection& connector);
-        const char* serverDescription();
-        bool query(const std::string&);
-        //bool query(const std::string&,Rows&);
-        ID insert(const std::string&);
-        bool commit();
-        bool rollback();
-        void* getServerConnector();
-        const Datconection& getDatconection() const;  
-        void close();
-    };
+        class MySQL : public Connector
+        {
+        public:
+            virtual ~MySQL();
+            MySQL();
+            MySQL(const datasourcies::MySQL& connector);
+            bool connect(const datasourcies::MySQL& connector);
+            const char* serverDescription();
+            virtual bool query(const std::string&);
+            //bool query(const std::string&,Rows&);
+            ID insert(const std::string&);
+            bool commit();
+            bool rollback();
+            void* getServerConnector();
+            const datasourcies::MySQL& getDatconection() const;  
+            void close();
+        };
+    }
 }
 }
 

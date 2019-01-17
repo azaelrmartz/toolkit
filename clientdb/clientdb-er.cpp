@@ -12,7 +12,7 @@ namespace clientdb
 {
 
     const char* Persons::TABLE_NAME = "Persons";
-    bool Persons::insert(Connector& connector,const std::string& n1)
+    bool Persons::insert(connectors::MySQL& connector,const std::string& n1)
     {
         std::string str = "";
         str = str + "INSERT INTO " + TABLE_NAME + "(n1) VALUES('" + n1.c_str() + "')";

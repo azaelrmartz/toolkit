@@ -10,7 +10,7 @@ namespace toolkit
 {
 namespace clientdb
 {
-    bool Persons::selectRandom(Connector& connector)
+    bool Persons::selectRandom(connectors::MySQL& connector)
     {
         std::string sql = "SELECT id FROM ";
         sql += TABLE_NAME ;
@@ -35,7 +35,7 @@ namespace clientdb
         return false;
     }
     
-    bool Persons::download(Connector& connector)
+    bool Persons::download(connectors::MySQL& connector)
     {
         std::string str = "";
         str = str + "SELECT n1,n2,ns,ap,am FROM " + TABLE_NAME + " WHERE id = " + std::to_string(this->id) + " LIMIT 1";
