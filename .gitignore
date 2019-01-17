@@ -31,3 +31,12 @@ common/tests/temp.txt
 common/tests/testing
 clientdb/src/src.kdev4
 common/build-*/
+clientdb/.kdev4/
+clientdb/build/
+clientdb/clientdb.kdev4
+clientdb/config.h
+clientdb/postgresql.cpp
+common/config.h
+common/main
+common/main.o
+

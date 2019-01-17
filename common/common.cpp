@@ -5,6 +5,24 @@
 namespace toolkit
 {
 	
+#if FIELDS_NUMBER > 0
+	short Version::getMajor()
+	{
+		return this->major;		
+	}
+#endif
+#if FIELDS_NUMBER > 1	
+	short Version::getMinor()
+	{
+		return this->minor;
+	}
+#endif
+#if FIELDS_NUMBER > 2
+	short Version::getPatch()
+	{
+		return this->patch;
+	}
+#endif
 
 	Version::Version()
 	{
@@ -24,46 +42,76 @@ namespace toolkit
 #endif
 	}
 
-#if FIELDS_NUMBER > 0
+#if FIELDS_NUMBER == 1 && FIELD_STAGE
 	Version::Version(short major)
 	{
-		this->major = major;
-#if FIELD_STAGE
-		this->stage = unknown;
-#endif		
+		this->major = major;	
+	}
+	void Version::set(short major)
+	{
+		this->major = major;	
 	}		
 #endif
-#if FIELDS_NUMBER > 1
+#if FIELDS_NUMBER == 2 && !FIELD_STAGE
 	Version::Version(short major,short minor)
 	{
 		this->major = major;
 		this->minor = minor;
-#if FIELD_STAGE
-		this->stage = unknown;
+	}	
+	void Version::set(short major,short minor)
+	{
+		this->major = major;
+		this->minor = minor;
+	}	
 #endif
-	}		
-#endif
-#if FIELDS_NUMBER > 2
+#if FIELDS_NUMBER == 3 && !FIELD_STAGE
 	Version::Version(short major,short minor,short patch)
 	{
 		this->major = major;
 		this->minor = minor;
 		this->patch = patch;
-#if FIELD_STAGE
-		this->stage = unknown;
+	}	
+	void Version::set(short major,short minor,short patch)
+	{
+		this->major = major;
+		this->minor = minor;
+		this->patch = patch;
+	}	
 #endif
-	}		
+#if FIELDS_NUMBER == 1 && FIELD_STAGE
+	Version::Version(short major, Stage stage)
+	{
+               	this->major = major;
+       	}
+	void Version::set(short major, Stage stage)
+	{
+               	this->major = major;
+		this->stage = stage;
+       	}
 #endif
-#if FIELDS_NUMBER > 1 && FIELD_STAGE
+#if FIELDS_NUMBER == 2 && FIELD_STAGE
 	Version::Version(short major,short minor,Stage stage)
 	{
                	this->major = major;
                	this->minor = minor;
 		this->stage = stage;
        	}
+	void Version::set(short major,short minor,Stage stage)
+	{
+               	this->major = major;
+               	this->minor = minor;
+		this->stage = stage;
+       	}
 #endif
-#if FIELDS_NUMBER > 2 && FIELD_STAGE
+#if FIELDS_NUMBER == 3 && FIELD_STAGE
        	Version::Version(short major,short minor,short patch,Stage stage)
+       	{
+               	this->major = major;
+               	this->minor = minor;
+               	this->patch = patch;
+		this->stage = stage;
+       	}
+       	void Version::set(short major,short minor,short patch,Stage stage)
        	{
                	this->major = major;
                	this->minor = minor;

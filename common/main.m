@@ -1,4 +1,10 @@
 #import <Foundation/Foundation.h>
+
+@interface Version:NSObject
+/* function declaration */
+- (NString)toString:();
+@end
+
 int main (int argc, const char * argv[])
 {
  NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];

@@ -44,13 +44,13 @@ void testVersion()
 	//for class Version
 	toolkit::Version ver = toolkit::getVersion();
 	
-	CU_ASSERT(ver.major > -1)
-	CU_ASSERT(ver.minor > -1)
-	CU_ASSERT(ver.patch > -1)
+	CU_ASSERT(ver.getMajor() > -1)
+	CU_ASSERT(ver.getMinor() > -1)
+	CU_ASSERT(ver.getPatch() > -1)
 	
-	CU_ASSERT(MAJOR == ver.major)
-	CU_ASSERT(MINOR == ver.major)
-	CU_ASSERT(PATCH == ver.major)
+	CU_ASSERT(MAJOR == ver.getMajor())
+	CU_ASSERT(MINOR == ver.getMinor())
+	CU_ASSERT(PATCH == ver.getPatch())
 	
 	
 }
@@ -59,7 +59,7 @@ void testRQ0001001()
 {	
 	toolkit::Version ver = toolkit::getVersion();
 	std::string strMessge = "Valid RQ 0001-001..";
-	CU_ASSERT(ver.major > -1)
+	CU_ASSERT(ver.getMajor() > -1)
 }
 
 

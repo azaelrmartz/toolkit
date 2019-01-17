@@ -1,13 +1,11 @@
 
-set(CMAKE_C_FLAGS "-x objective-c")
-set(CMAKE_CXX_FLAGS "-x objective-c++")
-set(CMAKE_EXE_LINKER_FLAGS "-framework Cocoa -framework AppKit -framework CoreData -framework Foundation")
-
+target_compile_options(target_name PUBLIC "-fobjc-arc")
 
 ADD_DEFINITIONS(-DFIELDS_NUMBER=3 -DFIELD_STAGE=true) 
 
 SET(toolkit-common_VERSION_STAGE "alpha")
 CONFIGURE_FILE("${PROJECT_SOURCE_DIR}/config.h.in" "${PROJECT_SOURCE_DIR}/config.h")
+
 
 ADD_EXECUTABLE(main main.m)
 

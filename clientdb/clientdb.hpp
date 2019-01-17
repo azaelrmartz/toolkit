@@ -33,7 +33,7 @@ namespace clientdb
 		enum ServerType
 		{
 			MySQL,
-			PostgresSSQL
+			PostgresSQL
 		};
 	public:
 		Datconection(ServerType typeServer);
