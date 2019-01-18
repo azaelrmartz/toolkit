@@ -24,7 +24,7 @@ namespace clientdb
         //Exception()throw();
 	private:
         std::string description;
-    };	    
+    };
     namespace datasourcies
     {
         class Datasource
@@ -76,17 +76,17 @@ namespace clientdb
         public:
             virtual ~Connector();
             Connector();
-            Connector(datasourcies::Datasource& connector);
-            bool connect(const datasourcies::Datasource& connector);
-            const char* serverDescription();
+            //Connector(datasourcies::Datasource& connector);
+            virtual bool connect(const datasourcies::Datasource& connector) = 0;
+            virtual const char* serverDescription() = 0;
             virtual bool query(const std::string&) = 0;
             //bool query(const std::string&,Rows&);
-            ID insert(const std::string&);
-            bool commit();
-            bool rollback();
+            virtual ID insert(const std::string&) = 0;
+            virtual bool commit() = 0;
+            virtual bool rollback() = 0;
             void* getServerConnector();
             const datasourcies::Datasource& getDatconection() const;  
-            void close();
+            virtual void close() = 0;
         };
         
         class MySQL : public Connector
@@ -94,14 +94,14 @@ namespace clientdb
         public:
             virtual ~MySQL();
             MySQL();
-            MySQL(const datasourcies::MySQL& connector);
-            bool connect(const datasourcies::MySQL& connector);
-            const char* serverDescription();
+            //MySQL(const datasourcies::MySQL& connector);
+            virtual bool connect(const datasourcies::Datasource& connector);
+            virtual const char* serverDescription();
             virtual bool query(const std::string&);
             //bool query(const std::string&,Rows&);
-            ID insert(const std::string&);
-            bool commit();
-            bool rollback();
+            virtual ID insert(const std::string&);
+            virtual bool commit();
+            virtual bool rollback();
             void* getServerConnector();
             const datasourcies::MySQL& getDatconection() const;  
             void close();

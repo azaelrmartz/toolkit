@@ -41,14 +41,14 @@ namespace toolkit
 #endif
 
 #if FIELDS_NUMBER == 1
-		short getMajor();
+		short getMajor() const;
 #elif FIELDS_NUMBER == 2		
-		short getMajor();
-		short getMinor();
+		short getMajor() const;
+		short getMinor() const;
 #elif FIELDS_NUMBER == 3
-		short getMajor();
-		short getMinor();
-		short getPatch();
+		short getMajor() const;
+		short getMinor() const;
+		short getPatch() const;
 #endif
 #if FIELD_STAGE
 		Stage stage;

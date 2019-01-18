@@ -149,30 +149,32 @@ namespace clientdb
     }
 	namespace connectors
     {
-
         Connector::Connector()
+        {
+        }
+        Connector::~Connector()
         {
         }
         void* Connector::getServerConnector()
         {
             return this->serverConnector;
         }
-        Connector::~Connector()
-        {
-        }
         const datasourcies::Datasource& Connector::getDatconection() const
         {
             return *datconection;
         }
+        
     
-    
-    
+        
+        MySQL::MySQL()
+        {
+        }
+        MySQL::~MySQL()
+        {
+        }
         void* MySQL::getServerConnector()
         {
             return Connector::getServerConnector();
-        }
-        MySQL::MySQL()
-        {
         }
         const datasourcies::MySQL& MySQL::getDatconection() const
         {

@@ -8,12 +8,12 @@
 
 int main(int argc, char **argv)
 {
-    toolkit::clientdb::datasourcies::MySQL mysqlConnector("192.168.0.101",3306,"business.alpha","develop","123456");  
+    toolkit::clientdb::datasourcies::MySQL mysqlSource("192.168.0.101",3306,"business.alpha","develop","123456");  
     toolkit::clientdb::connectors::MySQL connector; 
     bool flag = false;  
     try
     {
-		flag = connector.connect(mysqlConnector);
+		flag = connector.connect(mysqlSource);
 	}
 	catch(toolkit::clientdb::SQLException ex)
 	{

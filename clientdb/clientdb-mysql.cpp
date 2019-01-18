@@ -17,14 +17,7 @@ namespace clientdb
         void MySQL::close()
         {
             
-        }
-        MySQL::~MySQL()
-        {
-            if(datconection->getServerType() == datasourcies::Datasource::ServerType::MySQL)
-            {
-                //if(serverConnector != NULL) mysql_close((MYSQL*)serverConnector);
-            }
-        }        
+        }       
         bool MySQL::rollback()
         {
             if (serverConnector != NULL)
@@ -64,7 +57,7 @@ namespace clientdb
         {
             return mysql_get_client_info();
         }
-        bool MySQL::connect(const datasourcies::MySQL& conection)
+        bool MySQL::connect(const datasourcies::Datasource& conection)
         {
             serverConnector = (void*)mysql_init(NULL);
             if (serverConnector == NULL)

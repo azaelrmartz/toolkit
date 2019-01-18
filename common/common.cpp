@@ -6,19 +6,19 @@ namespace toolkit
 {
 	
 #if FIELDS_NUMBER > 0
-	short Version::getMajor()
+	short Version::getMajor() const
 	{
 		return this->major;		
 	}
 #endif
 #if FIELDS_NUMBER > 1	
-	short Version::getMinor()
+	short Version::getMinor() const
 	{
 		return this->minor;
 	}
 #endif
 #if FIELDS_NUMBER > 2
-	short Version::getPatch()
+	short Version::getPatch() const
 	{
 		return this->patch;
 	}

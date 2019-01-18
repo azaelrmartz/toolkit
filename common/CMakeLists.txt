@@ -1,5 +1,5 @@
 CMAKE_MINIMUM_REQUIRED(VERSION 3.5)
-PROJECT(toolkit-common VERSION 2.0.0)
+PROJECT(toolkit-common VERSION 2.0.1)
 
 
 execute_process(COMMAND date +"%Y%m%d%H%I" OUTPUT_VARIABLE toolkit-common_VERSION_BUILD)
