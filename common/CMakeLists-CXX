@@ -6,7 +6,7 @@ SET(CMAKE_CXX_EXTENSIONS OFF)
 #SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -Wall")
 ADD_DEFINITIONS(-DFIELDS_NUMBER=3 -DFIELD_STAGE=true) 
 
-SET(toolkit-common_VERSION_STAGE "alpha")
+#SET(toolkit-common_VERSION_STAGE "beta")
 CONFIGURE_FILE("${PROJECT_SOURCE_DIR}/config.h.in" "${PROJECT_SOURCE_DIR}/config.h")
 SET(targetName toolkit-common-c++)
 

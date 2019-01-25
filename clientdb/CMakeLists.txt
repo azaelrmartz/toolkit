@@ -4,7 +4,7 @@ SET(CMAKE_CXX_STANDARD 14)
 SET(CMAKE_CXX_STANDARD_REQUIRED ON)
 SET(CMAKE_CXX_EXTENSIONS OFF)
 
-SET(toolkit-clientdb_VERSION_STAGE "alpha")
+SET(toolkit-clientdb_VERSION_STAGE "beta")
 configure_file ("${PROJECT_SOURCE_DIR}/config.h.in" "${PROJECT_SOURCE_DIR}/config.h")
 SET(targetName toolkit-clientdb-c++)
 
@@ -24,8 +24,8 @@ ENDIF()
 
 ADD_EXECUTABLE(developing ${SOURCES_BUILDING} developing.cpp clientdb.cpp clientdb-mysql.cpp clientdb-er.cpp clientdb-er-mysql.cpp)
 TARGET_LINK_LIBRARIES(developing ${TOOLKIT_COMMON_LIBRARY} ${MYSQL_LIBRARY})
-ADD_EXECUTABLE(postgresql postgresql.cpp )
-TARGET_LINK_LIBRARIES(postgresql ${TOOLKIT_COMMON_LIBRARY} ${PostgreSQL_LIBRARY})
+#ADD_EXECUTABLE(postgresql postgresql.cpp )
+#TARGET_LINK_LIBRARIES(postgresql ${TOOLKIT_COMMON_LIBRARY} ${PostgreSQL_LIBRARY})
 
 ADD_LIBRARY(${targetName} STATIC clientdb.cpp clientdb-mysql.cpp)
 TARGET_LINK_LIBRARIES(${targetName} ${TOOLKIT_COMMON_LIBRARY} ${MYSQL_LIBRARY})

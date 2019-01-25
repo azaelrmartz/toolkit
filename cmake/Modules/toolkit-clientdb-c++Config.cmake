@@ -15,7 +15,7 @@ FIND_PATH(TOOLKIT_CLIENTDB_INCLUDE_DIR clientdb.hpp
 SET(TOOLKIT_CLIENTDB_NAMES ${TARGET_OBJECT_SUFFIX})
 FIND_LIBRARY(TOOLKIT_CLIENTDB_LIBRARY
   NAMES ${TOOLKIT_CLIENTDB_NAMES}
-  PATHS ${PROJECT_SOURCE_DIR}/../../clientdb/src ${PROJECT_SOURCE_DIR}/../../clientdb/src $ENV{HOME}/root/usr/lib /usr/lib /usr/local/lib /usr/lib/x86_64-linux-gnu
+  PATHS /usr/lib /usr/local/lib /usr/lib/x86_64-linux-gnu
   PATH_SUFFIXES ${TARGET_OBJECT_SUFFIX}
 )
 

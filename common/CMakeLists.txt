@@ -2,7 +2,8 @@ CMAKE_MINIMUM_REQUIRED(VERSION 3.5)
 PROJECT(toolkit-common VERSION 2.0.1)
 
 
-execute_process(COMMAND date +"%Y%m%d%H%I" OUTPUT_VARIABLE toolkit-common_VERSION_BUILD)
+EXECUTE_PROCESS(COMMAND date +"%Y%m%d%H%I" OUTPUT_VARIABLE toolkit-common_VERSION_BUILD)
+SET(toolkit-common_VERSION_STAGE "beta")
 
 if(${LANG} STREQUAL "CXX")
 	MESSAGE("Generando componetes en C++ ...")	
@@ -20,5 +21,6 @@ elseif(${LANG} STREQUAL "JAVA")
 	MESSAGE("Generando componetes en Java ...")	
 	INCLUDE(CMakeLists-JAVA)
 else()
-	MESSAGE(FATAL_ERROR "Indique el lenguaje, por ejemlo LANG=CXX")
+	MESSAGE("Generando componetes en C++ ...")	
+	INCLUDE(CMakeLists-CXX)
 endif()
