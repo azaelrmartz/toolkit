@@ -5,9 +5,10 @@
 --------------------
 Los siquientes requisitos expresan las versiones mas actuales en el momento de la generacion del codigo por lo que muy posiblemente versiones anteriores funcionen tambien.
 
-	- CMake 3.0
+	- CMake 3.5
 	- GCC 8.2
 	- toolkit-common 1.0
+	- MySQL Client 5.7
 
 -------------
 - Instalación
@@ -19,5 +20,7 @@ Los siquientes requisitos expresan las versiones mas actuales en el momento de l
 	5.- cd build  //entrar en el directorio de construcción
 	6.- cmake ..
 	7.- make
+	8.- cpack --config CPackConfig.cmake
 	8.- sudo ./toolkit-clientdb-*-Linux.sh –prefix=/usr
+
 

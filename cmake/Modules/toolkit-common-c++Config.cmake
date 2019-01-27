@@ -14,7 +14,7 @@ FIND_PATH(TOOLKIT_COMMON_INCLUDE_DIR common.hpp
 SET(TOOLKIT_COMMON_NAMES ${TARGET_OBJECT_SUFFIX})
 FIND_LIBRARY(TOOLKIT_COMMON_LIBRARY
   NAMES ${TOOLKIT_COMMON_NAMES}
-  PATHS /usr/lib /usr/local/lib /usr/lib/x86_64-linux-gnu
+  PATHS /usr/lib/toolkit/ /usr/local/lib/toolkit/ /usr/lib/x86_64-linux-gnu/toolkit/ /usr/lib/x86_64-linux-gnu/
   PATH_SUFFIXES ${TARGET_OBJECT_SUFFIX}
 )
 
