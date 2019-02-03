@@ -31,8 +31,8 @@ ADD_LIBRARY(${targetName} STATIC clientdb.cpp clientdb-mysql.cpp)
 TARGET_LINK_LIBRARIES(${targetName} ${TOOLKIT_COMMON_LIBRARY} ${MYSQL_LIBRARY})
 
 
-INSTALL(TARGETS ${targetName} DESTINATION lib/toolkit)
-INSTALL(FILES clientdb.hpp DESTINATION include/toolkit)
+INSTALL(TARGETS ${targetName} DESTINATION lib/apidb)
+INSTALL(FILES clientdb.hpp DESTINATION include/apidb)
 
 include (InstallRequiredSystemLibraries)
 #SET(CPACK_RESOURCE_FILE_LICENSE "${CMAKE_CURRENT_SOURCE_DIR}/License.txt")
