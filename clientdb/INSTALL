@@ -9,10 +9,6 @@ Los siquientes requisitos expresan las versiones mas actuales en el momento de l
 	- GCC 8.2
 	- toolkit-common 2.0
 	- MySQL Client 5.7
-	- Bison 3.2
-	- Flex 2.6
-	- libxml2 2.4
-	- Boost 1.67
 
 -------------
 - Instalación
@@ -25,6 +21,6 @@ Los siquientes requisitos expresan las versiones mas actuales en el momento de l
 	6.- cmake ..
 	7.- make
 	8.- cpack --config CPackConfig.cmake
-	9.- sudo ./toolkit-*-Linux.sh --prefix=/usr
+	9.- sudo ./toolkit-clientdb-*-Linux.sh --prefix=/usr
 
 
