@@ -25,6 +25,28 @@ namespace clientdb
 	private:
         std::string description;
     };
+    class SQLExceptionConnection : public SQLException
+    {
+    public:
+        //exception () throw();
+        //exception (const exception&) throw();
+        //exception& operator= (const exception&) throw();
+        virtual ~SQLExceptionConnection() throw();
+        //virtual const char* what();
+        SQLExceptionConnection(const std::string &description) throw();
+        //SQLExceptionConnection()throw();        
+    };
+    class SQLExceptionQuery : public SQLException
+    {
+    public:
+        //exception () throw();
+        //exception (const exception&) throw();
+        //exception& operator= (const exception&) throw();
+        virtual ~SQLExceptionQuery() throw();
+        //virtual const char* what() const throw();
+        SQLExceptionQuery(const std::string &description) throw();
+        //Exception()throw();        
+    };
     namespace datasourcies
     {
         class Datasource
@@ -65,6 +87,16 @@ namespace clientdb
             const MySQL& operator=(const MySQL&);
             virtual std::string toString() const;
         };	
+                
+        class PostgreSQL : public Datasource
+        {
+        public:         
+            PostgreSQL(const std::string& host, unsigned int port,const std::string& database,const std::string& usuario,const std::string& password);
+            PostgreSQL(const PostgreSQL& obj);
+
+            const PostgreSQL& operator=(const PostgreSQL&);
+            virtual std::string toString() const;
+        };
     }
     namespace connectors
     {
@@ -72,7 +104,11 @@ namespace clientdb
         {
         protected:
             void* serverConnector;
-            datasourcies::Datasource* datconection;
+            const datasourcies::Datasource* datconection;
+            bool is_ipv4_address(const std::string& str);
+            bool is_ipv6_address(const std::string& str);
+            bool is_valid_domain_name(const std::string& str);
+            
         public:
             virtual ~Connector();
             Connector();
@@ -80,7 +116,7 @@ namespace clientdb
             virtual bool connect(const datasourcies::Datasource& connector) = 0;
             virtual const char* serverDescription() = 0;
             virtual bool query(const std::string&) = 0;
-            //bool query(const std::string&,Rows&);
+            //virtual std::vector<const char*> query(const std::string&) const;
             virtual ID insert(const std::string&) = 0;
             virtual bool commit() = 0;
             virtual bool rollback() = 0;
@@ -104,7 +140,25 @@ namespace clientdb
             virtual bool rollback();
             void* getServerConnector();
             const datasourcies::MySQL& getDatconection() const;  
-            void close();
+            virtual void close();
+        };
+        
+        class PostgreSQL : public Connector
+        {
+        public:
+            virtual ~PostgreSQL();
+            PostgreSQL();
+            //PostgreSQL(const datasourcies::PostgreSQL& connector);
+            virtual bool connect(const datasourcies::Datasource& connector);
+            virtual const char* serverDescription();
+            virtual bool query(const std::string&);
+            //bool query(const std::string&,Rows&);
+            virtual ID insert(const std::string&);
+            virtual bool commit();
+            virtual bool rollback();
+            void* getServerConnector();
+            const datasourcies::PostgreSQL& getDatconection() const;  
+            virtual void close();
         };
     }
 }
