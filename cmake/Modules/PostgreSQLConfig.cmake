@@ -1,11 +1,12 @@
 SET(TARGET_OBJECT_SUFFIX pq)
+SET(TARGET_INCLUDE_SUFFIX libpq-fe.h)
 
 IF (POSTGRESQL_INCLUDE_DIR)
   # Already in cache, be silent
   SET(POSTGRESQL_FIND_QUIETLY TRUE)
 ENDIF (POSTGRESQL_INCLUDE_DIR)
 
-FIND_PATH(POSTGRESQL_INCLUDE_DIR libpq-fe.h
+FIND_PATH(POSTGRESQL_INCLUDE_DIR ${TARGET_INCLUDE_SUFFIX}
   /usr/include/postgresql
   /usr/local/include/postgresql
 )
@@ -13,7 +14,7 @@ FIND_PATH(POSTGRESQL_INCLUDE_DIR libpq-fe.h
 SET(POSTGRESQL_NAMES ${TARGET_OBJECT_SUFFIX})
 FIND_LIBRARY(POSTGRESQL_LIBRARY
   NAMES ${POSTGRESQL_NAMES}
-  PATHS /usr/lib/toolkit /usr/local/lib/toolkit /usr/lib/x86_64-linux-gnu
+  PATHS /usr/lib /usr/local/lib /usr/lib/x86_64-linux-gnu
   PATH_SUFFIXES ${TARGET_OBJECT_SUFFIX}
 )
 
