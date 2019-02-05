@@ -123,7 +123,7 @@ namespace clientdb
             }					
             if(!password.empty())
             {
-                constr += " - with password.";
+                constr += " - con contraseña.";
             }
             
             return constr;
@@ -292,6 +292,7 @@ namespace clientdb
         }
         PostgreSQL::~PostgreSQL()
         {
+            close();
         }
         void* PostgreSQL::getServerConnector()
         {
@@ -325,6 +326,7 @@ namespace clientdb
         }
         MySQL::~MySQL()
         {
+            close();
         }
         void* MySQL::getServerConnector()
         {

@@ -13,10 +13,10 @@ namespace clientdb
         
     }    
     namespace connectors
-    {            
+    {      
         void MySQL::close()
         {
-            
+            mysql_close((MYSQL*)serverConnector);
         }       
         bool MySQL::rollback()
         {
@@ -93,6 +93,31 @@ namespace clientdb
             }
             
             return false;
+        }        
+        bool MySQL::query(const std::string& str, std::vector<std::vector<const char*>>& rows)
+        {
+            if (mysql_query((MYSQL*)serverConnector, str.c_str())) 
+            {
+                return false;
+            }
+            MYSQL_RES *result = mysql_store_result((MYSQL*)serverConnector);
+            if (result == NULL) 
+            {
+                return false;
+            }
+            int num_fields = mysql_num_fields(result);
+            MYSQL_ROW row;
+            while ((row = mysql_fetch_row(result))) 
+            { 
+                std::vector<const char*> r;
+                for(int i = 0; i < num_fields; i++) 
+                { 
+                    r.push_back(row[i] ? row[i] : "");//printf("%s ", ); 
+                }       
+                rows.push_back(r);
+            }
+            mysql_free_result(result);
+            return true;
         }
     }
 	

@@ -3,17 +3,19 @@
 #include <stdlib.h>     /* srand, rand */
 #include <time.h> 
 #include <string>
+#include <my_global.h>
+#include <mysql.h>
 
-#include "clientdb-er.hpp"
+#include "clientdb.hpp"
 
 int main(int argc, char **argv)
 {
-    toolkit::clientdb::datasourcies::MySQL mysqlSource("192.168.0.101",3306,"business.alpha","develop","123456");  
+    toolkit::clientdb::datasourcies::MySQL postgreSQLSource("192.168.0.101",3306,"sis","develop","123456");  
     toolkit::clientdb::connectors::MySQL connector; 
     bool flag = false;  
     try
     {
-		flag = connector.connect(mysqlSource);
+		flag = connector.connect(postgreSQLSource);
 	}
 	catch(toolkit::clientdb::SQLException ex)
 	{
@@ -21,47 +23,22 @@ int main(int argc, char **argv)
 	}
     if(flag)
     {
-        printf("SQL Server version: %s\n", connector.serverDescription());
+        printf("MySQL client version: %s\n", mysql_get_client_info());
     }
     else
     {
         std::cerr<<"Fallo la conexion el servidor."<< std::endl;
     }
     
-    srand (time(NULL));
-	int random = rand() % 10000 + 1;
-    
-    toolkit::clientdb::Persons* person1 = new toolkit::clientdb::Persons();
-    std::string n1 = "n1-";
-    n1 += std::to_string(random);
-    if(person1->insert(connector,n1))
+    std::vector<std::vector<const char*>> lst;
+    if(connector.query("show tables",lst) == false)
     {
-		std::cout << "Inserted "<< n1 << std::endl;
-	}
-	else
-	{
-		std::cerr << "Fail "<< n1 << std::endl;
-	}
-    
-    if(connector.commit())
+        std::cout << "Fallo la consuta" << std::endl;
+    }
+    for(auto row : lst)
     {
-		std::cout << "Commit done " << std::endl;
-	}
-	else
-	{
-		std::cerr << "Commit fail"<< std::endl;
-	}
-	
-    toolkit::clientdb::Persons* person2 = new toolkit::clientdb::Persons();
-    if(person2->selectRandom(connector))
-    {
-		std::cout << "Select Random "<< person2->toString() << std::endl;
-	}
-	else
-	{
-		std::cerr << "Fail Slected random "<< n1 << std::endl;
-	}    
-	
-	std::string db = ((toolkit::clientdb::datasourcies::MySQL&)(connector.getDatconection())).getDatabase();
-	std::cout<<db<<std::endl;
+        std::cout << row[0] << std::endl;
+    }
+    connector.close();
+    return 0;    
 }

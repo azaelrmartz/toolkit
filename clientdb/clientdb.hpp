@@ -112,11 +112,9 @@ namespace clientdb
         public:
             virtual ~Connector();
             Connector();
-            //Connector(datasourcies::Datasource& connector);
-            virtual bool connect(const datasourcies::Datasource& connector) = 0;
-            virtual const char* serverDescription() = 0;
+            virtual bool connect(const datasourcies::Datasource& connector) = 0;            
             virtual bool query(const std::string&) = 0;
-            //virtual std::vector<const char*> query(const std::string&) const;
+            virtual bool query(const std::string&, std::vector<std::vector<const char*>>&) = 0;
             virtual ID insert(const std::string&) = 0;
             virtual bool commit() = 0;
             virtual bool rollback() = 0;
@@ -130,11 +128,10 @@ namespace clientdb
         public:
             virtual ~MySQL();
             MySQL();
-            //MySQL(const datasourcies::MySQL& connector);
             virtual bool connect(const datasourcies::Datasource& connector);
-            virtual const char* serverDescription();
+            const char* serverDescription();
             virtual bool query(const std::string&);
-            //bool query(const std::string&,Rows&);
+            virtual bool query(const std::string&, std::vector<std::vector<const char*>>&);
             virtual ID insert(const std::string&);
             virtual bool commit();
             virtual bool rollback();
@@ -148,11 +145,9 @@ namespace clientdb
         public:
             virtual ~PostgreSQL();
             PostgreSQL();
-            //PostgreSQL(const datasourcies::PostgreSQL& connector);
             virtual bool connect(const datasourcies::Datasource& connector);
-            virtual const char* serverDescription();
             virtual bool query(const std::string&);
-            //bool query(const std::string&,Rows&);
+            virtual bool query(const std::string&, std::vector<std::vector<const char*>>&);
             virtual ID insert(const std::string&);
             virtual bool commit();
             virtual bool rollback();
