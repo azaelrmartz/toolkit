@@ -15,37 +15,23 @@ namespace clientdb
     class SQLException : public std::exception
     {
     public:
-        //exception () throw();
-        //exception (const exception&) throw();
-        //exception& operator= (const exception&) throw();
         virtual ~SQLException() throw();
         virtual const char* what() const throw();
         SQLException(const std::string &description) throw();
-        //Exception()throw();
 	private:
         std::string description;
     };
     class SQLExceptionConnection : public SQLException
     {
     public:
-        //exception () throw();
-        //exception (const exception&) throw();
-        //exception& operator= (const exception&) throw();
         virtual ~SQLExceptionConnection() throw();
-        //virtual const char* what();
         SQLExceptionConnection(const std::string &description) throw();
-        //SQLExceptionConnection()throw();        
     };
     class SQLExceptionQuery : public SQLException
     {
     public:
-        //exception () throw();
-        //exception (const exception&) throw();
-        //exception& operator= (const exception&) throw();
         virtual ~SQLExceptionQuery() throw();
-        //virtual const char* what() const throw();
         SQLExceptionQuery(const std::string &description) throw();
-        //Exception()throw();        
     };
     namespace datasourcies
     {
@@ -58,7 +44,6 @@ namespace clientdb
                 PostgreSQL
             };            
             Datasource(const Datasource&);
-            Datasource(ServerType serverType,const std::string& host, unsigned int port,const std::string& database,const std::string& usuario,const std::string& password);
             const Datasource& operator=(const Datasource& obj);
             void set(ServerType serverType,const std::string& host, unsigned int port,const std::string& database,const std::string& usuario,const std::string& password);
             
@@ -69,6 +54,8 @@ namespace clientdb
             const std::string& getDatabase()const;
             ServerType getServerType()const;		
             unsigned int getPort()const;
+        protected:
+            Datasource(ServerType serverType,const std::string& host, unsigned int port,const std::string& database,const std::string& usuario,const std::string& password);
             
         private:
             ServerType serverType;
@@ -83,17 +70,14 @@ namespace clientdb
         public:         
             MySQL(const std::string& host, unsigned int port,const std::string& database,const std::string& usuario,const std::string& password);
             MySQL(const MySQL& obj);
-
             const MySQL& operator=(const MySQL&);
             virtual std::string toString() const;
-        };	
-                
+        };                
         class PostgreSQL : public Datasource
         {
         public:         
             PostgreSQL(const std::string& host, unsigned int port,const std::string& database,const std::string& usuario,const std::string& password);
             PostgreSQL(const PostgreSQL& obj);
-
             const PostgreSQL& operator=(const PostgreSQL&);
             virtual std::string toString() const;
         };
