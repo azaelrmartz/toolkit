@@ -294,10 +294,6 @@ namespace clientdb
         {
             close();
         }
-        void* PostgreSQL::getServerConnector()
-        {
-            return Connector::getServerConnector();
-        }
         const datasourcies::PostgreSQL& PostgreSQL::getDatconection() const
         {
             return (const datasourcies::PostgreSQL&)Connector::getDatconection();
@@ -327,10 +323,6 @@ namespace clientdb
         MySQL::~MySQL()
         {
             close();
-        }
-        void* MySQL::getServerConnector()
-        {
-            return Connector::getServerConnector();
         }
         const datasourcies::MySQL& MySQL::getDatconection() const
         {

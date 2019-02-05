@@ -117,10 +117,11 @@ namespace clientdb
             virtual bool query(const std::string&, std::vector<std::vector<const char*>>&) = 0;
             virtual ID insert(const std::string&) = 0;
             virtual bool commit() = 0;
+            virtual bool begin() = 0;
             virtual bool rollback() = 0;
+            virtual void close() = 0;
             void* getServerConnector();
             const datasourcies::Datasource& getDatconection() const;  
-            virtual void close() = 0;
         };
         
         class MySQL : public Connector
@@ -134,8 +135,8 @@ namespace clientdb
             virtual bool query(const std::string&, std::vector<std::vector<const char*>>&);
             virtual ID insert(const std::string&);
             virtual bool commit();
+            virtual bool begin();
             virtual bool rollback();
-            void* getServerConnector();
             const datasourcies::MySQL& getDatconection() const;  
             virtual void close();
         };
@@ -150,8 +151,8 @@ namespace clientdb
             virtual bool query(const std::string&, std::vector<std::vector<const char*>>&);
             virtual ID insert(const std::string&);
             virtual bool commit();
+            virtual bool begin();
             virtual bool rollback();
-            void* getServerConnector();
             const datasourcies::PostgreSQL& getDatconection() const;  
             virtual void close();
         };

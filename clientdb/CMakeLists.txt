@@ -1,5 +1,5 @@
 CMAKE_MINIMUM_REQUIRED(VERSION 3.0)
-PROJECT(toolkit-clientdb VERSION 1.2.0 LANGUAGES CXX)
+PROJECT(toolkit-clientdb VERSION 1.3.0 LANGUAGES CXX)
 SET(CMAKE_CXX_STANDARD 17)
 SET(CMAKE_CXX_STANDARD_REQUIRED ON)
 SET(CMAKE_CXX_EXTENSIONS OFF)
@@ -7,7 +7,6 @@ SET(CMAKE_CXX_EXTENSIONS OFF)
 SET(toolkit-clientdb_VERSION_STAGE "beta")
 configure_file ("${PROJECT_SOURCE_DIR}/config.h.in" "${PROJECT_SOURCE_DIR}/config.h")
 SET(targetName toolkit-clientdb-c++)
-
 
 FIND_PACKAGE(MySQL REQUIRED PATHS ${PROJECT_SOURCE_DIR}/../cmake/Modules/)
 IF(MySQL_FOUND)
@@ -23,7 +22,7 @@ IF(TOOLKIT_COMMON_FOUND )
 ENDIF()
 
 
-ADD_EXECUTABLE(developing ${SOURCES_BUILDING} developing.cpp clientdb.cpp clientdb-mysql.cpp clientdb-postgresql.cpp clientdb-er.cpp clientdb-er-mysql.cpp)
+ADD_EXECUTABLE(developing ${SOURCES_BUILDING} developing.cpp clientdb.cpp clientdb-mysql.cpp clientdb-postgresql.cpp)
 TARGET_LINK_LIBRARIES(developing ${TOOLKIT_COMMON_LIBRARY} ${MYSQL_LIBRARY} ${POSTGRESQL_LIBRARIES} )
 
 ADD_EXECUTABLE(postgresql clientdb.cpp clientdb-postgresql.cpp clientdb-mysql.cpp postgresql.cpp)
@@ -37,7 +36,6 @@ INSTALL(TARGETS ${targetName} DESTINATION lib/toolkit)
 INSTALL(FILES clientdb.hpp DESTINATION include/toolkit)
 
 include (InstallRequiredSystemLibraries)
-#SET(CPACK_RESOURCE_FILE_LICENSE "${CMAKE_CURRENT_SOURCE_DIR}/License.txt")
 SET(CPACK_PACKAGE_VERSION_MAJOR "${toolkit-clientdb_VERSION_MAJOR}")
 SET(CPACK_PACKAGE_VERSION_MINOR "${toolkit-clientdb_VERSION_MINOR}")
 SET(CPACK_PACKAGE_VERSION_PATCH "${toolkit-clientdb_VERSION_PATCH}")

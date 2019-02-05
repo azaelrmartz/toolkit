@@ -13,10 +13,14 @@ namespace clientdb
         
     }    
     namespace connectors
-    {      
+    {          
+        bool MySQL::begin()
+        {
+            return false; 
+        }
         void MySQL::close()
         {
-            mysql_close((MYSQL*)serverConnector);
+            if (serverConnector != NULL) mysql_close((MYSQL*)serverConnector);
         }       
         bool MySQL::rollback()
         {
@@ -84,7 +88,7 @@ namespace clientdb
             }        
             datconection = new datasourcies::Datasource((const datasourcies::Datasource&)conection);
             return true;
-        }        
+        }
         bool MySQL::query(const std::string& str)
         {
             if (mysql_query((MYSQL*)serverConnector, str.c_str()) == 0) 
@@ -93,7 +97,7 @@ namespace clientdb
             }
             
             return false;
-        }        
+        }
         bool MySQL::query(const std::string& str, std::vector<std::vector<const char*>>& rows)
         {
             if (mysql_query((MYSQL*)serverConnector, str.c_str())) 
@@ -120,7 +124,5 @@ namespace clientdb
             return true;
         }
     }
-	
-
 }
 }
