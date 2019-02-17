@@ -1,14 +1,12 @@
-CMAKE_MINIMUM_REQUIRED(VERSION 3.5)
-PROJECT(toolkit-common VERSION 2.1.0)
-
+CMAKE_MINIMUM_REQUIRED(VERSION 3.13)
+PROJECT(toolkit-common VERSION 2.1.0 LANGUAGES ${LANG})
 
 EXECUTE_PROCESS(COMMAND date +"%Y%m%d%H%I" OUTPUT_VARIABLE toolkit-common_VERSION_BUILD)
 SET(toolkit-common_VERSION_STAGE "beta")
-if(NOT LANG)
-	MESSAGE(FATAL_ERROR "Porfavor asigne la varible LANG.")	
-endif()
 
-if(${LANG} STREQUAL "C++")
+if(NOT LANG)
+	MESSAGE("Use la variable LANG para indicar el lenguaje.")	
+elseif(${LANG} STREQUAL "CXX" OR ${LANG} STREQUAL "C++")
 	MESSAGE("Generando componetes en C++ ...")	
 	INCLUDE(CMakeLists-CXX)
 elseif(${LANG} STREQUAL "C")
@@ -27,7 +25,7 @@ elseif(${LANG} STREQUAL "PY")
 	MESSAGE("Generando componetes en Python ...")	
 	INCLUDE(CMakeLists-PY)
 elseif()
-	MESSAGE(FATAL_ERROR "EL valor de LANG es desconocido.")
+	MESSAGE(FATAL_ERROR "El valor de LANG es desconocido.")
 endif()
 
 INCLUDE (InstallRequiredSystemLibraries)
