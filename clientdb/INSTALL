@@ -9,6 +9,7 @@ Los siquientes requisitos expresan las versiones mas actuales en el momento de l
 	- GCC 8.2
 	- toolkit-common 2.0
 	- MySQL Client 5.7
+	- PostgreSQL libpq
 
 -------------
 - Instalación
