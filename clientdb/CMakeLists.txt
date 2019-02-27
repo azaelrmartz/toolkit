@@ -8,9 +8,6 @@ ELSEIF(${LANG} STREQUAL "CXX")
 	INCLUDE(CMakeLists-CXX)
 ENDIF()
 
-INSTALL(TARGETS ${targetName} DESTINATION lib/toolkit)
-INSTALL(FILES clientdb.hpp DESTINATION include/toolkit)
-
 include (InstallRequiredSystemLibraries)
 SET(CPACK_PACKAGE_VERSION_MAJOR "${toolkit-clientdb_VERSION_MAJOR}")
 SET(CPACK_PACKAGE_VERSION_MINOR "${toolkit-clientdb_VERSION_MINOR}")
