@@ -5,7 +5,7 @@ IF(NOT LANG)
 	MESSAGE(FATAL_ERROR "Use la variable LANG para indicar el lenguaje.")	
 ELSEIF(${LANG} STREQUAL "CXX")
 	MESSAGE("El Lenguaje seleccionado es C++ ...")
-	INCLUDE(CMakeLists-CXX)
+	INCLUDE(CXX.cmake)
 ENDIF()
 
 include (InstallRequiredSystemLibraries)
