@@ -24,9 +24,9 @@ ENDIF()
 
 ADD_EXECUTABLE(developing ${SOURCES_BUILDING} developing.cpp clientdb.cpp clientdb-mysql.cpp clientdb-postgresql.cpp)
 TARGET_LINK_LIBRARIES(developing ${TOOLKIT_COMMON_LIBRARY} ${MYSQL_LIBRARY} ${POSTGRESQL_LIBRARIES} )
-
 ADD_EXECUTABLE(postgresql clientdb.cpp clientdb-postgresql.cpp clientdb-mysql.cpp postgresql.cpp)
 TARGET_LINK_LIBRARIES(postgresql ${TOOLKIT_COMMON_LIBRARY} ${MYSQL_LIBRARY} ${POSTGRESQL_LIBRARIES} )
+
 
 ADD_LIBRARY(${targetName} STATIC clientdb.cpp clientdb-mysql.cpp clientdb-postgresql.cpp)
 TARGET_LINK_LIBRARIES(${targetName} ${TOOLKIT_COMMON_LIBRARY} ${MYSQL_LIBRARY} ${POSTGRESQL_LIBRARIES} )

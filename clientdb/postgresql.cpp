@@ -1,10 +1,10 @@
 #include <stdio.h>
 #include <iostream>
-#include <stdlib.h>     /* srand, rand */
-#include <time.h> 
+#include <stdlib.h>
+#include <time.h>
 #include <string>
-
 #include <postgresql/libpq-fe.h>
+
 #include "clientdb.hpp"
 
 int main(int argc, char **argv)

@@ -17,7 +17,7 @@ namespace clientdb
         }
         void PostgreSQL::close()
         {
-            if (serverConnector != NULL) PQfinish((PGconn*)serverConnector);
+            if(serverConnector != NULL) PQfinish((PGconn*)serverConnector);
         }       
         bool PostgreSQL::rollback()
         {
