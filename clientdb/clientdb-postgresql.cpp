@@ -1,6 +1,14 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <postgresql/libpq-fe.h>
+#ifdef LINUX
+	#include <libpq-fe.h>
+#elif LINUX_UBUNTU 
+	#include <postgresql/libpq-fe.h>
+#elif LINUX_ARCH || LINUX_MANJARO
+	#include <libpq-fe.h>
+#else
+	#include <libpq-fe.h>
+#endif
 #include <iostream>
 
 #include "clientdb.hpp"

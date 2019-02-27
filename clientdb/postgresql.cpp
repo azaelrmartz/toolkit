@@ -3,8 +3,15 @@
 #include <stdlib.h>
 #include <time.h>
 #include <string>
-#include <postgresql/libpq-fe.h>
-
+#ifdef LINUX
+	#include <libpq-fe.h>
+#elif LINUX_UBUNTU 
+	#include <postgresql/libpq-fe.h>
+#elif LINUX_ARCH || LINUX_MANJARO
+	#include <libpq-fe.h>
+#else
+	#include <libpq-fe.h>
+#endif
 #include "clientdb.hpp"
 
 int main(int argc, char **argv)

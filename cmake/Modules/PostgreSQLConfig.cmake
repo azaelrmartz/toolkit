@@ -7,6 +7,7 @@ IF (POSTGRESQL_INCLUDE_DIR)
 ENDIF (POSTGRESQL_INCLUDE_DIR)
 
 FIND_PATH(POSTGRESQL_INCLUDE_DIR ${TARGET_INCLUDE_SUFFIX}
+  /usr/include
   /usr/include/postgresql
   /usr/local/include/postgresql
 )
