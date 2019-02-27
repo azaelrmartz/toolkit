@@ -1,14 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#ifdef LINUX
-	#include <libpq-fe.h>
-#elif LINUX_UBUNTU 
-	#include <postgresql/libpq-fe.h>
-#elif LINUX_ARCH || LINUX_MANJARO
-	#include <libpq-fe.h>
-#else
-	#include <libpq-fe.h>
-#endif
+#include <libpq-fe.h>
 #include <iostream>
 
 #include "clientdb.hpp"
@@ -16,7 +8,7 @@
 namespace toolkit
 {
 namespace clientdb
-{  
+{
     namespace connectors
     {
         bool PostgreSQL::begin()

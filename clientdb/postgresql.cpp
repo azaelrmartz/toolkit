@@ -3,21 +3,13 @@
 #include <stdlib.h>
 #include <time.h>
 #include <string>
-#ifdef LINUX
-	#include <libpq-fe.h>
-#elif LINUX_UBUNTU 
-	#include <postgresql/libpq-fe.h>
-#elif LINUX_ARCH || LINUX_MANJARO
-	#include <libpq-fe.h>
-#else
-	#include <libpq-fe.h>
-#endif
+#include <libpq-fe.h>
+
 #include "clientdb.hpp"
 
 int main(int argc, char **argv)
 {
     //comman psql -h 192.168.0.101 -U develop -d sis
-    
     toolkit::clientdb::datasourcies::PostgreSQL postgreSQLSource("192.168.0.101",0,"sis","develop","123456");  
     toolkit::clientdb::connectors::PostgreSQL connector; 
     bool flag = false;  
