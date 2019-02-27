@@ -5,13 +5,13 @@
 #include <string>
 #include <libpq-fe.h>
 
-#include "clientdb.hpp"
+#include "clientdb-postgresql.hpp"
 
 int main(int argc, char **argv)
 {
     //comman psql -h 192.168.0.101 -U develop -d sis
-    toolkit::clientdb::datasourcies::PostgreSQL postgreSQLSource("192.168.0.101",0,"sis","develop","123456");  
-    toolkit::clientdb::connectors::PostgreSQL connector; 
+    toolkit::clientdb::postgresql::Datasource postgreSQLSource("192.168.0.101",0,"sis","develop","123456");  
+    toolkit::clientdb::postgresql::Connector connector; 
     bool flag = false;  
     try
     {

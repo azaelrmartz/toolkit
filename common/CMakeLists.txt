@@ -5,7 +5,7 @@ EXECUTE_PROCESS(COMMAND date +"%Y%m%d%H%I" OUTPUT_VARIABLE toolkit-common_VERSIO
 SET(toolkit-common_VERSION_STAGE "beta")
 
 if(NOT LANG)
-	MESSAGE("Use la variable LANG para indicar el lenguaje.")	
+	MESSAGE(FATAL_ERROR "Use la variable LANG para indicar el lenguaje.")	
 elseif(${LANG} STREQUAL "CXX")
 	MESSAGE("Generando componetes en C++ ...")	
 	INCLUDE(CMakeLists-CXX)

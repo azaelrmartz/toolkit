@@ -58,25 +58,6 @@ namespace clientdb
 	{
 		return toolkit::Version(VERSION_MAJOR,VERSION_MINOR,VERSION_PATCH,VERSION_STAGE);		
 	}	
-	namespace datasourcies
-	{
-        
-        std::string PostgreSQL::toString() const
-        {		
-            return Datasource::toString();
-        } 
-        PostgreSQL::PostgreSQL(const PostgreSQL& obj) : Datasource(obj)
-        {
-            
-        }
-        const PostgreSQL& PostgreSQL::operator=(const PostgreSQL& obj)
-        {		
-            ((Datasource&)*this)=obj;
-            return *this;
-        }
-        PostgreSQL::PostgreSQL(const std::string& host, unsigned int port,const std::string& database,const std::string& usuario,const std::string& password) : Datasource(ServerType::MySQL,host,port,database,usuario,password)
-        {
-        }
         
         
         Datasource::ServerType Datasource::getServerType() const
@@ -169,26 +150,6 @@ namespace clientdb
             return port;
         }
         
-        std::string MySQL::toString() const
-        {		
-            return Datasource::toString();
-        } 
-        MySQL::MySQL(const MySQL& obj) : Datasource(obj)
-        {
-            
-        }
-        const MySQL& MySQL::operator=(const MySQL& obj)
-        {		
-            ((Datasource&)*this)=obj;
-            return *this;
-        }
-        MySQL::MySQL(const std::string& host, unsigned int port,const std::string& database,const std::string& usuario,const std::string& password) : Datasource(ServerType::MySQL,host,port,database,usuario,password)
-        {
-        }
-        
-    }
-	namespace connectors
-    {
 
         bool Connector::is_ipv4_address(const std::string& str)
         {
@@ -287,19 +248,6 @@ namespace clientdb
             return true;
         }
         
-        PostgreSQL::PostgreSQL()
-        {
-        }
-        PostgreSQL::~PostgreSQL()
-        {
-            close();
-        }
-        const datasourcies::PostgreSQL& PostgreSQL::getDatconection() const
-        {
-            return (const datasourcies::PostgreSQL&)Connector::getDatconection();
-        } 
-        
-        
         Connector::Connector()
         {
         }
@@ -310,25 +258,11 @@ namespace clientdb
         {
             return this->serverConnector;
         }
-        const datasourcies::Datasource& Connector::getDatconection() const
+        const Datasource& Connector::getDatconection() const
         {
             return *datconection;
         }
         
-    
-        
-        MySQL::MySQL()
-        {
-        }
-        MySQL::~MySQL()
-        {
-            close();
-        }
-        const datasourcies::MySQL& MySQL::getDatconection() const
-        {
-            return (const datasourcies::MySQL&)Connector::getDatconection();
-        } 
-    }
 }	
 }
 

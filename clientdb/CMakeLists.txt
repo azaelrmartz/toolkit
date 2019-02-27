@@ -2,9 +2,9 @@ CMAKE_MINIMUM_REQUIRED(VERSION 3.0)
 PROJECT(toolkit-clientdb VERSION 2.0.0 LANGUAGES ${LANG})
 
 IF(NOT LANG)
-	MESSAGE("Use la variable LANG para indicar el lenguaje.")	
+	MESSAGE(FATAL_ERROR "Use la variable LANG para indicar el lenguaje.")	
 ELSEIF(${LANG} STREQUAL "CXX")
-	MESSAGE("Generando componetes en C++ ...")
+	MESSAGE("El Lenguaje seleccionado es C++ ...")
 	INCLUDE(CMakeLists-CXX)
 ENDIF()
 

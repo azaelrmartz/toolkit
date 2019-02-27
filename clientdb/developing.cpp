@@ -3,15 +3,14 @@
 #include <stdlib.h>     /* srand, rand */
 #include <time.h> 
 #include <string>
-#include <my_global.h>
 #include <mysql.h>
 
-#include "clientdb.hpp"
+#include "clientdb-mysql.hpp"
 
 int main(int argc, char **argv)
 {
-    toolkit::clientdb::datasourcies::MySQL postgreSQLSource("192.168.0.101",3306,"sis","develop","123456");  
-    toolkit::clientdb::connectors::MySQL connector; 
+    toolkit::clientdb::mysql::Datasource postgreSQLSource("192.168.0.101",3306,"sis","develop","123456");  
+    toolkit::clientdb::mysql::Connector connector; 
     bool flag = false;  
     try
     {

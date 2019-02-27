@@ -1,7 +1,7 @@
 #ifndef TOOLKIT_CLIENTDB_HPP
 #define TOOLKIT_CLIENTDB_HPP
 
-#include "common.hpp"
+#include <common.hpp>
 #include <vector>
 
 namespace toolkit
@@ -33,11 +33,10 @@ namespace clientdb
         virtual ~SQLExceptionQuery() throw();
         SQLExceptionQuery(const std::string &description) throw();
     };
-    namespace datasourcies
-    {
-        class Datasource
-        {
-        public:
+    
+	class Datasource
+	{
+	public:
             enum ServerType
             {
                 MySQL,
@@ -54,41 +53,23 @@ namespace clientdb
             const std::string& getDatabase()const;
             ServerType getServerType()const;		
             unsigned int getPort()const;
-        protected:
+	protected:
             Datasource(ServerType serverType,const std::string& host, unsigned int port,const std::string& database,const std::string& usuario,const std::string& password);
             
-        private:
+	private:
             ServerType serverType;
             std::string host;
             std::string user;
             std::string password;
             std::string database;
             unsigned int port;        
-        };        
-        class MySQL : public Datasource
-        {
-        public:         
-            MySQL(const std::string& host, unsigned int port,const std::string& database,const std::string& usuario,const std::string& password);
-            MySQL(const MySQL& obj);
-            const MySQL& operator=(const MySQL&);
-            virtual std::string toString() const;
-        };                
-        class PostgreSQL : public Datasource
-        {
-        public:         
-            PostgreSQL(const std::string& host, unsigned int port,const std::string& database,const std::string& usuario,const std::string& password);
-            PostgreSQL(const PostgreSQL& obj);
-            const PostgreSQL& operator=(const PostgreSQL&);
-            virtual std::string toString() const;
-        };
-    }
-    namespace connectors
-    {
-        class Connector
-        {
+	};	
+	
+	class Connector
+	{
         protected:
             void* serverConnector;
-            const datasourcies::Datasource* datconection;
+            const Datasource* datconection;
             bool is_ipv4_address(const std::string& str);
             bool is_ipv6_address(const std::string& str);
             bool is_valid_domain_name(const std::string& str);
@@ -96,7 +77,7 @@ namespace clientdb
         public:
             virtual ~Connector();
             Connector();
-            virtual bool connect(const datasourcies::Datasource& connector) = 0;            
+            virtual bool connect(const Datasource& connector) = 0;            
             virtual bool query(const std::string&) = 0;
             virtual bool query(const std::string&, std::vector<std::vector<const char*>>&) = 0;
             virtual ID insert(const std::string&) = 0;
@@ -105,42 +86,8 @@ namespace clientdb
             virtual bool rollback() = 0;
             virtual void close() = 0;
             void* getServerConnector();
-            const datasourcies::Datasource& getDatconection() const;  
-        };
-        
-        class MySQL : public Connector
-        {
-        public:
-            virtual ~MySQL();
-            MySQL();
-            virtual bool connect(const datasourcies::Datasource& connector);
-            const char* serverDescription();
-            virtual bool query(const std::string&);
-            virtual bool query(const std::string&, std::vector<std::vector<const char*>>&);
-            virtual ID insert(const std::string&);
-            virtual bool commit();
-            virtual bool begin();
-            virtual bool rollback();
-            const datasourcies::MySQL& getDatconection() const;  
-            virtual void close();
-        };
-        
-        class PostgreSQL : public Connector
-        {
-        public:
-            virtual ~PostgreSQL();
-            PostgreSQL();
-            virtual bool connect(const datasourcies::Datasource& connector);
-            virtual bool query(const std::string&);
-            virtual bool query(const std::string&, std::vector<std::vector<const char*>>&);
-            virtual ID insert(const std::string&);
-            virtual bool commit();
-            virtual bool begin();
-            virtual bool rollback();
-            const datasourcies::PostgreSQL& getDatconection() const;  
-            virtual void close();
-        };
-    }
+            const Datasource& getDatconection() const;  
+	};
 }
 }
 

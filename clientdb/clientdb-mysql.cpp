@@ -1,28 +1,53 @@
-#include <mysql/my_global.h>
 #include <mysql/mysql.h>
 #include <iostream>
 
-#include "clientdb.hpp"
+#include "clientdb-mysql.hpp"
 
 namespace toolkit
 {
 namespace clientdb
 {
-    namespace datasourcies
-    {
+namespace mysql
+{        
+        Connector::Connector()
+        {
+        }
+        Connector::~Connector()
+        {
+            close();
+        }
+        const toolkit::clientdb::Datasource& Connector::getDatconection() const
+        {
+            return (const toolkit::clientdb::Datasource&)Connector::getDatconection();
+        } 
         
-    }    
-    namespace connectors
-    {          
-        bool MySQL::begin()
+        /*std::string Datasource::toString() const
+        {
+            return tooDatasource::toString();
+        } */
+        Datasource::Datasource(const Datasource& obj) : toolkit::clientdb::Datasource(obj)
+        {
+            
+        }
+        const Datasource& Datasource::operator=(const Datasource& obj)
+        {		
+            ((clientdb::Datasource&)*this)=obj;
+            return *this;
+        }
+        Datasource::Datasource(const std::string& host, unsigned int port,const std::string& database,const std::string& usuario,const std::string& password) : clientdb::Datasource(ServerType::MySQL,host,port,database,usuario,password)
+        {
+        }
+        
+        bool Connector::begin()
         {
             return false; 
         }
-        void MySQL::close()
+        void Connector::close()
         {
             if (serverConnector != NULL) mysql_close((MYSQL*)serverConnector);
+            serverConnector = NULL;
         }       
-        bool MySQL::rollback()
+        bool Connector::rollback()
         {
             if (serverConnector != NULL)
             {
@@ -34,7 +59,7 @@ namespace clientdb
             
             return false; 
         }        
-        bool MySQL::commit()
+        bool Connector::commit()
         {
             if (serverConnector != NULL)
             {
@@ -46,7 +71,7 @@ namespace clientdb
             
             return false; 
         }
-        ID MySQL::insert(const std::string& str)
+        ID Connector::insert(const std::string& str)
         {
             if (mysql_query((MYSQL*)serverConnector, str.c_str()) == 0) 
             {
@@ -57,11 +82,11 @@ namespace clientdb
                 return 0; 
             }		
         }        
-        const char* MySQL::serverDescription()
+        const char* Connector::serverDescription()
         {
             return mysql_get_client_info();
         }
-        bool MySQL::connect(const datasourcies::Datasource& conection)
+        bool Connector::connect(const toolkit::clientdb::Datasource& conection)
         {
             serverConnector = (void*)mysql_init(NULL);
             if (serverConnector == NULL)
@@ -86,10 +111,10 @@ namespace clientdb
             {
                 return false;
             }        
-            datconection = new datasourcies::Datasource((const datasourcies::Datasource&)conection);
+            datconection = new toolkit::clientdb::Datasource((const toolkit::clientdb::Datasource&)conection);
             return true;
         }
-        bool MySQL::query(const std::string& str)
+        bool Connector::query(const std::string& str)
         {
             if (mysql_query((MYSQL*)serverConnector, str.c_str()) == 0) 
             {
@@ -98,7 +123,7 @@ namespace clientdb
             
             return false;
         }
-        bool MySQL::query(const std::string& str, std::vector<std::vector<const char*>>& rows)
+        bool Connector::query(const std::string& str, std::vector<std::vector<const char*>>& rows)
         {
             if (mysql_query((MYSQL*)serverConnector, str.c_str())) 
             {
@@ -123,6 +148,6 @@ namespace clientdb
             mysql_free_result(result);
             return true;
         }
-    }
+}    
 }
 }

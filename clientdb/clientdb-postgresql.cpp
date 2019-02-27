@@ -3,36 +3,65 @@
 #include <libpq-fe.h>
 #include <iostream>
 
-#include "clientdb.hpp"
+#include "clientdb-postgresql.hpp"
 
 namespace toolkit
 {
 namespace clientdb
 {
-    namespace connectors
-    {
-        bool PostgreSQL::begin()
+namespace postgresql
+{
+        /*std::string Datasource::toString() const
+        {		
+            return toolkit::clientdb::Datasource::toString();
+        } */
+        Datasource::Datasource(const Datasource& obj) : toolkit::clientdb::Datasource(obj)
+        {
+            
+        }
+        const Datasource& Datasource::operator=(const Datasource& obj)
+        {		
+            ((Datasource&)*this)=obj;
+            return *this;
+        }
+        Datasource::Datasource(const std::string& host, unsigned int port,const std::string& database,const std::string& usuario,const std::string& password) : clientdb::Datasource(ServerType::MySQL,host,port,database,usuario,password)
+        {
+        }
+        
+        Connector::Connector()
+        {
+        }
+        Connector::~Connector()
+        {
+            close();
+        }
+        const toolkit::clientdb::Datasource& Connector::getDatconection() const
+        {
+            return (const toolkit::clientdb::Datasource&)Connector::getDatconection();
+        } 
+        bool Connector::begin()
         {
             return false; 
         }
-        void PostgreSQL::close()
+        void Connector::close()
         {
             if(serverConnector != NULL) PQfinish((PGconn*)serverConnector);
-        }       
-        bool PostgreSQL::rollback()
+            serverConnector  = NULL;
+        }
+        bool Connector::rollback()
         {
             return false; 
         }        
-        bool PostgreSQL::commit()
+        bool Connector::commit()
         {
             return false; 
         }
-        ID PostgreSQL::insert(const std::string& str)
+        ID Connector::insert(const std::string& str)
         {
             return 0;		
         }        
         
-        bool PostgreSQL::connect(const datasourcies::Datasource& conection)
+        bool Connector::connect(const toolkit::clientdb::Datasource& conection)
         {
             std::string strsql = "";
             if(conection.getHost().length() > 1)
@@ -78,7 +107,7 @@ namespace clientdb
             datconection = &conection;
             return true;
         }        
-        bool PostgreSQL::query(const std::string& str)
+        bool Connector::query(const std::string& str)
         {
             PGresult *res = PQexec((PGconn*)serverConnector, str.c_str()); 
             if (PQresultStatus(res) != PGRES_TUPLES_OK)
@@ -88,7 +117,7 @@ namespace clientdb
             }
             return true;
         }
-        bool PostgreSQL::query(const std::string& str, std::vector<std::vector<const char*>>& rows)
+        bool Connector::query(const std::string& str, std::vector<std::vector<const char*>>& rows)
         {
             PGresult *res = PQexec((PGconn*)serverConnector, str.c_str()); 
             if (PQresultStatus(res) != PGRES_TUPLES_OK)
@@ -110,8 +139,6 @@ namespace clientdb
             PQclear(res);
             return true;
         }
-    }
-	
-
+}
 }
 }
