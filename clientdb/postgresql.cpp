@@ -19,7 +19,7 @@ int main(int argc, char **argv)
 	}
 	catch(toolkit::clientdb::SQLException ex)
 	{
-		std::cerr<<ex.what()<< std::endl;
+		std::cerr << ex.what()<< std::endl;
 	}
     if(flag)
     {

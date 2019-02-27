@@ -6,7 +6,7 @@ SET(toolkit-common_VERSION_STAGE "beta")
 
 if(NOT LANG)
 	MESSAGE("Use la variable LANG para indicar el lenguaje.")	
-elseif(${LANG} STREQUAL "CXX" OR ${LANG} STREQUAL "C++")
+elseif(${LANG} STREQUAL "CXX")
 	MESSAGE("Generando componetes en C++ ...")	
 	INCLUDE(CMakeLists-CXX)
 elseif(${LANG} STREQUAL "C")
