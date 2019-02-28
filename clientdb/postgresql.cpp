@@ -37,6 +37,10 @@ int main(int argc, char **argv)
     {
         std::cout << row[1] << std::endl;
     }
+    
+    int id = connector.insert("INSERT INTO Persons(name,age) VALUES('Juan',15.3)");
+    std::cout<<"ID: " << id << std::endl;
+    
     connector.close();
     return 0;    
 }

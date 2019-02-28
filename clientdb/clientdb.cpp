@@ -11,6 +11,13 @@ namespace toolkit
 {
 namespace clientdb
 {
+	NotSupportedExcetion::NotSupportedExcetion(const std::string &description) throw() : SQLException(description) 
+	{		
+	}	
+	NotSupportedExcetion::~NotSupportedExcetion() throw()
+	{		
+	}
+	
 	SQLExceptionQuery::SQLExceptionQuery(const std::string &description) throw() : SQLException(description) 
 	{		
 	}	

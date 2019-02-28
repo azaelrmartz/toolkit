@@ -8,7 +8,7 @@ ELSEIF(${LANG} STREQUAL "CXX")
 	INCLUDE(CXX.cmake)
 ENDIF()
 
-include (InstallRequiredSystemLibraries)
+INCLUDE (InstallRequiredSystemLibraries)
 SET(CPACK_PACKAGE_VERSION_MAJOR "${toolkit-clientdb_VERSION_MAJOR}")
 SET(CPACK_PACKAGE_VERSION_MINOR "${toolkit-clientdb_VERSION_MINOR}")
 SET(CPACK_PACKAGE_VERSION_PATCH "${toolkit-clientdb_VERSION_PATCH}")

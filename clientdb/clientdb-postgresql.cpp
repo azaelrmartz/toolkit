@@ -39,28 +39,51 @@ namespace postgresql
         {
             return (const toolkit::clientdb::Datasource&)Connector::getDatconection();
         } 
-        bool Connector::begin()
-        {
-            return false; 
-        }
         void Connector::close()
         {
             if(serverConnector != NULL) PQfinish((PGconn*)serverConnector);
             serverConnector  = NULL;
+        }        
+        bool Connector::begin()
+        {
+            return query("BEGIN"); 
         }
         bool Connector::rollback()
         {
-            return false; 
+            return query("ROLLBACK"); 
         }        
         bool Connector::commit()
         {
-            return false; 
+            return query("COMMIT"); 
         }
         ID Connector::insert(const std::string& str)
-        {
-            return 0;		
-        }        
-        
+        { 		
+            PGresult *res = PQexec((PGconn*)serverConnector, str.c_str()); 
+            if (res == NULL)
+            {
+                throw SQLExceptionQuery("La consuta de insert fallo.");        
+                PQclear(res);
+            }        
+			
+			res = PQexec((PGconn*)serverConnector, "SELECT lastval()"); 
+            if (res == NULL)
+            {
+                throw SQLExceptionQuery("No se retorno datos.");        
+                PQclear(res);
+            }
+            int ID = 0;
+            int countR = PQntuples(res);
+            if(countR == 1)
+            {
+				ID = std::stoi(PQgetvalue(res, 0, 0));
+			}
+			else
+			{
+				throw SQLException("la funcion 'lastval()' no retorno resultdo.");
+			}
+			
+            return ID;		
+        }   
         bool Connector::connect(const toolkit::clientdb::Datasource& conection)
         {
             std::string strsql = "";

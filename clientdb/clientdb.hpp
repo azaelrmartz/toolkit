@@ -33,6 +33,11 @@ namespace clientdb
         virtual ~SQLExceptionQuery() throw();
         SQLExceptionQuery(const std::string &description) throw();
     };
+    class NotSupportedExcetion  : public SQLException
+    {
+        virtual ~NotSupportedExcetion() throw();
+        NotSupportedExcetion(const std::string &description) throw();		
+	};
     
 	class Datasource
 	{
