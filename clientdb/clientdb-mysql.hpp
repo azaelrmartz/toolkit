@@ -24,7 +24,7 @@ namespace mysql
         public:
             virtual ~Connector();
             Connector();
-            virtual bool connect(const toolkit::clientdb::Datasource& connector);
+            virtual bool connect(const Datasource& connector);
             const char* serverDescription();
             virtual bool query(const std::string&);
             virtual bool query(const std::string&, std::vector<std::vector<const char*>>&);
@@ -32,7 +32,7 @@ namespace mysql
             virtual bool commit();
             virtual bool begin();
             virtual bool rollback();
-            const toolkit::clientdb::Datasource& getDatconection() const;  
+            //const Datasource& getDatconection() const;  
             virtual void close();
         };        
 }

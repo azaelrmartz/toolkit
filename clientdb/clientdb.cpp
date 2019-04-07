@@ -61,11 +61,22 @@ namespace clientdb
 	{
 		return std::string(PAKAGENAME);
 	}
-	toolkit::Version getPakageVersion()
+	/*toolkit::Version getPakageVersion()
 	{
 		return toolkit::Version(VERSION_MAJOR,VERSION_MINOR,VERSION_PATCH,VERSION_STAGE);		
-	}	
+	}*/	
         
+        const char* Datasource::getServerTypeString() const
+        {
+            switch(serverType)
+            {                
+                case  MySQL:
+                    return "MySQL";
+                case PostgreSQL:
+                    return "PostgreSQL";                    
+            }
+            return "Unknow";
+        }
         
         Datasource::ServerType Datasource::getServerType() const
         {
@@ -157,7 +168,21 @@ namespace clientdb
             return port;
         }
         
+        
+        
+        
 
+        const Connector&Connector:: operator=(const Connector& obj)       
+        {
+            this->serverConnector = obj.serverConnector;
+            this->datconection = obj.datconection;
+        }
+        
+        bool Connector::connect(const Datasource& connector) 
+        {
+            throw SQLException("Deve implemetar en la case superior esta funcion del driver del Conector apropiado.");
+        }
+        
         bool Connector::is_ipv4_address(const std::string& str)
         {
             struct sockaddr_in sa;

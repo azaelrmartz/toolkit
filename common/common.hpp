@@ -6,7 +6,7 @@
 namespace toolkit
 {
 	/**
-	 * \brief Informacion de version
+	 * \brief Informacion de Version
 	 * 
 	 **/
 	class Version
@@ -19,8 +19,8 @@ namespace toolkit
 			beta,
 			release
 		};
-	private:
-	
+		
+	private:	
 		short major;
 		short minor;
 		short patch;
@@ -39,7 +39,7 @@ namespace toolkit
 
 	
 	/**
-	 * \brief returna la version actual de componente common
+	 * \brief retorna la version actual de componente
 	 **/
 	Version getVersion();	
 }

@@ -16,10 +16,10 @@ namespace mysql
         {
             close();
         }
-        const toolkit::clientdb::Datasource& Connector::getDatconection() const
+       /* const Datasource& Connector::getDatconection() const
         {
-            return (const toolkit::clientdb::Datasource&)Connector::getDatconection();
-        } 
+            return (const toolkit::clientdb::mysql::Datasource&)(toolkit::clientdb::Connector ::getDatconection());
+        } */
         
         /*std::string Datasource::toString() const
         {
@@ -31,8 +31,8 @@ namespace mysql
         }
         const Datasource& Datasource::operator=(const Datasource& obj)
         {		
-            ((clientdb::Datasource&)*this)=obj;
-            return *this;
+             ((clientdb::Datasource&)*this)=obj;//llamar el construc de la clase base
+             return *this;
         }
         Datasource::Datasource(const std::string& host, unsigned int port,const std::string& database,const std::string& usuario,const std::string& password) : clientdb::Datasource(ServerType::MySQL,host,port,database,usuario,password)
         {
@@ -86,7 +86,7 @@ namespace mysql
         {
             return mysql_get_client_info();
         }
-        bool Connector::connect(const toolkit::clientdb::Datasource& conection)
+        bool Connector::connect(const Datasource& conection)
         {
             serverConnector = (void*)mysql_init(NULL);
             if (serverConnector == NULL)
@@ -111,7 +111,7 @@ namespace mysql
             {
                 return false;
             }        
-            datconection = new toolkit::clientdb::Datasource((const toolkit::clientdb::Datasource&)conection);
+            datconection = &conection;
             return true;
         }
         bool Connector::query(const std::string& str)

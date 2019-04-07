@@ -56,7 +56,8 @@ namespace clientdb
             const std::string& getUser()const;
             const std::string& getPassword()const;
             const std::string& getDatabase()const;
-            ServerType getServerType()const;		
+            ServerType getServerType()const;
+            const char* getServerTypeString()const;
             unsigned int getPort()const;
 	protected:
             Datasource(ServerType serverType,const std::string& host, unsigned int port,const std::string& database,const std::string& usuario,const std::string& password);
@@ -75,6 +76,7 @@ namespace clientdb
         protected:
             void* serverConnector;
             const Datasource* datconection;
+            //
             bool is_ipv4_address(const std::string& str);
             bool is_ipv6_address(const std::string& str);
             bool is_valid_domain_name(const std::string& str);
@@ -82,7 +84,7 @@ namespace clientdb
         public:
             virtual ~Connector();
             Connector();
-            virtual bool connect(const Datasource& connector) = 0;            
+            virtual bool connect(const Datasource& connector) ;            
             virtual bool query(const std::string&) = 0;
             virtual bool query(const std::string&, std::vector<std::vector<const char*>>&) = 0;
             virtual ID insert(const std::string&) = 0;
@@ -92,6 +94,7 @@ namespace clientdb
             virtual void close() = 0;
             void* getServerConnector();
             const Datasource& getDatconection() const;  
+            const Connector& operator=(const Connector& obj);
 	};
 }
 }
