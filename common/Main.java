@@ -6,7 +6,7 @@ public class Main
 	{
 		// Prints "Hello, World" to the terminal window.
 		Version version = new Version(0,1,1,Version.Stage.alpha);
-		System.out.println("Version :" + version.toString());
+		System.out.println("Version :" + Version.versionPakage.toString());
 		//System.out.println("Hello");
 	}
 }
