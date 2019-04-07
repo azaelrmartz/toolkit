@@ -1,12 +1,12 @@
-//import common.Version;
+import toolkit.common.Version;
 
 public class Main 
 {
 	public static void main(String[] args) 
 	{
 		// Prints "Hello, World" to the terminal window.
-		//Version version(0,1,1,Version::Stage::alpha);
-		//System.out.println("Version :" + version.getString());
-		System.out.println("Hello");
+		Version version = new Version(0,1,1,Version.Stage.alpha);
+		System.out.println("Version :" + version.toString());
+		//System.out.println("Hello");
 	}
 }

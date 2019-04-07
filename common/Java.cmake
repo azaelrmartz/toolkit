@@ -9,7 +9,7 @@ enable_testing()
 
 set(CMAKE_JAVA_COMPILE_FLAGS "-source" "1.8" "-target" "1.8")
 
-add_jar(Main SOURCES Main.java ENTRY_POINT Main)
+add_jar(Main SOURCES Main.java toolkit/common/Version.java ENTRY_POINT Main)
 
 get_target_property(_jarFile Main JAR_FILE)
 get_target_property(_classDir Main CLASSDIR)
