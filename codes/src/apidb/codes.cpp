@@ -23,7 +23,7 @@
 
 #include <stdio.h>
 #include <sqlite3.h> 
-
+#include <iostream>
 
 namespace codes
 {
@@ -85,10 +85,10 @@ namespace codes
 		/**
 		***
 		**/
-		bool Language::selectAll(Conector& conect,std::vector<Language*>& vec)
+		bool Language::selectAll(Conector& conect, std::vector<Language*>& vec)
 		{
 			std::string sql = "SELECT id,language,iso6391,iso6392 FROM Languages";
-			if(conect.query(sql,callbackByCode,&vec))
+			if(conect.query(sql,callbackAll,&vec))
 			{
 				return true;
 			}
@@ -116,31 +116,25 @@ namespace codes
 			return comment;
 		}
 			
+                int Language::callbackAll(void *obj, int argc, char **argv, char **azColName)
+		{
+                        std::vector<Language*>* lst = (std::vector<Language*>*)obj;
+                        Language* p = new Language();
+                        p->id = std::atoi(argv[0] ? argv[0] : "0");
+                        p->language = argv[1] ? argv[1] : "";
+                        p->iso6391 = argv[2] ? argv[2] : "";	
+                        p->iso6392 = argv[3] ? argv[3] : "";
+                        lst->push_back(p);
+			return 0;
+		}
 		int Language::callbackByCode(void *obj, int argc, char **argv, char **azColName)
 		{
-			//if(typeid(obj) == typeid(Language*))
-			{
-				Language* p = (Language*)obj;				
-				//printf("%s = %s\n", azColName[i], argv[i] ? argv[i] : "NULL");
-				p->id = std::atoi(argv[0] ? argv[0] : "0");
-				p->language = argv[1] ? argv[1] : "";
-				p->iso6391 = argv[2] ? argv[2] : "";	
-				p->iso6392 = argv[3] ? argv[3] : "";
-			}		
-			/*else if(typeid(obj) == typeid(std::vector<Language*>*))
-			{
-				std::vector<Language*>* lst = (std::vector<Language*>*)obj;
-				for(int i = 0; i < argc; i++)
-				{
-					Language* p = new Language();
-					p->id = std::atoi(argv[0] ? argv[0] : "0");
-					p->language = argv[1] ? argv[1] : "";
-					p->iso6391 = argv[2] ? argv[2] : "";	
-					p->iso6392 = argv[3] ? argv[3] : "";
-					lst->push_back(p);
-				}
-			}*/
-			
+                        Language* p = (Language*)obj;				
+			//printf("%s = %s\n", azColName[i], argv[i] ? argv[i] : "NULL");
+                        p->id = std::atoi(argv[0] ? argv[0] : "0");
+                        p->language = argv[1] ? argv[1] : "";
+                        p->iso6391 = argv[2] ? argv[2] : "";	
+                        p->iso6392 = argv[3] ? argv[3] : "";			
 			return 0;
 		}
 		bool Language::selectByCode(Conector& connect, const std::string& code)

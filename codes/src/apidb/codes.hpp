@@ -53,6 +53,7 @@ namespace codes
 			std::string comment;
                         //
 			static int callbackByCode(void *data, int argc, char **argv, char **azColName);
+                        static int callbackAll(void *data, int argc, char **argv, char **azColName);
 			
 		public:
 			bool selectByCode(Conector& conect, const std::string& code);

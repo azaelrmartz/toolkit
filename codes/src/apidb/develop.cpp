@@ -36,6 +36,14 @@ int main(int argc, char *argv[])
 	
 	
 	std::cout<< lang.getLanguage() << " de " << country.getCountry() << std::endl;
+        
+        std::vector<codes::database::Language*> langs;
+        codes::database::Language::selectAll(conn,langs);
+        std::cout << "Lenguajes conocidos:" << std::endl;
+        for(auto l:langs)
+        {
+                std::cout << "\t" <<  l->getLanguage() << std::endl;
+        }
 	
 	return 0;
 }
