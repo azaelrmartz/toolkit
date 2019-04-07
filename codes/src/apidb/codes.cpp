@@ -76,13 +76,19 @@ namespace codes
 			return false;
 		}
 		
+		
+		
+		
+		
+		
+		
 		/**
 		***
 		**/
 		bool Language::selectAll(Conector& conect,std::vector<Language*>& vec)
 		{
 			std::string sql = "SELECT id,language,iso6391,iso6392 FROM Languages";
-			if(conect.query(sql,callback,&vec))
+			if(conect.query(sql,callbackByCode,&vec))
 			{
 				return true;
 			}
@@ -110,7 +116,7 @@ namespace codes
 			return comment;
 		}
 			
-		int Language::callback(void *obj, int argc, char **argv, char **azColName)
+		int Language::callbackByCode(void *obj, int argc, char **argv, char **azColName)
 		{
 			//if(typeid(obj) == typeid(Language*))
 			{
@@ -135,13 +141,13 @@ namespace codes
 				}
 			}*/
 			
-			return argc;
+			return 0;
 		}
 		bool Language::selectByCode(Conector& connect, const std::string& code)
 		{
 			std::string sql = "SELECT id,language,iso6391,iso6392 FROM Languages WHERE iso6391 = '";
 			sql = sql + code + "' OR iso6392 = '"  + code + "'" ;
-			if(connect.query(sql,callback,this))
+			if(connect.query(sql,callbackByCode,this))
 			{
 				return true;
 			}
@@ -164,6 +170,12 @@ namespace codes
 				sqlite3_free(zErrMsg);
 				return false;				
 			}
+			else if( rc == SQLITE_ABORT ) 
+			{
+				fprintf(stderr, "SQL error(%i) : %s\n Quiza la callback retorn no-zero valor.",rc, zErrMsg);
+				sqlite3_free(zErrMsg);
+				return false;				
+			}
 			else if( rc != SQLITE_OK ) 			
 			{
 				fprintf(stderr, "SQL error(%i): %s\n",rc, zErrMsg);
@@ -173,7 +185,7 @@ namespace codes
 			else 
 			{
 				//fprintf(stdout, "Operation done successfully\n");
-				return false;			
+				return true;			
 			}
 			return true;			
 		}

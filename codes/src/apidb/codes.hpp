@@ -51,11 +51,12 @@ namespace codes
 			std::string iso6392;
 			std::string language;
 			std::string comment;
+                        //
+			static int callbackByCode(void *data, int argc, char **argv, char **azColName);
 			
 		public:
 			bool selectByCode(Conector& conect, const std::string& code);
 			static bool selectAll(Conector& conect,std::vector<Language*>& vec);
-			static int callback(void *data, int argc, char **argv, char **azColName);
 			const std::string& getStandard();
 			const std::string& get6391();
 			const std::string& get6392();
@@ -75,10 +76,11 @@ namespace codes
 			std::string alpha3;
 			std::string country;
 			std::string comment;
+                        //
+			static int callback(void *data, int argc, char **argv, char **azColName);
 			
 		public:
 			bool selectByCode(Conector& conect, const std::string& code);
-			static int callback(void *data, int argc, char **argv, char **azColName);
 			const std::string& getStandard();
 			const std::string& getAlpha2();
 			const std::string& getAlpha3();
