@@ -39,3 +39,8 @@ common/config.h
 common/main
 common/main.o
 clientdb/build-*
+codes/src/apidb/.kdev4
+codes/src/apidb/apidb.kdev4
+codes/src/apidb/build/*
+codes/src/apidb/config.h
+common/.kdev4/
