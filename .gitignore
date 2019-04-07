@@ -38,4 +38,4 @@ clientdb/config.h
 common/config.h
 common/main
 common/main.o
-
+clientdb/build-*
