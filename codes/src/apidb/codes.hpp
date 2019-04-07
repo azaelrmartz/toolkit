@@ -57,7 +57,7 @@ namespace codes
 			
 		public:
 			bool selectByCode(Conector& conect, const std::string& code);
-			static bool selectAll(Conector& conect,std::vector<Language*>& vec);
+			static bool selectAll(Conector& conect, std::vector<Language*>& vec);
 			const std::string& getStandard();
 			const std::string& get6391();
 			const std::string& get6392();
@@ -78,10 +78,12 @@ namespace codes
 			std::string country;
 			std::string comment;
                         //
-			static int callback(void *data, int argc, char **argv, char **azColName);
-			
+			static int callbackByCode(void *data, int argc, char **argv, char **azColName);
+			static int callbackAll(void* obj, int argc, char** argv, char** azColName);
+                        
 		public:
 			bool selectByCode(Conector& conect, const std::string& code);
+                        static bool selectAll(Conector& conect, std::vector<Country*>& vec);
 			const std::string& getStandard();
 			const std::string& getAlpha2();
 			const std::string& getAlpha3();

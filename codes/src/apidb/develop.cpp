@@ -45,5 +45,13 @@ int main(int argc, char *argv[])
                 std::cout << "\t" <<  l->getLanguage() << std::endl;
         }
 	
+	
+        std::vector<codes::database::Country*> countries;
+        codes::database::Country::selectAll(conn,countries);
+        std::cout << "Paises conocidos:" << std::endl;
+        for(auto c:countries)
+        {
+                std::cout << "\t" <<  c->getCountry() << std::endl;
+        }
 	return 0;
 }

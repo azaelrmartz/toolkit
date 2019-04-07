@@ -53,9 +53,8 @@ namespace codes
 			return comment;
 		}
 			
-		int Country::callback(void *obj, int argc, char **argv, char **azColName)
+		int Country::callbackByCode(void *obj, int argc, char **argv, char **azColName)
 		{
-			//fprintf(stderr, "%s: ", (const char*)data);
 			Country* p = (Country*)obj;
 			//printf("%s = %s\n", azColName[i], argv[i] ? argv[i] : "NULL");
 			p->id = std::atoi(argv[0] ? argv[0] : "0");
@@ -68,7 +67,28 @@ namespace codes
 		{
 			std::string sql = "SELECT id,country,alpha2,alpha3 FROM Countries WHERE alpha2 = '";
 			sql = sql + code + "' OR alpha3 = '" + code + "'";
-			if(connect.query(sql,callback,this))
+			if(connect.query(sql,callbackByCode,this))
+			{
+				return true;
+			}
+			
+			return false;
+		}
+		int Country::callbackAll(void *obj, int argc, char **argv, char **azColName)
+		{
+			std::vector<Country*>* lst = (std::vector<Country*>*)obj;
+                         Country* c = new Country();
+			c->id = std::atoi(argv[0] ? argv[0] : "0");
+			c->country = argv[1] ? argv[1] : "";
+			c->alpha2 = argv[2] ? argv[2] : "";
+			c->alpha3 = argv[3] ? argv[3] : "";	
+                         lst->push_back(c);
+			return 0;
+		}
+		bool Country::selectAll(Conector& conect, std::vector<Country*>& vec)
+		{
+			std::string sql = "SELECT id,country,alpha2,alpha3 FROM Countries ";
+			if(conect.query(sql,callbackAll,&vec))
 			{
 				return true;
 			}
@@ -130,7 +150,6 @@ namespace codes
 		int Language::callbackByCode(void *obj, int argc, char **argv, char **azColName)
 		{
                         Language* p = (Language*)obj;				
-			//printf("%s = %s\n", azColName[i], argv[i] ? argv[i] : "NULL");
                         p->id = std::atoi(argv[0] ? argv[0] : "0");
                         p->language = argv[1] ? argv[1] : "";
                         p->iso6391 = argv[2] ? argv[2] : "";	
