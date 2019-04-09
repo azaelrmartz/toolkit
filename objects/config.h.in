@@ -1,0 +1,10 @@
+#define MAJOR @toolkit-objects_VERSION_MAJOR@
+#define MINOR @toolkit-objects_VERSION_MINOR@
+#define PATCH @toolkit-objects_VERSION_PATCH@
+#define BUILD @toolkit-objects_VERSION_BUILD@
+#ifdef __cplusplus
+#define STAGE Version::Stage::@toolkit-objects_VERSION_STAGE@
+#else
+#define STAGE @toolkit-objects_VERSION_STAGE@
+#endif
+
