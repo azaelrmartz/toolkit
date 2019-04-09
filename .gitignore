@@ -44,3 +44,9 @@ codes/src/apidb/apidb.kdev4
 codes/src/apidb/build/*
 codes/src/apidb/config.h
 common/.kdev4/
+common/common.kdev4
+objects/objects.kdev4
+objects/config.h
+objects/build-*/*
+codes/src/apidb/build-*/*
+common/Version.java

@@ -13,5 +13,5 @@ ADD_LIBRARY(${targetName} STATIC common.cpp)
 TARGET_LINK_LIBRARIES(${targetName}) 
 
 INSTALL(TARGETS ${targetName} DESTINATION lib/toolkit)
-INSTALL(FILES common.hpp DESTINATION include/toolkit)
+INSTALL(FILES toolkit-common.hpp DESTINATION include/toolkit)
 
