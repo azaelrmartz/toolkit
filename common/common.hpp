@@ -5,11 +5,17 @@
 
 namespace toolkit
 {
+        class Object
+        {
+                
+        };
+        
+        
 	/**
 	 * \brief Informacion de Version
 	 * 
 	 **/
-	class Version
+	class Version: public Object
 	{
 	public:		
 		enum Stage
