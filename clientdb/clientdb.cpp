@@ -5,7 +5,7 @@
 #include <arpa/inet.h>
 
 #include "config.h"
-#include "clientdb.hpp"
+#include "toolkit-clientdb.hpp"
 
 namespace toolkit
 {

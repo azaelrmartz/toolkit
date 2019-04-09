@@ -5,16 +5,16 @@
 #include <string>
 #include <mysql.h>
 
-#include "clientdb-mysql.hpp"
+#include "toolkit-clientdb-mysql.hpp"
 
 int main(int argc, char **argv)
 {
-    toolkit::clientdb::mysql::Datasource postgreSQLSource("192.168.0.101",3306,"sis","develop","123456");  
+    toolkit::clientdb::mysql::Datasource mysqlSQLSource("192.168.0.101",3306,"sis","develop","123456");  
     toolkit::clientdb::mysql::Connector connector; 
     bool flag = false;  
     try
     {
-		flag = connector.connect(postgreSQLSource);
+		flag = connector.connect(mysqlSQLSource);
 	}
 	catch(toolkit::clientdb::SQLException ex)
 	{
