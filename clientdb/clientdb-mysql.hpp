@@ -1,7 +1,6 @@
 #ifndef TOOLKIT_CLIENTDB_MYSQL_HPP
 #define TOOLKIT_CLIENTDB_MYSQL_HPP
 
-#include <common.hpp>
 #include <vector>
 
 #include "clientdb.hpp"
