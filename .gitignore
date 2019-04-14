@@ -50,3 +50,4 @@ objects/config.h
 objects/build-*/*
 codes/src/apidb/build-*/*
 common/Version.java
+/maven/maven-archetype-plain-java/target/
