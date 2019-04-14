@@ -35,7 +35,10 @@ namespace objects
         
         class License : public Object
         {
-                
+        public:
+                License(const std::string& nameLic);
+        private:
+                std::string terms;
         };
         
         

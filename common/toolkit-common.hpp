@@ -2,12 +2,25 @@
 #define TOOLKIT_COMMON_HPP
 
 #include <string>
+#ifndef DEBUG
+        #define COLLETION_ASSISTANT
+#endif
+#ifdef COLLETION_ASSISTANT
+
+#endif
 
 namespace toolkit
 {
         class Object
         {
-                
+#ifdef COLLETION_ASSISTANT
+        protected:
+                void addChild(Object*);
+                void removeChild( Object*);
+                Object();
+        private:
+                unsigned int countChilds;                
+#endif
         };
         
         

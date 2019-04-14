@@ -9,6 +9,107 @@ namespace clientdb
 {
 namespace mysql
 {        
+        Row::Row(Row& row)
+        {
+                this->row = row.row;
+#ifdef COLLETION_ASSISTANT
+                this->parent = row.parent;
+#endif
+        }
+         const char* Row::operator[](unsigned long long index)
+         {
+                 if(row != NULL) return ((MYSQL_ROW)row)[index];
+                 return NULL;
+        }
+        Row::Row()
+        {
+#ifdef COLLETION_ASSISTANT
+                
+#endif
+        }
+        Row::Row(void* row):toolkit::clientdb::Row(row)
+        {
+#ifdef COLLETION_ASSISTANT
+                
+#endif
+        }
+        
+        
+        
+        
+        
+       
+        
+        toolkit::clientdb::Row& Datresult::operator[](unsigned long long index)
+        {
+                if(mysql_num_rows((MYSQL_RES*)result)  < index)
+                {
+                        mysql_data_seek((MYSQL_RES*)result,index); 
+                        Row* r = NULL;
+                        if(index >= 0) 
+                        {
+                                MYSQL_ROW row  = mysql_fetch_row((MYSQL_RES*)result);
+                                 r = new Row(row);
+#ifdef COLLETION_ASSISTANT
+                                addChild(r);
+#endif                                 
+                                return *r;
+                        }
+                        else
+                        {
+                                 r = new Row(NULL);
+                                  return *r;
+                        }
+                }
+        }
+        Datresult::Datresult(void* result) : toolkit::clientdb::Datresult(result)
+        {
+        }
+        toolkit::clientdb::Row& Datresult::next()
+        {
+                MYSQL_ROW row  = mysql_fetch_row((MYSQL_RES*)result);
+                Row* r = NULL;
+                if(row != NULL )
+                {
+                        r = new Row(row);
+#ifdef COLLETION_ASSISTANT
+                        addChild(r);
+#endif                                 
+                        return *r;
+                }
+                else
+                {
+                        r = new Row(NULL);
+                        return *r;
+                }
+        }
+        Datresult::~Datresult()
+        {
+                if(result != NULL)
+                {
+                        mysql_free_result((MYSQL_RES*)result);
+                        result = NULL;
+                }
+        }
+        
+        
+        
+        
+        Datconnect::Datconnect(const Datconnect& obj) : toolkit::clientdb::Datconnect(obj)
+        {
+        }
+        const Datconnect& Datconnect::operator=(const Datconnect& obj)
+        {		
+             ((clientdb::Datconnect&)*this)=obj;//llamar el construc de la clase base
+             return *this;
+        }
+        Datconnect::Datconnect(const std::string& host, unsigned int port,const std::string& database,const std::string& user,const std::string& password) : clientdb::Datconnect(ServerType::MySQL,host,port,database,user,password)
+        {
+        }
+        
+        
+
+        
         Connector::Connector()
         {
         }
@@ -16,48 +117,53 @@ namespace mysql
         {
             close();
         }
-       /* const Datasource& Connector::getDatconection() const
+        Datresult& Connector::query(const char* str)
         {
-            return (const toolkit::clientdb::mysql::Datasource&)(toolkit::clientdb::Connector ::getDatconection());
-        } */
-        
-        /*std::string Datasource::toString() const
-        {
-            return tooDatasource::toString();
-        } */
-        Datasource::Datasource(const Datasource& obj) : toolkit::clientdb::Datasource(obj)
-        {
-            
+                if (mysql_query((MYSQL*)serverConnector, str)  != 0) 
+                {
+                        std::string msg = "";
+                        msg = msg + " MySQL Server Error No. : '";
+                        msg = msg + std::to_string(mysql_errno((MYSQL*)serverConnector));
+                        msg = msg + "' ";
+                        msg = msg + mysql_error((MYSQL*)serverConnector);
+                        throw SQLException(msg);   
+                }
+                MYSQL_RES *result = mysql_store_result((MYSQL*)serverConnector);
+                if (result == NULL && mysql_errno((MYSQL*)serverConnector) != 0) 
+                {
+                        std::string msg = "";
+                        msg = msg + " MySQL Server Error No. : '";
+                        msg = msg + std::to_string(mysql_errno((MYSQL*)serverConnector));
+                        msg = msg + "' ";
+                        msg = msg + mysql_error((MYSQL*)serverConnector);
+                        throw SQLException(msg);   
+                }
+                Datresult* dtrs = new Datresult(result);
+#ifdef COLLETION_ASSISTANT
+                addChild(dtrs);
+#endif    
+                return *dtrs;
         }
-        const Datasource& Datasource::operator=(const Datasource& obj)
-        {		
-             ((clientdb::Datasource&)*this)=obj;//llamar el construc de la clase base
-             return *this;
-        }
-        Datasource::Datasource(const std::string& host, unsigned int port,const std::string& database,const std::string& usuario,const std::string& password) : clientdb::Datasource(ServerType::MySQL,host,port,database,usuario,password)
-        {
-        }
-        
         bool Connector::begin()
         {
             return false; 
         }
         void Connector::close()
         {
-            if (serverConnector != NULL) mysql_close((MYSQL*)serverConnector);
-            serverConnector = NULL;
+                if (serverConnector != NULL) mysql_close((MYSQL*)serverConnector);
+                serverConnector = NULL;
         }       
         bool Connector::rollback()
         {
-            if (serverConnector != NULL)
-            {
-                if(mysql_rollback((MYSQL*)serverConnector) == 0)
+                if (serverConnector != NULL)
                 {
-                    return true;
+                        if(mysql_rollback((MYSQL*)serverConnector) == 0)
+                        {
+                        return true;
+                        }
                 }
-            }
             
-            return false; 
+                return false; 
         }        
         bool Connector::commit()
         {
@@ -86,7 +192,7 @@ namespace mysql
         {
             return mysql_get_client_info();
         }
-        bool Connector::connect(const Datasource& conection)
+        bool Connector::connect(const Datconnect& conection)
         {
             serverConnector = (void*)mysql_init(NULL);
             if (serverConnector == NULL)

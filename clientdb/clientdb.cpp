@@ -11,6 +11,21 @@ namespace toolkit
 {
 namespace clientdb
 {
+        Row::Row()
+        {
+                
+        }
+        Row::Row(void* row)
+        {
+                this->row = row;
+        }
+        
+        
+        Datresult::Datresult(void* result)
+        {
+                this->result = result;
+        }
+
 	NotSupportedExcetion::NotSupportedExcetion(const std::string &description) throw() : SQLException(description) 
 	{		
 	}	
@@ -66,7 +81,7 @@ namespace clientdb
 		return toolkit::Version(VERSION_MAJOR,VERSION_MINOR,VERSION_PATCH,VERSION_STAGE);		
 	}*/	
         
-        const char* Datasource::getServerTypeString() const
+        const char* Datconnect::getServerTypeString() const
         {
             switch(serverType)
             {                
@@ -78,12 +93,12 @@ namespace clientdb
             return "Unknow";
         }
         
-        Datasource::ServerType Datasource::getServerType() const
+        Datconnect::ServerType Datconnect::getServerType() const
         {
             return serverType;
         }
 	
-        void Datasource::set(ServerType serverType,const std::string& host, unsigned int port,const std::string& database,const std::string& usuario,const std::string& password)
+        void Datconnect::set(ServerType serverType,const std::string& host, unsigned int port,const std::string& database,const std::string& usuario,const std::string& password)
         {
             this->host = host;
             this->user = usuario;
@@ -92,7 +107,7 @@ namespace clientdb
             this->port = port;
             this->serverType = serverType;        
         }
-        const Datasource& Datasource::operator=(const Datasource& obj)
+        const Datconnect& Datconnect::operator=(const Datconnect& obj)
         {
             this->host = obj.host;
             this->user = obj.user;
@@ -104,7 +119,7 @@ namespace clientdb
             return obj;
         }
         
-        std::string Datasource::toString() const
+        std::string Datconnect::toString() const
         {
             std::string constr = "";
             if(!host.empty())
@@ -128,7 +143,7 @@ namespace clientdb
             return constr;
         }
         
-        Datasource::Datasource(const Datasource& obj)
+        Datconnect::Datconnect(const Datconnect& obj)
         {
             this->host = obj.host;
             this->user = obj.user;
@@ -137,7 +152,7 @@ namespace clientdb
             this->port = obj.port;		
         }
         
-        Datasource::Datasource(ServerType serverType,const std::string& host, unsigned int port,const std::string& database,const std::string& usuario,const std::string& password)
+        Datconnect::Datconnect(ServerType serverType,const std::string& host, unsigned int port,const std::string& database,const std::string& usuario,const std::string& password)
         {
             this->host = host;
             this->user = usuario;
@@ -147,23 +162,23 @@ namespace clientdb
             this->serverType = serverType;
         }
         
-        const std::string& Datasource::getHost()const
+        const std::string& Datconnect::getHost()const
         {
             return host;
         }
-        const std::string& Datasource::getUser()const
+        const std::string& Datconnect::getUser()const
         {
             return user;
         }
-        const std::string& Datasource::getPassword()const
+        const std::string& Datconnect::getPassword()const
         {
             return password;
         }
-        const std::string& Datasource::getDatabase()const
+        const std::string& Datconnect::getDatabase()const
         {
             return database;
         }
-        unsigned int Datasource::getPort()const
+        unsigned int Datconnect::getPort()const
         {
             return port;
         }
@@ -178,7 +193,7 @@ namespace clientdb
             this->datconection = obj.datconection;
         }
         
-        bool Connector::connect(const Datasource& connector) 
+        bool Connector::connect(const Datconnect& connector) 
         {
             throw SQLException("Deve implemetar en la case superior esta funcion del driver del Conector apropiado.");
         }
@@ -290,7 +305,7 @@ namespace clientdb
         {
             return this->serverConnector;
         }
-        const Datasource& Connector::getDatconection() const
+        const Datconnect& Connector::getDatconection() const
         {
             return *datconection;
         }

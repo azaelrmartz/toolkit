@@ -4,6 +4,22 @@
 
 namespace toolkit
 {	
+        
+#ifdef COLLETION_ASSISTANT
+        Object::Object()
+        {
+                countChilds = 0;
+        }
+        void Object::addChild(Object*)
+        {
+                countChilds++;
+        }
+        void Object::removeChild(Object*)
+        {
+                countChilds--;
+        }
+#endif
+
 	short Version::getMajor() const
 	{
 		return this->major;		

@@ -22,6 +22,22 @@ namespace toolkit
 {
 namespace objects
 {
+        License::License(const std::string& nameLic)
+        {
+                if(nameLic.compare("GPLv1")  == 0)
+                {
+                        
+                }
+                else if(nameLic.compare("GPLv2")  == 0)
+                {
+                        
+                }
+                else if(nameLic.compare("GPLv3")  == 0)
+                {
+                        
+                }
+        }
+
         Person::Person(int namesleng): names(namesleng)
         {
                 

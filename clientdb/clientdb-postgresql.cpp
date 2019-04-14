@@ -15,27 +15,27 @@ namespace postgresql
         {		
             return toolkit::clientdb::Datasource::toString();
         } */
-        Datasource::Datasource(const Datasource& obj) : toolkit::clientdb::Datasource(obj)
+        Datconnect::Datasource(const Datconnect& obj) : toolkit::clientdb::Datasource(obj)
         {
             
         }
-        const Datasource& Datasource::operator=(const Datasource& obj)
+        const Datconnect& Datconnect::operator=(const Datconnect& obj)
         {		
             ((Datasource&)*this)=obj;
             return *this;
         }
-        Datasource::Datasource(const std::string& host, unsigned int port,const std::string& database,const std::string& usuario,const std::string& password) : clientdb::Datasource(ServerType::MySQL,host,port,database,usuario,password)
+        Datconnect::Datconnect(const std::string& host, unsigned int port,const std::string& database,const std::string& usuario,const std::string& password) : clientdb::Datconnect(ServerType::MySQL,host,port,database,usuario,password)
         {
         }
         
-        Connector::Connector()
+        Datconnect::Connector()
         {
         }
-        Connector::~Connector()
+        Datconnect::~Connector()
         {
             close();
         }
-        const toolkit::clientdb::Datasource& Connector::getDatconection() const
+        const toolkit::clientdb::Datconnect& Connector::getDatconection() const
         {
             return (const toolkit::clientdb::Datasource&)Connector::getDatconection();
         } 
@@ -84,7 +84,7 @@ namespace postgresql
 			
             return ID;		
         }   
-        bool Connector::connect(const toolkit::clientdb::Datasource& conection)
+        bool Connector::connect(const toolkit::clientdb::Datconnect& conection)
         {
             std::string strsql = "";
             if(conection.getHost().length() > 1)
