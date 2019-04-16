@@ -51,3 +51,7 @@ objects/build-*/*
 codes/src/apidb/build-*/*
 common/Version.java
 /maven/maven-archetype-plain-java/target/
+/common/target/
+/clientdb/target/
+/clientdb/nbproject/
+objects/.kdev4/

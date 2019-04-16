@@ -115,6 +115,7 @@ namespace clientdb
             virtual bool connect(const Datconnect& connector) ;            
             virtual bool query(const std::string&) = 0;
             virtual bool query(const std::string&, std::vector<std::vector<const char*>>&) = 0;
+            virtual Datresult& query(const char*) = 0;
             virtual ID insert(const std::string&) = 0;
             virtual bool commit() = 0;
             virtual bool begin() = 0;

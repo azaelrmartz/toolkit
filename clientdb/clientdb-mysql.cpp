@@ -117,7 +117,7 @@ namespace mysql
         {
             close();
         }
-        Datresult& Connector::query(const char* str)
+        toolkit::clientdb::Datresult& Connector::query(const char* str)
         {
                 if (mysql_query((MYSQL*)serverConnector, str)  != 0) 
                 {

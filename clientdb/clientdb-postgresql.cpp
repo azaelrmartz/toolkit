@@ -3,7 +3,7 @@
 #include <libpq-fe.h>
 #include <iostream>
 
-#include "clientdb-postgresql.hpp"
+#include "toolkit-clientdb-mysql.hpp"
 
 namespace toolkit
 {
@@ -15,23 +15,24 @@ namespace postgresql
         {		
             return toolkit::clientdb::Datasource::toString();
         } */
-        Datconnect::Datasource(const Datconnect& obj) : toolkit::clientdb::Datasource(obj)
+        Datconnect::Datconnect(const Datconnect& obj) : toolkit::clientdb::Datconnect(obj)
         {
             
         }
         const Datconnect& Datconnect::operator=(const Datconnect& obj)
         {		
-            ((Datasource&)*this)=obj;
+            ((Datconnect&)*this)=obj;
             return *this;
         }
         Datconnect::Datconnect(const std::string& host, unsigned int port,const std::string& database,const std::string& usuario,const std::string& password) : clientdb::Datconnect(ServerType::MySQL,host,port,database,usuario,password)
         {
         }
         
-        Datconnect::Connector()
+        
+        Connector::Connector()
         {
         }
-        Datconnect::~Connector()
+        Connector::~Connector()
         {
             close();
         }

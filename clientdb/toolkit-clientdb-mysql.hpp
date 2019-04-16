@@ -52,7 +52,7 @@ namespace mysql
             const char* serverDescription();
             virtual bool query(const std::string&);
             virtual bool query(const std::string&, std::vector<std::vector<const char*>>&);
-            virtual Datresult& query(const char*);
+            virtual toolkit::clientdb::Datresult& query(const char*);
             virtual ID insert(const std::string&);
             virtual bool commit();
             virtual bool begin();
