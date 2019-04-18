@@ -40,12 +40,12 @@ namespace mysql
         
        
         
-        toolkit::clientdb::Row& Datresult::operator[](unsigned long long index)
+        toolkit::clientdb::Row* Datresult::operator[](unsigned long long index)
         {
+                Row* r = NULL;
                 if(mysql_num_rows((MYSQL_RES*)result)  < index)
                 {
                         mysql_data_seek((MYSQL_RES*)result,index); 
-                        Row* r = NULL;
                         if(index >= 0) 
                         {
                                 MYSQL_ROW row  = mysql_fetch_row((MYSQL_RES*)result);
@@ -53,36 +53,32 @@ namespace mysql
 #ifdef COLLETION_ASSISTANT
                                 addChild(r);
 #endif                                 
-                                return *r;
+                                return r;
                         }
                         else
                         {
                                  r = new Row(NULL);
-                                  return *r;
+                                  return r;
                         }
-                }
+                        
+                }                
+                return r;
         }
+        
         Datresult::Datresult(void* result) : toolkit::clientdb::Datresult(result)
         {
         }
-        toolkit::clientdb::Row& Datresult::next()
+        
+        toolkit::clientdb::Row* Datresult::next()
         {
                 MYSQL_ROW row  = mysql_fetch_row((MYSQL_RES*)result);
-                Row* r = NULL;
-                if(row != NULL )
-                {
-                        r = new Row(row);
+                Row* r = new Row(row);
 #ifdef COLLETION_ASSISTANT
                         addChild(r);
 #endif                                 
-                        return *r;
-                }
-                else
-                {
-                        r = new Row(NULL);
-                        return *r;
-                }
+                        return r;
         }
+        
         Datresult::~Datresult()
         {
                 if(result != NULL)
@@ -98,11 +94,13 @@ namespace mysql
         Datconnect::Datconnect(const Datconnect& obj) : toolkit::clientdb::Datconnect(obj)
         {
         }
+        
         const Datconnect& Datconnect::operator=(const Datconnect& obj)
         {		
              ((clientdb::Datconnect&)*this)=obj;//llamar el construc de la clase base
              return *this;
         }
+        
         Datconnect::Datconnect(const std::string& host, unsigned int port,const std::string& database,const std::string& user,const std::string& password) : clientdb::Datconnect(ServerType::MySQL,host,port,database,user,password)
         {
         }
@@ -117,7 +115,7 @@ namespace mysql
         {
             close();
         }
-        toolkit::clientdb::Datresult& Connector::query(const char* str)
+        toolkit::clientdb::Datresult* Connector::query(const char* str)
         {
                 if (mysql_query((MYSQL*)serverConnector, str)  != 0) 
                 {
@@ -142,7 +140,7 @@ namespace mysql
 #ifdef COLLETION_ASSISTANT
                 addChild(dtrs);
 #endif    
-                return *dtrs;
+                return dtrs;
         }
         bool Connector::begin()
         {
@@ -192,7 +190,7 @@ namespace mysql
         {
             return mysql_get_client_info();
         }
-        bool Connector::connect(const Datconnect& conection)
+        bool Connector::connect(const toolkit::clientdb::Datconnect* conection)
         {
             serverConnector = (void*)mysql_init(NULL);
             if (serverConnector == NULL)
@@ -204,7 +202,7 @@ namespace mysql
                 msg = msg + mysql_error((MYSQL*)serverConnector);
                 throw SQLException(msg);           
             }
-            if (mysql_real_connect((MYSQL*)serverConnector, conection.getHost().c_str(), conection.getUser().c_str(), conection.getPassword().c_str(),conection.getDatabase().c_str(),conection.getPort(), NULL, 0) == NULL)
+            if (mysql_real_connect((MYSQL*)serverConnector, conection->getHost().c_str(), conection->getUser().c_str(), conection->getPassword().c_str(),conection->getDatabase().c_str(),conection->getPort(), NULL, 0) == NULL)
             {
                 std::string msg = "";
                 msg = msg + " MySQL Server Error No. : '";
@@ -215,43 +213,14 @@ namespace mysql
             }        
             if(mysql_autocommit((MYSQL*)serverConnector,0) != 0)
             {
-                return false;
+                std::string msg = "";
+                msg = msg + " MySQL Server Error No. : '";
+                msg = msg + std::to_string(mysql_errno((MYSQL*)serverConnector));
+                msg = msg + "' ";
+                msg = msg + mysql_error((MYSQL*)serverConnector);
+                throw SQLException(msg);
             }        
-            datconection = &conection;
-            return true;
-        }
-        bool Connector::query(const std::string& str)
-        {
-            if (mysql_query((MYSQL*)serverConnector, str.c_str()) == 0) 
-            {
-                return true;
-            }
-            
-            return false;
-        }
-        bool Connector::query(const std::string& str, std::vector<std::vector<const char*>>& rows)
-        {
-            if (mysql_query((MYSQL*)serverConnector, str.c_str())) 
-            {
-                return false;
-            }
-            MYSQL_RES *result = mysql_store_result((MYSQL*)serverConnector);
-            if (result == NULL) 
-            {
-                return false;
-            }
-            int num_fields = mysql_num_fields(result);
-            MYSQL_ROW row;
-            while ((row = mysql_fetch_row(result))) 
-            { 
-                std::vector<const char*> r;
-                for(int i = 0; i < num_fields; i++) 
-                { 
-                    r.push_back(row[i] ? row[i] : "");//printf("%s ", ); 
-                }       
-                rows.push_back(r);
-            }
-            mysql_free_result(result);
+            datconection = conection;
             return true;
         }
 }    

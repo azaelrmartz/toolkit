@@ -186,17 +186,23 @@ namespace clientdb
         
         
         
-
+        Connector::Connector(const Connector& obj)
+        {
+            this->serverConnector = obj.serverConnector;
+            this->datconection = obj.datconection;                
+        }
         const Connector&Connector:: operator=(const Connector& obj)       
         {
             this->serverConnector = obj.serverConnector;
             this->datconection = obj.datconection;
+            
+             return *this;
         }
         
-        bool Connector::connect(const Datconnect& connector) 
+        /*bool Connector::connect(const Datconnect* connector) 
         {
             throw SQLException("Deve implemetar en la case superior esta funcion del driver del Conector apropiado.");
-        }
+        }*/
         
         bool Connector::is_ipv4_address(const std::string& str)
         {
@@ -305,9 +311,9 @@ namespace clientdb
         {
             return this->serverConnector;
         }
-        const Datconnect& Connector::getDatconection() const
+        const Datconnect* Connector::getDatconection() const
         {
-            return *datconection;
+            return datconection;
         }
         
 }	

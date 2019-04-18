@@ -39,8 +39,8 @@ namespace mysql
         public:
                 ~Datresult();
                 Datresult(void* result);
-                virtual toolkit::clientdb::Row& operator[](unsigned long long index);                
-                virtual toolkit::clientdb::Row& next();
+                virtual toolkit::clientdb::Row* operator[](unsigned long long index);                
+                virtual toolkit::clientdb::Row* next();
         };
         
         class Connector : public toolkit::clientdb::Connector
@@ -48,16 +48,15 @@ namespace mysql
         public:
             virtual ~Connector();
             Connector();
-            virtual bool connect(const Datconnect& connector);
+            virtual bool connect(const toolkit::clientdb::Datconnect* connector);
             const char* serverDescription();
-            virtual bool query(const std::string&);
-            virtual bool query(const std::string&, std::vector<std::vector<const char*>>&);
-            virtual toolkit::clientdb::Datresult& query(const char*);
+            //virtual bool query(const std::string&);
+            //virtual bool query(const std::string&, std::vector<std::vector<const char*>>&);
+            virtual toolkit::clientdb::Datresult* query(const char*);
             virtual ID insert(const std::string&);
             virtual bool commit();
             virtual bool begin();
             virtual bool rollback();
-            //const Datconnect& getDatconection() const;  
             virtual void close();
         };        
 }

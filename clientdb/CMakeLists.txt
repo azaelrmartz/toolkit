@@ -1,5 +1,5 @@
 CMAKE_MINIMUM_REQUIRED(VERSION 3.0)
-PROJECT(toolkit-cliendb VERSION 4.0.0 LANGUAGES ${LANG})
+PROJECT(toolkit-cliendb VERSION 4.0.10 LANGUAGES ${LANG})
 
 IF(NOT LANG)
 	MESSAGE(FATAL_ERROR "Use la variable LANG para indicar el lenguaje.")	

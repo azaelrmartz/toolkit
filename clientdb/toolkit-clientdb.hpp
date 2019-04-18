@@ -95,8 +95,8 @@ namespace clientdb
                 
         public:
                 Datresult(void* result);
-                virtual Row& operator[](unsigned long long index) = 0;             
-                virtual toolkit::clientdb::Row& next()= 0;
+                virtual Row* operator[](unsigned long long index) = 0;             
+                virtual toolkit::clientdb::Row* next()= 0;
         };
         
 	class Connector : public toolkit::Object
@@ -112,17 +112,18 @@ namespace clientdb
         public:
             virtual ~Connector();
             Connector();
-            virtual bool connect(const Datconnect& connector) ;            
-            virtual bool query(const std::string&) = 0;
-            virtual bool query(const std::string&, std::vector<std::vector<const char*>>&) = 0;
-            virtual Datresult& query(const char*) = 0;
+            Connector(const Connector&);
+            virtual bool connect(const Datconnect* connector)  = 0;            
+            //virtual bool query(const std::string&) = 0;
+            //virtual bool query(const std::string&, std::vector<std::vector<const char*>>&) = 0;
+            virtual Datresult* query(const char*) = 0;
             virtual ID insert(const std::string&) = 0;
             virtual bool commit() = 0;
             virtual bool begin() = 0;
             virtual bool rollback() = 0;
             virtual void close() = 0;
             void* getServerConnector();
-            const Datconnect& getDatconection() const;  
+            const Datconnect* getDatconection() const;  
             const Connector& operator=(const Connector& obj);
 	};
 }

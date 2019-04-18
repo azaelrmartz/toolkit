@@ -10,11 +10,11 @@
 int main(int argc, char **argv)
 {
         toolkit::clientdb::mysql::Datconnect mysqlSQLSource("192.168.0.101",3306,"sis","develop","123456");  
-        toolkit::clientdb::mysql::Connector connector; 
+        toolkit::clientdb::mysql::Connector* connector; 
         bool flag = false;  
         try
         {
-                flag = connector.connect(mysqlSQLSource);
+                flag = connector->connect(&mysqlSQLSource);
         }
 	catch(toolkit::clientdb::SQLException ex)
 	{
@@ -40,14 +40,17 @@ int main(int argc, char **argv)
                 std::cout << row[0] << std::endl;
         }
         */
-        toolkit::clientdb::Datresult& dt = connector.query("show tables");
-        toolkit::clientdb::mysql::Row rowMy(NULL);
-        toolkit::clientdb::Row& row(rowMy);
-        while((row = dt.next())[0]  != NULL)
+        toolkit::clientdb::Datresult* dt = connector->query("show tables");
+        toolkit::clientdb::Row*  row =  new toolkit::clientdb::mysql::Row (NULL);        
+        do
         {
-                std::cout << row[0] << std::endl;
+                if((*row)[0] != NULL) delete row; //elimina el row anterior
+                row = dt->next();// next crea un row mediante new Row() por lo que hay que liberar esta memoria posterior mente
+                std::cout << (*row)[0] << std::endl;
         }
-   
-        connector.close();
+        while((*row)[0] != NULL);
+        delete dt;
+        
+        connector->close();
         return 0;    
 }
