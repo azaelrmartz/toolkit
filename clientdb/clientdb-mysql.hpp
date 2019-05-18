@@ -3,7 +3,7 @@
 
 #include <vector>
 
-#include "toolkit-clientdb.hpp"
+#include "clientdb.hpp"
 
 namespace toolkit
 {

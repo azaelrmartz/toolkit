@@ -5,12 +5,18 @@
 #include <arpa/inet.h>
 
 #include "config.h"
-#include "toolkit-clientdb.hpp"
+#include "clientdb.hpp"
 
 namespace toolkit
 {
 namespace clientdb
 {
+        void* Datresult::getResult() const
+        {
+                return result;
+        }
+        
+        
         Row::Row()
         {
                 

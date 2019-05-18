@@ -5,16 +5,16 @@
 #include <string>
 #include <mysql.h>
 
-#include "toolkit-clientdb-mysql.hpp"
+#include "clientdb-mysql.hpp"
 
 int main(int argc, char **argv)
 {
         toolkit::clientdb::mysql::Datconnect mysqlSQLSource("192.168.0.101",3306,"sis","develop","123456");  
-        toolkit::clientdb::mysql::Connector* connector; 
+        toolkit::clientdb::mysql::Connector connector ; 
         bool flag = false;  
         try
         {
-                flag = connector->connect(&mysqlSQLSource);
+                flag = connector.connect(&mysqlSQLSource);
         }
 	catch(toolkit::clientdb::SQLException ex)
 	{
@@ -40,7 +40,7 @@ int main(int argc, char **argv)
                 std::cout << row[0] << std::endl;
         }
         */
-        toolkit::clientdb::Datresult* dt = connector->query("show tables");
+        toolkit::clientdb::Datresult* dt = connector.query("show tables");
         toolkit::clientdb::Row*  row =  new toolkit::clientdb::mysql::Row (NULL);        
         do
         {
@@ -51,6 +51,6 @@ int main(int argc, char **argv)
         while((*row)[0] != NULL);
         delete dt;
         
-        connector->close();
+        connector.close();
         return 0;    
 }

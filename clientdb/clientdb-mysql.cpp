@@ -1,7 +1,7 @@
 #include <mysql/mysql.h>
 #include <iostream>
 
-#include "toolkit-clientdb-mysql.hpp"
+#include "clientdb-mysql.hpp"
 
 namespace toolkit
 {

@@ -1,7 +1,7 @@
 #ifndef TOOLKIT_CLIENTDB_HPP
 #define TOOLKIT_CLIENTDB_HPP
 
-#include <toolkit-common.hpp>
+#include <common.hpp>
 #include <vector>
 
 namespace toolkit
@@ -97,6 +97,7 @@ namespace clientdb
                 Datresult(void* result);
                 virtual Row* operator[](unsigned long long index) = 0;             
                 virtual toolkit::clientdb::Row* next()= 0;
+                void* getResult() const;
         };
         
 	class Connector : public toolkit::Object

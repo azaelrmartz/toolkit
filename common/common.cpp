@@ -1,5 +1,5 @@
 
-#include "toolkit-common.hpp"
+#include "common.hpp"
 #include "config.h"
 
 namespace toolkit

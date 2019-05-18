@@ -5,9 +5,10 @@ IF (TOOLKIT_COMMON_INCLUDE_DIR)
   SET(TOOLKIT_COMMON_FIND_QUIETLY TRUE)
 ENDIF (TOOLKIT_COMMON_INCLUDE_DIR)
 
-FIND_PATH(TOOLKIT_COMMON_INCLUDE_DIR common/common.hpp
-  /usr/include/toolkit/
-  /usr/local/include/toolkit/
+FIND_PATH(TOOLKIT_COMMON_INCLUDE_DIR common.hpp
+  /usr/include/toolkit/common
+  /usr/local/include/toolkit/common
+  
 )
 
 SET(TOOLKIT_COMMON_NAMES ${TARGET_OBJECT_SUFFIX})
