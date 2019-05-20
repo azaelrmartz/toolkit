@@ -9,6 +9,15 @@ namespace clientdb
 {
 namespace mysql
 {        
+        Row::~Row()
+        {
+#ifdef COLLETION_ASSISTANT
+                if(getCountChils() > 0)
+                {
+                        std::cerr << "Una instacia de '" << typeid(*this).name() << "' termino sin que todos sus hijos terminaran primero" << std::endl;
+                }                
+#endif
+        }
         Row::Row(Row& row)
         {
                 this->row = row.row;
@@ -78,7 +87,6 @@ namespace mysql
 #endif                                 
                         return r;
         }
-        
         Datresult::~Datresult()
         {
                 if(result != NULL)
@@ -86,11 +94,25 @@ namespace mysql
                         mysql_free_result((MYSQL_RES*)result);
                         result = NULL;
                 }
+#ifdef COLLETION_ASSISTANT
+                if(getCountChils() > 0)
+                {
+                        std::cerr << "Una instacia de '" << typeid(*this).name() << "' termino sin que todos sus hijos terminaran primero" << std::endl;
+                }
+#endif
         }
         
         
         
-        
+        Datconnect::~Datconnect() 
+        {                
+#ifdef COLLETION_ASSISTANT
+                if(getCountChils() > 0)
+                {
+                        std::cerr << "Una instacia de '" << typeid(*this).name() << "' termino sin que todos sus hijos terminaran primero" << std::endl;
+                }
+#endif
+        }
         Datconnect::Datconnect(const Datconnect& obj) : toolkit::clientdb::Datconnect(obj)
         {
         }
@@ -114,6 +136,12 @@ namespace mysql
         Connector::~Connector()
         {
             close();
+#ifdef COLLETION_ASSISTANT
+                if(getCountChils() > 0)
+                {
+                        std::cerr << "Una instacia de '" << typeid(*this).name() << "' termino sin que todos sus hijos terminaran primero" << std::endl;
+                }
+#endif
         }
         toolkit::clientdb::Datresult* Connector::query(const char* str)
         {

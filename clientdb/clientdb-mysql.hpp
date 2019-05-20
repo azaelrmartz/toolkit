@@ -17,6 +17,7 @@ namespace mysql
             Datconnect(const std::string& host, unsigned int port,const std::string& database,const std::string& usuario,const std::string& password);
             Datconnect(const Datconnect& obj);
             const Datconnect& operator=(const Datconnect&);
+            ~Datconnect();
         };      
 
         class Row : public toolkit::clientdb::Row
@@ -30,6 +31,7 @@ namespace mysql
         public:
                 virtual const char* operator[](unsigned long long index); 
                 Row();
+                ~Row();
                 Row(void* row);
                 Row(Row& row);
         };

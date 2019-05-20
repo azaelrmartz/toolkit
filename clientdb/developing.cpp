@@ -9,12 +9,14 @@
 
 int main(int argc, char **argv)
 {
+	std::cout << toolkit::clientdb::getPakageName() << " v" << toolkit::clientdb::getPakageVersion().toString()<<std::endl;
+        
         toolkit::clientdb::mysql::Datconnect mysqlSQLSource("192.168.0.101",3306,"sis","develop","123456");  
-        toolkit::clientdb::mysql::Connector connector ; 
+        toolkit::clientdb::mysql::Connector* connector = new toolkit::clientdb::mysql::Connector(); 
         bool flag = false;  
         try
         {
-                flag = connector.connect(&mysqlSQLSource);
+                flag = connector->connect(&mysqlSQLSource);
         }
 	catch(toolkit::clientdb::SQLException ex)
 	{
@@ -40,8 +42,10 @@ int main(int argc, char **argv)
                 std::cout << row[0] << std::endl;
         }
         */
-        toolkit::clientdb::Datresult* dt = connector.query("show tables");
-        toolkit::clientdb::Row*  row =  new toolkit::clientdb::mysql::Row (NULL);        
+        
+        toolkit::clientdb::Datresult* dt = connector->query("show tables");
+        toolkit::clientdb::Row*  row =  new toolkit::clientdb::mysql::Row (NULL);   
+        toolkit::clientdb::Row*  rowT = row;
         do
         {
                 if((*row)[0] != NULL) delete row; //elimina el row anterior
@@ -49,8 +53,12 @@ int main(int argc, char **argv)
                 std::cout << (*row)[0] << std::endl;
         }
         while((*row)[0] != NULL);
-        delete dt;
         
-        connector.close();
+        std::cout << "Terminando programa" << std::endl; 
+        
+        //delete dt;
+        //delete rowT;
+        //connector->close();
+        delete connector;
         return 0;    
 }

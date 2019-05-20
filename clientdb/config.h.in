@@ -1,6 +1,10 @@
 #define VERSION_MAJOR @toolkit-clientdb_VERSION_MAJOR@
 #define VERSION_MINOR @toolkit-clientdb_VERSION_MINOR@
 #define VERSION_PATCH @toolkit-clientdb_VERSION_PATCH@
-#define VERSION_STAGE toolkit::Version::Stage::@toolkit-clientdb_VERSION_STAGE@
+#define VERSION_BUILD @toolkit-clientdb_VERSION_BUILD@
+#ifdef __cplusplus
+        #define VERSION_STAGE Version::Stage::@toolkit-clientdb_VERSION_STAGE@
+#else
+        #define VERSION_STAGE @toolkit-clientdb_VERSION_STAGE@
+#endif
 #define PAKAGENAME "@PROJECT_NAME@"
-

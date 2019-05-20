@@ -82,10 +82,13 @@ namespace clientdb
 	{
 		return std::string(PAKAGENAME);
 	}
-	/*toolkit::Version getPakageVersion()
+	toolkit::Version getPakageVersion()
 	{
-		return toolkit::Version(VERSION_MAJOR,VERSION_MINOR,VERSION_PATCH,VERSION_STAGE);		
-	}*/	
+                toolkit::Version v;
+                v.set(VERSION_MAJOR,VERSION_MINOR,VERSION_PATCH,VERSION_STAGE);
+                v.set(std::stoul(VERSION_BUILD));
+		return v;		
+	}
         
         const char* Datconnect::getServerTypeString() const
         {
