@@ -5,7 +5,7 @@
 
 int main()
 {
-	toolkit::Version version(toolkit::getVersion());
+	toolkit::Version version(toolkit::getPakageVersion());
 	std::cout<< version.toString()<<std::endl;
 #ifdef COLLETION_ASSISTANT
         std::cout<< "El asistente de recoleccion esta activo."<<std::endl;

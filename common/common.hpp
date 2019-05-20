@@ -15,8 +15,12 @@ namespace toolkit
         {
 #ifdef COLLETION_ASSISTANT
         protected:
-                void addChild(Object*);
-                void removeChild( Object*);
+                void addChild(const Object*);
+                void removeChild(const Object*);
+                void addChild(const Object&);
+                void removeChild(const Object&);
+                unsigned int getCountChils();
+                
                 Object();
         private:
                 unsigned int countChilds;                
@@ -43,15 +47,23 @@ namespace toolkit
 		short major;
 		short minor;
 		short patch;
+                unsigned long build;
 		Stage stage;
 				
 	public:
 		short getMajor() const;
 		short getMinor() const;
 		short getPatch() const;
+		int getBuild() const;
+		Stage getStage() const;
 		Version();	
-		Version(short major,short minor,short patch,Stage stage);
+		//Version(short major,short minor,short patch,Stage stage);
 		void set(short major,short minor,short patch,Stage stage);
+                void set(short major,short minor,short patch);
+                void set(short major,short minor);
+                void set(short major);
+                void set(Stage stage);
+                void set(unsigned long build);
 		std::string toString() const;
 	};
 
@@ -60,6 +72,6 @@ namespace toolkit
 	/**
 	 * \brief retorna la version actual de componente
 	 **/
-	Version getVersion();	
+	Version getPakageVersion();	
 }
 #endif

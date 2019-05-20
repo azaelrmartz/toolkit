@@ -6,20 +6,69 @@ namespace toolkit
 {	
         
 #ifdef COLLETION_ASSISTANT
+        unsigned int Object::getCountChils()
+        {
+                return countChilds;
+        }
         Object::Object()
         {
                 countChilds = 0;
         }
-        void Object::addChild(Object*)
+        void Object::addChild(const Object*)
         {
                 countChilds++;
         }
-        void Object::removeChild(Object*)
+        void Object::removeChild(const Object*)
+        {
+                countChilds--;
+        }
+        void Object::addChild(const Object&)
+        {
+                countChilds++;
+        }
+        void Object::removeChild(const Object&)
         {
                 countChilds--;
         }
 #endif
 
+
+
+
+
+
+
+	int Version::getBuild() const
+	{
+                return build;
+        }
+        Version::Stage Version::getStage() const
+        {
+                return stage;
+        }                
+        void Version::set(short major,short minor,short patch)
+        {
+                this->major = major;
+                this->minor = minor;
+                this->patch = patch;
+        }
+        void Version::set(short major,short minor)
+        {
+                this->major = major;
+                this->minor = minor;
+        }
+        void Version::set(short major)
+        {
+                this->major = major;
+        }
+        void Version::set(Stage stage)
+        {
+                this->stage = stage;
+        }
+        void Version::set(unsigned long build)
+        {
+                this->build = build;
+        }
 	short Version::getMajor() const
 	{
 		return this->major;		
@@ -43,13 +92,13 @@ namespace toolkit
 		stage = unknown;
 	}
 
-	Version::Version(short major,short minor,short patch,Stage stage)
+	/*Version::Version(short major,short minor,short patch,Stage stage)
 	{
 		this->major = major;
 		this->minor = minor;
 		this->patch = patch;
 		this->stage = stage;
-	}
+	}*/
 	void Version::set(short major,short minor,short patch,Stage stage)
 	{
 		this->major = major;
@@ -59,20 +108,23 @@ namespace toolkit
 	}
 
 	std::string Version::toString() const
-	{
-
-		if((major < 0) | (minor < 0) | (patch < 0) | stage == unknown)
-		{//falla devido a que no esta inicializado
-			return "";
-		}
-		
+	{		
 		std::string ver = "";
-		ver += std::to_string(major);
-		ver += ".";
-		ver += std::to_string(minor);
-		ver += ".";
-		ver += std::to_string(patch);		
-
+                if(major >= 0)
+                {
+                        ver += std::to_string(major);
+                }
+                if(minor >= 0)
+                {
+                        ver += ".";
+                        ver += std::to_string(minor);
+                }
+                if(patch >= 0)
+                {
+                        ver += ".";
+                        ver += std::to_string(patch);		
+                }
+                
 		if(stage == alpha)
 		{
 			ver += "-alpha";
@@ -86,13 +138,21 @@ namespace toolkit
 			ver += "-release";
 		}
 
+		if(build >= 0)
+                {
+                        ver += " ";
+                         ver += std::to_string(build);	
+                }
 		return ver;
 	}
 		
 		
-	Version getVersion()
+	Version getPakageVersion()
 	{
-		return Version(MAJOR,MINOR,PATCH,STAGE);		
+                Version v;
+                v.set(MAJOR,MINOR,PATCH,STAGE);
+                v.set(std::stoul(BUILD));
+		return v;		
 	}
 	
 	
