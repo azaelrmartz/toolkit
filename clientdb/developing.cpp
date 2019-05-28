@@ -5,6 +5,8 @@
 #include <string>
 #include <mysql.h>
 
+
+
 #include "clientdb-mysql.hpp"
 
 int main(int argc, char **argv)
@@ -31,17 +33,17 @@ int main(int argc, char **argv)
                 std::cerr<<"Fallo la conexion el servidor."<< std::endl;
         }
     
-        /*
-        std::vector<std::vector<const char*>> lst;
-        if(connector.query("show tables",lst) == false)
+        
+        /*std::vector<std::vector<const char*>> lst;
+        if(connector->query("show tables",lst) == false)
         {
                 std::cout << "Fallo la consuta" << std::endl;
         }
         for(auto row : lst)
         {
                 std::cout << row[0] << std::endl;
-        }
-        */
+        }*/
+        
         
         toolkit::clientdb::Datresult* dt = connector->query("show tables");
         toolkit::clientdb::Row*  row =  new toolkit::clientdb::mysql::Row (NULL);   
@@ -56,9 +58,8 @@ int main(int argc, char **argv)
         
         std::cout << "Terminando programa" << std::endl; 
         
-        //delete dt;
-        //delete rowT;
-        //connector->close();
+        delete dt;
+        delete rowT;
         delete connector;
         return 0;    
 }

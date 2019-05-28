@@ -45,10 +45,7 @@ namespace clientdb
 	SQLExceptionQuery::~SQLExceptionQuery() throw()
 	{		
 	}	
-    /*const char* SQLExceptionQuery::what() const throw()
-    {
-        return SQLException::what();
-    }*/
+
     
     
 	SQLExceptionConnection::SQLExceptionConnection(const std::string &description) throw() : SQLException(description) 
@@ -57,10 +54,6 @@ namespace clientdb
 	SQLExceptionConnection::~SQLExceptionConnection() throw()
 	{		
 	}	
-    /*const char* SQLExceptionConnection::what() const throw()
-    {
-        return SQLException::what();
-    }*/
     
     
 	SQLException::SQLException(const std::string &description) throw()
@@ -72,10 +65,10 @@ namespace clientdb
 	{
 		
 	}	
-    const char* SQLException::what() const throw()
-    {
-        return this->description.c_str();
-    }
+        const char* SQLException::what() const throw()
+        {
+                return this->description.c_str();
+        }
 
 	
 	std::string getPakageName()

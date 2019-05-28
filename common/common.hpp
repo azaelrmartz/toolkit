@@ -5,25 +5,23 @@
 #ifndef DEBUG
         #define COLLETION_ASSISTANT
 #endif
-#ifdef COLLETION_ASSISTANT
-
-#endif
 
 namespace toolkit
 {
         class Object
         {
+        public:        
+                Object();
+                ~Object();
+                
 #ifdef COLLETION_ASSISTANT
         protected:
-                void addChild(const Object*);
-                void removeChild(const Object*);
-                void addChild(const Object&);
-                void removeChild(const Object&);
-                unsigned int getCountChils();
-                
-                Object();
+                void addChild(Object*);
+                void removeChild(Object*);
+                unsigned int getCountChilds();                               
         private:
-                unsigned int countChilds;                
+                unsigned int countChilds;
+                Object* parent;
 #endif
         };
         
@@ -37,7 +35,7 @@ namespace toolkit
 	public:		
 		enum Stage
 		{
-			unknown,
+                        unknown,
 			alpha,
 			beta,
 			release
@@ -72,6 +70,7 @@ namespace toolkit
 	/**
 	 * \brief retorna la version actual de componente
 	 **/
-	Version getPakageVersion();	
+	Version getPakageVersion();
+        std::string getPakageName();
 }
 #endif

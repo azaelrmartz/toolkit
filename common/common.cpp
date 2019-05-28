@@ -5,30 +5,37 @@
 namespace toolkit
 {	
         
-#ifdef COLLETION_ASSISTANT
-        unsigned int Object::getCountChils()
+        Object::~Object()
         {
-                return countChilds;
+#ifdef COLLETION_ASSISTANT
+                if(parent != NULL)
+                {
+                        parent->removeChild(this);
+                        parent = NULL;
+                }
+#endif
         }
         Object::Object()
         {
+#ifdef COLLETION_ASSISTANT
                 countChilds = 0;
+                parent = NULL;
+#endif
         }
-        void Object::addChild(const Object*)
+#ifdef COLLETION_ASSISTANT
+        unsigned int Object::getCountChilds()
+        {
+                return countChilds;
+        }
+        void Object::addChild(Object* child)
         {
                 countChilds++;
+                child->parent = this;
         }
-        void Object::removeChild(const Object*)
+        void Object::removeChild(Object* child)
         {
                 countChilds--;
-        }
-        void Object::addChild(const Object&)
-        {
-                countChilds++;
-        }
-        void Object::removeChild(const Object&)
-        {
-                countChilds--;
+                child->parent = NULL;
         }
 #endif
 
@@ -154,6 +161,10 @@ namespace toolkit
                 v.set(std::stoul(BUILD));
 		return v;		
 	}
-	
+
+	std::string getPakageName()
+	{
+		return std::string(PAKAGENAME);
+	}
 	
 }

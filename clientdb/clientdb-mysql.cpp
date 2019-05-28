@@ -12,7 +12,7 @@ namespace mysql
         Row::~Row()
         {
 #ifdef COLLETION_ASSISTANT
-                if(getCountChils() > 0)
+                if(getCountChilds() > 0)
                 {
                         std::cerr << "Una instacia de '" << typeid(*this).name() << "' termino sin que todos sus hijos terminaran primero" << std::endl;
                 }                
@@ -95,7 +95,7 @@ namespace mysql
                         result = NULL;
                 }
 #ifdef COLLETION_ASSISTANT
-                if(getCountChils() > 0)
+                if(getCountChilds() > 0)
                 {
                         std::cerr << "Una instacia de '" << typeid(*this).name() << "' termino sin que todos sus hijos terminaran primero" << std::endl;
                 }
@@ -107,7 +107,7 @@ namespace mysql
         Datconnect::~Datconnect() 
         {                
 #ifdef COLLETION_ASSISTANT
-                if(getCountChils() > 0)
+                if(getCountChilds() > 0)
                 {
                         std::cerr << "Una instacia de '" << typeid(*this).name() << "' termino sin que todos sus hijos terminaran primero" << std::endl;
                 }
@@ -137,7 +137,7 @@ namespace mysql
         {
             close();
 #ifdef COLLETION_ASSISTANT
-                if(getCountChils() > 0)
+                if(getCountChilds() > 0)
                 {
                         std::cerr << "Una instacia de '" << typeid(*this).name() << "' termino sin que todos sus hijos terminaran primero" << std::endl;
                 }
