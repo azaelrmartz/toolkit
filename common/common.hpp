@@ -36,8 +36,10 @@ namespace toolkit
 		enum Stage
 		{
                         unknown,
+                        snapshot,
 			alpha,
 			beta,
+                        rc,
 			release
 		};
 		
@@ -52,7 +54,7 @@ namespace toolkit
 		short getMajor() const;
 		short getMinor() const;
 		short getPatch() const;
-		int getBuild() const;
+		unsigned long getBuild() const;
 		Stage getStage() const;
 		Version();	
 		//Version(short major,short minor,short patch,Stage stage);

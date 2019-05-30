@@ -1,6 +1,7 @@
 
 #include "common.hpp"
 #include "config.h"
+#include <iostream>
 
 namespace toolkit
 {	
@@ -11,10 +12,14 @@ namespace toolkit
                 if(parent != NULL)
                 {
                         parent->removeChild(this);
-                        parent = NULL;
                 }
+                if(countChilds > 0)
+                {
+                        std::cerr << "Una instacia de '" << typeid(*this).name() << "' termino sin que todos sus hijos terminaran  primero" << std::endl;
+                } 
 #endif
         }
+        
         Object::Object()
         {
 #ifdef COLLETION_ASSISTANT
@@ -22,6 +27,7 @@ namespace toolkit
                 parent = NULL;
 #endif
         }
+        
 #ifdef COLLETION_ASSISTANT
         unsigned int Object::getCountChilds()
         {
@@ -45,7 +51,7 @@ namespace toolkit
 
 
 
-	int Version::getBuild() const
+	unsigned long Version::getBuild() const
 	{
                 return build;
         }
@@ -97,15 +103,9 @@ namespace toolkit
 		minor = -1;
 		patch = -1;
 		stage = unknown;
+                build = 0;
 	}
 
-	/*Version::Version(short major,short minor,short patch,Stage stage)
-	{
-		this->major = major;
-		this->minor = minor;
-		this->patch = patch;
-		this->stage = stage;
-	}*/
 	void Version::set(short major,short minor,short patch,Stage stage)
 	{
 		this->major = major;
@@ -132,23 +132,31 @@ namespace toolkit
                         ver += std::to_string(patch);		
                 }
                 
-		if(stage == alpha)
-		{
-			ver += "-alpha";
-		}
-		else if(stage == beta)
-		{
-			ver += "-beta";
-		}
-		else if(stage == release)
-		{
-			ver += "-release";
-		}
+		switch(stage)
+                {
+                        case snapshot:
+                                ver += "-snapshot";
+                                break;
+                        case alpha:
+                                ver += "-alpha";
+                                break;
+                        case beta:
+                                ver += "-beta";
+                                break;
+                        case rc:
+                                ver += "-rc";
+                                break;
+                        case release:
+                                ver += "-release";
+                                break;
+                        case unknown:
+                                ;
+                }
 
 		if(build >= 0)
                 {
                         ver += " ";
-                         ver += std::to_string(build);	
+                        ver += std::to_string(build);	
                 }
 		return ver;
 	}

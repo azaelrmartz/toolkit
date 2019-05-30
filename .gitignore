@@ -55,3 +55,4 @@ common/Version.java
 /clientdb/target/
 /clientdb/nbproject/
 objects/.kdev4/
+/common/nbproject/

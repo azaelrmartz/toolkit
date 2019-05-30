@@ -10,15 +10,17 @@ public class Version extends Object
     public enum Stage
     {
 	unknown,
+        snapshot,
 	alpha,
 	beta,
         rc,
 	release
     };
 		
-    private int major;
-    private int minor;
-    private int patch;
+    private short major;
+    private short minor;
+    private short patch;
+    private long build;
     private Stage stage;
 				
     public int getMajor()
@@ -32,48 +34,92 @@ public class Version extends Object
     public int getPatch()
     {
 	return patch;
-    }
+    }    
     public Version()
     {
+	this.major = -1;
+	this.minor = -1;
+	this.patch = -1;
 	this.stage = Stage.unknown;
+        this.build = 0;
     }
-    public Version(int major,int minor,int patch,Stage stage)
+    public void set(short major,short minor,short patch,Stage stage)
     {
 	this.major = major;
 	this.minor = minor;
 	this.patch = patch;
 	this.stage = stage;
     }
-    public void set(int major,int minor,int patch,Stage stage)
+    public void set(short major,short minor,short patch)
     {
 	this.major = major;
 	this.minor = minor;
 	this.patch = patch;
-	this.stage = stage;    
+    }
+    public void set(short major,short minor)
+    {
+	this.major = major;
+	this.minor = minor;
+    }
+    public void set(short major)
+    {
+	this.major = major;
+    }
+    public void set(Stage stage)
+    {
+        this.stage = stage;
+    }
+    public void set(long build)
+    {
+        this.build = build;
+    }
+    
+    /**
+     * @return the build
+     */
+    public long getBuild() {
+        return build;
+    }
+
+    public Version(short major,short minor,short patch,Stage stage)
+    {
+	this.major = major;
+	this.minor = minor;
+	this.patch = patch;
+	this.stage = stage;
     }
     @Override
     public String toString()
-    {
-	if((major < 0) | (minor < 0) | (patch < 0) | stage == Stage.unknown | stage == null)
-	{//falla devido a que no esta inicializado
-            return "";
-	}
-		
+    {		
 	String ver = "";
-	ver += major;
-	ver += ".";
-	ver += minor;
-	ver += ".";
-	ver += patch;		
-
+        if(major >= 0)
+        {
+            ver += major;
+        }
+        if(minor >= 0)
+        {
+            ver += ".";
+            ver += minor;
+        }
+        if(patch >= 0)
+        {
+            ver += ".";
+            ver += patch;		
+        }
+        
 	switch (stage) 
         {
+            case snapshot:
+                ver += "-snapshot";
+                break;
             case alpha:
                 ver += "-alpha";
                 break;
             case beta:
                 ver += "-beta";
                 break;
+            case rc:
+                ver += "-rc";
             case release:
                 ver += "-release";
                 break;
@@ -84,5 +130,6 @@ public class Version extends Object
 	return ver;
     }
     
-    public static final Version versionPakage = new Version(2,3,0,Version.Stage.beta);
+    public static final Version versionPakage = new Version((short)2,(short)3,(short)0,Version.Stage.beta);
+
 }

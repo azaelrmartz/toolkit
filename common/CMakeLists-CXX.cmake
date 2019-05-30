@@ -5,13 +5,14 @@ SET(CMAKE_CXX_EXTENSIONS OFF)
 
 
 CONFIGURE_FILE("${PROJECT_SOURCE_DIR}/config.h.in" "${PROJECT_SOURCE_DIR}/config.h")
-SET(target-common-c++ common-c++)
+SET(libst-common-c++ common-c++)
+SET(libdy-common-c++ common-c++)
 
 ADD_EXECUTABLE(main main.cpp common.cpp)
 
-ADD_LIBRARY(${target-common-c++} STATIC common.cpp)
-TARGET_LINK_LIBRARIES(${target-common-c++}) 
+ADD_LIBRARY(${libst-common-c++} STATIC common.cpp)
+TARGET_LINK_LIBRARIES(${libst-common-c++})
 
-INSTALL(TARGETS ${target-common-c++} DESTINATION lib/toolkit/common/)
+INSTALL(TARGETS ${libst-common-c++} DESTINATION lib/toolkit/common/)
 INSTALL(FILES common.hpp DESTINATION include/toolkit/common/)
 
