@@ -8,3 +8,4 @@
 #define STAGE @toolkit-common_VERSION_STAGE@
 #endif
 #define PAKAGENAME "@PROJECT_NAME@"
+

@@ -1,6 +1,6 @@
 
 #include "common.hpp"
-#include "config.h"
+#include "versionInfo.h"
 #include <iostream>
 
 namespace toolkit

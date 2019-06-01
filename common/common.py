@@ -64,5 +64,3 @@ def getPakageVersion():
     
 def getPakageName():
     return "toolkit-common"
-
-

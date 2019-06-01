@@ -36,7 +36,7 @@ namespace toolkit
 		enum Stage
 		{
                         unknown,
-                        snapshot,
+                        snapshot,       
 			alpha,
 			beta,
                         rc,
