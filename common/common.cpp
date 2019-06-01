@@ -49,8 +49,19 @@ namespace toolkit
 
 
 
-
-
+        void Version::setName(const std::string& name)
+        {
+                this->name = name;
+        }
+        void Version::set(short major,short minor,short patch,Stage stage,unsigned long build, const std::string& name)
+        {                
+                this->major = major;
+                this->minor = minor;
+                this->patch = patch;
+                this->stage = stage;
+                this->build = build;
+                this->name = name;
+        }
 	unsigned long Version::getBuild() const
 	{
                 return build;
@@ -59,26 +70,26 @@ namespace toolkit
         {
                 return stage;
         }                
-        void Version::set(short major,short minor,short patch)
+        void Version::setNumbers(short major,short minor,short patch)
         {
                 this->major = major;
                 this->minor = minor;
                 this->patch = patch;
         }
-        void Version::set(short major,short minor)
+        void Version::setNumbers(short major,short minor)
         {
                 this->major = major;
                 this->minor = minor;
         }
-        void Version::set(short major)
+        void Version::setNumbers(short major)
         {
                 this->major = major;
         }
-        void Version::set(Stage stage)
+        void Version::setStage(Stage stage)
         {
                 this->stage = stage;
         }
-        void Version::set(unsigned long build)
+        void Version::setBuild(unsigned long build)
         {
                 this->build = build;
         }
@@ -104,14 +115,7 @@ namespace toolkit
 		patch = -1;
 		stage = unknown;
                 build = 0;
-	}
-
-	void Version::set(short major,short minor,short patch,Stage stage)
-	{
-		this->major = major;
-		this->minor = minor;
-		this->patch = patch;
-		this->stage = stage;
+                name = "";
 	}
 
 	std::string Version::toString() const
@@ -158,6 +162,13 @@ namespace toolkit
                         ver += " ";
                         ver += std::to_string(build);	
                 }
+                
+                if(name.size() > 0)
+                {
+                        ver += " ";
+                        ver += name;
+                }
+                
 		return ver;
 	}
 		
@@ -165,8 +176,10 @@ namespace toolkit
 	Version getPakageVersion()
 	{
                 Version v;
-                v.set(MAJOR,MINOR,PATCH,STAGE);
-                v.set(std::stoul(BUILD));
+                v.setNumbers(VERSION_MAJOR,VERSION_MINOR,VERSION_PATCH);
+                v.setStage(VERSION_STAGE);
+                v.setBuild(std::stoul(VERSION_BUILD));
+                v.setName(VERSION_NAME);
 		return v;		
 	}
 

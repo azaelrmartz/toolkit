@@ -3,6 +3,7 @@ PROJECT(toolkit-common VERSION 3.7.1 LANGUAGES ${LANG})
 
 EXECUTE_PROCESS(COMMAND date +"%Y%m%d%H%I" OUTPUT_VARIABLE toolkit-common_VERSION_BUILD)
 SET(toolkit-common_VERSION_STAGE "snapshot")
+SET(toolkit-common_VERSION_NAME "leopard")
 
 if(NOT LANG)
 	MESSAGE(FATAL_ERROR "Use la variable LANG para indicar el lenguaje.")	

@@ -1,6 +1,13 @@
 
 package octetos.toolkit.common;
 
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import org.apache.maven.model.Model;
+import org.apache.maven.model.io.xpp3.MavenXpp3Reader;
+import org.codehaus.plexus.util.xml.pull.XmlPullParserException;
+
 /**
  *
  * @author areyes
@@ -22,19 +29,33 @@ public class Version extends Object
     private short patch;
     private long build;
     private Stage stage;
-				
-    public int getMajor()
+    private String name;
+    
+    
+    public short getMajor()
     {
         return major;
     }
-    public int getMinor()
+    public short getMinor()
     {
 	return minor;
     }
-    public int getPatch()
+    public short getPatch()
     {
 	return patch;
     }    
+    public Stage getStage()
+    {
+        return stage;
+    }
+    public long getBuild()
+    {
+        return this.build;
+    }
+    public String getName()
+    {
+        return name;
+    }
     public Version()
     {
 	this.major = -1;
@@ -42,45 +63,47 @@ public class Version extends Object
 	this.patch = -1;
 	this.stage = Stage.unknown;
         this.build = 0;
+        this.name = "";
     }
-    public void set(short major,short minor,short patch,Stage stage)
+    
+    
+    public void set(short major,short minor,short patch,Stage stage,long build,String name)
     {
 	this.major = major;
 	this.minor = minor;
 	this.patch = patch;
 	this.stage = stage;
+        this.build = build;
+        this.name = name;
     }
-    public void set(short major,short minor,short patch)
+    
+    public void setNumbers(short major,short minor,short patch)
     {
 	this.major = major;
 	this.minor = minor;
 	this.patch = patch;
     }
-    public void set(short major,short minor)
+    public void setNumbers(short major,short minor)
     {
 	this.major = major;
 	this.minor = minor;
     }
-    public void set(short major)
+    public void setNumbers(short major)
     {
 	this.major = major;
     }
-    public void set(Stage stage)
+    public void setStage(Stage stage)
     {
         this.stage = stage;
     }
-    public void set(long build)
+    public void setBuild(long build)
     {
         this.build = build;
     }
-    
-    /**
-     * @return the build
-     */
-    public long getBuild() {
-        return build;
+    public void setName(String name)
+    {
+        this.name = name;
     }
-
     public Version(short major,short minor,short patch,Stage stage)
     {
 	this.major = major;
@@ -130,6 +153,20 @@ public class Version extends Object
 	return ver;
     }
     
-    public static final Version versionPakage = new Version((short)2,(short)3,(short)0,Version.Stage.beta);
-
+    public void parseString(String str)
+    {
+        
+    }
+    
+    public static Version getPakageVersion() throws XmlPullParserException, FileNotFoundException, IOException 
+    {
+        MavenXpp3Reader reader = new MavenXpp3Reader();
+        Model model = reader.read(new FileReader("pom.xml"));
+        System.out.println(model.getId());
+        System.out.println(model.getGroupId());
+        Version version = new Version();
+        version.parseString(model.getVersion());
+        version.setName(model.getArtifactId());
+        return version;
+    }
 }

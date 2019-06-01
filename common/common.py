@@ -17,6 +17,7 @@ class Version:
         self.patch = -1
         self.stage = Version.Stage.unknown
         self.build = 0
+        self.name = ""
         
     def toString(self):
         ver = ""
@@ -54,7 +55,17 @@ class Version:
     def setBuild(self,build):
         self.build = build
         
+    def setName(self,name):
+        self.name = name
     
+    def set(self,major,minor,patch,stage,build,name):
+        self.major = major
+        self.minor = minor
+        self.patch = patch
+        self.stage = stage
+        self.build = build
+        self.name = name
+        
 		
 def getPakageVersion():
     version = Version()

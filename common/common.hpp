@@ -49,21 +49,24 @@ namespace toolkit
 		short patch;
                 unsigned long build;
 		Stage stage;
-				
+                std::string name;
+                
 	public:
 		short getMajor() const;
 		short getMinor() const;
 		short getPatch() const;
 		unsigned long getBuild() const;
 		Stage getStage() const;
-		Version();	
-		//Version(short major,short minor,short patch,Stage stage);
-		void set(short major,short minor,short patch,Stage stage);
-                void set(short major,short minor,short patch);
-                void set(short major,short minor);
-                void set(short major);
-                void set(Stage stage);
-                void set(unsigned long build);
+                const std::string& getName() const;
+                
+		Version();
+                void set(short major,short minor,short patch,Stage stage,unsigned long build, const std::string& name);
+                void setNumbers(short major,short minor,short patch);
+                void setNumbers(short major,short minor);
+                void setNumbers(short major);
+                void setStage(Stage stage);
+                void setBuild(unsigned long build);
+                void setName(const std::string& name);
 		std::string toString() const;
 	};
 

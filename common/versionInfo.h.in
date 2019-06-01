@@ -1,11 +1,12 @@
-#define MAJOR @toolkit-common_VERSION_MAJOR@
-#define MINOR @toolkit-common_VERSION_MINOR@
-#define PATCH @toolkit-common_VERSION_PATCH@
-#define BUILD @toolkit-common_VERSION_BUILD@
+#define VERSION_MAJOR @toolkit-common_VERSION_MAJOR@
+#define VERSION_MINOR @toolkit-common_VERSION_MINOR@
+#define VERSION_PATCH @toolkit-common_VERSION_PATCH@
+#define VERSION_BUILD @toolkit-common_VERSION_BUILD@
 #ifdef __cplusplus
-#define STAGE Version::Stage::@toolkit-common_VERSION_STAGE@
+#define VERSION_STAGE Version::Stage::@toolkit-common_VERSION_STAGE@
 #else
-#define STAGE @toolkit-common_VERSION_STAGE@
+#define VERSION_STAGE @toolkit-common_VERSION_STAGE@
 #endif
 #define PAKAGENAME "@PROJECT_NAME@"
+#define VERSION_NAME "@toolkit-common_VERSION_NAME@"
 
