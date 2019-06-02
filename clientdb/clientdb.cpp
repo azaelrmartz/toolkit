@@ -11,12 +11,24 @@ namespace toolkit
 {
 namespace clientdb
 {
+        Datresult::~Datresult()
+        {
+                
+        }        
         void* Datresult::getResult() const
         {
                 return result;
         }
+        Datresult::Datresult(void* result)
+        {
+                this->result = result;
+        }
         
         
+        Row::~Row()
+        {
+                
+        }
         Row::Row()
         {
                 
@@ -27,10 +39,6 @@ namespace clientdb
         }
         
         
-        Datresult::Datresult(void* result)
-        {
-                this->result = result;
-        }
 
 	NotSupportedExcetion::NotSupportedExcetion(const std::string &description) throw() : SQLException(description) 
 	{		
@@ -78,8 +86,9 @@ namespace clientdb
 	toolkit::Version getPakageVersion()
 	{
                 toolkit::Version v;
-                v.set(VERSION_MAJOR,VERSION_MINOR,VERSION_PATCH,VERSION_STAGE);
-                v.set(std::stoul(VERSION_BUILD));
+                v.setNumbers(VERSION_MAJOR,VERSION_MINOR,VERSION_PATCH);
+                v.setStage(VERSION_STAGE);
+                v.setBuild(std::stoul(VERSION_BUILD));
 		return v;		
 	}
         
@@ -184,7 +193,6 @@ namespace clientdb
         {
             return port;
         }
-        
         
         
         

@@ -10,7 +10,6 @@ namespace clientdb
 {
 	toolkit::Version getPakageVersion();
 	std::string getPakageName();	
-	typedef unsigned int ID;
         
         class SQLException : public std::exception
         {
@@ -74,15 +73,13 @@ namespace clientdb
         
         class Row : public toolkit::Object
         {
-#ifdef COLLETION_ASSISTANT
-        
-#endif
         protected:
                 void* row;
                 
         public:
                 virtual const char* operator[](unsigned long long index) = 0; 
                 Row();
+                virtual ~Row();
                 Row(void* row);
                 Row(Row& row);
         };
@@ -95,6 +92,7 @@ namespace clientdb
                 
         public:
                 Datresult(void* result);
+                virtual ~Datresult();
                 virtual Row* operator[](unsigned long long index) = 0;             
                 virtual toolkit::clientdb::Row* next()= 0;
                 void* getResult() const;
@@ -118,7 +116,7 @@ namespace clientdb
             //virtual bool query(const std::string&) = 0;
             //virtual bool query(const std::string&, std::vector<std::vector<const char*>>&) = 0;
             virtual Datresult* query(const char*) = 0;
-            virtual ID insert(const std::string&) = 0;
+            virtual unsigned long long insert(const std::string&) = 0;
             virtual bool commit() = 0;
             virtual bool begin() = 0;
             virtual bool rollback() = 0;

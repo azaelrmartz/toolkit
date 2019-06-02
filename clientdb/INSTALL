@@ -14,7 +14,7 @@ Los siquientes requisitos expresan las versiones mas actuales en el momento de l
 -------------
 - Instalación
 -------------
-	1.- Descargar el código fuente desde 'https://github.com/azaelrmartz/toolkit.git'
+	1.- Descargar el código fuente desde 'https://github.com/azaeldevel/toolkit.git'
 	2.- Descomprimir si es necesario
 	3.- cd toolkit/clientdb // entrar en el directorio
 	4.- mkdir build //crear directorio de construcción
@@ -22,6 +22,6 @@ Los siquientes requisitos expresan las versiones mas actuales en el momento de l
 	6.- cmake -DLANG=CXX -DSERVER=MYSQL  ..
 	7.- make
 	8.- cpack --config CPackConfig.cmake
-	9.- sudo ./toolkit-cliendb-c++-mysql-*-Linux.sh --prefix=/usr
+	9.- sudo ./toolkit-clientdb-c++-mysql-*-Linux.sh --prefix=/usr
 
 

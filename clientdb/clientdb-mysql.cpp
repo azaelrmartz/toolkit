@@ -21,9 +21,6 @@ namespace mysql
         Row::Row(Row& row)
         {
                 this->row = row.row;
-#ifdef COLLETION_ASSISTANT
-                this->parent = row.parent;
-#endif
         }
          const char* Row::operator[](unsigned long long index)
          {
@@ -83,9 +80,9 @@ namespace mysql
                 MYSQL_ROW row  = mysql_fetch_row((MYSQL_RES*)result);
                 Row* r = new Row(row);
 #ifdef COLLETION_ASSISTANT
-                        addChild(r);
+                addChild(r);
 #endif                                 
-                        return r;
+                return r;
         }
         Datresult::~Datresult()
         {
@@ -135,7 +132,7 @@ namespace mysql
         }
         Connector::~Connector()
         {
-            close();
+                close();
 #ifdef COLLETION_ASSISTANT
                 if(getCountChilds() > 0)
                 {
@@ -203,7 +200,7 @@ namespace mysql
             
             return false; 
         }
-        ID Connector::insert(const std::string& str)
+        unsigned long long Connector::insert(const std::string& str)
         {
             if (mysql_query((MYSQL*)serverConnector, str.c_str()) == 0) 
             {

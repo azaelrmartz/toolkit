@@ -22,16 +22,13 @@ namespace mysql
 
         class Row : public toolkit::clientdb::Row
         {
-#ifdef COLLETION_ASSISTANT
-        private:
-                Datresult* parent;
         public:
+#ifdef COLLETION_ASSISTANT
                 Row(Datresult* rs,void* row);
 #endif
-        public:
                 virtual const char* operator[](unsigned long long index); 
                 Row();
-                ~Row();
+                virtual ~Row();
                 Row(void* row);
                 Row(Row& row);
         };
@@ -39,7 +36,7 @@ namespace mysql
         class Datresult : public toolkit::clientdb::Datresult
         {
         public:
-                ~Datresult();
+                virtual ~Datresult();
                 Datresult(void* result);
                 virtual toolkit::clientdb::Row* operator[](unsigned long long index);                
                 virtual toolkit::clientdb::Row* next();
@@ -55,7 +52,7 @@ namespace mysql
             //virtual bool query(const std::string&);
             //virtual bool query(const std::string&, std::vector<std::vector<const char*>>&);
             virtual toolkit::clientdb::Datresult* query(const char*);
-            virtual ID insert(const std::string&);
+            virtual unsigned long long insert(const std::string&);
             virtual bool commit();
             virtual bool begin();
             virtual bool rollback();

@@ -3,7 +3,6 @@
 #include <stdlib.h>     /* srand, rand */
 #include <time.h> 
 #include <string>
-#include <mysql.h>
 
 
 
@@ -13,12 +12,12 @@ int main(int argc, char **argv)
 {
 	std::cout << toolkit::clientdb::getPakageName() << " v" << toolkit::clientdb::getPakageVersion().toString()<<std::endl;
         
-        toolkit::clientdb::mysql::Datconnect mysqlSQLSource("192.168.0.101",3306,"sis","develop","123456");  
+        toolkit::clientdb::mysql::Datconnect mysqlSQLDat("192.168.0.101",3306,"sis","develop","123456");  
         toolkit::clientdb::mysql::Connector* connector = new toolkit::clientdb::mysql::Connector(); 
         bool flag = false;  
         try
         {
-                flag = connector->connect(&mysqlSQLSource);
+                flag = connector->connect(&mysqlSQLDat);
         }
 	catch(toolkit::clientdb::SQLException ex)
 	{
@@ -26,40 +25,29 @@ int main(int argc, char **argv)
 	}
         if(flag)
         {
-                printf("MySQL client version: %s\n", mysql_get_client_info());
+                printf("MySQL client version: %s\n", connector->serverDescription());
         }
         else
         {
                 std::cerr<<"Fallo la conexion el servidor."<< std::endl;
-        }
-    
-        
-        /*std::vector<std::vector<const char*>> lst;
-        if(connector->query("show tables",lst) == false)
-        {
-                std::cout << "Fallo la consuta" << std::endl;
-        }
-        for(auto row : lst)
-        {
-                std::cout << row[0] << std::endl;
-        }*/
-        
+        }        
         
         toolkit::clientdb::Datresult* dt = connector->query("show tables");
         toolkit::clientdb::Row*  row =  new toolkit::clientdb::mysql::Row (NULL);   
         toolkit::clientdb::Row*  rowT = row;
-        do
+        /*do
         {
-                if((*row)[0] != NULL) delete row; //elimina el row anterior
+                delete row; //elimina el row anterior
                 row = dt->next();// next crea un row mediante new Row() por lo que hay que liberar esta memoria posterior mente
                 std::cout << (*row)[0] << std::endl;
         }
-        while((*row)[0] != NULL);
+        while((*row)[0] != NULL);*/
         
-        std::cout << "Terminando programa" << std::endl; 
-        
-        delete dt;
+#ifdef COLLETION_ASSISTANT
+        std::cout<< "El asistente de recoleccion esta activo."<<std::endl;
+#endif
         delete rowT;
+        delete dt;
         delete connector;
         return 0;    
 }
