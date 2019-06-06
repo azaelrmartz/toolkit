@@ -3,7 +3,7 @@
 %debug 
 %defines 
 %define api.namespace {toolkit}
-%define parser_class_name {Parser}
+%define api.parser.class {Parser} //parser_class_name
 
 %code requires
 {
@@ -27,7 +27,7 @@
 
 %parse-param { toolkit::Scanner  &scanner  }
 %parse-param { toolkit::Driver  &driver  }
-%parse-param { toolkit::Version  &ver  }
+%parse-param { toolkit::Version  &version  }
 
 %code{
    #include <iostream>
@@ -43,13 +43,14 @@
 }
 
 %define api.value.type variant
-%define parse.assert
+//%define parse.assert
 
 
-%token NUMBER
-%token BUILD
-%token WORD
-%token END DOT
+%token<short> NUMBER
+%token<unsigned long> BUILD
+%token<std::string> WORD
+%token DOT
+%token END
 
 %start version
 %locations
@@ -57,47 +58,38 @@
 %%
 version : numbers end | numbers build end | numbers build name end;
 
-numbers : one_number | two_numbers | tree_numbers | four_numbers ;
+numbers : one_number | two_numbers | tree_numbers ;
 
-        one_number : NUMBER
-	{
-	    //ver->major = $1;
-	}
-	;
+one_number : NUMBER
+{
+        version.setNumbers($1);
+};
 
-        two_numbers : NUMBER DOT NUMBER
-	{
-	   //ver->major = $1;
-	    //ver->minor = $3;
-	}
-	;
+two_numbers : NUMBER DOT NUMBER
+{
+       version.setNumbers($1,$3);
+};
 
-        tree_numbers : NUMBER DOT NUMBER DOT NUMBER
-	{
-                //ver->major = $1;
-               // ver->minor = $3;
-                //ver->patch = $5;
-	}
-	;
+tree_numbers : NUMBER DOT NUMBER DOT NUMBER
+{
+        version.setNumbers($1,$3,$5);
+};
 
-        four_numbers : NUMBER DOT NUMBER DOT NUMBER DOT NUMBER
-	{
-	   /* ver->major = $1;
-	    ver->minor = $3;
-	    ver->patch = $5;
-	    ver->tweak = $7;*/
-	}
-	;
 
 build : BUILD
-	{
-	    //ver->build = $1;
-	}
-	;
+{
+       version.setBuild($1);
+};
 
-name : WORD;
+name : WORD
+{
+        version.setName($1);
+};
 
-end : END;
+end : END
+{
+        YYACCEPT;
+};
 
 %%
 
