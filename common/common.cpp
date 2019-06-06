@@ -1,7 +1,10 @@
 
 #include "common.hpp"
+#include "common.h"
 #include "versionInfo.h"
 #include <iostream>
+
+
 
 namespace toolkit
 {	
@@ -48,7 +51,12 @@ namespace toolkit
 
 
 
-
+        void Version::from(std::string text)
+        {
+                octetos_toolkit_common_Version ver;
+                //octetos_toolkit_common_Version_fromString(text.c_str(),&ver);
+                this->major = ver.major;
+        }
         void Version::setName(const std::string& name)
         {
                 this->name = name;

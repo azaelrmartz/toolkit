@@ -12,7 +12,7 @@ namespace toolkit
         {
         public:        
                 Object();
-                ~Object();
+                virtual ~Object();
                 
 #ifdef COLLETION_ASSISTANT
         protected:
@@ -22,6 +22,8 @@ namespace toolkit
         private:
                 unsigned int countChilds;
                 Object* parent;
+                const char* createdFile;
+                unsigned int line;                
 #endif
         };
         
@@ -47,6 +49,7 @@ namespace toolkit
 		short major;
 		short minor;
 		short patch;
+                short tweak;
                 unsigned long build;
 		Stage stage;
                 std::string name;
@@ -67,7 +70,8 @@ namespace toolkit
                 void setStage(Stage stage);
                 void setBuild(unsigned long build);
                 void setName(const std::string& name);
-		std::string toString() const;
+		std::string toString() const;                
+                void from(std::string text);                
 	};
 
 
