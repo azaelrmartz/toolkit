@@ -1,12 +1,14 @@
-#ifndef TOOLKIT_COMMON_HPP
-#define TOOLKIT_COMMON_HPP
+#ifndef OCTETOS_TOOLKIT_COMMON_H
+#define OCTETOS_TOOLKIT_COMMON_H
 
 
 
-enum Stage {
+enum octetos_toolkit_common_Stage {
 	unknown,
+        snapshot,
 	alpha,
 	beta,
+        rc,
 	release
 };
 
@@ -14,20 +16,24 @@ enum Stage {
 * \brief Informacion de version
 * 
 **/
-struct Version {	
+struct octetos_toolkit_common_Version {	
 	short major;
 	short minor;
 	short patch;
-	enum Stage stage;	
+        short tweak;
+        unsigned long build;
+	enum octetos_toolkit_common_Stage stage;	
+        const char* name;
 };
 
-const char* toString(const struct Version* version);
-struct Version Version(short major,short minor,short patch,enum Stage stage);
+const char* toString(const struct octetos_toolkit_common_Version* version);
+struct octetos_toolkit_common_Version Version(short major,short minor,short patch,enum octetos_toolkit_common_Stage stage);
 	
 /**
 * \brief returna la version actual de componente common
 **/
-struct Version getPakageVersionTC();
-	
+struct octetos_toolkit_common_Version getPakageVersionTC();
+
+void  octetos_toolkit_common_Version_fromString(const char* string, struct octetos_toolkit_common_Version* ver);
 
 #endif
