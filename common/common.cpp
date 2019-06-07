@@ -54,11 +54,8 @@ namespace toolkit
 
 
 
-        void Version::from(std::string text)
-        {
-                //toolkit::Driver driver(*this);
-                //driver.parse(text);
-        }
+
+        
         void Version::setName(const std::string& name)
         {
                 this->name = name;

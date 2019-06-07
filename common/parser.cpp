@@ -12,7 +12,8 @@ main( const int argc, const char **argv )
    toolkit::Version ver;
    if( argc == 2 )
    {
-      toolkit::Driver driver;
+      toolkit::Version version;
+      toolkit::Driver driver(version);
       /** example for piping input from terminal, i.e., using cat **/ 
       if( std::strncmp( argv[ 1 ], "-o", 2 ) == 0 )
       {
@@ -32,7 +33,7 @@ main( const int argc, const char **argv )
          /** assume file, prod code, use stat to check **/
          driver.parse( argv[1] );
       }
-       std::cout <<"ver:  " << ver.toString() << std::endl;
+       //std::cout <<"ver:  " << ver.toString() << std::endl;
    }
    else
    {

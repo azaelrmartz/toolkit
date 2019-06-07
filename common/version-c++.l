@@ -39,54 +39,56 @@ NAME	[a-zA-Z0-9]+
 %}
 
 {DIGIT}{1,11}  	{
-		    printf("Number: %s\n", yytext);
+		    //printf("Number: %s\n", yytext);
+		    //yylval-> = (short)atoi(yytext);
 		    return token::NUMBER;
 		}
 {DIGIT}{12,14}  {
-		    printf("Build: %s\n", yytext);
+		    //printf("Build: %s\n", yytext);
 		    return token::BUILD;
 		}
 \-               {
-		    printf("Hyphen: %s\n", yytext);
+		    //printf("Hyphen: %s\n", yytext);
 		    return token::HYPHEN;
 		}
 "snapshot"  {
-                        printf("Stage: %s\n", yytext);
+                        //printf("Stage: %s\n", yytext);
                         return token::SNAPSHOT;
                         }
  "alpha"        {
-                        printf("Stage: %s\n", yytext);
+                        //printf("Stage: %s\n", yytext);
                         return token::ALPHA;
                         }
  "beta"          {
-                        printf("Stage: %s\n", yytext);
+                        //printf("Stage: %s\n", yytext);
                         return token::BETA;
                         }
  "rc"               {
-                        printf("Stage: %s\n", yytext);
+                        //printf("Stage: %s\n", yytext);
                         return token::RC;
                         }
  "release"  {
-                        printf("Stage: %s\n", yytext);
+                        //printf("Stage: %s\n", yytext);
                         return token::RELEASE;
                         }
 {NAME}  {
-                        printf("Nombre: %s\n", yytext);
+                        //printf("Nombre: %s\n", yytext);
+                       // yylval = yytext;
                         return token::NAME;
                 }
 	
 \. 		{
-		    printf("Dot: %s\n", yytext);
+		    //printf("Dot: %s\n", yytext);
 		    return token::DOT;
 		}	
 		
 [\n\0]		{
-		    printf("Fin %s\n", yytext);
+		    //printf("Fin %s\n", yytext);
 		    return token::END;
 		}
 
 . 		 {
-                        printf("Ignorando: '%s'\n", yytext);
+                        //printf("Ignorando: '%s'\n", yytext);
                 }
 
 

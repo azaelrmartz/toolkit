@@ -4,6 +4,7 @@
 %defines 
 %define api.namespace {toolkit}
 %define api.parser.class {Parser} //parser_class_name
+%language "c++"
 
 %code requires
 {
@@ -45,10 +46,16 @@
 %define api.value.type variant
 //%define parse.assert
 
+/*%union
+{
+  short si;
+  unsigned long ul;
+  std::string* str;
+}*/
 
-%token<short> NUMBER
-%token<unsigned long> BUILD
-%token<std::string> NAME
+%token<short> NUMBER "short"
+%token<unsigned long> BUILD "long"
+%token<std::string> NAME "string"
 %token DOT
 %token HYPHEN
 %token SNAPSHOT
@@ -57,6 +64,8 @@
 %token RC
 %token RELEASE
 %token END
+
+
 
 %start version
 %locations
@@ -75,6 +84,7 @@ numbers : one_number | two_numbers | tree_numbers ;
 
 one_number : NUMBER
 {
+        //printf("$1 = %s\n",$1);
         version.setNumbers($1);
 };
 
@@ -85,6 +95,7 @@ two_numbers : NUMBER DOT NUMBER
 
 tree_numbers : NUMBER DOT NUMBER DOT NUMBER
 {
+        printf("$3 = %s\n",$3);
         version.setNumbers($1,$3,$5);
 };
 

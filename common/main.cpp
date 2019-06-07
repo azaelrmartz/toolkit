@@ -12,7 +12,4 @@ int main()
         std::cout<< "El asistente de recoleccion esta activo."<<std::endl;
 #endif
         
-        toolkit::Version vFromStr;
-        vFromStr.from("1.25.36");
-        std::cout << " Parsed :" <<vFromStr.toString()<<std::endl;
 }
