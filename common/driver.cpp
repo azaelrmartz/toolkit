@@ -1,9 +1,20 @@
 #include <cctype>
 #include <fstream>
 #include <cassert>
+#include <sstream> 
 
 #include "driver.hpp"
 
+toolkit::Driver::Driver(Version& version)
+{
+        this->version = &version;
+}
+void toolkit::Driver::parse(const std::string& line)
+{
+        std::istringstream text(line);
+        parse(text);
+}
+	
 toolkit::Driver::~Driver()
 {
    delete scanner;
@@ -53,11 +64,14 @@ toolkit::Driver::parse_helper( std::istream &stream )
          ba.what() << "), exiting!!\n";
       exit( EXIT_FAILURE );
    }
-   Version version;
+   if(version == nullptr)
+   {
+           throw "El objeto version no ha sido asignado";
+   }
    delete(parser); 
    try
    {
-      parser = new toolkit::Parser( (*scanner) /* scanner */,  (*this) /* driver */ ,version);
+      parser = new toolkit::Parser( (*scanner) /* scanner */,  (*this) /* driver */ ,*version);
    }
    catch( std::bad_alloc &ba )
    {

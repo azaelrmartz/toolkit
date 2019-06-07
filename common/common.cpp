@@ -2,6 +2,9 @@
 #include "common.hpp"
 #include "common.h"
 #include "versionInfo.h"
+#include  "driver.hpp"
+
+
 #include <iostream>
 
 
@@ -53,9 +56,8 @@ namespace toolkit
 
         void Version::from(std::string text)
         {
-                octetos_toolkit_common_Version ver;
-                //octetos_toolkit_common_Version_fromString(text.c_str(),&ver);
-                this->major = ver.major;
+                //toolkit::Driver driver(*this);
+                //driver.parse(text);
         }
         void Version::setName(const std::string& name)
         {

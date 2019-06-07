@@ -30,7 +30,8 @@ using token = toolkit::Parser::token;
 
 DIGIT	[0-9]
 CHAR	[a-zA-Z]
-WORD	[a-zA-Z]+
+NAME	[a-zA-Z0-9]+
+
 
 %%
 %{          /** Code executed at the beginning of yylex **/
@@ -45,10 +46,35 @@ WORD	[a-zA-Z]+
 		    printf("Build: %s\n", yytext);
 		    return token::BUILD;
 		}
-{WORD} 		{
-		    printf("WORD: %s\n", yytext);
-		    return token::WORD;
-		}	
+\-               {
+		    printf("Hyphen: %s\n", yytext);
+		    return token::HYPHEN;
+		}
+"snapshot"  {
+                        printf("Stage: %s\n", yytext);
+                        return token::SNAPSHOT;
+                        }
+ "alpha"        {
+                        printf("Stage: %s\n", yytext);
+                        return token::ALPHA;
+                        }
+ "beta"          {
+                        printf("Stage: %s\n", yytext);
+                        return token::BETA;
+                        }
+ "rc"               {
+                        printf("Stage: %s\n", yytext);
+                        return token::RC;
+                        }
+ "release"  {
+                        printf("Stage: %s\n", yytext);
+                        return token::RELEASE;
+                        }
+{NAME}  {
+                        printf("Nombre: %s\n", yytext);
+                        return token::NAME;
+                }
+	
 \. 		{
 		    printf("Dot: %s\n", yytext);
 		    return token::DOT;

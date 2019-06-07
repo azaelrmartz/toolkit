@@ -48,15 +48,28 @@
 
 %token<short> NUMBER
 %token<unsigned long> BUILD
-%token<std::string> WORD
+%token<std::string> NAME
 %token DOT
+%token HYPHEN
+%token SNAPSHOT
+%token ALPHA
+%token BETA
+%token RC
+%token RELEASE
 %token END
 
 %start version
 %locations
 
 %%
-version : numbers end | numbers build end | numbers build name end;
+version : 
+        numbers end
+        |
+        numbers stage end 
+        | 
+        numbers stage build end 
+        | 
+        numbers stage build name end;
 
 numbers : one_number | two_numbers | tree_numbers ;
 
@@ -75,13 +88,38 @@ tree_numbers : NUMBER DOT NUMBER DOT NUMBER
         version.setNumbers($1,$3,$5);
 };
 
+stage : HYPHEN SNAPSHOT
+{
+         version.setStage(Version::snapshot);
+}
+| 
+HYPHEN ALPHA
+{
+         version.setStage(Version::alpha);
+}
+| 
+HYPHEN BETA
+{
+         version.setStage(Version::beta);
+}
+| 
+HYPHEN RC
+{
+         version.setStage(Version::rc);
+}
+| 
+HYPHEN RELEASE
+{
+         version.setStage(Version::release);
+}
+;
 
 build : BUILD
 {
        version.setBuild($1);
 };
 
-name : WORD
+name : NAME
 {
         version.setName($1);
 };

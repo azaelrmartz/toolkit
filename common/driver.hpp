@@ -4,6 +4,8 @@
 #include <string>
 #include <cstddef>
 #include <istream>
+#include <string>
+
 
 #include "common.hpp"
 #include "scanner.hpp"
@@ -13,8 +15,8 @@ namespace toolkit{
 
 class Driver{
 public:
-   Driver() = default;
-
+   Driver(Version& version);
+   Driver();
    virtual ~Driver();
    
    /** 
@@ -27,30 +29,19 @@ public:
     * @param is - std::istream&, valid input stream
     */
    void parse( std::istream &iss );
+   void parse(const std::string& line);
 
-   /*void add_upper();
-   void add_lower();
-   void add_word( const std::string &word );
-   void add_newline();
-   void add_char();*/
 
    //std::ostream& print(std::ostream &stream);
 private:
 
    void parse_helper( std::istream &stream );
 
-   /*std::size_t  chars      = 0;
-   std::size_t  words      = 0;
-   std::size_t  lines      = 0;
-   std::size_t  uppercase  = 0;
-   std::size_t  lowercase  = 0;*/
+
    toolkit::Parser  *parser  = nullptr;
    toolkit::Scanner *scanner = nullptr;
-   
-   /*const std::string red   = "\033[1;31m";
-   const std::string blue  = "\033[1;36m";
-   const std::string norm  = "\033[0m";*/
+   toolkit::Version *version = nullptr;
 };
 
-} /* end namespace MC */
-#endif /* END __MCDRIVER_HPP__ */
+} 
+#endif  

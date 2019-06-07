@@ -3,11 +3,13 @@
 #include <cstring>
 
 #include "driver.hpp"
+#include "common.hpp"
 
 int 
 main( const int argc, const char **argv )
 {
    /** check for the right # of arguments **/
+   toolkit::Version ver;
    if( argc == 2 )
    {
       toolkit::Driver driver;
@@ -30,7 +32,7 @@ main( const int argc, const char **argv )
          /** assume file, prod code, use stat to check **/
          driver.parse( argv[1] );
       }
-      //driver.print( std::cout ) << "\n";
+       std::cout <<"ver:  " << ver.toString() << std::endl;
    }
    else
    {
