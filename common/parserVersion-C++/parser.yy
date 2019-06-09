@@ -64,59 +64,56 @@ numbers : firts_number | second_numbers | third_numbers ;
 
 firts_number : NUMBER
 {
-        //printf("$1 = %s\n",$1);
-        //version.setNumbers($1);
+        drv.getVersion().setNumbers($1);
 };
 
 second_numbers : NUMBER DOT NUMBER
 {
-       //version.setNumbers($1,$3);
+       drv.getVersion().setNumbers($1,$3);
 };
 
 third_numbers : NUMBER DOT NUMBER DOT NUMBER
 {        
-        std::cout << "$1 = " << $1 << std::endl;
-        std::cout << "$3 = " << $3 << std::endl;
-        std::cout << "$5 = " << $5 << std::endl;
+        //std::cout << "$1 = " << $1 << std::endl;
+        //std::cout << "$3 = " << $3 << std::endl;
+        //std::cout << "$5 = " << $5 << std::endl;
         drv.getVersion().setNumbers($1,$3,$5);
 };
 
 stage : DASH SNAPSHOT
 {
-         //version.setStage(Version::snapshot);
+         drv.getVersion().setStage(toolkit::Version::snapshot);
 }
 | 
 DASH ALPHA
 {
-         //version.setStage(Version::alpha);
+         drv.getVersion().setStage(toolkit::Version::alpha);
 }
 | 
 DASH BETA
 {
-         //version.setStage(Version::beta);
+         drv.getVersion().setStage(toolkit::Version::beta);
 }
 | 
 DASH RC
 {
-         //version.setStage(Version::rc);
+         drv.getVersion().setStage(toolkit::Version::rc);
 }
 | 
 DASH RELEASE
 {
-         //version.setStage(Version::release);
+         drv.getVersion().setStage(toolkit::Version::release);
 }
 ;
 
 build : BUILD
 {
-        //printf("$1 = %s\n",$1);
-        //version.setBuild($1);
+        drv.getVersion().setBuild($1);
 };
 
 name : NAME
 {
-        //printf("$1 = %s\n",((std::string)$1)).c_str();
-        //version.setName($1);
+        drv.getVersion().setName($1);
 };
 
 end : END

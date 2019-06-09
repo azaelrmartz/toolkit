@@ -164,7 +164,7 @@ namespace toolkit
                                 ;
                 }
 
-		if(build >= 0)
+		if(build > 0)
                 {
                         ver += " ";
                         ver += std::to_string(build);	
