@@ -55,7 +55,10 @@ namespace toolkit
 
 
 
-        
+        const std::string& Version::getName() const
+        {
+                return name;
+        }
         void Version::setName(const std::string& name)
         {
                 this->name = name;

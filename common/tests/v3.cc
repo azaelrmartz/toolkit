@@ -6,6 +6,10 @@
 #include "../common.hpp"
 #include "../versionInfo.h" 
 #include "../parserVersion-C++/driver.hh"
+#include <cstdlib>
+
+
+static std::string  rootDir;
 
 /* Pointer to the file used by the tests. */
 static FILE* temp_file = NULL;
@@ -38,15 +42,22 @@ void testVersionGeneric()
         //std::cout << "Valores inicilaes .." << std::endl;
 	CU_ASSERT(ver.getMajor() == -1)
 	CU_ASSERT(ver.getMinor() == -1)
-	CU_ASSERT(ver.getPatch() == -1)
-	
+	CU_ASSERT(ver.getPatch() == -1)	
 	CU_ASSERT(ver.getStage() == toolkit::Version::unknown)
+        CU_ASSERT(ver.getBuild() == 0);
+        CU_ASSERT(ver.getName().size() == 0);
         
         
         //reading file
         //std::cout << "Probando el parser .." << std::endl;
         driver drv(ver);
-        CU_ASSERT(drv.parse ("../tests/ver") == 0);	
+        CU_ASSERT(drv.parse (rootDir + "/tests/ver") == 0);
+        CU_ASSERT(ver.getMajor() == 12);
+        CU_ASSERT(ver.getMinor() == 36);
+        CU_ASSERT(ver.getPatch() == 56);
+        CU_ASSERT(ver.getStage() == toolkit::Version::snapshot);
+        CU_ASSERT(ver.getBuild() == 1234567890123);
+        CU_ASSERT(ver.getName().compare("devtest") == 0);
 }
 
 /*void testRQ0001001()
@@ -57,8 +68,17 @@ void testVersionGeneric()
 }*/
 
 
-int main()
+int main(int argc, char *argv[])
 {
+        if(argc > 0)
+        {
+                rootDir = argv[1];
+        }
+        else
+        {
+                std::cerr << "Indique el directorio root.";
+                return EXIT_FAILURE;
+        }
 	CU_pSuite pSuite = NULL;
 	
 	/* initialize the CUnit test registry */
