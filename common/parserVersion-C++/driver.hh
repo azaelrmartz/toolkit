@@ -14,7 +14,7 @@ YY_DECL;
 class driver
 {
 public:
-  driver ();//toolkit::Version& version
+  driver (toolkit::Version& version);//
 
   std::map<std::string, int> variables;
 

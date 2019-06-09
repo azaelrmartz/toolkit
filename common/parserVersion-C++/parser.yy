@@ -78,7 +78,7 @@ third_numbers : NUMBER DOT NUMBER DOT NUMBER
         std::cout << "$1 = " << $1 << std::endl;
         std::cout << "$3 = " << $3 << std::endl;
         std::cout << "$5 = " << $5 << std::endl;
-        //drv.getVersion().setNumbers($1,$3,$5);
+        drv.getVersion().setNumbers($1,$3,$5);
 };
 
 stage : DASH SNAPSHOT

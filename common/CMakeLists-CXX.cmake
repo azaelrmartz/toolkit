@@ -13,11 +13,11 @@ BISON_TARGET(parser parserVersion-C++/parser.yy  ${PROJECT_SOURCE_DIR}/parserVer
 FLEX_TARGET(lexer parserVersion-C++/scanner.ll  ${PROJECT_SOURCE_DIR}/parserVersion-C++/scanner.cc)
 ADD_FLEX_BISON_DEPENDENCY(lexer parser)
 
-ADD_EXECUTABLE(main main.cpp common.cpp ${FLEX_lexer_OUTPUTS} ${BISON_parser_OUTPUTS}) 
-ADD_EXECUTABLE(parserVersion parserVersion-C++/version-c++.cc parserVersion-C++/driver.cc ${FLEX_lexer_OUTPUTS} ${BISON_parser_OUTPUTS})
+ADD_EXECUTABLE(main main.cpp common.cpp) 
+ADD_EXECUTABLE(parserVersionTest common.cpp parserVersion-C++/version-c++.cc parserVersion-C++/driver.cc ${FLEX_lexer_OUTPUTS} ${BISON_parser_OUTPUTS})
 
 
-ADD_LIBRARY(common-c++-1step STATIC  common.cpp  ${FLEX_lexer_OUTPUTS} ${BISON_parser_OUTPUTS})
+ADD_LIBRARY(common-c++-1step STATIC  common.cpp parserVersion-C++/driver.cc ${FLEX_lexer_OUTPUTS} ${BISON_parser_OUTPUTS})
 ADD_LIBRARY(common-c++ STATIC common-parser.cpp  ${FLEX_lexer_OUTPUTS} ${BISON_parser_OUTPUTS})
 TARGET_LINK_LIBRARIES(common-c++ common-c++-1step)
 

@@ -2,16 +2,16 @@
 #include "parser.hh"
 
 
-/*toolkit::Version& driver::getVersion()
+toolkit::Version& driver::getVersion()
 {
     return *version;
-}*/
-driver::driver ()
+}
+driver::driver (toolkit::Version& version)
   : trace_parsing (false), trace_scanning (false)
 {
   variables["one"] = 1;
   variables["two"] = 2;
-  //this->version = &version;
+  this->version = &version;
 }
 
 int
