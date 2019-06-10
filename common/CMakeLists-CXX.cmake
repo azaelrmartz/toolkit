@@ -26,8 +26,8 @@ TARGET_LINK_LIBRARIES(testing-v${toolkit-common_VERSION_MAJOR} ${CUNIT_LIBRARY})
 
 
 ADD_LIBRARY(common-c++-1step STATIC  common.cpp parserVersion-C++/driver.cc ${FLEX_lexer_OUTPUTS} ${BISON_parser_OUTPUTS})
-ADD_LIBRARY(common-c++.${toolkit-common_VERSION_MAJOR} STATIC common-parser.cpp  ${FLEX_lexer_OUTPUTS} ${BISON_parser_OUTPUTS})
-TARGET_LINK_LIBRARIES(common-c++.${toolkit-common_VERSION_MAJOR} common-c++-1step)
+ADD_LIBRARY(common-c++ STATIC common-parser.cpp common.cpp ${FLEX_lexer_OUTPUTS} ${BISON_parser_OUTPUTS})
+TARGET_LINK_LIBRARIES(common-c++ common-c++-1step)
 #SET_TARGET_PROPERTIES(common-c++.${toolkit-common_VERSION_MAJOR} PROPERTIES SOVERSION ${toolkit-common_VERSION_MAJOR})
 
 #ADD_LIBRARY(common-c++-so-1step SHARED  common.cpp parserVersion-C++/driver.cc ${FLEX_lexer_OUTPUTS} ${BISON_parser_OUTPUTS})
@@ -35,7 +35,7 @@ TARGET_LINK_LIBRARIES(common-c++.${toolkit-common_VERSION_MAJOR} common-c++-1ste
 #TARGET_LINK_LIBRARIES(common-c++-so.${toolkit-common_VERSION_MAJOR} common-c++-so-1step)
 #SET_TARGET_PROPERTIES(common-c++-so.${toolkit-common_VERSION_MAJOR} PROPERTIES SOVERSION ${toolkit-common_VERSION_MAJOR})
 
-INSTALL(TARGETS common-c++.${toolkit-common_VERSION_MAJOR} DESTINATION lib/toolkit/common/)
+INSTALL(TARGETS common-c++ DESTINATION lib/toolkit/common/)
 #INSTALL(TARGETS common-c++-so.${toolkit-common_VERSION_MAJOR} DESTINATION lib/toolkit/common/)
 INSTALL(FILES common.hpp DESTINATION include/toolkit/common/)
 
