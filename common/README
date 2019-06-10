@@ -1,0 +1,21 @@
+--------------------------------------
+    Instalación
+--------------------------------------
+Vea el archivo INSTALL para instrucciones detalladas.
+
+
+
+
+--------------------------------------
+    Estructura de Archivos
+--------------------------------------
+El componete toolkit-common es multi-lenguaje y multi-paquete esto 
+explica la gran cantidad de archivos que hay. Actualmente funciona
+C++ con CMake, Java con Maven y Python.
+
+
+--------------------------------------
+    En desarrollo
+--------------------------------------
+Estan en desarrollo implemtacion de Autotools para C, C++ y Java, CMake
+para C, Java y Python.
