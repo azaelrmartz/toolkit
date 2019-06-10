@@ -35,7 +35,6 @@
   BETA   "beta"
   RC  "rc"
   RELEASE  "release"
-  SPACE
 ;
 
 %token <std::string> NAME "string"
@@ -51,7 +50,7 @@
 version : 
         numbers end
         |
-        numbers stage end 
+        numbers stage  end 
         | 
         numbers stage build end 
         | 

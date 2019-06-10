@@ -70,11 +70,12 @@
 DIGIT	[0-9]
 CHAR	[a-zA-Z]
 NAME	[a-zA-Z0-9]+
-
+SPACE [ \t\r]
 %{
   // Code run each time a pattern is matched.
   # define YY_USER_ACTION  loc.columns (yyleng);
 %}
+%s stage
 %%
 %{
   // A handy shortcut to the location held by the driver.
@@ -84,20 +85,20 @@ NAME	[a-zA-Z0-9]+
 %}
 
 "."        	{/*std::cout << yytext << std::endl;*/return yy::parser::make_DOT(loc);}
-"-"        	{/*std::cout << yytext << std::endl;*/return yy::parser::make_DASH(loc);}
+"-"        	{/*std::cout << yytext << std::endl;*/BEGIN(stage);return yy::parser::make_DASH(loc);}
 
-"snapshot"  	{/*std::cout << "Stage : " << yytext << std::endl;*/return yy::parser::make_SNAPSHOT(loc);}
-"alpha"		{/*std::cout << "Stage : " << yytext << std::endl;*/ return yy::parser::make_ALPHA(loc);}
-"beta"     	{/*std::cout << "Stage : " << yytext << std::endl;*/return yy::parser::make_BETA(loc);}
-"rc"       	{/*std::cout << "Stage : " << yytext << std::endl;*/return yy::parser::make_RC(loc);}
-"release"  	{/*std::cout << "Stage : " << yytext << std::endl;*/return yy::parser::make_RELEASE(loc);}
+<stage>"snapshot"  	{/*std::cout << "Stage : " << yytext << std::endl;*/;return yy::parser::make_SNAPSHOT(loc);}
+<stage>"alpha"		{/*std::cout << "Stage : " << yytext << std::endl;*/;return yy::parser::make_ALPHA(loc);}
+<stage>"beta"     	{/*std::cout << "Stage : " << yytext << std::endl;*/;return yy::parser::make_BETA(loc);}
+<stage>"rc"       	{/*std::cout << "Stage : " << yytext << std::endl;*/;return yy::parser::make_RC(loc);}
+<stage>"release"  	{/*std::cout << "Stage : " << yytext << std::endl;*/;return yy::parser::make_RELEASE(loc);}
 			
 {DIGIT}{1,11}  	{/*std::cout << "Number : " << yytext << std::endl;*/return make_NUMBER(yytext, loc);}
 {DIGIT}{12,14}  {/*std::cout << "Build : " << yytext << std::endl;*/return yy::parser::make_BUILD(strtol (yytext, NULL, 10), loc);}
 {NAME}  	{/*std::cout << "Nombre : " << yytext << std::endl;*/return yy::parser::make_NAME (yytext, loc);}
 
 
-[ \t\r]+	{/*std::cout << "Ignorando : '"<< yytext << "'" << std::endl;*/}
+{SPACE}+	{/*std::cout << "Ignorando : '"<< yytext << "'" << std::endl;*/}
 
 [\n\0]		{return yy::parser::make_END (loc);}
 .          	{
