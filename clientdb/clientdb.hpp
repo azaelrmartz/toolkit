@@ -50,7 +50,7 @@ namespace clientdb
             const Datconnect& operator=(const Datconnect& obj);
             void set(ServerType serverType,const std::string& host, unsigned int port,const std::string& database,const std::string& usuario,const std::string& password);
             
-            virtual std::string toString() const;
+            virtual std::string toString()const;
             const std::string& getHost()const;
             const std::string& getUser()const;
             const std::string& getPassword()const;

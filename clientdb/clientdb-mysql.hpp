@@ -57,7 +57,7 @@ namespace mysql
             virtual bool begin();
             virtual bool rollback();
             virtual void close();
-        };        
+        };      
 }
 }
 }
