@@ -11,7 +11,7 @@ Vea el archivo INSTALL para instrucciones detalladas.
 --------------------------------------
 El componete toolkit-common es multi-lenguaje y multi-paquete esto 
 explica la gran cantidad de archivos que hay. Actualmente funciona
-C++ con CMake, Java con Maven y Python.
+C++ con CMake, Java con Maven y Python con Distutils.
 
 
 --------------------------------------
