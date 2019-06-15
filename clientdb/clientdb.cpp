@@ -4,7 +4,7 @@
 #include <sstream>
 #include <arpa/inet.h>
 
-#include "config.h"
+#include "versionInfo.h"
 #include "clientdb.hpp"
 
 namespace toolkit
