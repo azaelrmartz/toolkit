@@ -5,9 +5,11 @@
 --------------------
 Los siquientes requisitos expresan las versiones mas actuales en el momento de la generacion del codigo por lo que muy posiblemente versiones anteriores funcionen tambien.
 
-	- CMake 3.5
-	- GCC 8.2
-	- CUnit 2
+	- CMake 3
+	- GCC 8
+	- CUnit 
+	- Flex 2
+	- Bison 3
 
 -------------
 - Instalación
