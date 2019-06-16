@@ -22,8 +22,8 @@ ADD_EXECUTABLE(parserVersionTest common.cpp parserVersion-C++/version-c++.cc par
 ADD_EXECUTABLE(testing-v${octetos-toolkit-common_VERSION_MAJOR} tests/v${octetos-toolkit-common_VERSION_MAJOR}.cc common.cpp parserVersion-C++/driver.cc ${FLEX_lexer_OUTPUTS} ${BISON_parser_OUTPUTS})
 TARGET_LINK_LIBRARIES(testing-v${octetos-toolkit-common_VERSION_MAJOR} ${CUNIT_LIBRARY})
 
-ADD_LIBRARY(octetos-toolkit-common-c++ STATIC common-parser.cpp common.cpp parserVersion-C++/driver.cc ${FLEX_lexer_OUTPUTS} ${BISON_parser_OUTPUTS})
+ADD_LIBRARY(${PROJECT_NAME}-c++ STATIC common-parser.cpp common.cpp parserVersion-C++/driver.cc ${FLEX_lexer_OUTPUTS} ${BISON_parser_OUTPUTS})
 
-INSTALL(TARGETS octetos-toolkit-common-c++ DESTINATION lib/octetos/toolkit/)
+INSTALL(TARGETS ${PROJECT_NAME}-c++ DESTINATION lib/octetos/toolkit/common/)
 INSTALL(FILES common.hpp DESTINATION include/octetos/toolkit/common/)
-SET(CPACK_PACKAGE_NAME "octetos-toolkit-common-c++")
+SET(CPACK_PACKAGE_NAME "${PROJECT_NAME}-c++")

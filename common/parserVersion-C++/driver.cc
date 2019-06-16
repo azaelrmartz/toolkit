@@ -2,11 +2,11 @@
 #include "parser.hh"
 
 
-toolkit::Version& driver::getVersion()
+octetos::toolkit::Version& driver::getVersion()
 {
     return *version;
 }
-driver::driver (toolkit::Version& version)
+driver::driver (octetos::toolkit::Version& version)
   : trace_parsing (false), trace_scanning (false)
 {
   variables["one"] = 1;

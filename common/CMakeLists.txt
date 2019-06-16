@@ -1,5 +1,5 @@
 CMAKE_MINIMUM_REQUIRED(VERSION 3.0)
-PROJECT(octetos-toolkit-common VERSION 3.8.1 LANGUAGES ${LANG})
+PROJECT(octetos-toolkit-common VERSION 4.0.0 LANGUAGES ${LANG})
 
 EXECUTE_PROCESS(COMMAND date +"%Y%m%d%H%I" OUTPUT_VARIABLE octetos-toolkit-common_VERSION_BUILD)
 SET(octetos-toolkit-common_VERSION_STAGE "snapshot")

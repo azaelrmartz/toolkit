@@ -10,16 +10,16 @@
 
 int main(int argc, char **argv)
 {
-	std::cout << toolkit::clientdb::getPakageName() << " v" << toolkit::clientdb::getPakageVersion().toString()<<std::endl;
+	std::cout << octetos::toolkit::clientdb::getPakageName() << " v" << octetos::toolkit::clientdb::getPakageVersion().toString()<<std::endl;
         
-        toolkit::clientdb::mysql::Datconnect mysqlSQLDat("192.168.0.101",3306,"sis","develop","123456");  
-        toolkit::clientdb::mysql::Connector* connector = new toolkit::clientdb::mysql::Connector(); 
+        octetos::toolkit::clientdb::mysql::Datconnect mysqlSQLDat("192.168.0.101",3306,"sis","develop","123456");  
+        octetos::toolkit::clientdb::mysql::Connector* connector = new octetos::toolkit::clientdb::mysql::Connector(); 
         bool flag = false;  
         try
         {
                 flag = connector->connect(&mysqlSQLDat);
         }
-	catch(toolkit::clientdb::SQLException ex)
+	catch(octetos::toolkit::clientdb::SQLException ex)
 	{
 		std::cerr<<ex.what()<< std::endl;
 	}
@@ -32,9 +32,9 @@ int main(int argc, char **argv)
                 std::cerr<<"Fallo la conexion el servidor."<< std::endl;
         }        
         
-        toolkit::clientdb::Datresult* dt = connector->query("show tables");
-        toolkit::clientdb::Row*  row =  new toolkit::clientdb::mysql::Row (NULL);   
-        toolkit::clientdb::Row*  rowT = row;
+        octetos::toolkit::clientdb::Datresult* dt = connector->query("show tables");
+        octetos::toolkit::clientdb::Row*  row =  new octetos::toolkit::clientdb::mysql::Row (NULL);   
+        octetos::toolkit::clientdb::Row*  rowT = row;
         /*do
         {
                 delete row; //elimina el row anterior

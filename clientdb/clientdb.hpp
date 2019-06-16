@@ -4,11 +4,13 @@
 #include <common.hpp>
 #include <vector>
 
+namespace octetos
+{
 namespace toolkit
 {
 namespace clientdb
 {
-	toolkit::Version getPakageVersion();
+	octetos::toolkit::Version getPakageVersion();
 	std::string getPakageName();	
         
         class SQLException : public std::exception
@@ -125,6 +127,7 @@ namespace clientdb
             const Datconnect* getDatconection() const;  
             const Connector& operator=(const Connector& obj);
 	};
+}
 }
 }
 

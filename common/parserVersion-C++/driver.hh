@@ -14,7 +14,7 @@ YY_DECL;
 class driver
 {
 public:
-  driver (toolkit::Version& version);//
+  driver (octetos::toolkit::Version& version);//
 
   std::map<std::string, int> variables;
 
@@ -36,9 +36,9 @@ public:
   yy::location location;
   
   //target
-  toolkit::Version& getVersion();
+  octetos::toolkit::Version& getVersion();
   
 private:
-    toolkit::Version* version;
+   octetos:: toolkit::Version* version;
 };
 #endif // ! DRIVER_HH

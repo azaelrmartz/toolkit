@@ -5,6 +5,8 @@
 
 #include "clientdb.hpp"
 
+namespace octetos
+{
 namespace toolkit
 {
 namespace clientdb
@@ -36,5 +38,5 @@ namespace postgresql
 }
 }
 }
-
+}
 #endif

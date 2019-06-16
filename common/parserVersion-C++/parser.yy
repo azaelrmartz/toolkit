@@ -81,27 +81,27 @@ third_numbers : NUMBER DOT NUMBER DOT NUMBER
 
 stage : DASH SNAPSHOT
 {
-         drv.getVersion().setStage(toolkit::Version::snapshot);
+         drv.getVersion().setStage(octetos::toolkit::Version::snapshot);
 }
 | 
 DASH ALPHA
 {
-         drv.getVersion().setStage(toolkit::Version::alpha);
+         drv.getVersion().setStage(octetos::toolkit::Version::alpha);
 }
 | 
 DASH BETA
 {
-         drv.getVersion().setStage(toolkit::Version::beta);
+         drv.getVersion().setStage(octetos::toolkit::Version::beta);
 }
 | 
 DASH RC
 {
-         drv.getVersion().setStage(toolkit::Version::rc);
+         drv.getVersion().setStage(octetos::toolkit::Version::rc);
 }
 | 
 DASH RELEASE
 {
-         drv.getVersion().setStage(toolkit::Version::release);
+         drv.getVersion().setStage(octetos::toolkit::Version::release);
 }
 ;
 

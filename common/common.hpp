@@ -5,7 +5,8 @@
 #ifndef DEBUG
         #define COLLETION_ASSISTANT
 #endif
-
+namespace octetos
+{
 namespace toolkit
 {
         class Object
@@ -81,5 +82,6 @@ namespace toolkit
 	 **/
 	Version getPakageVersion();
         std::string getPakageName();
+}
 }
 #endif

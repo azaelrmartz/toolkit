@@ -5,6 +5,8 @@
 
 #include "toolkit-clientdb-mysql.hpp"
 
+namespace octetos
+{
 namespace toolkit
 {
 namespace clientdb
@@ -163,6 +165,7 @@ namespace postgresql
             PQclear(res);
             return true;
         }
+}
 }
 }
 }

@@ -5,6 +5,8 @@
 
 #include "clientdb.hpp"
 
+namespace octetos
+{
 namespace toolkit
 {
 namespace clientdb
@@ -58,6 +60,7 @@ namespace mysql
             virtual bool rollback();
             virtual void close();
         };      
+}
 }
 }
 }

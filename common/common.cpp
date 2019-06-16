@@ -8,7 +8,8 @@
 #include <iostream>
 
 
-
+namespace octetos
+{
 namespace toolkit
 {	
         
@@ -198,4 +199,5 @@ namespace toolkit
 		return std::string(PAKAGENAME);
 	}
 	
+}
 }

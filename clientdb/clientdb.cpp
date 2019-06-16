@@ -7,6 +7,8 @@
 #include "versionInfo.h"
 #include "clientdb.hpp"
 
+namespace octetos
+{
 namespace toolkit
 {
 namespace clientdb
@@ -328,4 +330,4 @@ namespace clientdb
         
 }	
 }
-
+}

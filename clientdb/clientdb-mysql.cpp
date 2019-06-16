@@ -3,6 +3,8 @@
 
 #include "clientdb-mysql.hpp"
 
+namespace octetos
+{
 namespace toolkit
 {
 namespace clientdb
@@ -249,5 +251,6 @@ namespace mysql
             return true;
         }
 }    
+}
 }
 }
