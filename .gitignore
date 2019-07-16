@@ -77,3 +77,8 @@ common/autom4te.cache/
 common/config.log
 common/config.status
 common/versionInfo-c++.h
+MANIFEST
+common/configure
+dist/*
+
+
