@@ -1,6 +1,5 @@
 
-#include "clientdb.hpp"
-#include "config.h" 
+#include "../clientdb-mysql.hpp"
 #include "CUnit/Basic.h"
 
 
@@ -40,11 +39,10 @@ int clean_toolkit_common(void)
 
 void testConection()
 {
-    toolkit::clientdb::DatconectionMySQL mysqlConnector("192.168.0.101",3306,"business.alpha","develop","123456");
-    toolkit::clientdb::Connector connector;
-    
-    bool flag = connector.connect(mysqlConnector);
-    CU_ASSERT(flag)    
+        octetos::toolkit::clientdb::mysql::Datconnect mysqlSource("192.168.0.101",3306,"sysapp.alpha","develop","123456");         
+        octetos::toolkit::clientdb::mysql::Connector connector;
+        bool flag = connector.connect(&mysqlSource);
+        CU_ASSERT(flag)    
 }
 
 
@@ -57,9 +55,9 @@ int main()
 
 	//toolkit::Version ver = toolkit::clientdb::getPakageVersion();
 	std::string classVersionString = "Testing Componete ";
-	classVersionString += toolkit::clientdb::getPakageName();
+	classVersionString += octetos::toolkit::clientdb::mysql::getPakageName();
 	classVersionString += " v";
-	//classVersionString = classVersionString + ver.toString();
+	classVersionString = classVersionString + octetos::toolkit::clientdb::mysql::getPakageVersion().toString();
 	pSuite = CU_add_suite(classVersionString.c_str(), init_toolkit_common, clean_toolkit_common);
 	if (NULL == pSuite) 
 	{
