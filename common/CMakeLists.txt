@@ -12,8 +12,3 @@ elseif()
 	MESSAGE(FATAL_ERROR "El valor de LANG es desconocido.")
 endif()
 
-INCLUDE (InstallRequiredSystemLibraries)
-SET (CPACK_PACKAGE_VERSION_MAJOR "${octetos-toolkit-common_VERSION_MAJOR}")
-SET (CPACK_PACKAGE_VERSION_MINOR "${octetos-toolkit-common_VERSION_MINOR}")
-SET (CPACK_PACKAGE_VERSION_PATCH "${octetos-toolkit-common_VERSION_PATCH}")
-INCLUDE (CPack)

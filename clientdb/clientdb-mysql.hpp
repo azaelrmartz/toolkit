@@ -13,6 +13,10 @@ namespace clientdb
 {       
 namespace mysql
 {
+        
+	octetos::toolkit::Version getPakageVersion();
+	std::string getPakageName();	
+        
         class Datconnect : public toolkit::clientdb::Datconnect
         {
         public:         

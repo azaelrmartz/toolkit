@@ -10,7 +10,7 @@
 
 int main(int argc, char **argv)
 {
-	std::cout << octetos::toolkit::clientdb::getPakageName() << " v" << octetos::toolkit::clientdb::getPakageVersion().toString()<<std::endl;
+	std::cout << octetos::toolkit::clientdb::mysql::getPakageName() << " v" << octetos::toolkit::clientdb::mysql::getPakageVersion().toString()<<std::endl;
         
         octetos::toolkit::clientdb::mysql::Datconnect mysqlSQLDat("192.168.0.101",3306,"sis","develop","123456");  
         octetos::toolkit::clientdb::mysql::Connector* connector = new octetos::toolkit::clientdb::mysql::Connector(); 

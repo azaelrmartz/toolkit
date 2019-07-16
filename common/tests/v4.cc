@@ -4,7 +4,7 @@
 
 
 #include "../common.hpp"
-#include "../versionInfo.h" 
+#include "../versionInfo-c++.h" 
 #include "../parserVersion-C++/driver.hh"
 #include <cstdlib>
 

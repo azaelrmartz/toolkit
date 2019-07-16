@@ -10,8 +10,6 @@ namespace toolkit
 {
 namespace clientdb
 {
-	octetos::toolkit::Version getPakageVersion();
-	std::string getPakageName();	
         
         class SQLException : public std::exception
         {

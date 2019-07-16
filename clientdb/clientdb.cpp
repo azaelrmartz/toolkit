@@ -4,7 +4,6 @@
 #include <sstream>
 #include <arpa/inet.h>
 
-#include "versionInfo.h"
 #include "clientdb.hpp"
 
 namespace octetos
@@ -81,19 +80,6 @@ namespace clientdb
         }
 
 	
-	std::string getPakageName()
-	{
-		return std::string(PAKAGENAME);
-	}
-	toolkit::Version getPakageVersion()
-	{
-                toolkit::Version v;
-                v.setNumbers(VERSION_MAJOR,VERSION_MINOR,VERSION_PATCH);
-                v.setStage(VERSION_STAGE);
-                v.setBuild(std::stoul(VERSION_BUILD));
-		return v;		
-	}
-        
         const char* Datconnect::getServerTypeString() const
         {
             switch(serverType)
