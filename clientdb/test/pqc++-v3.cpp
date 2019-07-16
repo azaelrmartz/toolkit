@@ -1,5 +1,5 @@
 
-#include "../clientdb-mysql.hpp"
+#include "../clientdb-postgresql.hpp"
 #include "CUnit/Basic.h"
 
 
@@ -39,9 +39,9 @@ int clean_toolkit_common(void)
 
 void testConection()
 {
-        octetos::toolkit::clientdb::mysql::Datconnect mysqlSource("192.168.0.101",3306,"sysapp.alpha","develop","123456");         
-        octetos::toolkit::clientdb::mysql::Connector connector;
-        bool flag = connector.connect(&mysqlSource);
+        octetos::toolkit::clientdb::postgresql::Datconnect pqSource("192.168.0.101",0,"sis","develop","123456");         
+        octetos::toolkit::clientdb::postgresql::Connector connector;
+        bool flag = connector.connect(&pqSource);
         CU_ASSERT(flag)    
         connector.close();
 }
@@ -56,9 +56,9 @@ int main()
 
 	//toolkit::Version ver = toolkit::clientdb::getPakageVersion();
 	std::string classVersionString = "Testing Componete ";
-	classVersionString += octetos::toolkit::clientdb::mysql::getPakageName();
+	classVersionString += octetos::toolkit::clientdb::postgresql::getPakageName();
 	classVersionString += " v";
-	classVersionString = classVersionString + octetos::toolkit::clientdb::mysql::getPakageVersion().toString();
+	classVersionString = classVersionString + octetos::toolkit::clientdb::postgresql::getPakageVersion().toString();
 	pSuite = CU_add_suite(classVersionString.c_str(), init_toolkit_common, clean_toolkit_common);
 	if (NULL == pSuite) 
 	{

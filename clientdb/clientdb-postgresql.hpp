@@ -13,6 +13,9 @@ namespace clientdb
 {
 namespace postgresql
 {                   
+	octetos::toolkit::Version getPakageVersion();
+	std::string getPakageName();	
+        
         class Datconnect : public toolkit::clientdb::Datconnect
         {
         public:         
@@ -25,10 +28,11 @@ namespace postgresql
         public:
             virtual ~Connector();
             Connector();
-            virtual bool connect(const toolkit::clientdb::Datconnect& connector);
+            virtual bool connect(const toolkit::clientdb::Datconnect* connector);
             virtual bool query(const std::string&);
             virtual bool query(const std::string&, std::vector<std::vector<const char*>>&);
-            virtual ID insert(const std::string&);
+            virtual Datresult* query(const char*);
+            virtual unsigned long long insert(const std::string&);
             virtual bool commit();
             virtual bool begin();
             virtual bool rollback();

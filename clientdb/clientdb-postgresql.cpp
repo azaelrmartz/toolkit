@@ -3,7 +3,9 @@
 #include <libpq-fe.h>
 #include <iostream>
 
-#include "toolkit-clientdb-mysql.hpp"
+#include "clientdb-postgresql.hpp"
+#include "versionInfo-pqc++.h"
+
 
 namespace octetos
 {
@@ -13,6 +15,20 @@ namespace clientdb
 {
 namespace postgresql
 {
+        
+	std::string getPakageName()
+	{
+		return std::string(PAKAGENAME);
+	}
+	toolkit::Version getPakageVersion()
+	{
+                toolkit::Version v;
+                v.setNumbers(VERSION_MAJOR,VERSION_MINOR,VERSION_PATCH);
+                v.setStage(VERSION_STAGE);
+                v.setBuild(std::stoul(VERSION_BUILD));
+		return v;		
+	}
+	
         /*std::string Datasource::toString() const
         {		
             return toolkit::clientdb::Datasource::toString();
@@ -31,6 +47,10 @@ namespace postgresql
         }
         
         
+        Datresult* Connector::query(const char*)
+        {
+                return NULL;
+        }
         Connector::Connector()
         {
         }
@@ -40,7 +60,7 @@ namespace postgresql
         }
         const toolkit::clientdb::Datconnect& Connector::getDatconection() const
         {
-            return (const toolkit::clientdb::Datasource&)Connector::getDatconection();
+            return (const octetos::toolkit::clientdb::postgresql::Datconnect&)Connector::getDatconection();
         } 
         void Connector::close()
         {
@@ -59,7 +79,7 @@ namespace postgresql
         {
             return query("COMMIT"); 
         }
-        ID Connector::insert(const std::string& str)
+        unsigned long long Connector::insert(const std::string& str)
         { 		
             PGresult *res = PQexec((PGconn*)serverConnector, str.c_str()); 
             if (res == NULL)
@@ -87,39 +107,39 @@ namespace postgresql
 			
             return ID;		
         }   
-        bool Connector::connect(const toolkit::clientdb::Datconnect& conection)
+        bool Connector::connect(const toolkit::clientdb::Datconnect* conection)
         {
             std::string strsql = "";
-            if(conection.getHost().length() > 1)
+            if(conection->getHost().length() > 1)
             {
-                if(is_ipv4_address(conection.getHost()))
+                if(is_ipv4_address(conection->getHost()))
                 {
-                    strsql = strsql + "hostaddr=" + conection.getHost();
+                    strsql = strsql + "hostaddr=" + conection->getHost();
                 }
-                else if(is_ipv6_address(conection.getHost()))
+                else if(is_ipv6_address(conection->getHost()))
                 {
-                    strsql = strsql + "hostaddr=" + conection.getHost();
+                    strsql = strsql + "hostaddr=" + conection->getHost();
                 }
-                else if(is_valid_domain_name(conection.getHost()))
+                else if(is_valid_domain_name(conection->getHost()))
                 {
-                    strsql = strsql + "host=" + conection.getHost();
+                    strsql = strsql + "host=" + conection->getHost();
                 }
             }
-            if(conection.getUser().length() > 1)
+            if(conection->getUser().length() > 1)
             {
-                strsql = strsql + " user=" + conection.getUser();
+                strsql = strsql + " user=" + conection->getUser();
             }
-            if(conection.getPort() > 0)
+            if(conection->getPort() > 0)
             {
-                strsql = strsql + " port=" + std::to_string(conection.getPort());
+                strsql = strsql + " port=" + std::to_string(conection->getPort());
             }
-            if(conection.getDatabase().length() > 1)
+            if(conection->getDatabase().length() > 1)
             {
-                strsql = strsql + " dbname=" + conection.getDatabase();
+                strsql = strsql + " dbname=" + conection->getDatabase();
             }
-            if(conection.getPassword().length() > 1)
+            if(conection->getPassword().length() > 1)
             {
-                strsql = strsql + " password=" + conection.getPassword();
+                strsql = strsql + " password=" + conection->getPassword();
             }
             PGconn *serverConnector = PQconnectdb(strsql.c_str());
             if (PQstatus(serverConnector) == CONNECTION_BAD) 
@@ -130,7 +150,7 @@ namespace postgresql
             }
             
             this->serverConnector = serverConnector;
-            datconection = &conection;
+            datconection = conection;
             return true;
         }        
         bool Connector::query(const std::string& str)

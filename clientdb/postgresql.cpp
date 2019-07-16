@@ -10,14 +10,14 @@
 int main(int argc, char **argv)
 {
     //comman psql -h 192.168.0.101 -U develop -d sis
-    toolkit::clientdb::postgresql::Datasource postgreSQLSource("192.168.0.101",0,"sis","develop","123456");  
-    toolkit::clientdb::postgresql::Connector connector; 
+    octetos::toolkit::clientdb::postgresql::Datconnect postgreSQLSource("192.168.0.101",0,"sis","develop","123456");  
+    octetos::toolkit::clientdb::postgresql::Connector connector; 
     bool flag = false;  
     try
     {
 		flag = connector.connect(postgreSQLSource);
 	}
-	catch(toolkit::clientdb::SQLException ex)
+	catch(octetos::toolkit::clientdb::SQLException ex)
 	{
 		std::cerr << ex.what()<< std::endl;
 	}
