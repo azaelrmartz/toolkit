@@ -1,9 +1,4 @@
 CMAKE_MINIMUM_REQUIRED(VERSION 3.0)
-PROJECT(octetos-toolkit-common VERSION 4.0.0 LANGUAGES ${LANG})
-
-EXECUTE_PROCESS(COMMAND date +"%Y%m%d%H%I" OUTPUT_VARIABLE octetos-toolkit-common_VERSION_BUILD)
-SET(octetos-toolkit-common_VERSION_STAGE "snapshot")
-SET(octetos-toolkit-common_VERSION_NAME "reader")
 
 if(NOT LANG)
 	MESSAGE(FATAL_ERROR "Use la variable LANG para indicar el lenguaje.")	
@@ -18,7 +13,6 @@ elseif()
 endif()
 
 INCLUDE (InstallRequiredSystemLibraries)
-#SET (CPACK_RESOURCE_FILE_LICENSE "${CMAKE_CURRENT_SOURCE_DIR}/License.txt")
 SET (CPACK_PACKAGE_VERSION_MAJOR "${octetos-toolkit-common_VERSION_MAJOR}")
 SET (CPACK_PACKAGE_VERSION_MINOR "${octetos-toolkit-common_VERSION_MINOR}")
 SET (CPACK_PACKAGE_VERSION_PATCH "${octetos-toolkit-common_VERSION_PATCH}")
