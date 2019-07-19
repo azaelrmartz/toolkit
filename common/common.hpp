@@ -9,6 +9,17 @@ namespace octetos
 {
 namespace toolkit
 {
+        class Error : public std::exception
+        {
+        public:
+                virtual ~Error() throw();
+                virtual const char* what() const throw();
+                Error(const std::string brief, int code) throw();
+	private:
+                std::string brief;
+                int code;
+        };
+        
         class Object
         {
         public:        

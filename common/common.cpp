@@ -12,6 +12,20 @@ namespace octetos
 {
 namespace toolkit
 {	
+
+        Error::Error(const std::string brief, int code) throw()
+	{
+		this->brief = brief;
+                this->code = code;
+	}	
+	Error::~Error() throw()
+	{
+		
+	}	
+        const char* Error::what() const throw()
+        {
+                return this->brief.c_str();
+        }
         
         Object::~Object()
         {
