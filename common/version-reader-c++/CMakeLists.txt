@@ -1,0 +1,43 @@
+CMAKE_MINIMUM_REQUIRED(VERSION 3.0)
+#SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wno-deprecated-register")
+
+PROJECT(version-reader-c++ CXX)
+
+#MESSAGE(STATUS "In Reader DIRCOMMON: " ${DIRCOMMON}) 
+#INCLUDE_DIRECTORIES(${DIRCOMMON})
+
+FIND_PACKAGE(BISON REQUIRED)
+FIND_PACKAGE(FLEX REQUIRED)
+BISON_TARGET(parserVersion parser.yy ${CMAKE_CURRENT_BINARY_DIR}/parser.tab.cc)
+IF(BISON_parserVersion_DEFINED)
+	MESSAGE(STATUS "Target de Bions 'parserVersion' creado.")
+ELSE()
+	MESSAGE(FATAL_ERROR "Fallo al constuir el componente de Bions 'parserVersion'")
+ENDIF()
+FLEX_TARGET(lexerVersion lexer.l ${CMAKE_CURRENT_BINARY_DIR}/lexer.yy.cc)
+IF(FLEX_lexerVersion_DEFINED)
+	MESSAGE(STATUS "Target de Flexer 'lexerVersion' creado.")
+ELSE()
+	MESSAGE(FATAL_ERROR "Fallo al constuir el componente de Flexer 'lexerVersion'")
+ENDIF()
+ADD_FLEX_BISON_DEPENDENCY(lexerVersion parserVersion)
+
+include_directories(${CMAKE_CURRENT_BINARY_DIR})
+MESSAGE(STATUS "In Reader CMAKE_CURRENT_SOURCE_DIR: " ${CMAKE_CURRENT_SOURCE_DIR}) 
+MESSAGE(STATUS "In Reader CMAKE_CURRENT_BINARY_DIR: " ${CMAKE_CURRENT_BINARY_DIR}) 
+ADD_EXECUTABLE(reader  main.cpp driver.cpp ${FLEX_lexerVersion_OUTPUTS} ${BISON_parserVersion_OUTPUTS} )
+
+TARGET_INCLUDE_DIRECTORIES(reader  PRIVATE  . ${CMAKE_CURRENT_BINARY_DIR})
+SET_PROPERTY(TARGET reader PROPERTY CXX_STANDARD 11)
+TARGET_LINK_LIBRARIES(reader  ${LIBPARTIAL1})
+
+
+ADD_LIBRARY(version-reader-c++  STATIC driver.cpp ${FLEX_lexerVersion_OUTPUTS} ${BISON_parserVersion_OUTPUTS})
+ADD_DEPENDENCIES(version-reader-c++ reader)
+TARGET_LINK_LIBRARIES(version-reader-c++   ${LIBPARTIAL1})
+TARGET_INCLUDE_DIRECTORIES(version-reader-c++ PRIVATE  . ${CMAKE_CURRENT_BINARY_DIR})
+SET_PROPERTY(TARGET version-reader-c++  PROPERTY CXX_STANDARD 11)
+SET(LIBREADER version-reader-c++ PARENT_SCOPE)
+
+
+

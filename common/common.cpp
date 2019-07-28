@@ -1,18 +1,19 @@
-
-#include "common.hpp"
-#include "common.h"
-#include "versionInfo-c++.h"
-//#include  "driver.hpp"
-
-
 #include <iostream>
+#include <iostream>
+#include <cstdlib>
+#include <cstring>
+
+#include "versionInfo-c++.h"
+#include "common.hpp"
+
 
 
 namespace octetos
 {
 namespace toolkit
 {	
-
+ 
+        
         Error::Error(const std::string brief, int code) throw()
 	{
 		this->brief = brief;
@@ -68,8 +69,52 @@ namespace toolkit
 
 
 
-
-
+        bool Version::operator >(const Version& v)
+        {
+                if(major > v.major)
+                {
+                        return true;
+                }
+                else  if(minor > v.minor)
+                {
+                        return false;
+                }
+                else  if(minor > v.minor)
+                {
+                        return true;
+                }
+                else  if(patch > v.patch)
+                {
+                        return true;
+                }
+                else
+                {
+                        return false;
+                }
+        }
+        bool Version::operator >=(const Version& v)
+        {
+                if(major >= v.major)
+                {
+                        return true;
+                }
+                else  if(minor >= v.minor)
+                {
+                        return false;
+                }
+                else  if(minor >= v.minor)
+                {
+                        return true;
+                }
+                else  if(patch >= v.patch)
+                {
+                        return true;
+                }
+                else
+                {
+                        return false;
+                }
+        }
         const std::string& Version::getName() const
         {
                 return name;
@@ -133,6 +178,15 @@ namespace toolkit
 		return this->patch;
 	}
 
+	Version::Version(short major,short minor)
+        {
+		this->major = major;
+		this->minor = minor;
+		patch = -1;
+		stage = unknown;
+                build = 0;
+                name = "";
+        }
 	Version::Version()
 	{
 		major = -1;

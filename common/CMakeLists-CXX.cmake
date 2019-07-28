@@ -15,20 +15,24 @@ IF(CUNIT_FOUND)
 	INCLUDE_DIRECTORIES(${CUNIT_INCLUDE_DIR})
 ENDIF()
 
-FIND_PACKAGE(BISON REQUIRED)
-FIND_PACKAGE(FLEX REQUIRED)
-BISON_TARGET(parser parserVersion-C++/parser.yy  ${PROJECT_SOURCE_DIR}/parserVersion-C++/parser.cc)
-FLEX_TARGET(lexer parserVersion-C++/scanner.ll  ${PROJECT_SOURCE_DIR}/parserVersion-C++/scanner.cc)
-ADD_FLEX_BISON_DEPENDENCY(lexer parser)
 
-#ADD_EXECUTABLE(main main.cpp common.cpp) 
-#ADD_EXECUTABLE(parserVersionTest common.cpp parserVersion-C++/version-c++.cc parserVersion-C++/driver.cc ${FLEX_lexer_OUTPUTS} ${BISON_parser_OUTPUTS})
-ADD_EXECUTABLE(testing-v${${PROJECT_NAME}_VERSION_MAJOR} tests/v${${PROJECT_NAME}_VERSION_MAJOR}.cc common.cpp parserVersion-C++/driver.cc ${FLEX_lexer_OUTPUTS} ${BISON_parser_OUTPUTS})
-TARGET_LINK_LIBRARIES(testing-v${${PROJECT_NAME}_VERSION_MAJOR} ${CUNIT_LIBRARY})
+ADD_LIBRARY(${PROJECT_NAME}-partial1 STATIC common.cpp)
+SET(LIBPARTIAL1 ${PROJECT_NAME}-partial1)
+INCLUDE_DIRECTORIES(version-reader-c++)
+INCLUDE_DIRECTORIES(${CMAKE_CURRENT_BINARY_DIR}/version-reader-c++)
+SET(LIBREADER "NULL")
+ADD_SUBDIRECTORY(version-reader-c++)
+MESSAGE(STATUS "In Reader common LIBREADER : " ${LIBREADER})
+ADD_LIBRARY(${PROJECT_NAME}  STATIC common.cpp common-parser.cpp)
+ADD_DEPENDENCIES(${PROJECT_NAME} ${LIBPARTIAL1})
+TARGET_LINK_LIBRARIES(${PROJECT_NAME} ${LIBREADER})
 
-ADD_LIBRARY(${PROJECT_NAME}  STATIC common-parser.cpp common.cpp parserVersion-C++/driver.cc ${FLEX_lexer_OUTPUTS} ${BISON_parser_OUTPUTS})
+ADD_EXECUTABLE(testing-v${${PROJECT_NAME}_VERSION_MAJOR} tests/v${${PROJECT_NAME}_VERSION_MAJOR}.cc common.cpp common-parser.cpp)
+ADD_DEPENDENCIES(testing-v${${PROJECT_NAME}_VERSION_MAJOR} ${PROJECT_NAME})
+TARGET_LINK_LIBRARIES(testing-v${${PROJECT_NAME}_VERSION_MAJOR} ${CUNIT_LIBRARY} ${CMAKE_CURRENT_BINARY_DIR}/version-reader-c++/lib${LIBREADER}.a)
 
-INSTALL(TARGETS ${PROJECT_NAME} DESTINATION lib/octetos/toolkit/common/)
+
+#INSTALL(TARGETS ${PROJECT_NAME} DESTINATION lib/octetos/toolkit/common/)
 INSTALL(FILES common.hpp DESTINATION include/octetos/toolkit/common/)
 
 

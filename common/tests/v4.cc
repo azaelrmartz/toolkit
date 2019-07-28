@@ -1,12 +1,11 @@
 
 #include <CUnit/Basic.h>
 #include <iostream>
+#include <cstdlib>
 
 
 #include "../common.hpp"
 #include "../versionInfo-c++.h" 
-#include "../parserVersion-C++/driver.hh"
-#include <cstdlib>
 
 
 static std::string  rootDir;
@@ -43,21 +42,23 @@ void testVersionGeneric()
 	CU_ASSERT(ver.getMajor() == -1)
 	CU_ASSERT(ver.getMinor() == -1)
 	CU_ASSERT(ver.getPatch() == -1)	
-	CU_ASSERT(ver.getStage() == octetos::toolkit::Version::unknown)
+		CU_ASSERT(ver.getStage() == octetos::toolkit::Version::unknown)
         CU_ASSERT(ver.getBuild() == 0);
         CU_ASSERT(ver.getName().size() == 0);
         
         
         //reading file
         //std::cout << "Probando el parser .." << std::endl;
-        driver drv(ver);
-        CU_ASSERT(drv.parse (rootDir + "/tests/ver") == 0);
-        CU_ASSERT(ver.getMajor() == 12);
-        CU_ASSERT(ver.getMinor() == 36);
-        CU_ASSERT(ver.getPatch() == 56);
-        CU_ASSERT(ver.getStage() == octetos::toolkit::Version::snapshot);
-        CU_ASSERT(ver.getBuild() == 1234567890123);
-        CU_ASSERT(ver.getName().compare("devtest") == 0);
+        octetos::toolkit::Version ver2;
+        ver2.fromFile("../tests/ver");
+        std::cout << "Read version for testing .." << ver2.toString() << std::endl;
+        //CU_ASSERT(drv.parseFile( rootDir + "/tests/ver") == 0);
+        CU_ASSERT(ver2.getMajor() == 12);
+        CU_ASSERT(ver2.getMinor() == 36);
+        CU_ASSERT(ver2.getPatch() == 56);
+        CU_ASSERT(ver2.getStage() == octetos::toolkit::Version::snapshot);
+        CU_ASSERT(ver2.getBuild() == 1234567890123);
+        CU_ASSERT(ver2.getName().compare("devtest") == 0);
 }
 
 /*void testRQ0001001()
@@ -70,7 +71,7 @@ void testVersionGeneric()
 
 int main(int argc, char *argv[])
 {
-        if(argc > 0)
+        if(argc > 1)
         {
                 rootDir = argv[1];
         }

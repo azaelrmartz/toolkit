@@ -15,6 +15,7 @@ namespace toolkit
                 virtual ~Error() throw();
                 virtual const char* what() const throw();
                 Error(const std::string brief, int code) throw();
+                
 	private:
                 std::string brief;
                 int code;
@@ -73,8 +74,11 @@ namespace toolkit
 		unsigned long getBuild() const;
 		Stage getStage() const;
                 const std::string& getName() const;
+                bool operator >=(const Version& v);
+                bool operator >(const Version& v);
                 
 		Version();
+                Version(short major,short minor);
                 void set(short major,short minor,short patch,Stage stage,unsigned long build, const std::string& name);
                 void setNumbers(short major,short minor,short patch);
                 void setNumbers(short major,short minor);
@@ -83,7 +87,7 @@ namespace toolkit
                 void setBuild(unsigned long build);
                 void setName(const std::string& name);
 		std::string toString() const;                
-                void from(std::string text);                
+                void fromFile(std::string f);                
 	};
 
 
