@@ -42,7 +42,7 @@ void testVersionGeneric()
 	CU_ASSERT(ver.getMajor() == -1)
 	CU_ASSERT(ver.getMinor() == -1)
 	CU_ASSERT(ver.getPatch() == -1)	
-		CU_ASSERT(ver.getStage() == octetos::toolkit::Version::unknown)
+        CU_ASSERT(ver.getStage() == octetos::toolkit::Version::unknown)
         CU_ASSERT(ver.getBuild() == 0);
         CU_ASSERT(ver.getName().size() == 0);
         

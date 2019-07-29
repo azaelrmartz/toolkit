@@ -29,33 +29,31 @@ Driver::~Driver()
    parser = nullptr;
 }
 
-void 
+bool 
 Driver::parse( const char * const filename )
 {
    assert( filename != nullptr );
    std::ifstream in_file( filename );
    if( ! in_file.good() )
    {
-       exit( EXIT_FAILURE );
+       return false;
    }
-   parse_helper( in_file );
-   return;
+   return parse_helper( in_file );
 }
 
-void
+bool
 Driver::parse( std::istream &stream )
 {
    if( ! stream.good()  && stream.eof() )
    {
-       return;
+       return false;
    }
    //else
-   parse_helper( stream ); 
-   return;
+   return parse_helper( stream ); 
 }
 
 
-void 
+bool 
 Driver::parse_helper( std::istream &stream )
 {
    
@@ -68,7 +66,7 @@ Driver::parse_helper( std::istream &stream )
    {
       std::cerr << "Failed to allocate scanner: (" <<
          ba.what() << "), exiting!!\n";
-      exit( EXIT_FAILURE );
+      return false;
    }
    
    delete(parser); 
@@ -80,14 +78,14 @@ Driver::parse_helper( std::istream &stream )
    {
       std::cerr << "Failed to allocate parser: (" << 
          ba.what() << "), exiting!!\n";
-      exit( EXIT_FAILURE );
+      return false;
    }
    const int accept( 0 );
    if( parser->parse() != accept )
    {
-      std::cerr << "Parse failed!!\n";
+      return false;
    }
-   return;
+   return true;
 }
 
 void 

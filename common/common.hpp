@@ -87,7 +87,7 @@ namespace toolkit
                 void setBuild(unsigned long build);
                 void setName(const std::string& name);
 		std::string toString() const;                
-                void fromFile(std::string f);                
+                bool fromFile(std::string f);                
 	};
 
 

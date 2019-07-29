@@ -26,12 +26,12 @@ namespace toolkit
 		* parse - parse from a file
 		* @param filename - valid string with input file
 		*/
-	   void parse( const char * const filename );
+	   bool parse( const char * const filename );
 	   /** 
 		* parse - parse from a c++ input stream
 		* @param is - std::istream&, valid input stream
 		*/
-	   void parse( std::istream &iss );
+	   bool parse( std::istream &iss );
 
 	   void add_upper();
 	   void add_lower();
@@ -42,7 +42,7 @@ namespace toolkit
 	   std::ostream& print(std::ostream &stream);
         private:
 
-	   void parse_helper( std::istream &stream );
+	   bool parse_helper( std::istream &stream );
 
 	   std::size_t  chars      = 0;
 	   std::size_t  words      = 0;

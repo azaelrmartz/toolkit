@@ -7,10 +7,10 @@ namespace octetos
 namespace toolkit
 {
 
-        void Version::fromFile(std::string filestring)
+        bool Version::fromFile(std::string filestring)
         {
                 Driver dr(*this);
-                dr.parse(filestring.c_str());
+                return dr.parse(filestring.c_str());
         } 
 }
 }
