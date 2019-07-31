@@ -22,7 +22,7 @@ namespace toolkit
                 return lineNumber;
         }
         const Error* Error::error = NULL;
-        Error Error::getError()
+        Error Error::get()
         {
                 Error e(*error);
                 if(error != NULL)
@@ -33,18 +33,18 @@ namespace toolkit
                 
                 return e;
         }
-        bool Error::checkError()
+        bool Error::check()
         {
                 if(error != NULL)return true;
                 return false;
         }
-        bool Error::writeError(const Error* e)
+        bool Error::write(const Error& e)
         {                
                 if(error != NULL)
                 {
                         return false;
                 }
-                error = e;
+                error = new Error(e);
                 return true;
         }
         
