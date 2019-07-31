@@ -1,7 +1,7 @@
 #ifndef TOOLKIT_CLIENTDB_HPP
 #define TOOLKIT_CLIENTDB_HPP
 
-#include <common.hpp>
+#include <toolkit/common/common.hpp>
 #include <vector>
 
 namespace octetos
