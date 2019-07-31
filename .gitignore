@@ -80,5 +80,13 @@ common/versionInfo-c++.h
 MANIFEST
 common/configure
 dist/*
+common/.classpath
+common/.project
+common/.settings/
+common/parserVersion-Java/
+common/tests/version
+common/version-reader-c++/Makefile
+common/version-reader-c++/README.md
+
 
 
