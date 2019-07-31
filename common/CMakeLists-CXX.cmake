@@ -29,7 +29,7 @@ ADD_SUBDIRECTORY(version-reader-c++)
 ADD_DEPENDENCIES(${PROJECT_NAME} ${LIBREADER})
 TARGET_LINK_LIBRARIES(${PROJECT_NAME} ${LIBREADER})]]
 
-ADD_LIBRARY(${PROJECT_NAME}-obj  OBJECT common.cpp common-parser.cpp)
+ADD_LIBRARY(${PROJECT_NAME}-obj  OBJECT common.cpp common-parser.cpp Error.cpp Object.cpp Version.cpp)
 target_include_directories(${PROJECT_NAME}-obj PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>  $<INSTALL_INTERFACE:.> )
 set_target_properties(${PROJECT_NAME}-obj  PROPERTIES POSITION_INDEPENDENT_CODE 1 )
 

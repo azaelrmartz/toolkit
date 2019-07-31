@@ -5,7 +5,7 @@
 #include <cstddef>
 #include <istream>
 
-#include "../common.hpp"
+#include "../Version.hpp"
 #include "scanner.hpp"
 #include "parser.tab.hh"
 

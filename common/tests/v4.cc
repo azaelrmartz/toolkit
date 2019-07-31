@@ -59,6 +59,10 @@ void testVersionGeneric()
         CU_ASSERT(ver2.getStage() == octetos::toolkit::Version::snapshot);
         CU_ASSERT(ver2.getBuild() == 12345678901233);
         CU_ASSERT(ver2.getName().compare("devtest") == 0);*/
+        
+        /*std::cout <<  "NOTADDRESSED " << octetos::toolkit::Error::Codes::NOTADDRESSED << std::endl;
+        std::cout <<  "FAILONCONTRUCTOR " << octetos::toolkit::Error::Codes::FAILONCONTRUCTOR << std::endl;
+        std::cout <<  "ROOFCODE " << octetos::toolkit::Error::Codes::ROOFCODE << std::endl;*/
 }
 
 /*void testRQ0001001()
