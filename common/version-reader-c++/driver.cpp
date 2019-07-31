@@ -36,7 +36,8 @@ Driver::parse( const char * const filename )
    std::ifstream in_file( filename );
    if( ! in_file.good() )
    {
-       return false;
+           std::cout << "Fallo la apertura del archivo " << filename << std::endl;
+        return false;
    }
    return parse_helper( in_file );
 }
@@ -55,8 +56,7 @@ Driver::parse( std::istream &stream )
 
 bool 
 Driver::parse_helper( std::istream &stream )
-{
-   
+{   
    delete(scanner);
    try
    {
@@ -80,71 +80,24 @@ Driver::parse_helper( std::istream &stream )
          ba.what() << "), exiting!!\n";
       return false;
    }
-   const int accept( 0 );
-   if( parser->parse() != accept )
-   {
-      return false;
-   }
-   return true;
-}
 
-void 
-Driver::add_upper()
-{ 
-   uppercase++; 
-   chars++; 
-   words++; 
-}
-
-void 
-Driver::add_lower()
-{ 
-   lowercase++; 
-   chars++; 
-   words++; 
-}
-
-void 
-Driver::add_word( const std::string &word )
-{
-   words++; 
-   chars += word.length();
-   for(const char &c : word ){
-      if( islower( c ) )
-      { 
-         lowercase++; 
-      }
-      else if ( isupper( c ) ) 
-      { 
-         uppercase++; 
-      }
-   }
-}
-
-void 
-Driver::add_newline()
-{ 
-   lines++; 
-   chars++; 
-}
-
-void 
-Driver::add_char()
-{ 
-   chars++; 
-}
-
-
-std::ostream& 
-Driver::print( std::ostream &stream )
-{
-   stream << red  << "Results: " << norm << "\n";
-   stream << blue << "Uppercase: " << norm << uppercase << "\n";
-   stream << blue << "Lowercase: " << norm << lowercase << "\n";
-   stream << blue << "Lines: " << norm << lines << "\n";
-   stream << blue << "Words: " << norm << words << "\n";
-   stream << blue << "Characters: " << norm << chars << "\n";
-   return(stream);
+        int retP = parser->parse();
+        if(  retP == 0 )
+        {
+           
+        }
+        else if(  retP == 1 )
+        {
+                std::cout << "Error  " << std::endl;
+                return false;
+        }
+        else if(  retP == 2 )
+        {
+                std::cout << "Problema de memoria  " << std::endl;
+                return false;
+        }
+   
+        return true;
 }
 
 }

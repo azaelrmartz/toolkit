@@ -66,10 +66,19 @@ namespace octetos
 
 version : 
         numbers end
+	{
+		YYACCEPT;
+	};
         |
         numbers stage  end 
+	{
+		YYACCEPT;
+	};
         | 
-        numbers stage build end 
+        numbers stage build end
+	{
+		YYACCEPT;
+	}; 
         | 
         numbers stage build name end
 	{
@@ -90,16 +99,16 @@ second_numbers : NUMBER DOT NUMBER
 
 third_numbers : NUMBER DOT NUMBER DOT NUMBER
 {        
-        //std::cout << "$1 = " << $1 << std::endl;
-        //std::cout << "$3 = " << $3 << std::endl;
-        //std::cout << "$5 = " << $5 << std::endl;
+        std::cout << "$1 = " << $1 << std::endl;
+        std::cout << "$3 = " << $3 << std::endl;
+        std::cout << "$5 = " << $5 << std::endl;
         drv.getVersion().setNumbers($1,$3,$5);
 };
 
 stage : DASH SNAPSHOT
 {
         drv.getVersion().setStage(octetos::toolkit::Version::snapshot);         
-        //std::cout << "Stage = " << $2 << std::endl;
+        std::cout << "Stage = " << $2 << std::endl;
 }
 | 
 DASH ALPHA

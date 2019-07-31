@@ -28,8 +28,7 @@ using token = octetos::toolkit::Parser::token;
 %option c++
 
 DIGIT	[0-9]
-CHAR	[a-zA-Z]
-NAME	[a-zA-Z0-9]+
+NAME	[a-zA-Z][a-zA-Z0-9]*
 SPACE [ \t\r]
 
 %%
@@ -37,25 +36,25 @@ SPACE [ \t\r]
             yylval = lval;
 %}
 
-"."        	{/*std::cout << yytext << std::endl;*/return token::DOT;}
-"-"        	{/*std::cout << yytext << std::endl;*/return token::DASH;}
+"."        	{std::cout << yytext << std::endl;return token::DOT;}
+"-"        	{std::cout << yytext << std::endl;return token::DASH;}
 
-"snapshot"  {/*std::cout << "Stage : " << yytext << std::endl;*/yylval->build< std::string >( yytext );return token::SNAPSHOT;}
-"alpha"		{/*std::cout << "Stage : " << yytext << std::endl;*/yylval->build< std::string >( yytext );return token::ALPHA;}
-"beta"     	{/*std::cout << "Stage : " << yytext << std::endl;*/yylval->build< std::string >( yytext );return token::BETA;}
-"rc"       	{/*std::cout << "Stage : " << yytext << std::endl;*/yylval->build< std::string >( yytext );return token::RC;}
-"release"  	{/*std::cout << "Stage : " << yytext << std::endl;*/yylval->build< std::string >( yytext );return token::RELEASE;}
+"snapshot"  {std::cout << "Stage : " << yytext << std::endl;yylval->build< std::string >( yytext );return token::SNAPSHOT;}
+"alpha"		{std::cout << "Stage : " << yytext << std::endl;yylval->build< std::string >( yytext );return token::ALPHA;}
+"beta"     	{std::cout << "Stage : " << yytext << std::endl;yylval->build< std::string >( yytext );return token::BETA;}
+"rc"       	{std::cout << "Stage : " << yytext << std::endl;yylval->build< std::string >( yytext );return token::RC;}
+"release"  	{std::cout << "Stage : " << yytext << std::endl;yylval->build< std::string >( yytext );return token::RELEASE;}
 			
-{DIGIT}{1,11}  	{/*std::cout << "Number : " << yytext << std::endl;*/yylval->build< int >( atoi(yytext) );return token::NUMBER;}
-{DIGIT}{12,14}  {/*std::cout << "Build : " << yytext << std::endl;*/yylval->build< unsigned long >( std::stoul(yytext) );return token::BUILD;}
-{NAME}  	{/*std::cout << "Nombre : " << yytext << std::endl;*/yylval->build< std::string >( yytext );return token::NAME;}
+{DIGIT}{1,11}  	{std::cout << "Number : " << yytext << std::endl; yylval->build< int >( atoi(yytext) ); return token::NUMBER;}
+{DIGIT}{12,16}  {std::cout << "Build : " << yytext << std::endl;yylval->build< unsigned long >( std::stoul(yytext) );return token::BUILD;}
+{NAME}  	{std::cout << "Nombre: " << yytext << std::endl; yylval->build< std::string >( yytext ); return token::NAME;}
 
 
 {SPACE}+	{/*std::cout << "Ignorando : '"<< yytext << "'" << std::endl;*/}
 
 [\n\0]		{return token::END;}
 .          	{
-		    	//throw yy::parser::syntax_error(loc, "invalid character: " + std::string(yytext));
+		    	std::cout << "Caracter no esperado : " << yytext << std::endl;
 			}
 <<EOF>>    	return token::END;
 
