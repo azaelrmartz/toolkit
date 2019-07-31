@@ -2,6 +2,7 @@
 #include <iostream>
 #include <cstdlib>
 #include <cstring>
+#include <string.h>
 
 #include "versionInfo-c++.h"
 #include "common.hpp"
@@ -12,21 +13,73 @@ namespace octetos
 {
 namespace toolkit
 {	
- 
+        const char * Error::getFilename()
+        {
+                return filename;        
+        }
+        int Error::getLineNumber()
+        {
+                return lineNumber;
+        }
+        const Error* Error::error = NULL;
+        Error Error::getError()
+        {
+                Error e(*error);
+                if(error != NULL)
+                {
+                        delete error;
+                        error = NULL;
+                }
+                
+                return e;
+        }
+        bool Error::checkError()
+        {
+                if(error != NULL)return true;
+                return false;
+        }
+        bool Error::writeError(const Error* e)
+        {                
+                if(error != NULL)
+                {
+                        return false;
+                }
+                error = e;
+                return true;
+        }
         
-        Error::Error(const std::string brief, int code) throw()
+        Error::Error(const Error& obj)
+        {                
+                this->brief = new char(strlen(obj.brief));
+		strcpy(this->brief,obj.brief);
+                this->code = code;
+                this->filename = obj.filename; 
+                this->lineNumber = obj.lineNumber;
+        }
+        Error::Error(const char * brief, int code,const char * filename,int lineNumber) throw()
 	{
-		this->brief = brief;
+                this->brief = new char(strlen(brief));
+		strcpy(this->brief,brief);
+                this->code = code;
+                this->filename = filename; 
+                this->lineNumber = lineNumber;
+	}	
+        Error::Error(const char * brief, int code) throw()
+	{
+                this->brief = new char(strlen(brief));
+		strcpy(this->brief,brief);
                 this->code = code;
 	}	
 	Error::~Error() throw()
 	{
-		
+		delete brief;
 	}	
         const char* Error::what() const throw()
         {
-                return this->brief.c_str();
+                return this->brief;
         }
+        
+        
         
         Object::~Object()
         {

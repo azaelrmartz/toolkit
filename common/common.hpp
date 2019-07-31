@@ -14,11 +14,23 @@ namespace toolkit
         public:
                 virtual ~Error() throw();
                 virtual const char* what() const throw();
-                Error(const std::string brief, int code) throw();
+                Error(const char * brief, int code) throw();
+                Error(const char * brief, int code,const char * filename,int lineNumber) throw();
+                //contructor de copias
+                Error(const Error&);
+                //
+                const char * getFilename();
+                int getLineNumber();
                 
+                static Error getError();
+                static bool checkError();
+                static bool writeError(const Error* e);
 	private:
-                std::string brief;
+                char * brief;
                 int code;
+                static const Error* error;
+                const char * filename;
+                int lineNumber;
         };
         
         class Object
