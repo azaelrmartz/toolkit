@@ -3,7 +3,7 @@
 
 #include <string>
 
-#include "Error.hpp"
+#include "Message.hpp"
 #include "Object.hpp"
 #include "Version.hpp"
 

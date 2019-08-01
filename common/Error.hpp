@@ -1,6 +1,7 @@
 #ifndef TOOLKIT_COMMON_ERROR_HPP
 #define TOOLKIT_COMMON_ERROR_HPP
 
+#include <string>
 #include <exception>
 
 
@@ -24,12 +25,12 @@ namespace toolkit
                 
                 virtual ~Error() throw();
                 virtual const char* what() const throw();
-                Error(const char * brief, int code) throw();
-                Error(const char * brief, int code,const char * filename,int lineNumber) throw();
+                Error(const std::string&, int code) throw();
+                Error(const std::string&, int code,const std::string& filename,int lineNumber) throw();
                 //contructor de copias
                 Error(const Error&);
                 //
-                const char * getFilename();
+                std::string getFilename();
                 int getLineNumber();
                 
                 /**
@@ -50,10 +51,10 @@ namespace toolkit
                  * */
                 static bool write(const Error& e);
 	private:
-                char * brief;
+                std::string brief;
                 int code;
                 static const Error* error;
-                const char * filename;
+                std::string filename;
                 int lineNumber;
         };
 }

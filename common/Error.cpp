@@ -8,7 +8,7 @@ namespace octetos
 {
 namespace toolkit
 {	
-        const char * Error::getFilename()
+        std::string Error::getFilename()
         {
                 return filename;        
         }
@@ -45,33 +45,30 @@ namespace toolkit
         
         Error::Error(const Error& obj)
         {                
-                this->brief = new char(strlen(obj.brief));
-		strcpy(this->brief,obj.brief);
-                this->code = code;
+                this->brief = obj.brief;
+                this->code = obj.code;
                 this->filename = obj.filename; 
                 this->lineNumber = obj.lineNumber;
         }
-        Error::Error(const char * brief, int code,const char * filename,int lineNumber) throw()
+        Error::Error(const std::string& brief, int code,const std::string& filename,int lineNumber) throw()
 	{
-                this->brief = new char(strlen(brief));
-		strcpy(this->brief,brief);
+                this->brief = brief;
                 this->code = code;
                 this->filename = filename; 
                 this->lineNumber = lineNumber;
 	}	
-        Error::Error(const char * brief, int code) throw()
+        Error::Error(const std::string& brief, int code) throw()
 	{
-                this->brief = new char(strlen(brief));
-		strcpy(this->brief,brief);
+                this->brief = brief;
                 this->code = code;
-	}	
+	}
 	Error::~Error() throw()
 	{
-		delete brief;
+		
 	}	
         const char* Error::what() const throw()
         {
-                return this->brief;
+                return this->brief.c_str();
         }
         
 }

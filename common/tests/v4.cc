@@ -31,7 +31,72 @@ int clean_toolkit_common(void)
         return 0;
 }
 
-
+void testComparators()
+{
+        octetos::toolkit::Version ver1;
+        octetos::toolkit::Version ver2;
+        
+        ver1.setNumbers(1,2,3);
+        ver2.setNumbers(1,2,5);
+        //std::cout << "test 1" << std::endl;
+        if(ver1 >= ver2)
+        {
+                CU_ASSERT(false);
+        }
+        else
+        {
+                CU_ASSERT(true);
+        }
+        //std::cout << "test 2" << std::endl;
+        if(ver2 >= ver1)
+        {
+                CU_ASSERT(true);
+        }
+        else
+        {
+                CU_ASSERT(false);
+        }
+        
+        ver1.setNumbers(1,2,3);
+        ver2.setNumbers(1,2,3);
+        //std::cout << "test 3" << std::endl;
+        if(ver1 >= ver2)
+        {
+                CU_ASSERT(true);
+        }
+        else
+        {
+                CU_ASSERT(false);
+        }
+        //std::cout << "test 4" << std::endl;
+        if(ver2 >= ver1)
+        {
+                CU_ASSERT(true);
+        }
+        else
+        {
+                CU_ASSERT(false);
+        }
+        
+        //ver1.setNumbers(-1,-1,-1);
+        //ver2.setNumbers(-1,-1,-1);
+        ver1.setBuild(12345678901234);
+        ver2.setBuild(12345678901236);
+        //std::cout << "test 5" << std::endl;
+        if(ver1 >= ver2)
+        {
+                CU_ASSERT(true);
+        }
+        //std::cout << "test 6" << std::endl;
+        if(ver2 >= ver1)
+        {
+                CU_ASSERT(true);
+        }
+        else
+        {
+                CU_ASSERT(false);
+        }
+}
 void testVersionGeneric()
 {
 	//for class Version
@@ -51,7 +116,7 @@ void testVersionGeneric()
         //std::cout << "Probando el parser .." << std::endl;
         octetos::toolkit::Version ver2;
         ver2.fromFile("../tests/version");
-        std::cout << "Read version for testing .." << ver2.toString() << std::endl;
+        //std::cout << "Read version for testing .." << ver2.toString() << std::endl;
         //CU_ASSERT(drv.parseFile( rootDir + "/tests/ver") == 0);
         /*CU_ASSERT(ver2.getMajor() == 12);
         CU_ASSERT(ver2.getMinor() == 36);
@@ -104,12 +169,12 @@ int main(int argc, char *argv[])
 		CU_cleanup_registry();
 		return CU_get_error();
 	}
-	/*std::string classMessage = "Messages class.";
-	if ((NULL == CU_add_test(pSuite, classMessage.c_str(), testRQ0001001)))
+	
+	if ((NULL == CU_add_test(pSuite, "Pruebas de comparacion", testComparators)))
 	{
 		CU_cleanup_registry();
 		return CU_get_error();
-	}*/
+	}
 	
 	/* Run all tests using the CUnit Basic interface */
 	CU_basic_set_mode(CU_BRM_VERBOSE);

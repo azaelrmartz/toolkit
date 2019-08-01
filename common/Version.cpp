@@ -1,9 +1,6 @@
-//#include <iostream>
-//#include <iostream>
-//#include <cstdlib>
-//#include <cstring>
-//#include <string.h>
+
 #include <string>
+//#include <iostream> //for test
 
 #include "Version.hpp"
 
@@ -12,51 +9,46 @@ namespace octetos
 namespace toolkit
 {
 
-        bool Version::operator >(const Version& v)
-        {
-                if(major > v.major)
-                {
-                        return true;
-                }
-                else  if(minor > v.minor)
-                {
-                        return false;
-                }
-                else  if(minor > v.minor)
-                {
-                        return true;
-                }
-                else  if(patch > v.patch)
-                {
-                        return true;
-                }
-                else
-                {
-                        return false;
-                }
-        }
         bool Version::operator >=(const Version& v)
         {
-                if(major >= v.major)
+                //por build
+                if(build >0 and v.build > 0)
                 {
-                        return true;
+                        if(build >= v.build)
+                        {
+                                //std::cout << "por build" << std::endl;
+                                return true;
+                        }
                 }
-                else  if(minor >= v.minor)
+                
+                //por numeros
+                if(major > -1 and v.major > -1)
                 {
-                        return false;
+                        if(major > v.major)
+                        {
+                                //std::cout << "por major" << std::endl;
+                                return true;
+                        }
                 }
-                else  if(minor >= v.minor)
+                if(minor > -1 and v.minor > -1)
                 {
-                        return true;
+                        if(minor > v.minor)
+                        {
+                                //std::cout << "por minor" << std::endl;
+                                return true;
+                        }
                 }
-                else  if(patch >= v.patch)
+                if(patch > -1 and v.patch > -1)
                 {
-                        return true;
+                        if(patch >= v.patch)
+                        {
+                                //std::cout << "por patch" << std::endl;
+                                return true;
+                        }
                 }
-                else
-                {
-                        return false;
-                }
+                
+                //std::cout << "no cumple" << std::endl;
+                return false;
         }
         const std::string& Version::getName() const
         {

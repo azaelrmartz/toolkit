@@ -31,13 +31,34 @@ DIGIT	[0-9]
 NAME	[a-zA-Z][a-zA-Z0-9]*
 SPACE [ \t\r]
 
+
+%s sc_NUMBER
+%s sc_DOT
+%s sc_DASH
+%s sc_STAGE
+%s sc_BUILD
+%s sc_NAME
+
 %%
 %{          /** Code executed at the beginning of yylex **/
             yylval = lval;
+            BEGIN(INITIAL);
 %}
 
-"."        	{std::cout << yytext << std::endl;return token::DOT;}
-"-"        	{std::cout << yytext << std::endl;return token::DASH;}
+{DIGIT}{1,11}  	{
+                                        std::cout << "Number : " << yytext << std::endl; 
+                                        yylval->build< int >( atoi(yytext) );
+                                        return token::NUMBER;
+                                }
+
+"."        	{
+                                                        std::cout << yytext << std::endl;
+                                                        return token::DOT;
+                                                }
+"-"        	{
+                                                                std::cout <<yytext << std::endl;
+                                                                return token::DASH;
+                                                        }
 
 "snapshot"  {std::cout << "Stage : " << yytext << std::endl;yylval->build< std::string >( yytext );return token::SNAPSHOT;}
 "alpha"		{std::cout << "Stage : " << yytext << std::endl;yylval->build< std::string >( yytext );return token::ALPHA;}
@@ -45,17 +66,21 @@ SPACE [ \t\r]
 "rc"       	{std::cout << "Stage : " << yytext << std::endl;yylval->build< std::string >( yytext );return token::RC;}
 "release"  	{std::cout << "Stage : " << yytext << std::endl;yylval->build< std::string >( yytext );return token::RELEASE;}
 			
-{DIGIT}{1,11}  	{std::cout << "Number : " << yytext << std::endl; yylval->build< int >( atoi(yytext) ); return token::NUMBER;}
-{DIGIT}{12,16}  {std::cout << "Build : " << yytext << std::endl;yylval->build< unsigned long >( std::stoul(yytext) );return token::BUILD;}
+{DIGIT}{12,16}        {
+                                                                        std::cout << "Build : " << yytext << std::endl;
+                                                                        yylval->build< unsigned long >( std::stoul(yytext) );
+                                                                        return token::BUILD;                                                                        
+                                                                }
+
 {NAME}  	{std::cout << "Nombre: " << yytext << std::endl; yylval->build< std::string >( yytext ); return token::NAME;}
 
 
-{SPACE}+	{/*std::cout << "Ignorando : '"<< yytext << "'" << std::endl;*/}
+{SPACE}+	;
 
 [\n\0]		{return token::END;}
-.          	{
-		    	std::cout << "Caracter no esperado : " << yytext << std::endl;
-			}
+.          	            {
+                                        ECHO;
+                                }
 <<EOF>>    	return token::END;
 
 %%
