@@ -21,23 +21,23 @@ using token = octetos::toolkit::Parser::token;
 
 %}
 
+
 %option debug
+%option perf-report
+/*%option verbose*/
+%option warn
+%option backup
+
 %option nodefault
 %option yyclass="octetos::toolkit::Scanner"
 %option noyywrap
 %option c++
+%option pointer
 
 DIGIT	[0-9]
 NAME	[a-zA-Z][a-zA-Z0-9]*
 SPACE [ \t\r]
 
-
-%s sc_NUMBER
-%s sc_DOT
-%s sc_DASH
-%s sc_STAGE
-%s sc_BUILD
-%s sc_NAME
 
 %%
 %{          /** Code executed at the beginning of yylex **/
@@ -72,7 +72,7 @@ SPACE [ \t\r]
                                                                         return token::BUILD;                                                                        
                                                                 }
 
-{NAME}  	{std::cout << "Nombre: " << yytext << std::endl; yylval->build< std::string >( yytext ); return token::NAME;}
+{NAME}  	{std::cout << "Name: " << yytext << std::endl; yylval->build< std::string >( yytext ); return token::NAME;}
 
 
 {SPACE}+	;
@@ -81,7 +81,7 @@ SPACE [ \t\r]
 .          	            {
                                         ECHO;
                                 }
-<<EOF>>    	return token::END;
+<<EOF>>    	yyterminate() ;
 
 %%
 
