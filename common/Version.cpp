@@ -29,6 +29,10 @@ namespace toolkit
                                 //std::cout << "por major" << std::endl;
                                 return true;
                         }
+                        else if(major < v.major) 
+                        {
+                                return false;
+                        }                                
                 }
                 if(minor > -1 and v.minor > -1)
                 {
@@ -37,6 +41,10 @@ namespace toolkit
                                 //std::cout << "por minor" << std::endl;
                                 return true;
                         }
+                        else if(minor < v.minor)
+                        {
+                                return false;
+                        }
                 }
                 if(patch > -1 and v.patch > -1)
                 {
@@ -44,6 +52,10 @@ namespace toolkit
                         {
                                 //std::cout << "por patch" << std::endl;
                                 return true;
+                        }
+                        else if(patch < v.patch)
+                        {
+                                return false;
                         }
                 }
                 

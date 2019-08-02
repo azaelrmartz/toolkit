@@ -56,7 +56,7 @@ void testComparators()
         {
                 CU_ASSERT(false);
         }
-        
+                
         ver1.setNumbers(1,2,3);
         ver2.setNumbers(1,2,3);
         //std::cout << "test 3" << std::endl;
@@ -77,6 +77,29 @@ void testComparators()
         {
                 CU_ASSERT(false);
         }
+        
+        ver1.setNumbers(1,2,3);
+        ver2.setNumbers(1,0,3);
+        //std::cout << "test 3" << std::endl;
+        if(ver1 >= ver2)
+        {
+                CU_ASSERT(true);
+        }
+        else
+        {
+                CU_ASSERT(false);
+        }
+        //std::cout << "test 4" << std::endl;
+        if(ver2 >= ver1)
+        {
+                CU_ASSERT(false);
+        }
+        else
+        {
+                CU_ASSERT(true);
+        }
+        
+        
         
         //ver1.setNumbers(-1,-1,-1);
         //ver2.setNumbers(-1,-1,-1);
