@@ -46,33 +46,52 @@ SPACE [ \t\r]
 %}
 
 {DIGIT}{1,11}  	{
-                                        std::cout << "Number : " << yytext << std::endl; 
+                                        //std::cout << "Number : " << yytext << std::endl; 
                                         yylval->build< int >( atoi(yytext) );
                                         return token::NUMBER;
                                 }
 
 "."        	{
-                                                        std::cout << yytext << std::endl;
+                                                        //std::cout << yytext << std::endl;
                                                         return token::DOT;
                                                 }
 "-"        	{
-                                                                std::cout <<yytext << std::endl;
+                                                                //std::cout <<yytext << std::endl;
                                                                 return token::DASH;
                                                         }
 
-"snapshot"  {std::cout << "Stage : " << yytext << std::endl;yylval->build< std::string >( yytext );return token::SNAPSHOT;}
-"alpha"		{std::cout << "Stage : " << yytext << std::endl;yylval->build< std::string >( yytext );return token::ALPHA;}
-"beta"     	{std::cout << "Stage : " << yytext << std::endl;yylval->build< std::string >( yytext );return token::BETA;}
-"rc"       	{std::cout << "Stage : " << yytext << std::endl;yylval->build< std::string >( yytext );return token::RC;}
-"release"  	{std::cout << "Stage : " << yytext << std::endl;yylval->build< std::string >( yytext );return token::RELEASE;}
+"snapshot"  {
+                                //std::cout << "Stage : " << yytext << std::endl;
+                                yylval->build< std::string >( yytext );return token::SNAPSHOT;
+                                }
+"alpha"		{
+                                //std::cout << "Stage : " << yytext << std::endl;
+                                yylval->build< std::string >( yytext );return token::ALPHA;
+                                }
+"beta"     	{
+                                //std::cout << "Stage : " << yytext << std::endl;
+                                yylval->build< std::string >( yytext );return token::BETA;
+                                }
+"rc"       	{
+                        //std::cout << "Stage : " << yytext << std::endl;
+                        yylval->build< std::string >( yytext );return token::RC;
+                        }
+"release"  	{
+                                //std::cout << "Stage : " << yytext << std::endl;
+                                yylval->build< std::string >( yytext );return token::RELEASE;
+                                }
 			
 {DIGIT}{12,16}        {
-                                                                        std::cout << "Build : " << yytext << std::endl;
+                                                                        //std::cout << "Build : " << yytext << std::endl;
                                                                         yylval->build< unsigned long >( std::stoul(yytext) );
                                                                         return token::BUILD;                                                                        
                                                                 }
 
-{NAME}  	{std::cout << "Name: " << yytext << std::endl; yylval->build< std::string >( yytext ); return token::NAME;}
+{NAME}  	{
+                        //std::cout << "Name: " << yytext << std::endl; 
+                        yylval->build< std::string >( yytext ); 
+                        return token::NAME;
+                        }
 
 
 {SPACE}+	;
