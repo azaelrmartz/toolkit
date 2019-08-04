@@ -128,6 +128,9 @@ namespace mysql
                 }
 #endif
         }
+        Datconnect::Datconnect()
+        {
+        }
         Datconnect::Datconnect(const Datconnect& obj) : toolkit::clientdb::Datconnect(obj)
         {
         }

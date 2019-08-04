@@ -79,6 +79,29 @@ namespace clientdb
                 return this->description.c_str();
         }
 
+        
+        
+        
+        void Datconnect::setHost(const std::string& host)
+        {
+                this->host = host;
+        }
+        void Datconnect::setUser(const std::string& user)
+        {
+                this->user = user;
+        }
+        void Datconnect::setPassword(const std::string& password)
+        {
+                this->password = password;
+        }
+        void Datconnect::setDatabase(const std::string& database)
+        {
+                this->database = database;
+        }
+        void Datconnect::setPort(unsigned int port)
+        {
+                this->port = port;
+        }
 	
         const char* Datconnect::getServerTypeString() const
         {
@@ -142,6 +165,9 @@ namespace clientdb
             return constr;
         }
         
+        Datconnect::Datconnect()
+        {	
+        }
         Datconnect::Datconnect(const Datconnect& obj)
         {
             this->host = obj.host;

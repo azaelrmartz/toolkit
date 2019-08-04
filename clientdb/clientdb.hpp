@@ -47,6 +47,7 @@ namespace clientdb
                 PostgreSQL
             };            
             Datconnect(const Datconnect&);
+            Datconnect();
             const Datconnect& operator=(const Datconnect& obj);
             void set(ServerType serverType,const std::string& host, unsigned int port,const std::string& database,const std::string& usuario,const std::string& password);
             
@@ -58,6 +59,12 @@ namespace clientdb
             ServerType getServerType()const;
             const char* getServerTypeString()const;
             unsigned int getPort()const;
+            void setHost(const std::string&);
+            void setUser(const std::string&);
+            void setPassword(const std::string&);
+            void setDatabase(const std::string&);
+            void setPort(unsigned int);
+            
 	protected:
             Datconnect(ServerType serverType,const std::string& host, unsigned int port,const std::string& database,const std::string& user,const std::string& password);
             

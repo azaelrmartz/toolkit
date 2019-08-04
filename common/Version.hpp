@@ -43,6 +43,7 @@ namespace toolkit
 		Stage getStage() const;
                 const std::string& getName() const;
                 bool operator >=(const Version& v);
+                bool getFixedExternalParser();//hay un fallo durante el parseo que se genera en modulos exterior
                 
 		Version();
                 Version(short major,short minor);
@@ -54,7 +55,8 @@ namespace toolkit
                 void setBuild(unsigned long build);
                 void setName(const std::string& name);
 		std::string toString() const;                
-                bool fromFile(std::string f);                
+                bool fromFile(const std::string& f);                        
+                bool fromString(const std::string& str);        
 	};
         
 }

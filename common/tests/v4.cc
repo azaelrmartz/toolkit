@@ -138,7 +138,7 @@ void testVersionGeneric()
         //reading file
         //std::cout << "Probando el parser .." << std::endl;
         octetos::toolkit::Version ver2;
-        ver2.fromFile("../tests/version");
+        CU_ASSERT(ver2.fromFile("../tests/version"));
         //std::cout << "Read version for testing .." << ver2.toString() << std::endl;
         //CU_ASSERT(drv.parseFile( rootDir + "/tests/ver") == 0);
         /*CU_ASSERT(ver2.getMajor() == 12);

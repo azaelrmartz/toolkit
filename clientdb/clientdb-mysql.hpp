@@ -24,6 +24,7 @@ namespace mysql
             Datconnect(const Datconnect& obj);
             const Datconnect& operator=(const Datconnect&);
             ~Datconnect();
+            Datconnect();
         };      
 
         class Row : public toolkit::clientdb::Row
