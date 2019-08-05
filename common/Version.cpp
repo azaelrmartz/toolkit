@@ -8,7 +8,46 @@ namespace octetos
 {
 namespace toolkit
 {
-
+        bool Version::operator <(const Version& v)
+        {
+                //por build
+                if(build >0 and v.build > 0)
+                {
+                        if(build < v.build)
+                        {
+                                //std::cout << "por build" << std::endl;
+                                return true;
+                        }
+                }
+                
+                //por numeros
+                if(major > -1 and v.major > -1)
+                {
+                        if(major < v.major)
+                        {
+                                //std::cout << "por major" << std::endl;
+                                return true;
+                        }                          
+                }
+                if(minor > -1 and v.minor > -1)
+                {
+                        if(minor < v.minor)
+                        {
+                                //std::cout << "por minor" << std::endl;
+                                return true;
+                        }
+                }
+                if(patch > -1 and v.patch > -1)
+                {
+                        if(patch < v.patch)
+                        {
+                                //std::cout << "por patch" << std::endl;
+                                return true;
+                        }
+                }
+                
+                return false;
+        }
         const Version& Version::operator =(const Version& v)
         {
                 this->major = v.major;

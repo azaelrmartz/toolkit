@@ -1,7 +1,7 @@
-PROJECT(octetos-toolkit-common-c++ VERSION 4.4.0 LANGUAGES ${LANG})
+PROJECT(octetos-toolkit-common-c++ VERSION 4.4.1 LANGUAGES ${LANG})
 
 EXECUTE_PROCESS(COMMAND date +"%Y%m%d%H%M%S" OUTPUT_VARIABLE ${PROJECT_NAME}_VERSION_BUILD)
-SET(${PROJECT_NAME}_VERSION_STAGE "snapshot")
+SET(${PROJECT_NAME}_VERSION_STAGE "alpha")
 SET(${PROJECT_NAME}_VERSION_NAME "reader")
 
 SET(CMAKE_CXX_STANDARD 11)
@@ -51,6 +51,10 @@ TARGET_LINK_LIBRARIES(testing-v${${PROJECT_NAME}_VERSION_MAJOR} ${CUNIT_LIBRARIE
 
 INSTALL(TARGETS ${PROJECT_NAME} DESTINATION lib/octetos/toolkit/common/)
 INSTALL(FILES common.hpp DESTINATION include/octetos/toolkit/common/)
+INSTALL(FILES Version.hpp DESTINATION include/octetos/toolkit/common/)
+INSTALL(FILES Message.hpp DESTINATION include/octetos/toolkit/common/)
+INSTALL(FILES Error.hpp DESTINATION include/octetos/toolkit/common/)
+INSTALL(FILES Object.hpp DESTINATION include/octetos/toolkit/common/)
 
 
 SET(CPACK_PACKAGE_NAME "${PROJECT_NAME}")

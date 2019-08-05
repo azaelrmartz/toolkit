@@ -45,6 +45,7 @@ namespace toolkit
 		Stage getStage() const;
                 const std::string& getName() const;
                 bool operator >=(const Version& v);
+                bool operator <(const Version& v);
                 const Version& operator =(const Version& v);
                 
 		Version();
