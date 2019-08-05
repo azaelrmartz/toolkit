@@ -9,6 +9,18 @@ namespace octetos
 namespace toolkit
 {
 
+        const Version& Version::operator =(const Version& v)
+        {
+                this->major = v.major;
+                this->minor = v.minor;
+                this->patch = v.patch;
+                this->tweak = v.tweak;
+                this->build = v.build;
+                this->stage = v.stage;
+                this->name = v.name;
+                
+                return *this;
+        }
         bool Version::operator >=(const Version& v)
         {
                 //por build

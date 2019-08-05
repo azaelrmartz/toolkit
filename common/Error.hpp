@@ -25,13 +25,14 @@ namespace toolkit
                 
                 virtual ~Error() throw();
                 virtual const char* what() const throw();
+                virtual const std::string& describe() const throw();
                 Error(const std::string&, int code) throw();
-                Error(const std::string&, int code,const std::string& filename,int lineNumber) throw();
+                Error(const std::string&, int code,std::string filename,int lineNumber) throw();
                 //contructor de copias
-                Error(const Error&);
+                //Error(const Error&);
                 //
-                std::string getFilename();
-                int getLineNumber();
+                //std::string getFilename();
+                //int getLineNumber();
                 
                 /**
                  * \brief returna una copia del objeto error y limpa el registro
@@ -51,11 +52,12 @@ namespace toolkit
                  * */
                 static bool write(const Error& e);
 	private:
-                std::string brief;
+                //std::string brief;
+                std::string full;
                 int code;
                 static const Error* error;
-                std::string filename;
-                int lineNumber;
+                //std::string filename;
+                //int lineNumber;
         };
 }
 }

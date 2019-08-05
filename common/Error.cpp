@@ -1,4 +1,5 @@
 #include <string.h>
+#include <iostream> //test
 
 
 #include "Error.hpp"
@@ -8,14 +9,14 @@ namespace octetos
 {
 namespace toolkit
 {	
-        std::string Error::getFilename()
+        /*std::string Error::getFilename()
         {
                 return filename;        
         }
         int Error::getLineNumber()
         {
                 return lineNumber;
-        }
+        }*/
         const Error* Error::error = NULL;
         Error Error::get()
         {
@@ -43,32 +44,39 @@ namespace toolkit
                 return true;
         }
         
-        Error::Error(const Error& obj)
+        /*Error::Error(const Error& obj)
         {                
                 this->brief = obj.brief;
                 this->code = obj.code;
                 this->filename = obj.filename; 
                 this->lineNumber = obj.lineNumber;
-        }
-        Error::Error(const std::string& brief, int code,const std::string& filename,int lineNumber) throw()
+                this->full = obj.full;
+        }*/
+        Error::Error(const std::string& brief, int code,std::string filename,int lineNumber) throw()
 	{
-                this->brief = brief;
-                this->code = code;
-                this->filename = filename; 
-                this->lineNumber = lineNumber;
+                //this->brief = brief;
+                //this->code = code;
+                //this->filename = filename; 
+                //this->lineNumber = lineNumber;
+                //std::cout << "Error: " << filename << std::endl;
+                full = filename + " : " + std::to_string(lineNumber) + ", codigo (" + std::to_string(code) + "):" + "\n" + brief;
 	}	
         Error::Error(const std::string& brief, int code) throw()
 	{
-                this->brief = brief;
-                this->code = code;
+                full="";
+                full = full + "Codigo (" + std::to_string(code) + "):" + "\n" + brief;
 	}
 	Error::~Error() throw()
 	{
 		
 	}	
+	const std::string& Error::describe() const throw()
+        {
+                return full;               
+        }
         const char* Error::what() const throw()
         {
-                return this->brief.c_str();
+                return this->full.c_str();
         }
         
 }
