@@ -137,6 +137,15 @@ namespace toolkit
 		return this->patch;
 	}
 
+	Version::Version(short major,short minor,short patch)
+        {
+		this->major = major;
+		this->minor = minor;
+		this->patch = patch;
+		stage = unknown;
+                build = 0;
+                name = "";
+        }
 	Version::Version(short major,short minor)
         {
 		this->major = major;

@@ -49,6 +49,7 @@ namespace toolkit
                 
 		Version();
                 Version(short major,short minor);
+                Version(short major,short minor,short patch);
                 void set(short major,short minor,short patch,Stage stage,unsigned long build, const std::string& name);
                 void setNumbers(short major,short minor,short patch);
                 void setNumbers(short major,short minor);
