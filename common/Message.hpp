@@ -8,6 +8,10 @@ namespace octetos
 {
 namespace toolkit
 {
+        /**
+         * \brief Entendida como clase base para tranmitir mensajes.
+         * \private En desarrollo
+         * */
         class Message
         {
         public:
@@ -18,6 +22,10 @@ namespace toolkit
                 std::string brief;                
         };
         
+        /**
+         * \brief Mensajes de comfirmacion de operacion
+         * \private En desarrolo
+         * */
         class Confirmation: public Message
         {
         public:
@@ -26,7 +34,7 @@ namespace toolkit
         
         /**
          * \brief Interface dedicada a la centralizacion de mesnajes, 
-         * 
+         * \private En desarrolo
          * */
         class ActivityProgress
         {
