@@ -87,6 +87,7 @@ common/parserVersion-Java/
 common/tests/version
 common/version-reader-c++/Makefile
 common/version-reader-c++/README.md
-
+doc
+common/version-reader-c++/lex.backup
 
 
