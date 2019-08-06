@@ -4,6 +4,9 @@
 
 #include "Version.hpp"
 
+// Reference https://semver.org/
+
+
 namespace octetos
 {
 namespace toolkit
@@ -204,7 +207,7 @@ namespace toolkit
                 name = "";
 	}
 
-	std::string Version::toString() const
+	std::string Version::toString(Version::Format f ) const
 	{		
 		std::string ver = "";
                 if(major >= 0)
@@ -221,6 +224,7 @@ namespace toolkit
                         ver += ".";
                         ver += std::to_string(patch);		
                 }
+                if(f == Version::Format::ONLY_NUMBER) return ver;
                 
 		switch(stage)
                 {

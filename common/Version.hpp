@@ -27,6 +27,11 @@ namespace toolkit
                         rc,
 			release
 		};
+                enum Format
+                {
+                        FULL,
+                        ONLY_NUMBER
+                };
 		
 	private:	
 		short major;
@@ -58,7 +63,7 @@ namespace toolkit
                 void setStage(Stage stage);
                 void setBuild(unsigned long build);
                 void setName(const std::string& name);
-		std::string toString() const;                
+		std::string toString(Format f = Format::FULL) const;                
                 bool fromFile(const std::string& f);                        
                 bool fromString(const std::string& str);        
 	};
