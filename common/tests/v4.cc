@@ -78,6 +78,7 @@ void testComparators()
                 CU_ASSERT(false);
         }
         
+        //La nueva politca dicta que build no tiene significado en la presendiencia de las version pero sera removido hasta v5 paramantener compatibilidad 
         ver1.setNumbers(1,2,3);
         ver2.setNumbers(1,0,3);
         //std::cout << "test 3" << std::endl;
@@ -99,6 +100,24 @@ void testComparators()
                 CU_ASSERT(true);
         }
         
+        //ver1.setNumbers(-1,-1,-1);
+        //ver2.setNumbers(-1,-1,-1);
+        ver1.setBuild(12345678901234);
+        ver2.setBuild(12345678901236);
+        //std::cout << "test 5" << std::endl;
+        if(ver1 >= ver2)
+        {
+                CU_ASSERT(true);
+        }
+        //std::cout << "test 6" << std::endl;
+        if(ver2 >= ver1)
+        {
+                CU_ASSERT(true);
+        }
+        else
+        {
+                CU_ASSERT(false);
+        }
 }
 void testVersionGeneric()
 {
@@ -144,15 +163,6 @@ void testVersionGeneric()
 
 int main(int argc, char *argv[])
 {
-        if(argc > 1)
-        {
-                rootDir = argv[1];
-        }
-        else
-        {
-                std::cerr << "Indique el directorio root.";
-                return EXIT_FAILURE;
-        }
 	CU_pSuite pSuite = NULL;
 	
 	/* initialize the CUnit test registry */
