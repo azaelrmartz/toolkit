@@ -33,6 +33,15 @@ namespace toolkit
         };
         
         /**
+         * \brief Mensaje de advertencias.
+         * */
+        class Warning: public Message
+        {
+        public:
+                Warning(const std::string& brief);
+        };
+        
+        /**
          * \brief Interface dedicada a la centralizacion de mesnajes, 
          * \private En desarrolo
          * */
@@ -80,6 +89,10 @@ namespace toolkit
                  * \brief Agrega un mensage de notificacion
                  * */
                 virtual void add(const Confirmation&) = 0;
+                /**
+                 * \brief Agrega un mensage de notificacion
+                 * */
+                virtual void add(const Warning&) = 0;
         private:
                 /**
                  * \brief indica el total de actividades programadas

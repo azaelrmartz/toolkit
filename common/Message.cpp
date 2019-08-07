@@ -6,6 +6,11 @@ namespace octetos
 {
 namespace toolkit
 {
+        
+        Warning::Warning(const std::string& brief): Message(brief)
+        {}
+        
+        
         Confirmation::Confirmation(const std::string& brief): Message(brief)
         {
                 
