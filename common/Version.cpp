@@ -12,18 +12,7 @@ namespace octetos
 namespace toolkit
 {
         bool Version::operator <(const Version& v)
-        {                
-                //La nueva politca dicta que build no tiene significado en la presendiencia de las version pero sera removido hasta v5 paramantener compatibilidad 
-                //por build
-                if(build >0 and v.build > 0)
-                {
-                        if(build < v.build)
-                        {
-                                //std::cout << "por build" << std::endl;
-                                return true;
-                        }
-                }
-                
+        {                              
                 //por numeros
                 if(major > -1 and v.major > -1)
                 {
@@ -65,18 +54,7 @@ namespace toolkit
                 return *this;
         }
         bool Version::operator >=(const Version& v)
-        {                
-                //La nueva politca dicta que build no tiene significado en la presendiencia de las version pero sera removido hasta v5 paramantener compatibilidad 
-                //por build
-                if(build >0 and v.build > 0)
-                {
-                        if(build >= v.build)
-                        {
-                                //std::cout << "por build" << std::endl;
-                                return true;
-                        }
-                }
-                
+        {           
                 //por numeros
                 if(major > -1 and v.major > -1)
                 {
