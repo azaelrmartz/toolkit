@@ -29,15 +29,22 @@ namespace toolkit
         class Confirmation: public Message
         {
         public:
+                /**
+                 * \brief Requerido por Message
+                 * */
                 Confirmation(const std::string& brief);
         };
         
         /**
          * \brief Mensaje de advertencias.
+         * \private
          * */
         class Warning: public Message
         {
         public:
+                /**
+                 * \brief Requerido por Message
+                 * */
                 Warning(const std::string& brief);
         };
         

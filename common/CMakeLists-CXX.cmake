@@ -1,11 +1,13 @@
-PROJECT(octetos-toolkit-common-c++ VERSION 4.5.0.0 LANGUAGES ${LANG})
+PROJECT(octetos-toolkit-common-c++ VERSION 4.6.0.0 LANGUAGES ${LANG})
 SET(${PROJECT_NAME}_DOCUMENTING TRUE)
 
 EXECUTE_PROCESS(COMMAND date +"%Y%m%d%H%M%S" OUTPUT_VARIABLE ${PROJECT_NAME}_VERSION_BUILD)
-IF(${CMAKE_BUILD_TYPE} STREQUAL "Release")
-        SET(${PROJECT_NAME}_VERSION_STAGE "release")
+IF(NOT CMAKE_BUILD_TYPE)
+        SET(${PROJECT_NAME}_VERSION_STAGE "rc")
 ELSEIF(${CMAKE_BUILD_TYPE} STREQUAL "Debug")
         SET(${PROJECT_NAME}_VERSION_STAGE "snapshot")
+ELSEIF(${CMAKE_BUILD_TYPE} STREQUAL "Release")
+        SET(${PROJECT_NAME}_VERSION_STAGE "release")
 ENDIF()
 SET(${PROJECT_NAME}_VERSION_NAME "reader")
 
@@ -15,36 +17,30 @@ SET(CMAKE_CXX_EXTENSIONS OFF)
 CONFIGURE_FILE("${PROJECT_SOURCE_DIR}/versionInfo-c++.h.in" "${PROJECT_SOURCE_DIR}/versionInfo-c++.h")
 
 
+###############################################################################################
 FIND_PACKAGE(CUnit REQUIRED PATHS ${PROJECT_SOURCE_DIR}/../cmake/Modules/)
 IF(CUNIT_FOUND)
 	INCLUDE_DIRECTORIES(${CUNIT_INCLUDE_DIR})
 ENDIF()
+FIND_PACKAGE(Doxygen)
+IF(Doxygen_FOUND)
+        SET(doxyfile_in "doxygen-public-c++")
+ELSE()
+        MESSAGE(FATAL_ERROR "No se encontro Doxygen.")
+ENDIF()
 
 
-find_package(Doxygen)
-SET(doxyfile_in "doxygen-public-c++")
 
-#ADD_LIBRARY(${PROJECT_NAME}-partial1 STATIC common.cpp)
-#SET(LIBPARTIAL1 ${PROJECT_NAME}-partial1)
+
+#################################################################################################
+
 INCLUDE_DIRECTORIES(version-reader-c++ ${CMAKE_CURRENT_BINARY_DIR}/version-reader-c++)
-#link_directories(version-reader-c++ ${CMAKE_CURRENT_BINARY_DIR}/version-reader-c++)
 SET(LIBREADER "NULL")
 ADD_SUBDIRECTORY(version-reader-c++)
-#MESSAGE(STATUS "In common LIBREADER : " ${LIBREADER})
-
-
-#[[ADD_LIBRARY(${PROJECT_NAME}  STATIC common.cpp common-parser.cpp)
-ADD_DEPENDENCIES(${PROJECT_NAME} ${LIBREADER})
-TARGET_LINK_LIBRARIES(${PROJECT_NAME} ${LIBREADER})]]
-
 ADD_LIBRARY(${PROJECT_NAME}-obj  OBJECT common.cpp Error.cpp Object.cpp Version.cpp Version-parser.cpp Message.cpp Object.cpp)
 #target_include_directories(${PROJECT_NAME}-obj PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>  $<INSTALL_INTERFACE:.> )
 set_target_properties(${PROJECT_NAME}-obj  PROPERTIES POSITION_INDEPENDENT_CODE 1 )
 
-#ADD_LIBRARY(${PROJECT_NAME}-obj2 SHARED $<TARGET_OBJECTS:${PROJECT_NAME}-obj> $<TARGET_OBJECTS:${LIBREADER}-obj>)
-#target_include_directories(${PROJECT_NAME}   PUBLIC   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>  $<INSTALL_INTERFACE:.> )
-#add_library(${PROJECT_NAME} STATIC $<TARGET_OBJECTS:${PROJECT_NAME}-obj> $<TARGET_OBJECTS:${LIBREADER}-obj>)
-#target_include_directories(${PROJECT_NAME}   PUBLIC   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>  $<INSTALL_INTERFACE:.> )
 
 ADD_LIBRARY(${PROJECT_NAME} SHARED $<TARGET_OBJECTS:${PROJECT_NAME}-obj> $<TARGET_OBJECTS:${LIBREADER}-obj>)
 set_target_properties(${PROJECT_NAME}  PROPERTIES POSITION_INDEPENDENT_CODE 1 )
@@ -56,7 +52,7 @@ ADD_DEPENDENCIES(testing-v${${PROJECT_NAME}_VERSION_MAJOR} ${PROJECT_NAME})
 #MESSAGE(STATUS "In common PROJECT_NAME : " ${PROJECT_NAME})
 TARGET_LINK_LIBRARIES(testing-v${${PROJECT_NAME}_VERSION_MAJOR} ${CUNIT_LIBRARIES} ${PROJECT_NAME})
 
-IF(${CMAKE_BUILD_TYPE} STREQUAL "Release" OR ${${PROJECT_NAME}_DOCUMENTING})
+IF(Doxygen_FOUND)
 add_custom_target(
   doc ALL
   COMMAND ${DOXYGEN_EXECUTABLE} "${PROJECT_SOURCE_DIR}/${doxyfile_in}"
