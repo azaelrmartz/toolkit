@@ -106,40 +106,24 @@ void testVersionGeneric()
 	octetos::toolkit::Version ver;
 	
         //valores iniciales
-        //std::cout << "Valores inicilaes .." << std::endl;
 	CU_ASSERT(ver.getMajor() == -1)
 	CU_ASSERT(ver.getMinor() == -1)
 	CU_ASSERT(ver.getPatch() == -1)	
         CU_ASSERT(ver.getStage() == octetos::toolkit::Version::unknown)
         CU_ASSERT(ver.getBuild() == 0);
         CU_ASSERT(ver.getName().size() == 0);
+        CU_PASS("Inicializacion de varibles correcta");
         
-        
-        //reading file
-        //std::cout << "Probando el parser .." << std::endl;
         octetos::toolkit::Version ver2;
         CU_ASSERT(ver2.fromFile("../tests/ver"));
-        std::cout << "Parsed : " << ver2.toString() << std::endl;
-        //std::cout << "Read version for testing .." << ver2.toString() << std::endl;
-        //CU_ASSERT(drv.parseFile( rootDir + "/tests/ver") == 0);
         CU_ASSERT(ver2.getMajor() == 12);
         CU_ASSERT(ver2.getMinor() == 36);
         CU_ASSERT(ver2.getPatch() == 56);
         CU_ASSERT(ver2.getStage() == octetos::toolkit::Version::snapshot);
         CU_ASSERT(ver2.getBuild() == 12345678901233);
         CU_ASSERT(ver2.getName().compare("devtest") == 0);
-        
-        /*std::cout <<  "NOTADDRESSED " << octetos::toolkit::Error::Codes::NOTADDRESSED << std::endl;
-        std::cout <<  "FAILONCONTRUCTOR " << octetos::toolkit::Error::Codes::FAILONCONTRUCTOR << std::endl;
-        std::cout <<  "ROOFCODE " << octetos::toolkit::Error::Codes::ROOFCODE << std::endl;*/
+        CU_PASS("Lectura de ina instacia ejemplo correcta.");        
 }
-
-/*void testRQ0001001()
-{	
-	toolkit::Version ver = toolkit::getVersion();
-	std::string strMessge = "Valid RQ 0001-001..";
-	CU_ASSERT(ver.getMajor() > -1)
-}*/
 
 
 int main(int argc, char *argv[])

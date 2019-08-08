@@ -55,10 +55,6 @@ namespace toolkit
                  * */
 		short patch;
                 /**
-                 * \deprecated
-                 * */
-                short tweak;
-                /**
                  * \brief Build del projecto(solose acepta un numero intero largo)
                  * */
                 unsigned long build;

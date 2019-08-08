@@ -9,14 +9,6 @@ namespace octetos
 {
 namespace toolkit
 {	
-        /*std::string Error::getFilename()
-        {
-                return filename;        
-        }
-        int Error::getLineNumber()
-        {
-                return lineNumber;
-        }*/
         const Error* Error::error = NULL;
         Error Error::get()
         {
@@ -44,21 +36,8 @@ namespace toolkit
                 return true;
         }
         
-        /*Error::Error(const Error& obj)
-        {                
-                this->brief = obj.brief;
-                this->code = obj.code;
-                this->filename = obj.filename; 
-                this->lineNumber = obj.lineNumber;
-                this->full = obj.full;
-        }*/
         Error::Error(const std::string& brief, int code,std::string filename,int lineNumber) throw()
 	{
-                //this->brief = brief;
-                //this->code = code;
-                //this->filename = filename; 
-                //this->lineNumber = lineNumber;
-                //std::cout << "Error: " << filename << std::endl;
                 full = filename + " : " + std::to_string(lineNumber) + ", codigo (" + std::to_string(code) + "):" + "\n" + brief;
 	}	
         Error::Error(const std::string& brief, int code) throw()

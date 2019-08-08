@@ -10,7 +10,6 @@ namespace toolkit
 {
         /**
          * \brief Entendida como clase base para tranmitir mensajes.
-         * \private En desarrollo
          * */
         class Message
         {
@@ -23,8 +22,7 @@ namespace toolkit
         };
         
         /**
-         * \brief Mensajes de comfirmacion de operacion
-         * \private En desarrolo
+         * \brief Mensajes de comfirmacion de operacion.
          * */
         class Confirmation: public Message
         {
@@ -37,7 +35,6 @@ namespace toolkit
         
         /**
          * \brief Mensaje de advertencias.
-         * \private
          * */
         class Warning: public Message
         {
@@ -49,8 +46,7 @@ namespace toolkit
         };
         
         /**
-         * \brief Interface dedicada a la centralizacion de mesnajes, 
-         * \private En desarrolo
+         * \brief Interface dedicada a la centralizacion de mesnajes.
          * */
         class ActivityProgress
         {
