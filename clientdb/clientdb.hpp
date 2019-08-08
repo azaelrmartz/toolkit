@@ -38,18 +38,19 @@ namespace clientdb
                 NotSupportedExcetion(const std::string &description) throw();		
 	};
     
-	class Datconnect : public toolkit::Object
+        class Datconnect : public toolkit::Object
 	{
 	public:
-            enum ServerType
-            {
-                MySQL,
-                PostgreSQL
-            };            
-            Datconnect(const Datconnect&);
-            Datconnect();
-            const Datconnect& operator=(const Datconnect& obj);
-            void set(ServerType serverType,const std::string& host, unsigned int port,const std::string& database,const std::string& usuario,const std::string& password);
+                enum ServerType
+                {
+                        Unknow,
+                        MySQL,
+                        PostgreSQL
+                };            
+                Datconnect(const Datconnect&);
+                Datconnect();
+                const Datconnect& operator=(const Datconnect& obj);
+                void set(ServerType serverType,const std::string& host, unsigned int port,const std::string& database,const std::string& usuario,const std::string& password);
             
             virtual std::string toString()const;
             const std::string& getHost()const;
@@ -110,12 +111,12 @@ namespace clientdb
         protected:
             void* serverConnector;
             const Datconnect* datconection;
-            //
-            bool is_ipv4_address(const std::string& str);
-            bool is_ipv6_address(const std::string& str);
-            bool is_valid_domain_name(const std::string& str);
             
         public:
+            //
+            static bool is_ipv4_address(const std::string& str);
+            static bool is_ipv6_address(const std::string& str);
+            static bool is_valid_domain_name(const std::string& str);
             virtual ~Connector();
             Connector();
             Connector(const Connector&);
