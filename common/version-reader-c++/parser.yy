@@ -60,12 +60,12 @@ namespace octetos
 %token <unsigned long> BUILD "unsigned long"
 %token <std::string> NOEXPECTED    "noexpectec"
 
-%token <std::string> VALID    "valid"
-%token <std::string> FIELD_NUMBERS    "numbers"
-%token <std::string> FIELD_STAGE    "stage"
-%token <std::string> FIELD_BUILD    "build"
-%token <std::string> FIELD_NAME    "name"
-%token <std::string> SEMICOLON    ":"
+%token VALID 
+%token FIELD_NUMBERS
+%token FIELD_STAGE
+%token FIELD_BUILD
+%token FIELD_NAME 
+%token EQUAL    
 
 %locations
 
@@ -161,21 +161,21 @@ end : END
         
 };
 
-valid : VALID FIELD_NUMBERS SEMICOLON numbers end
+valid : VALID FIELD_NUMBERS EQUAL numbers end
 	{
 		YYACCEPT;
 	};
 	
-valid : VALID FIELD_STAGE SEMICOLON stages end
+valid : VALID FIELD_STAGE EQUAL stages end
 	{
 		YYACCEPT;
 	};
 	
-valid : VALID FIELD_BUILD SEMICOLON BUILD end
+valid : VALID FIELD_BUILD EQUAL BUILD end
 	{
 		YYACCEPT;
 	};	
-valid : VALID  FIELD_NAME FIELD_BUILD SEMICOLON NAME end
+valid : VALID  FIELD_NAME FIELD_BUILD EQUAL NAME end
 	{
 		YYACCEPT;
 	};

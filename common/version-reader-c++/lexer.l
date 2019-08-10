@@ -79,20 +79,13 @@ SPACE [ \t\r]
                                         return token::FIELD_NAME;
 
                                 }
-":"                 {
+"="                 {
                                         //std::cout << yytext << std::endl;
                                         //yylval->build< std::string >( atoi(yytext) );
-                                        return token::SEMICOLON;
+                                        return token::EQUAL;
 
                                 }                                
 
-                                
-{DIGIT}{1,11}  	{
-                                        //std::cout << yytext << std::endl; 
-                                        BEGIN(sc_NUMBERS);
-                                        yylval->build< int >( atoi(yytext) );
-                                        return token::NUMBER;
-                                }
 
 "."        	{
                         //std::cout << yytext << std::endl;
@@ -129,6 +122,13 @@ SPACE [ \t\r]
                                 //std::cout << "Stage : " << yytext << std::endl;
                                         BEGIN(sc_STAGE);
                                 yylval->build< std::string >( yytext );return token::RELEASE;
+                                }
+                                
+{DIGIT}{1,11}  	{
+                                        //std::cout << yytext << std::endl; 
+                                        BEGIN(sc_NUMBERS);
+                                        yylval->build< int >( atoi(yytext) );
+                                        return token::NUMBER;
                                 }
 			
 {DIGIT}{12,16}                  {
