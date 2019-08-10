@@ -121,12 +121,22 @@ void testVersionGeneric()
         CU_ASSERT(ver2.getStage() == octetos::toolkit::Version::snapshot);
         CU_ASSERT(ver2.getBuild() == 12345678901233);
         CU_ASSERT(ver2.getName().compare("devtest") == 0);   
+        octetos::toolkit::Version ver3;
+        CU_ASSERT(ver3.fromString("1.3.65;"));//deve aceptar ;
+        CU_ASSERT(ver3.fromString("11.3.65-snapshot;"));//deve aceptar ;
+        CU_ASSERT(ver3.fromString("12.36.56-snapshot 12345678901233 devtest;"));//deve aceptar ;
+        CU_ASSERT_FALSE(ver3.fromString("12.36.56-snapshot 123456;78901233 devtest;"));//error sintactico la sengun version esta incompleta
+        CU_ASSERT_FALSE(ver3.fromString("12.36.56-snapshot 12345678901233 ;devtest;"));//error sintactico la sengun version esta incompleta
+        CU_ASSERT_FALSE(ver3.fromString("12.36.56-snaps;hot 12345678901233 devtest"));//error sintactico la sengun version esta incompleta
+        CU_ASSERT(ver3.fromString("12.36.56-snapshot 12345678901233 devtest;12.36.56-snapshot;"));
 }
 
-void testValidFiels()
+void testValidStatement()
 {
         CU_ASSERT(octetos::toolkit::Version::valid("valid numbers = 1.3.65"));
-        CU_ASSERT_FALSE(octetos::toolkit::Version::valid("valid numbers = 1.3.65-rc"));
+        ///std::cout << "Err>>:" <<std::endl;
+        CU_ASSERT_FALSE(octetos::toolkit::Version::valid("valid numbers = 1.44.55-rc"));//deve rechazar porque se esta incluyendo la etapa
+        //std::cout << "Err<<" <<std::endl;
         CU_ASSERT(octetos::toolkit::Version::valid("valid stage = rc"));
         CU_ASSERT_FALSE(octetos::toolkit::Version::valid("valid stage = 1.2.3-rc"));
         CU_ASSERT(octetos::toolkit::Version::valid("valid name = snate43"));
@@ -162,7 +172,7 @@ int main(int argc, char *argv[])
 		return CU_get_error();
 	}
 	
-	if ((NULL == CU_add_test(pSuite, "Pruebas de validadacion", testValidFiels)))
+	if ((NULL == CU_add_test(pSuite, "Pruebas de validadacion", testValidStatement)))
 	{
 		CU_cleanup_registry();
 		return CU_get_error();

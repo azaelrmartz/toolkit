@@ -11,7 +11,7 @@
 using token = octetos::toolkit::Parser::token;
 
 /* define yyterminate as this instead of NULL */
-#define yyterminate() return( token::END )
+#define yyterminate() return( token::ENDFILE )
 
 /* msvc2010 requires that we exclude this header file. */
 #define YY_NO_UNISTD_H
@@ -80,7 +80,7 @@ SPACE [ \t\r]
 
                                 }
 "="                 {
-                                        //std::cout << yytext << std::endl;
+                                        ///std::cout << yytext << std::endl;
                                         //yylval->build< std::string >( atoi(yytext) );
                                         return token::EQUAL;
 
@@ -99,30 +99,35 @@ SPACE [ \t\r]
                 }
 
 "snapshot"  {
-                                //std::cout << "Stage : " << yytext << std::endl;
+                                        //std::cout << yytext << std::endl;
                                         BEGIN(sc_STAGE);
                                 yylval->build< std::string >( yytext );return token::VALUE_SNAPSHOT;
                                 }
 "alpha"		{
-                                //std::cout << "Stage : " << yytext << std::endl;
+                                        //std::cout << yytext << std::endl;
                                         BEGIN(sc_STAGE);
                                 yylval->build< std::string >( yytext );return token::VALUE_ALPHA;
                                 }
 "beta"     	{
-                                //std::cout << "Stage : " << yytext << std::endl;
+                                        //std::cout << yytext << std::endl;
                                         BEGIN(sc_STAGE);
                                 yylval->build< std::string >( yytext );return token::VALUE_BETA;
                                 }
 "rc"       	{
-                                        //std::cout << "Stage : " << yytext << std::endl;
+                                        //std::cout << yytext << std::endl;
                                         BEGIN(sc_STAGE);
                                         yylval->build< std::string >( yytext );return token::VALUE_RC;
                         }
 "release"  	{
-                                //std::cout << "Stage : " << yytext << std::endl;
+                                        //std::cout << yytext << std::endl;
                                         BEGIN(sc_STAGE);
                                 yylval->build< std::string >( yytext );return token::VALUE_RELEASE;
                                 }
+";"                     {
+                                        //std::cout << yytext << std::endl;
+                                        return token::SEMICOLON;
+                                }
+
                                 
 {DIGIT}{1,11}  	{
                                         //std::cout << yytext << std::endl; 
@@ -148,7 +153,10 @@ SPACE [ \t\r]
 
 {SPACE}+	;
 
-[\n\0]		{return token::END;}
+[\n\0]		{
+                                        //std::cout << "En of line" << std::endl; 
+                        return token::ENDLINE;
+                        }
 .          	            {
                                         std::string msg = "El carecter '";
                                         msg += yytext;
@@ -156,7 +164,10 @@ SPACE [ \t\r]
                                         yylval->build< std::string >( yytext ); 
                                         return token::NOEXPECTED;
                                 }
-<<EOF>>    	return token::END;
+<<EOF>>    {
+                                        //std::cout << "En of file" << std::endl; 
+                                return token::ENDFILE;
+                        }
 
 %%
 

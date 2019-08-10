@@ -47,7 +47,9 @@ namespace octetos
 %token
   DOT
   DASH
-  END
+  ENDLINE
+  SEMICOLON
+  ENDFILE
 ;
 
 %token VALUE_SNAPSHOT
@@ -72,30 +74,41 @@ namespace octetos
 %%
 %start stmt;
 
-stmt : version | valid ;
+stmt : version end
+	{
+                YYACCEPT;
+	}
+        |
+        version_list end
+	{
+                YYACCEPT;
+	}
+        | 
+        valid end
+	{
+                YYACCEPT;
+	};
 
 version : 
-        numbers end
+        numbers_value
 	{
-                YYACCEPT;
-	};
+	}
         |
-        numbers stage  end 
+        numbers_value stage
 	{
-                YYACCEPT;
-	};
+	}
         | 
-        numbers stage build end
+        numbers_value stage build
 	{
-                YYACCEPT;
-	}; 
+	}
         | 
-        numbers stage build name end
+        numbers_value stage build name
 	{
-                YYACCEPT;
-	};
+	}
 
-numbers : 
+version_list : | version SEMICOLON  version_list
+
+numbers_value : 
         one_number | two_numbers | three_numbers
 ;
 
@@ -156,32 +169,28 @@ name : VALUE_NAME
         //std::cout << "Name = " << $1 << std::endl;
 };
 
-end : END
+end : ENDLINE | ENDFILE | SEMICOLON
 {
 };
 
-valid : VALID FIELDNAME_NUMBERS EQUAL numbers end
+valid : VALID FIELDNAME_NUMBERS EQUAL numbers_value 
 	{
-                YYACCEPT;
+	}
+	|
+	VALID FIELDNAME_STAGE EQUAL stage_values 
+	{
+	}
+	|
+	VALID FIELDNAME_BUILD EQUAL VALUE_BUILD 
+	{
+	}
+	|
+	VALID  FIELDNAME_NAME EQUAL VALUE_NAME
+	{
 	};
 	
-valid : VALID FIELDNAME_STAGE EQUAL stages end
+stage_values : VALUE_SNAPSHOT | VALUE_ALPHA | VALUE_BETA | VALUE_RC | VALUE_RELEASE
 	{
-                YYACCEPT;
-	};
-	
-valid : VALID FIELDNAME_BUILD EQUAL VALUE_BUILD end
-	{
-                YYACCEPT;
-	};	
-valid : VALID  FIELDNAME_NAME EQUAL VALUE_NAME end
-	{
-                YYACCEPT;
-	};
-	
-stages : VALUE_SNAPSHOT | VALUE_ALPHA | VALUE_BETA | VALUE_RC | VALUE_RELEASE
-	{
-                YYACCEPT;
 	};
 
 %%
