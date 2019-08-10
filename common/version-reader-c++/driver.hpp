@@ -18,9 +18,10 @@ namespace toolkit
 	public:
 	   Driver();
 	   Driver(Version& version);
+           Driver(Version& version, bool announce_error);
 	   Version& getVersion();
 	   virtual ~Driver();
-	   
+	   bool getAnnounceError();
 	   /** 
 		* parse - parse from a file
 		* @param filename - valid string with input file
@@ -35,7 +36,8 @@ namespace toolkit
 	   bool parse_helper( std::istream &stream );
 	   Parser  *parser  = nullptr;
 	   Scanner *scanner = nullptr;
-	   Version* version;	   
+	   Version* version;
+           bool announce_error;
 	};
 }
 } 

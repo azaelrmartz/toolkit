@@ -58,11 +58,21 @@ namespace octetos
 %token <std::string> NAME "string"
 %token <int> NUMBER
 %token <unsigned long> BUILD "unsigned long"
+%token <std::string> NOEXPECTED    "noexpectec"
+
+%token <std::string> VALID    "valid"
+%token <std::string> FIELD_NUMBERS    "numbers"
+%token <std::string> FIELD_STAGE    "stage"
+%token <std::string> FIELD_BUILD    "build"
+%token <std::string> FIELD_NAME    "name"
+%token <std::string> SEMICOLON    ":"
 
 %locations
 
 %%
-%start version;
+%start stmt;
+
+stmt : version | valid ;
 
 version : 
         numbers end
@@ -85,7 +95,9 @@ version :
 		YYACCEPT;
 	};
 
-numbers : firts_number | second_numbers | third_numbers ;
+numbers : 
+        firts_number | second_numbers | third_numbers
+;
 
 firts_number : NUMBER
 {
@@ -149,11 +161,35 @@ end : END
         
 };
 
+valid : VALID FIELD_NUMBERS SEMICOLON numbers end
+	{
+		YYACCEPT;
+	};
+	
+valid : VALID FIELD_STAGE SEMICOLON stages end
+	{
+		YYACCEPT;
+	};
+	
+valid : VALID FIELD_BUILD SEMICOLON BUILD end
+	{
+		YYACCEPT;
+	};	
+valid : VALID  FIELD_NAME FIELD_BUILD SEMICOLON NAME end
+	{
+		YYACCEPT;
+	};
+	
+stages : SNAPSHOT | ALPHA | BETA | RC | RELEASE
+	{
+		YYACCEPT;
+	};
+
 %%
 
 
 void 
 octetos::toolkit::Parser::error( const location_type &l, const std::string &err_message )
 {
-   std::cerr << "Error: " << err_message << " at " << l << "\n";
+   if(drv.getAnnounceError())std::cerr << "Error: " << err_message << " at " << l << "\n";
 }

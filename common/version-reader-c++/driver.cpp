@@ -9,6 +9,10 @@ namespace octetos
 namespace toolkit
 {
 
+bool Driver::getAnnounceError()
+{
+        return announce_error;
+}
 Driver::Driver()
 {
 }
@@ -16,7 +20,11 @@ Version& Driver::getVersion()
 {
 	return *version;
 }
-
+Driver::Driver(Version& v, bool announce_error)
+{
+	version = &v;
+        this->announce_error = announce_error;
+}
 Driver::Driver(Version& v)
 {
 	version = &v;
@@ -88,12 +96,12 @@ Driver::parse_helper( std::istream &stream )
         }
         else if(  retP == 1 )
         {
-                std::cout << "Error  " << std::endl;
+                //std::cout << "Error  " << std::endl;
                 return false;
         }
         else if(  retP == 2 )
         {
-                std::cout << "Problema de memoria  " << std::endl;
+                //std::cout << "Problema de memoria  " << std::endl;
                 return false;
         }
    

@@ -65,9 +65,13 @@ namespace toolkit
                 /**
                  * \brief Nombre de la version
                  * */
-                std::string name;
+                std::string name;                
                 
 	public:
+                /**
+                 * \brief Limpia todos los datos
+                 * */
+                void init();
                 /**
                  * \brief Retorna el numero major.
                  * */
@@ -162,7 +166,9 @@ namespace toolkit
                  * \brief Asinga los valores con datos leidos desde ana cadena de texto
                  * \param str Texto a leer.
                  * */                 
-                bool fromString(const std::string& str);        
+                bool fromString(const std::string& str); 
+                
+                static bool valid(const std::string& str);
 	};
         
 }

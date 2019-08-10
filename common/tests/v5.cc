@@ -112,7 +112,6 @@ void testVersionGeneric()
         CU_ASSERT(ver.getStage() == octetos::toolkit::Version::unknown)
         CU_ASSERT(ver.getBuild() == 0);
         CU_ASSERT(ver.getName().size() == 0);
-        CU_PASS("Inicializacion de varibles correcta");
         
         octetos::toolkit::Version ver2;
         CU_ASSERT(ver2.fromFile("../tests/ver"));
@@ -121,10 +120,17 @@ void testVersionGeneric()
         CU_ASSERT(ver2.getPatch() == 56);
         CU_ASSERT(ver2.getStage() == octetos::toolkit::Version::snapshot);
         CU_ASSERT(ver2.getBuild() == 12345678901233);
-        CU_ASSERT(ver2.getName().compare("devtest") == 0);
-        CU_PASS("Lectura de ina instacia ejemplo correcta.");        
+        CU_ASSERT(ver2.getName().compare("devtest") == 0);   
 }
 
+void testValidFiels()
+{
+        CU_ASSERT(octetos::toolkit::Version::valid("valid numbers : 1.3.65"));
+        CU_ASSERT_FALSE(octetos::toolkit::Version::valid("valid numbers : 1.3.65-rc"));
+        CU_ASSERT_FALSE(octetos::toolkit::Version::valid("valid numbers : 1.3.65-rc"));
+        CU_ASSERT(octetos::toolkit::Version::valid("valid stage : rc"));
+        CU_ASSERT_FALSE(octetos::toolkit::Version::valid("valid stage : 1.2.3-rc"));
+}
 
 int main(int argc, char *argv[])
 {
@@ -155,6 +161,11 @@ int main(int argc, char *argv[])
 		return CU_get_error();
 	}
 	
+	if ((NULL == CU_add_test(pSuite, "Pruebas de validadacion", testValidFiels)))
+	{
+		CU_cleanup_registry();
+		return CU_get_error();
+	}
 	/* Run all tests using the CUnit Basic interface */
 	CU_basic_set_mode(CU_BRM_VERBOSE);
 	CU_basic_run_tests();

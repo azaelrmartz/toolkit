@@ -2,7 +2,9 @@
 #include <string>
 //#include <iostream> //for test
 
+#include "Error.hpp"
 #include "Version.hpp"
+
 
 // Reference https://semver.org/
 
@@ -11,6 +13,15 @@ namespace octetos
 {
 namespace toolkit
 {
+        void Version::init()
+        {
+		major = -1;
+		minor = -1;
+		patch = -1;
+		stage = unknown;
+                build = 0;
+                name = "";
+        }
         bool Version::operator <(const Version& v)
         {                              
                 //por numeros
@@ -22,6 +33,10 @@ namespace toolkit
                                 return false;
                         }                          
                 }
+                else // no se puede retornar false y escribir un erro ya que el programa tendria la false idea de que la comparacion fue correcta con valor de retorno falso.
+                {
+                        throw Error("Operación invalidad, está comprando objetos Version sin antes asignarles valores.",Error::ERROR_VERSION_BY_COMPARING);
+                }
                 if(minor > -1 and v.minor > -1)
                 {
                         if(minor >= v.minor)
@@ -30,6 +45,10 @@ namespace toolkit
                                 return false;
                         }
                 }
+                else//El major se asigno pero el menor no, los retante nuero ya ya no cuentan
+                {
+                        return false;
+                }
                 if(patch > -1 and v.patch > -1)
                 {
                         if(patch >= v.patch)
@@ -37,6 +56,10 @@ namespace toolkit
                                 //std::cout << "por patch" << std::endl;
                                 return false;
                         }
+                }
+                else//El menor se asigno pero el patch no.
+                {
+                        return false;
                 }
                 
                 return true;
@@ -67,6 +90,10 @@ namespace toolkit
                                 return false;
                         }                                
                 }
+                else // no se puede retornar false y escribir un erro ya que el programa tendria la false idea de que la comparacion fue correcta con valor de retorno falso.
+                {
+                        throw Error("Operación invalidad, está comprando objetos Version sin antes asignarles valores.",Error::ERROR_VERSION_BY_COMPARING);
+                }
                 if(minor > -1 and v.minor > -1)
                 {
                         if(minor > v.minor)
@@ -79,6 +106,10 @@ namespace toolkit
                                 return false;
                         }
                 }
+                else//El menor se asigno pero el patch no.
+                {
+                        return false;
+                }
                 if(patch > -1 and v.patch > -1)
                 {
                         if(patch >= v.patch)
@@ -90,6 +121,10 @@ namespace toolkit
                         {
                                 return false;
                         }
+                }
+                else//El menor se asigno pero el patch no.
+                {
+                        return false;
                 }
                 
                 //std::cout << "no cumple" << std::endl;
@@ -181,12 +216,7 @@ namespace toolkit
         }
 	Version::Version()
 	{
-		major = -1;
-		minor = -1;
-		patch = -1;
-		stage = unknown;
-                build = 0;
-                name = "";
+                init();
 	}
 
 	std::string Version::toString(Version::Format formato) const

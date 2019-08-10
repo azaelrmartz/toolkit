@@ -1,4 +1,4 @@
-PROJECT(octetos-toolkit-common-c++ VERSION 5.0.0.0 LANGUAGES ${LANG})
+PROJECT(octetos-toolkit-common-c++ VERSION 5.0.0.1 LANGUAGES ${LANG})
 SET(${PROJECT_NAME}_DOCUMENTING TRUE)
 
 EXECUTE_PROCESS(COMMAND date +"%Y%m%d%H%M%S" OUTPUT_VARIABLE ${PROJECT_NAME}_VERSION_BUILD)
@@ -26,17 +26,19 @@ CONFIGURE_FILE("${PROJECT_SOURCE_DIR}/versionInfo-c++.h.in" "${PROJECT_SOURCE_DI
 
 
 ###############################################################################################
+
 FIND_PACKAGE(CUnit REQUIRED PATHS ${PROJECT_SOURCE_DIR}/../cmake/Modules/)
 IF(CUNIT_FOUND)
 	INCLUDE_DIRECTORIES(${CUNIT_INCLUDE_DIR})
 ENDIF()
 FIND_PACKAGE(Doxygen)
+if(DOCUMENTING)
 IF(Doxygen_FOUND)
         SET(doxyfile_in "doxygen-public-c++")
 ELSE()
         MESSAGE(FATAL_ERROR "No se encontro Doxygen.")
 ENDIF()
-
+endif()
 
 
 
@@ -60,6 +62,7 @@ ADD_DEPENDENCIES(testing-v${${PROJECT_NAME}_VERSION_MAJOR} ${PROJECT_NAME})
 #MESSAGE(STATUS "In common PROJECT_NAME : " ${PROJECT_NAME})
 TARGET_LINK_LIBRARIES(testing-v${${PROJECT_NAME}_VERSION_MAJOR} ${CUNIT_LIBRARIES} ${PROJECT_NAME})
 
+if(DOCUMENTING)
 IF(Doxygen_FOUND)
 add_custom_target(
   doc ALL
@@ -69,6 +72,7 @@ add_custom_target(
   VERBATIM
 )
 ENDIF()
+endif()
 
 INSTALL(TARGETS ${PROJECT_NAME} DESTINATION /lib)
 INSTALL(FILES common.hpp DESTINATION include/octetos/toolkit/common/)

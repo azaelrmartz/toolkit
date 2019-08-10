@@ -29,6 +29,11 @@ namespace toolkit
                          * \brief Cuando el se detecta un error generado fuera del alcance del manejador.
                          **/
                         ERROR_NOTADDRESSED,
+                        /**
+                         * \brief Codigo generico usado po la clase Version.
+                         * */
+                        ERROR_VERSION,
+                        ERROR_VERSION_BY_COMPARING,
                         
                         /**
                          * \brief Cada modulo que implemete gestion de error deve asignar el valor de inicio de su enumeracion con este valor para evitar conflictos.
