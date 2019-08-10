@@ -1,4 +1,4 @@
-PROJECT(octetos-toolkit-clientdb-myc++ VERSION 5.4.0 LANGUAGES ${LANG})
+PROJECT(octetos-toolkit-clientdb-myc++ VERSION 5.4.0.1 LANGUAGES ${LANG})
 
 MESSAGE("El Servidor seleccionado es MySQL ...")
 SET(CMAKE_CXX_STANDARD 11)
