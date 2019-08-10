@@ -128,21 +128,21 @@ SPACE [ \t\r]
                                         //std::cout << yytext << std::endl; 
                                         BEGIN(sc_NUMBERS);
                                         yylval->build< int >( atoi(yytext) );
-                                        return token::NUMBER;
+                                        return token::VALUE_NUMBER;
                                 }
 			
 {DIGIT}{12,16}                  {
                                                         //std::cout << "Build : " << yytext << std::endl;
                                                         BEGIN(sc_BUILD);
                                                         yylval->build< unsigned long >( std::stoul(yytext) );
-                                                        return token::BUILD;                                                                        
+                                                        return token::VALUE_BUILD;                                                                        
                                                 }
 
 {NAME}  	{
                                 //std::cout << "Name: " << yytext << std::endl; 
                                 BEGIN(sc_NAME);
                                 yylval->build< std::string >( yytext ); 
-                                return token::NAME;
+                                return token::VALUE_NAME;
                         }
 
 

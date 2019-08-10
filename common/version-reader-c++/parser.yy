@@ -45,20 +45,20 @@ namespace octetos
 //%define parse.assert
 
 %token
-  DOT  "."
-  DASH   "-"
-  END  "end of file"
+  DOT
+  DASH
+  END
 ;
 
-%token <std::string> SNAPSHOT    "snapshot"
-%token <std::string> ALPHA    "alpha"
-%token <std::string> BETA   "beta"
-%token <std::string> RC  "rc"
-%token <std::string> RELEASE  "release"
-%token <std::string> NAME "string"
-%token <int> NUMBER
-%token <unsigned long> BUILD "unsigned long"
-%token <std::string> NOEXPECTED    "noexpectec"
+%token SNAPSHOT
+%token ALPHA
+%token BETA
+%token  RC 
+%token RELEASE 
+%token <std::string> VALUE_NAME
+%token <int> VALUE_NUMBER
+%token <unsigned long> VALUE_BUILD
+%token <std::string> NOEXPECTED
 
 %token VALID 
 %token FIELD_NUMBERS
@@ -99,17 +99,17 @@ numbers :
         firts_number | second_numbers | third_numbers
 ;
 
-firts_number : NUMBER
+firts_number : VALUE_NUMBER
 {
         drv.getVersion().setNumbers($1);
 };
 
-second_numbers : NUMBER DOT NUMBER
+second_numbers : VALUE_NUMBER DOT VALUE_NUMBER
 {
        drv.getVersion().setNumbers($1,$3);
 };
 
-third_numbers : NUMBER DOT NUMBER DOT NUMBER
+third_numbers : VALUE_NUMBER DOT VALUE_NUMBER DOT VALUE_NUMBER
 {        
         //std::cout << "$1 = " << $1 << std::endl;
         //std::cout << "$3 = " << $3 << std::endl;
@@ -144,13 +144,13 @@ DASH RELEASE
 }
 ;
 
-build : BUILD
+build : VALUE_BUILD
 {
         drv.getVersion().setBuild($1);      
         //std::cout << "Build = " << $1 << std::endl;
 };
 
-name : NAME
+name : VALUE_NAME
 {
         drv.getVersion().setName($1);
         //std::cout << "Name = " << $1 << std::endl;
@@ -171,11 +171,11 @@ valid : VALID FIELD_STAGE EQUAL stages end
 		YYACCEPT;
 	};
 	
-valid : VALID FIELD_BUILD EQUAL BUILD end
+valid : VALID FIELD_BUILD EQUAL VALUE_BUILD end
 	{
 		YYACCEPT;
 	};	
-valid : VALID  FIELD_NAME FIELD_BUILD EQUAL NAME end
+valid : VALID  FIELD_NAME FIELD_BUILD EQUAL VALUE_NAME end
 	{
 		YYACCEPT;
 	};
