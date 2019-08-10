@@ -129,6 +129,8 @@ void testValidFiels()
         CU_ASSERT_FALSE(octetos::toolkit::Version::valid("valid numbers = 1.3.65-rc"));
         CU_ASSERT(octetos::toolkit::Version::valid("valid stage = rc"));
         CU_ASSERT_FALSE(octetos::toolkit::Version::valid("valid stage = 1.2.3-rc"));
+        CU_ASSERT(octetos::toolkit::Version::valid("valid name = snate43"));
+        CU_ASSERT(octetos::toolkit::Version::valid("valid build = 12389678111233"));
 }
 
 int main(int argc, char *argv[])

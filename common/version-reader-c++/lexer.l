@@ -58,25 +58,25 @@ SPACE [ \t\r]
 "numbers"                {
                                         //std::cout << yytext << std::endl;
                                         //yylval->build< std::string >( atoi(yytext) );
-                                        return token::FIELD_NUMBERS;
+                                        return token::FIELDNAME_NUMBERS;
 
                                 }
 "stage"                {
                                         //std::cout << yytext << std::endl;
                                         //yylval->build< std::string >( atoi(yytext) );
-                                        return token::FIELD_STAGE;
+                                        return token::FIELDNAME_STAGE;
 
                                 }
 "build"                 {
                                         //std::cout << yytext << std::endl;
                                         //yylval->build< std::string >( atoi(yytext) );
-                                        return token::FIELD_BUILD;
+                                        return token::FIELDNAME_BUILD;
 
                                 }
 "name"                 {
                                         //std::cout << yytext << std::endl;
                                         //yylval->build< std::string >( atoi(yytext) );
-                                        return token::FIELD_NAME;
+                                        return token::FIELDNAME_NAME;
 
                                 }
 "="                 {
@@ -101,27 +101,27 @@ SPACE [ \t\r]
 "snapshot"  {
                                 //std::cout << "Stage : " << yytext << std::endl;
                                         BEGIN(sc_STAGE);
-                                yylval->build< std::string >( yytext );return token::SNAPSHOT;
+                                yylval->build< std::string >( yytext );return token::VALUE_SNAPSHOT;
                                 }
 "alpha"		{
                                 //std::cout << "Stage : " << yytext << std::endl;
                                         BEGIN(sc_STAGE);
-                                yylval->build< std::string >( yytext );return token::ALPHA;
+                                yylval->build< std::string >( yytext );return token::VALUE_ALPHA;
                                 }
 "beta"     	{
                                 //std::cout << "Stage : " << yytext << std::endl;
                                         BEGIN(sc_STAGE);
-                                yylval->build< std::string >( yytext );return token::BETA;
+                                yylval->build< std::string >( yytext );return token::VALUE_BETA;
                                 }
 "rc"       	{
                                         //std::cout << "Stage : " << yytext << std::endl;
                                         BEGIN(sc_STAGE);
-                                        yylval->build< std::string >( yytext );return token::RC;
+                                        yylval->build< std::string >( yytext );return token::VALUE_RC;
                         }
 "release"  	{
                                 //std::cout << "Stage : " << yytext << std::endl;
                                         BEGIN(sc_STAGE);
-                                yylval->build< std::string >( yytext );return token::RELEASE;
+                                yylval->build< std::string >( yytext );return token::VALUE_RELEASE;
                                 }
                                 
 {DIGIT}{1,11}  	{

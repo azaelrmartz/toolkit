@@ -50,21 +50,21 @@ namespace octetos
   END
 ;
 
-%token SNAPSHOT
-%token ALPHA
-%token BETA
-%token  RC 
-%token RELEASE 
+%token VALUE_SNAPSHOT
+%token VALUE_ALPHA
+%token VALUE_BETA
+%token VALUE_RC 
+%token VALUE_RELEASE 
 %token <std::string> VALUE_NAME
 %token <int> VALUE_NUMBER
 %token <unsigned long> VALUE_BUILD
 %token <std::string> NOEXPECTED
 
 %token VALID 
-%token FIELD_NUMBERS
-%token FIELD_STAGE
-%token FIELD_BUILD
-%token FIELD_NAME 
+%token FIELDNAME_NUMBERS
+%token FIELDNAME_STAGE
+%token FIELDNAME_BUILD
+%token FIELDNAME_NAME 
 %token EQUAL    
 
 %locations
@@ -77,39 +77,39 @@ stmt : version | valid ;
 version : 
         numbers end
 	{
-		YYACCEPT;
+                YYACCEPT;
 	};
         |
         numbers stage  end 
 	{
-		YYACCEPT;
+                YYACCEPT;
 	};
         | 
         numbers stage build end
 	{
-		YYACCEPT;
+                YYACCEPT;
 	}; 
         | 
         numbers stage build name end
 	{
-		YYACCEPT;
+                YYACCEPT;
 	};
 
 numbers : 
-        firts_number | second_numbers | third_numbers
+        one_number | two_numbers | three_numbers
 ;
 
-firts_number : VALUE_NUMBER
+one_number : VALUE_NUMBER
 {
         drv.getVersion().setNumbers($1);
 };
 
-second_numbers : VALUE_NUMBER DOT VALUE_NUMBER
+two_numbers : VALUE_NUMBER DOT VALUE_NUMBER
 {
        drv.getVersion().setNumbers($1,$3);
 };
 
-third_numbers : VALUE_NUMBER DOT VALUE_NUMBER DOT VALUE_NUMBER
+three_numbers : VALUE_NUMBER DOT VALUE_NUMBER DOT VALUE_NUMBER
 {        
         //std::cout << "$1 = " << $1 << std::endl;
         //std::cout << "$3 = " << $3 << std::endl;
@@ -117,28 +117,28 @@ third_numbers : VALUE_NUMBER DOT VALUE_NUMBER DOT VALUE_NUMBER
         drv.getVersion().setNumbers($1,$3,$5);
 };
 
-stage : DASH SNAPSHOT
+stage : DASH VALUE_SNAPSHOT
 {
         drv.getVersion().setStage(octetos::toolkit::Version::snapshot);         
         //std::cout << "Stage = " << $2 << std::endl;
 }
 | 
-DASH ALPHA
+DASH VALUE_ALPHA
 {
          drv.getVersion().setStage(octetos::toolkit::Version::alpha);
 }
 | 
-DASH BETA
+DASH VALUE_BETA
 {
          drv.getVersion().setStage(octetos::toolkit::Version::beta);
 }
 | 
-DASH RC
+DASH VALUE_RC
 {
          drv.getVersion().setStage(octetos::toolkit::Version::rc);
 }
 | 
-DASH RELEASE
+DASH VALUE_RELEASE
 {
          drv.getVersion().setStage(octetos::toolkit::Version::release);
 }
@@ -158,31 +158,30 @@ name : VALUE_NAME
 
 end : END
 {
-        
 };
 
-valid : VALID FIELD_NUMBERS EQUAL numbers end
+valid : VALID FIELDNAME_NUMBERS EQUAL numbers end
 	{
-		YYACCEPT;
+                YYACCEPT;
 	};
 	
-valid : VALID FIELD_STAGE EQUAL stages end
+valid : VALID FIELDNAME_STAGE EQUAL stages end
 	{
-		YYACCEPT;
+                YYACCEPT;
 	};
 	
-valid : VALID FIELD_BUILD EQUAL VALUE_BUILD end
+valid : VALID FIELDNAME_BUILD EQUAL VALUE_BUILD end
 	{
-		YYACCEPT;
+                YYACCEPT;
 	};	
-valid : VALID  FIELD_NAME FIELD_BUILD EQUAL VALUE_NAME end
+valid : VALID  FIELDNAME_NAME EQUAL VALUE_NAME end
 	{
-		YYACCEPT;
+                YYACCEPT;
 	};
 	
-stages : SNAPSHOT | ALPHA | BETA | RC | RELEASE
+stages : VALUE_SNAPSHOT | VALUE_ALPHA | VALUE_BETA | VALUE_RC | VALUE_RELEASE
 	{
-		YYACCEPT;
+                YYACCEPT;
 	};
 
 %%
