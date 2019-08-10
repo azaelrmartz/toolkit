@@ -1,4 +1,4 @@
-PROJECT(octetos-toolkit-common-c++ VERSION 5.0.0.1 LANGUAGES ${LANG})
+PROJECT(octetos-toolkit-common-c++ VERSION 5.0.0.2 LANGUAGES ${LANG})
 SET(${PROJECT_NAME}_DOCUMENTING TRUE)
 
 EXECUTE_PROCESS(COMMAND date +"%Y%m%d%H%M%S" OUTPUT_VARIABLE ${PROJECT_NAME}_VERSION_BUILD)
@@ -75,11 +75,11 @@ ENDIF()
 endif()
 
 INSTALL(TARGETS ${PROJECT_NAME} DESTINATION /lib)
-INSTALL(FILES common.hpp DESTINATION include/octetos/toolkit/common/)
-INSTALL(FILES Version.hpp DESTINATION include/octetos/toolkit/common/)
-INSTALL(FILES Message.hpp DESTINATION include/octetos/toolkit/common/)
-INSTALL(FILES Error.hpp DESTINATION include/octetos/toolkit/common/)
-INSTALL(FILES Object.hpp DESTINATION include/octetos/toolkit/common/)
+INSTALL(FILES common.hpp DESTINATION /usr/include/octetos/toolkit/common/)
+INSTALL(FILES Version.hpp DESTINATION /usr/include/octetos/toolkit/common/)
+INSTALL(FILES Message.hpp DESTINATION /usr/include/octetos/toolkit/common/)
+INSTALL(FILES Error.hpp DESTINATION /usr/include/octetos/toolkit/common/)
+INSTALL(FILES Object.hpp DESTINATION /usr/include/octetos/toolkit/common/)
 
 
 SET(CPACK_PACKAGE_NAME "${PROJECT_NAME}")

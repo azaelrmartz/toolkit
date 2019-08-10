@@ -22,5 +22,5 @@ Los siquientes requisitos expresan las versiones mas actuales en el momento de l
 	6.- cmake -DLANG=CXX -DCMAKE_BUILD_TYPE=Release -DOTKCM_VERSION_STAGE=release ..
 	7.- make
 	8.- sudo cpack --config CPackConfig.cmake
-	9.- sudo ./octetos-toolkit-common-c++-*-Linux.sh --prefix=/usr
+	9.- sudo ./octetos-toolkit-common-c++-*-Linux.sh
 
