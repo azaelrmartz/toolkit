@@ -26,6 +26,10 @@ namespace toolkit
                          **/
                         ERROR_UNKNOW,
                         /**
+                         * \brief se utiliza cuando se llama a get sin que halla error
+                         * */
+                        ERROR_NOTERROR,
+                        /**
                          * \brief Cuando el se detecta un error generado fuera del alcance del manejador.
                          **/
                         ERROR_NOTADDRESSED,
@@ -60,7 +64,7 @@ namespace toolkit
                 /**
                  * \brief Especifica en el mensaje  un comentario, codigo de error, nombre de archivo y linea.
                  * */
-                Error(const std::string&, int code,std::string filename,int lineNumber) throw();                
+                Error(const std::string&, int code,std::string filename,int lineNumber) throw(); 
                 /**
                  * \brief Returna una copia del objeto error y limpa el registro
                  * */

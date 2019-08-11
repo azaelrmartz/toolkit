@@ -10,21 +10,25 @@ namespace octetos
 namespace toolkit
 {	
         const Error* Error::error = NULL;
+        
         Error Error::get()
         {
-                Error e(*error);
                 if(error != NULL)
                 {
+                        Error e(*error);
                         delete error;
                         error = NULL;
+                        return e;
                 }
-                
-                return e;
+                else
+                {
+                        return Error("Usted llamo a Error::get sin que haya error,",ERROR_NOTERROR);                        
+                }
         }
         bool Error::check()
         {
                 if(error != NULL)return true;
-                return false;
+                else return false;
         }
         bool Error::write(const Error& e)
         {                
