@@ -2,7 +2,7 @@
 #define TOOLKIT_COMMON_VERSION_HPP
 #include <string>
 
-
+#include "Error.hpp"
 #include "Object.hpp"
 
 namespace octetos
@@ -18,6 +18,12 @@ namespace toolkit
 	class Version: public Object
 	{
 	public:	
+                class InvalidComparison : public Error
+                {
+                public:
+                        InvalidComparison(const std::string& msg ,std::string filename,int lineNumber);
+                        InvalidComparison(const std::string& msg);
+                };
                 /**
                  * \brief Representa la fase del proyecto.
                  * \details Tipicamente un proyecto o sprint comienz en la vervion X-alpha, luego pasa a X-beta y finalmente se genera X-release, lo que sigue a continuacion del guion es la fase aqui representado

@@ -33,7 +33,7 @@ namespace toolkit
                          * \brief Codigo generico usado po la clase Version.
                          * */
                         ERROR_VERSION,
-                        ERROR_VERSION_BY_COMPARING,
+                        ERROR_VERSION_INVALID_COMPARISON,
                         
                         /**
                          * \brief Cada modulo que implemete gestion de error deve asignar el valor de inicio de su enumeracion con este valor para evitar conflictos.

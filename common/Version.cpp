@@ -2,7 +2,7 @@
 #include <string>
 //#include <iostream> //for test
 
-#include "Error.hpp"
+
 #include "Version.hpp"
 
 
@@ -13,6 +13,14 @@ namespace octetos
 {
 namespace toolkit
 {
+        Version::InvalidComparison::InvalidComparison(const std::string& msg):Error(msg,Error::ERROR_VERSION_INVALID_COMPARISON)
+        {
+                
+        }
+        Version::InvalidComparison::InvalidComparison(const std::string& msg ,std::string filename,int lineNumber):Error(msg,Error::ERROR_VERSION_INVALID_COMPARISON,filename,lineNumber)
+        {
+                
+        }
         void Version::init()
         {
 		major = -1;
@@ -35,7 +43,7 @@ namespace toolkit
                 }
                 else // no se puede retornar false y escribir un erro ya que el programa tendria la false idea de que la comparacion fue correcta con valor de retorno falso.
                 {
-                        throw Error("Operación invalidad, está comprando objetos Version sin antes asignarles valores.",Error::ERROR_VERSION_BY_COMPARING);
+                        throw InvalidComparison("Operación invalidad, está comprando objetos Version sin antes asignarles valores.");
                 }
                 if(minor > -1 and v.minor > -1)
                 {
@@ -92,7 +100,7 @@ namespace toolkit
                 }
                 else // no se puede retornar false y escribir un erro ya que el programa tendria la false idea de que la comparacion fue correcta con valor de retorno falso.
                 {
-                        throw Error("Operación invalidad, está comprando objetos Version sin antes asignarles valores.",Error::ERROR_VERSION_BY_COMPARING);
+                        throw InvalidComparison("Operación invalidad, está comprando objetos Version sin antes asignarles valores.");
                 }
                 if(minor > -1 and v.minor > -1)
                 {
