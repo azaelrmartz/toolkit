@@ -23,4 +23,8 @@ Los siquientes requisitos expresan las versiones mas actuales en el momento de l
 	7.- make
 	8.- sudo cpack --config CPackConfig.cmake
 	9.- sudo ./octetos-toolkit-common-c++-*-Linux.sh
+                Do you accept the license? [yN]:
+                ¿?..
+                Saying no will install in: X
+                n
 
