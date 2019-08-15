@@ -40,14 +40,16 @@ namespace toolkit
                 return true;
         }
         
-        Error::Error(const std::string& brief, int code,std::string filename,int lineNumber) throw()
+	Error::Error(const std::string& brief, int code,std::string filename,int lineNumber) throw()
 	{
-                full = filename + " : " + std::to_string(lineNumber) + ", codigo (" + std::to_string(code) + "):" + "\n" + brief;
+		full = filename + " : " + std::to_string(lineNumber) + ", codigo (" + std::to_string(code) + "):" + "\n" + brief;
+		this->code = code;
 	}	
-        Error::Error(const std::string& brief, int code) throw()
+	Error::Error(const std::string& brief, int code) throw()
 	{
-                full="";
-                full = full + "Codigo (" + std::to_string(code) + "):" + "\n" + brief;
+		full="";
+		full = full + "Codigo (" + std::to_string(code) + "):" + "\n" + brief;
+		this->code = code;
 	}
 	Error::~Error() throw()
 	{
@@ -61,6 +63,10 @@ namespace toolkit
         {
                 return this->full.c_str();
         }
+	int Error::getCode()const
+	{
+		return code;
+	}
         
 }
 }

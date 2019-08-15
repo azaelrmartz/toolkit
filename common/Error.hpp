@@ -57,6 +57,7 @@ namespace toolkit
                  * \details Basicamente es la misma informacion retornado por el metodo what, sin enbargo en este caso se retorna una referencia al objeto intenor que matenien la informacion
                  * */
                 virtual const std::string& describe() const throw();
+				int getCode()const;
                 /**
                  * \brief Especifica en el mensaje  una descricion y codigo de error.
                  * */
@@ -86,6 +87,7 @@ namespace toolkit
                  * \brief el mesaje de error es contruido durante la contruccion del objeto y se almacena aquí.
                  * */
                 std::string full;
+				int code;
                 /**
                  * \brief Almacena el codifo de error actual.
                  * */

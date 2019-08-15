@@ -1,4 +1,4 @@
-PROJECT(octetos-toolkit-clientdb-myc++ VERSION 5.4.0.1 LANGUAGES ${LANG})
+PROJECT(octetos-toolkit-clientdb-myc++ VERSION 5.4.0.4 LANGUAGES ${LANG})
 
 MESSAGE("El Servidor seleccionado es MySQL ...")
 SET(CMAKE_CXX_STANDARD 11)
@@ -64,9 +64,9 @@ set_target_properties(${PROJECT_NAME}-obj  PROPERTIES POSITION_INDEPENDENT_CODE 
 ADD_LIBRARY(${PROJECT_NAME} SHARED $<TARGET_OBJECTS:${PROJECT_NAME}-obj>)
 set_target_properties(${PROJECT_NAME}  PROPERTIES POSITION_INDEPENDENT_CODE 1 )
 
-INSTALL(TARGETS ${PROJECT_NAME} DESTINATION /lib )
-INSTALL(FILES clientdb.hpp DESTINATION /usr/include/octetos/toolkit/clientdb)
-INSTALL(FILES clientdb-mysql.hpp DESTINATION /usr/include/octetos/toolkit/clientdb)
+INSTALL(TARGETS ${PROJECT_NAME} DESTINATION lib )
+INSTALL(FILES clientdb.hpp DESTINATION include/octetos/toolkit/clientdb)
+INSTALL(FILES clientdb-mysql.hpp DESTINATION include/octetos/toolkit/clientdb)
 
 SET(CPACK_PACKAGE_NAME "${PROJECT_NAME}")
 INCLUDE (InstallRequiredSystemLibraries)
