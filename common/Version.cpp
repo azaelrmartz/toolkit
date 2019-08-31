@@ -84,7 +84,7 @@ namespace toolkit
                 return *this;
         }
         bool Version::operator >=(const Version& v)
-        {           
+        {
                 //por numeros
                 if(major > -1 and v.major > -1)
                 {
@@ -244,10 +244,10 @@ namespace toolkit
                         ver += ".";
                         ver += std::to_string(patch);		
                 }
-                if(formato == Version::Format::ONLY_NUMBER) return ver;
+                if(formato == Version::Format::ONLY_NUMBERS) return ver;
                 
 		switch(stage)
-                {
+		{
                         case snapshot:
                                 ver += "-snapshot";
                                 break;
@@ -265,7 +265,7 @@ namespace toolkit
                                 break;
                         case unknown:
                                 ;
-                }
+		}
 
 		if(build > 0)
                 {

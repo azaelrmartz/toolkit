@@ -10,7 +10,6 @@ namespace octetos
 namespace toolkit
 {
 
-       
 	/**
 	 * \brief Informacion de Version
 	 * \details Acerda de 'Semantica de Versionado' https://semver.org/lang/es/.
@@ -18,34 +17,40 @@ namespace toolkit
 	class Version: public Object
 	{
 	public:	
-                class InvalidComparison : public Error
-                {
-                public:
-                        InvalidComparison(const std::string& msg ,std::string filename,int lineNumber);
-                        InvalidComparison(const std::string& msg);
-                };
-                /**
-                 * \brief Representa la fase del proyecto.
-                 * \details Tipicamente un proyecto o sprint comienz en la vervion X-alpha, luego pasa a X-beta y finalmente se genera X-release, lo que sigue a continuacion del guion es la fase aqui representado
-                 **/
+		class InvalidComparison : public Error
+		{
+		public:
+			InvalidComparison(const std::string& msg ,std::string filename,int lineNumber);
+			InvalidComparison(const std::string& msg);
+		};
+		
+		/**
+		* \brief Representa la fase del proyecto.
+		* \details Tipicamente un proyecto o sprint comienz en la vervion X-alpha, luego pasa a X-beta y finalmente se genera X-release, lo que sigue a continuacion del guion es la fase aqui representado
+		**/
 		enum Stage
 		{
-                        unknown,
-                        snapshot,       
+			unknown,
+			snapshot,  
+			prealpha,
 			alpha,
 			beta,
-                        rc,
-                        prerelease,
-			release
+			betarelease,
+			rc,
+			prerelease,
+			release,
+			ga,
+			rtm	
 		};
-                /**
-                 * \brief Paramaetro pasado a la funcion toString para determinar el formato de texto geneerado
-                 * */
-                enum Format
-                {
-                        FULL,
-                        ONLY_NUMBER
-                };
+		
+		/**
+		* \brief Paramaetro pasado a la funcion toString para determinar el formato de texto geneerado
+		* */
+		enum Format
+		{
+			FULL,
+			ONLY_NUMBERS
+		};
 		
 	private:	
                 /**

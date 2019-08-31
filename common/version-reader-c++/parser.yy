@@ -53,10 +53,15 @@ namespace octetos
 ;
 
 %token VALUE_SNAPSHOT
+%token VALUE_PREALPHA
 %token VALUE_ALPHA
 %token VALUE_BETA
+%token VALUE_BETARELEASE
 %token VALUE_RC 
+%token VALUE_PRERELEASE 
 %token VALUE_RELEASE 
+%token VALUE_RTM
+%token VALUE_GA
 %token <std::string> VALUE_NAME
 %token <int> VALUE_NUMBER
 %token <unsigned long> VALUE_BUILD
@@ -74,106 +79,123 @@ namespace octetos
 %%
 %start stmt;
 
-stmt : version end
+	stmt : version end
 	{
-                YYACCEPT;
+		YYACCEPT;
 	}
-        |
-        version_list end
+	|
+	version_list end
 	{
-                YYACCEPT;
+		YYACCEPT;
 	}
-        | 
-        valid end
+	| 
+	valid end
 	{
-                YYACCEPT;
+		YYACCEPT;
 	};
 
-version : 
-        numbers_value
+	version : 
+	numbers_value
 	{
 	}
-        |
-        numbers_value stage
+	|
+	numbers_value stage
 	{
 	}
-        | 
-        numbers_value stage build
+	| 
+	numbers_value stage build
 	{
 	}
-        | 
-        numbers_value stage build name
+	| 
+	numbers_value stage build name
 	{
 	}
 
-version_list : | version SEMICOLON  version_list
+	version_list : | version SEMICOLON  version_list
 
-numbers_value : 
-        one_number | two_numbers | three_numbers
-;
+	numbers_value : one_number | two_numbers | three_numbers;
 
-one_number : VALUE_NUMBER
-{
-        drv.getVersion().setNumbers($1);
-};
+	one_number : VALUE_NUMBER
+	{
+			drv.getVersion().setNumbers($1);
+	};
+	two_numbers : VALUE_NUMBER DOT VALUE_NUMBER
+	{
+		drv.getVersion().setNumbers($1,$3);
+	};
+	three_numbers : VALUE_NUMBER DOT VALUE_NUMBER DOT VALUE_NUMBER
+	{
+		drv.getVersion().setNumbers($1,$3,$5);
+	};
 
-two_numbers : VALUE_NUMBER DOT VALUE_NUMBER
-{
-       drv.getVersion().setNumbers($1,$3);
-};
+	stage : DASH VALUE_SNAPSHOT
+	{
+			drv.getVersion().setStage(octetos::toolkit::Version::snapshot);
+	}
+	| 
+	DASH VALUE_PREALPHA
+	{
+			drv.getVersion().setStage(octetos::toolkit::Version::prealpha);
+	}
+	| 
+	DASH VALUE_ALPHA
+	{
+			drv.getVersion().setStage(octetos::toolkit::Version::alpha);
+	}
+	| 
+	DASH VALUE_BETA
+	{
+			drv.getVersion().setStage(octetos::toolkit::Version::beta);
+	} 
+	|
+	DASH VALUE_BETARELEASE
+	{
+			drv.getVersion().setStage(octetos::toolkit::Version::betarelease);
+	}
+	| 
+	DASH VALUE_RC
+	{
+			drv.getVersion().setStage(octetos::toolkit::Version::rc);
+	}
+	| 
+	DASH VALUE_PRERELEASE
+	{
+			drv.getVersion().setStage(octetos::toolkit::Version::prerelease);
+	}
+	| 
+	DASH VALUE_RELEASE
+	{
+			drv.getVersion().setStage(octetos::toolkit::Version::release);
+	}
+	| 
+	DASH VALUE_RTM
+	{
+			drv.getVersion().setStage(octetos::toolkit::Version::rtm);
+	}
+	| 
+	DASH VALUE_GA
+	{
+			drv.getVersion().setStage(octetos::toolkit::Version::ga);
+	}
+	;
 
-three_numbers : VALUE_NUMBER DOT VALUE_NUMBER DOT VALUE_NUMBER
-{        
-        //std::cout << "$1 = " << $1 << std::endl;
-        //std::cout << "$3 = " << $3 << std::endl;
-        //std::cout << "$5 = " << $5 << std::endl;
-        drv.getVersion().setNumbers($1,$3,$5);
-};
+	build : VALUE_BUILD
+	{
+		drv.getVersion().setBuild($1);      
+			//std::cout << "Build = " << $1 << std::endl;
+	};
 
-stage : DASH VALUE_SNAPSHOT
-{
-        drv.getVersion().setStage(octetos::toolkit::Version::snapshot);         
-        //std::cout << "Stage = " << $2 << std::endl;
-}
-| 
-DASH VALUE_ALPHA
-{
-         drv.getVersion().setStage(octetos::toolkit::Version::alpha);
-}
-| 
-DASH VALUE_BETA
-{
-         drv.getVersion().setStage(octetos::toolkit::Version::beta);
-}
-| 
-DASH VALUE_RC
-{
-         drv.getVersion().setStage(octetos::toolkit::Version::rc);
-}
-| 
-DASH VALUE_RELEASE
-{
-         drv.getVersion().setStage(octetos::toolkit::Version::release);
-}
-;
+	name : VALUE_NAME
+	{
+		drv.getVersion().setName($1);
+			//std::cout << "Name = " << $1 << std::endl;
+	};
 
-build : VALUE_BUILD
-{
-        drv.getVersion().setBuild($1);      
-        //std::cout << "Build = " << $1 << std::endl;
-};
+	end : ENDLINE | ENDFILE | SEMICOLON
+	{
+	};
 
-name : VALUE_NAME
-{
-        drv.getVersion().setName($1);
-        //std::cout << "Name = " << $1 << std::endl;
-};
-
-end : ENDLINE | ENDFILE | SEMICOLON
-{
-};
-
-valid : VALID FIELDNAME_NUMBERS EQUAL numbers_value 
+	valid : VALID FIELDNAME_NUMBERS EQUAL numbers_value 
 	{
 	}
 	|
@@ -189,8 +211,9 @@ valid : VALID FIELDNAME_NUMBERS EQUAL numbers_value
 	{
 	};
 	
-stage_values : VALUE_SNAPSHOT | VALUE_ALPHA | VALUE_BETA | VALUE_RC | VALUE_RELEASE
+	stage_values : VALUE_SNAPSHOT | VALUE_PREALPHA | VALUE_ALPHA | VALUE_BETA  | VALUE_BETARELEASE | VALUE_RC | VALUE_PRERELEASE | VALUE_RTM | VALUE_GA
 	{
+		
 	};
 
 %%

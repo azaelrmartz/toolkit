@@ -103,6 +103,11 @@ SPACE [ \t\r]
                                         BEGIN(sc_STAGE);
                                 yylval->build< std::string >( yytext );return token::VALUE_SNAPSHOT;
                                 }
+"pre-alpha"		{
+                                        //std::cout << yytext << std::endl;
+                                        BEGIN(sc_STAGE);
+                                yylval->build< std::string >( yytext );return token::VALUE_PREALPHA;
+                                }
 "alpha"		{
                                         //std::cout << yytext << std::endl;
                                         BEGIN(sc_STAGE);
@@ -113,15 +118,35 @@ SPACE [ \t\r]
                                         BEGIN(sc_STAGE);
                                 yylval->build< std::string >( yytext );return token::VALUE_BETA;
                                 }
+"betar"|"betarelease"    	{
+			//std::cout << yytext << std::endl;
+			BEGIN(sc_STAGE);
+			yylval->build< std::string >( yytext );return token::VALUE_BETARELEASE;
+		}
 "rc"       	{
                                         //std::cout << yytext << std::endl;
                                         BEGIN(sc_STAGE);
                                         yylval->build< std::string >( yytext );return token::VALUE_RC;
                         }
+"prerelease"  	{
+                                        //std::cout << yytext << std::endl;
+                                        BEGIN(sc_STAGE);
+                                yylval->build< std::string >( yytext );return token::VALUE_PRERELEASE;
+                                }
 "release"  	{
                                         //std::cout << yytext << std::endl;
                                         BEGIN(sc_STAGE);
                                 yylval->build< std::string >( yytext );return token::VALUE_RELEASE;
+                                }
+"RTM"  	{
+                                        //std::cout << yytext << std::endl;
+                                        BEGIN(sc_STAGE);
+                                yylval->build< std::string >( yytext );return token::VALUE_RTM;
+                                }                                
+"GA"  	{
+                                        //std::cout << yytext << std::endl;
+                                        BEGIN(sc_STAGE);
+                                yylval->build< std::string >( yytext );return token::VALUE_GA;
                                 }
 ";"                     {
                                         //std::cout << yytext << std::endl;
