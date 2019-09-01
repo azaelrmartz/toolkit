@@ -16,7 +16,8 @@ namespace toolkit
 	 * \brief retorna la version actual de componente
 	 **/
 	Version getPakageVersion();
-        std::string getPakageName();
+	std::string getPakageName();
+	
 }
 }
 #endif

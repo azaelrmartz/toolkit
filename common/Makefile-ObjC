@@ -1,3 +1,0 @@
-
-main.bin : main.c
-	gcc main.m `gnustep-config --objc-flags` `gnustep-config --base-libs` -o main

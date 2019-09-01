@@ -53,43 +53,43 @@ namespace toolkit
 		};
 		
 	private:	
-                /**
-                 * \brief Número major
-                 * */
+		/**
+		* \brief Número major
+		* */
 		short major;
-                /**
-                 * \brief Número menor
-                 * */
+		/**
+		* \brief Número menor
+		* */
 		short minor;
-                /**
-                 * \brief Número patch
-                 * */
+		/**
+		* \brief Número patch
+		* */
 		short patch;
-                /**
-                 * \brief Build del projecto(solose acepta un numero intero largo)
-                 * */
-                unsigned long build;
-                /**
-                 * \brief Fase del proyecto
-                 * */
+		/**
+		* \brief Build del projecto(solose acepta un numero intero largo)
+		* */
+		unsigned long build;
+		/**
+		* \brief Fase del proyecto
+		* */
 		Stage stage;
-                /**
-                 * \brief Nombre de la version
-                 * */
-                std::string name;                
-                
+		/**
+		* \brief Nombre de la version
+		* */
+		std::string name;                
+
 	public:
-                /**
-                 * \brief Limpia todos los datos
-                 * */
-                void init();
-                /**
-                 * \brief Retorna el numero major.
-                 * */
+		/**
+		* \brief Limpia todos los datos
+		* */
+		void init();
+		/**
+		* \brief Retorna el numero major.
+		* */
 		short getMajor() const;
-                /**
-                 * \brief Retorna el número menor
-                 * */
+		/**
+		* \brief Retorna el número menor
+		* */
 		short getMinor() const;
                 /**
                  * \brief Retorna el número patch
@@ -181,7 +181,7 @@ namespace toolkit
                 
                 static bool valid(const std::string& str);
 	};
-        
+	
 }
 }
 #endif

@@ -24,7 +24,7 @@ using token = octetos::toolkit::Parser::token;
 
 %option debug
 %option perf-report
-/*%option verbose*/
+%option verbose
 %option warn
 %option backup
 
@@ -87,53 +87,53 @@ SPACE [ \t\r]
                                 }                                
 
 
-"."        	{
-                        //std::cout << yytext << std::endl;
-                        BEGIN(sc_NUMBERS);
-                        return token::DOT;
-                }
+"."     {
+		//std::cout << yytext << std::endl;
+		BEGIN(sc_NUMBERS);
+		return token::DOT;
+	}
 "-"        	{
                                 //std::cout <<yytext << std::endl;
                                 BEGIN(sc_STAGE);
                                 return token::DASH;
                 }
 
-"snapshot"  {
+"snapshot"|"SNAPSHOT"  {
                                         //std::cout << yytext << std::endl;
                                         BEGIN(sc_STAGE);
                                 yylval->build< std::string >( yytext );return token::VALUE_SNAPSHOT;
                                 }
-"pre-alpha"		{
+"pre-alpha"|"PRE-ALPHA" {
                                         //std::cout << yytext << std::endl;
                                         BEGIN(sc_STAGE);
                                 yylval->build< std::string >( yytext );return token::VALUE_PREALPHA;
                                 }
-"alpha"		{
+"alpha"|"ALPHA"		{
                                         //std::cout << yytext << std::endl;
                                         BEGIN(sc_STAGE);
                                 yylval->build< std::string >( yytext );return token::VALUE_ALPHA;
                                 }
-"beta"     	{
+"beta"|"BETA"     	{
                                         //std::cout << yytext << std::endl;
                                         BEGIN(sc_STAGE);
                                 yylval->build< std::string >( yytext );return token::VALUE_BETA;
                                 }
-"betar"|"betarelease"    	{
+"betar"|"betarelease"|"BETAR"|"BETARELEASE"    	{
 			//std::cout << yytext << std::endl;
 			BEGIN(sc_STAGE);
 			yylval->build< std::string >( yytext );return token::VALUE_BETARELEASE;
 		}
-"rc"       	{
+"rc"|"RC"       	{
                                         //std::cout << yytext << std::endl;
                                         BEGIN(sc_STAGE);
                                         yylval->build< std::string >( yytext );return token::VALUE_RC;
                         }
-"prerelease"  	{
+"prerelease"|"PRERELEASE"  	{
                                         //std::cout << yytext << std::endl;
                                         BEGIN(sc_STAGE);
                                 yylval->build< std::string >( yytext );return token::VALUE_PRERELEASE;
                                 }
-"release"  	{
+"release"|"RELEASE"  	{
                                         //std::cout << yytext << std::endl;
                                         BEGIN(sc_STAGE);
                                 yylval->build< std::string >( yytext );return token::VALUE_RELEASE;

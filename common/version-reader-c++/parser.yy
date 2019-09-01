@@ -43,6 +43,7 @@ namespace octetos
 
 %define api.value.type variant
 //%define parse.assert
+%verbose
 
 %token
   DOT
