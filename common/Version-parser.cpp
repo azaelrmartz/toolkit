@@ -7,8 +7,8 @@ namespace octetos
 {
 namespace toolkit
 {
-        bool Version::fromString(const std::string& str)
-        {
+		bool Version::fromString(const std::string& str)
+		{
                 //std::cout << "Calling fromFile" << std::endl;
                 Driver dr(*this,false);
                 std::istringstream istr(str);

@@ -24,7 +24,7 @@ using token = octetos::toolkit::Parser::token;
 
 %option debug
 %option perf-report
-%option verbose
+/*%option verbose*/
 %option warn
 %option backup
 
