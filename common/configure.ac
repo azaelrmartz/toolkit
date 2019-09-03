@@ -54,10 +54,9 @@ LT_INIT([win32-dll])
 
 PKG_CHECK_MODULES(TOOLKIT_COMMON, [cunit ])
 
+AC_CONFIG_SUBDIRS([version-reader-cpp])
 
-AC_CONFIG_SUBDIRS([version-reader-c++])
 
 AC_OUTPUT([
 Makefile
-po/Makefile.in
 ])
