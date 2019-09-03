@@ -1,7 +1,7 @@
 
-AM_CPPFLAGS = -I$(top_srcdir)/version-reader-cpp  -I$(top_builddir)/version-reader-cpp 
+AM_CPPFLAGS = -I$(top_srcdir)/version-reader  -I$(top_builddir)/version-reader 
 
-SUBDIRS = version-reader-cpp
+SUBDIRS = version-reader
 
 
 dist_doc_DATA = \
@@ -15,7 +15,7 @@ dist_doc_DATA = \
 bin_PROGRAMS =  \
 	test
 
-test_LDADD =  version-reader-cpp/libparser.la
+test_LDADD =  version-reader/libparser.la
 
 test_SOURCES =  \
 	main.cpp
@@ -24,7 +24,7 @@ test_SOURCES =  \
 lib_LIBRARIES =  \
 	libtoolkit_common_cpp.a
 
-libtoolkit_common_cpp_LDADD =  version-reader-cpp/libparser.la
+libtoolkit_common_cpp_LDADD =  version-reader/libparser.la
 
 libtoolkit_common_cpp_a_SOURCES =  \
 	Version-parser.cpp \
@@ -43,8 +43,7 @@ EXTRA_DIST = \
 
 DISTCLEANFILES = intltool-extract \
 	intltool-merge \
-	intltool-update \
-	po/.intltool-merge-cache
+	intltool-update 
 
 
 # Remove doc directory on uninstall

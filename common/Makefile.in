@@ -149,7 +149,7 @@ libtoolkit_common_cpp_a_OBJECTS =  \
 	$(am_libtoolkit_common_cpp_a_OBJECTS)
 am_test_OBJECTS = main.$(OBJEXT)
 test_OBJECTS = $(am_test_OBJECTS)
-test_DEPENDENCIES = version-reader-cpp/libparser.la
+test_DEPENDENCIES = version-reader/libparser.la
 AM_V_lt = $(am__v_lt_@AM_V@)
 am__v_lt_ = $(am__v_lt_@AM_DEFAULT_V@)
 am__v_lt_0 = --silent
@@ -440,8 +440,8 @@ target_alias = @target_alias@
 top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
-AM_CPPFLAGS = -I$(top_srcdir)/version-reader-cpp  -I$(top_builddir)/version-reader-cpp 
-SUBDIRS = version-reader-cpp
+AM_CPPFLAGS = -I$(top_srcdir)/version-reader  -I$(top_builddir)/version-reader 
+SUBDIRS = version-reader
 dist_doc_DATA = \
 	README \
 	COPYING \
@@ -450,14 +450,14 @@ dist_doc_DATA = \
 	INSTALL \
 	NEWS
 
-test_LDADD = version-reader-cpp/libparser.la
+test_LDADD = version-reader/libparser.la
 test_SOURCES = \
 	main.cpp
 
 lib_LIBRARIES = \
 	libtoolkit_common_cpp.a
 
-libtoolkit_common_cpp_LDADD = version-reader-cpp/libparser.la
+libtoolkit_common_cpp_LDADD = version-reader/libparser.la
 libtoolkit_common_cpp_a_SOURCES = \
 	Version-parser.cpp \
 	Version.cpp \
@@ -475,8 +475,7 @@ EXTRA_DIST = \
 
 DISTCLEANFILES = intltool-extract \
 	intltool-merge \
-	intltool-update \
-	po/.intltool-merge-cache
+	intltool-update 
 
 all: config.h
 	$(MAKE) $(AM_MAKEFLAGS) all-recursive

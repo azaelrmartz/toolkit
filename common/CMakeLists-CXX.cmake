@@ -44,9 +44,9 @@ endif()
 
 #################################################################################################
 
-INCLUDE_DIRECTORIES(version-reader-c++ ${CMAKE_CURRENT_BINARY_DIR}/version-reader-c++)
+INCLUDE_DIRECTORIES(version-reader ${CMAKE_CURRENT_BINARY_DIR}/version-reader)
 SET(LIBREADER "NULL")
-ADD_SUBDIRECTORY(version-reader-c++)
+ADD_SUBDIRECTORY(version-reader)
 ADD_LIBRARY(${PROJECT_NAME}-obj  OBJECT common.cpp Error.cpp Object.cpp Version.cpp Version-parser.cpp Message.cpp)
 #target_include_directories(${PROJECT_NAME}-obj PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>  $<INSTALL_INTERFACE:.> )
 set_target_properties(${PROJECT_NAME}-obj  PROPERTIES POSITION_INDEPENDENT_CODE 1 )
