@@ -1,6 +1,4 @@
 
-SUBDIRS = po
-
 # bin_PROGRAMS = vrcpp
 # vrcpp_SOURCES =  parser.yy lexer.ll lexer.cc parser.cc 
 

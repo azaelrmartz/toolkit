@@ -60,5 +60,4 @@ LT_INIT([win32-dll])
 
 AC_OUTPUT([
 Makefile
-po/Makefile.in
 ])
