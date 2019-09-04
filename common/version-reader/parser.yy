@@ -64,7 +64,7 @@ namespace octetos
 %token VALUE_RTM
 %token VALUE_GA
 %token <std::string> VALUE_NAME
-%token <int> VALUE_NUMBER
+%token <short> VALUE_NUMBER
 %token <unsigned long> VALUE_BUILD
 %token <std::string> NOEXPECTED
 

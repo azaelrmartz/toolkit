@@ -1,19 +1,15 @@
+## Process this file with automake to produce Makefile.in
+## Created by Anjuta
 
-# bin_PROGRAMS = vrcpp
-# vrcpp_SOURCES =  parser.yy lexer.ll lexer.cc parser.cc 
+SUBDIRS = src po
+
+AM_CPPFLAGS = -I$(top_builddir)
 
 parser.tab.cc parser.tab.hh : parser.yy
 	bison -o $@ $<
 
-lexer.cc : lexer.l
+lexer.cc : lexer.ll
 	flex -o $@ $<
-
-#parser.o lexer.o driver.o : parser.cc lexer.cc driver.cpp
-#	$(CXX) $(CXXFLAGS) -I. -I../ -c $^
-
-#libparsercpp.a: parser.o lexer.o driver.o 
-#	ar rcs libparsercpp.a parser.o lexer.o driver.o
-
 
 dist_doc_DATA = \
 	README \
@@ -31,23 +27,19 @@ INTLTOOL_FILES = intltool-extract.in \
 EXTRA_DIST = \
 	$(INTLTOOL_FILES)
 
-lib_LTLIBRARIES =  \
-	libparser.la
+lib_LIBRARIES =  \
+	libparsercpp.a
 
-libparser_la_SOURCES =  \
+libparsercpp_a_SOURCES =  \
 	parser.tab.cc \
 	lexer.cc \
-	driver.cpp
-
-
-libparser_la_LDFLAGS = -module \
-	-avoid-version 
-
+	driver.cpp 
 
 DISTCLEANFILES = intltool-extract \
 	intltool-merge \
 	intltool-update \
 	po/.intltool-merge-cache
+
 
 # Remove doc directory on uninstall
 uninstall-local:
