@@ -91,3 +91,24 @@ doc
 common/version-reader-c++/lex.backup
 
 
+Debug
+version-reader/Debug
+old
+version-reader/old
+.anjuta*
+version-reader/.anjuta*
+.kde*
+version-reader/.kde*
+*~
+version-reader/*~
+build-c
+build-c++
+version-reader/build-c
+version-reader/build-c++
+auto*.cache
+version-reader/auto*.cache
+*.anjuta
+version-reader/*.anjuta
+*.kdev4
+version-reader/*.kdev4
+

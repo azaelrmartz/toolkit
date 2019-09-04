@@ -20,10 +20,10 @@ struct octetos_toolkit_common_Version {
 	short major;
 	short minor;
 	short patch;
-        short tweak;
-        unsigned long build;
+	short tweak;
+	unsigned long build;
 	enum octetos_toolkit_common_Stage stage;	
-        const char* name;
+	const char* name;
 };
 
 const char* toString(const struct octetos_toolkit_common_Version* version);

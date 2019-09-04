@@ -27,10 +27,14 @@ INTLTOOL_FILES = intltool-extract.in \
 EXTRA_DIST = \
 	$(INTLTOOL_FILES)
 
-lib_LIBRARIES =  \
-	libparsercpp.a
+lib_LTLIBRARIES =  \
+	libparsercpp.la
 
-libparsercpp_a_SOURCES =  \
+libparsercpp_la_CPPFLAGS=-fPIC -Wl,-Bsymbolic 
+libparsercpp_la_CXXFLAGS=-fPIC -Wl,-Bsymbolic
+libparsercpp_la_LDFLAGS= -shared -fPIC -Wl,-Bsymbolic -version-info 0:0:0
+
+libparsercpp_la_SOURCES =  \
 	parser.tab.cc \
 	lexer.cc \
 	driver.cpp 

@@ -11,7 +11,8 @@ AM_SILENT_RULES([yes])
 
 AC_PROG_CXX
 
-
+AC_ENABLE_SHARED
+AC_PROG_LIBTOOL(libtool)
 
 
 dnl ***************************************************************************
@@ -59,4 +60,6 @@ AC_CONFIG_SUBDIRS([version-reader])
 
 AC_OUTPUT([
 Makefile
+src/Makefile
+po/Makefile.in
 ])

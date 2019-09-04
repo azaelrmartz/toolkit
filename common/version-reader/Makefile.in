@@ -130,17 +130,19 @@ am__uninstall_files_from_dir = { \
          $(am__cd) "$$dir" && rm -f $$files; }; \
   }
 am__installdirs = "$(DESTDIR)$(libdir)" "$(DESTDIR)$(docdir)"
-LIBRARIES = $(lib_LIBRARIES)
-ARFLAGS = cru
-AM_V_AR = $(am__v_AR_@AM_V@)
-am__v_AR_ = $(am__v_AR_@AM_DEFAULT_V@)
-am__v_AR_0 = @echo "  AR      " $@;
-am__v_AR_1 = 
-libparsercpp_a_AR = $(AR) $(ARFLAGS)
-libparsercpp_a_LIBADD =
-am_libparsercpp_a_OBJECTS = parser.tab.$(OBJEXT) lexer.$(OBJEXT) \
-	driver.$(OBJEXT)
-libparsercpp_a_OBJECTS = $(am_libparsercpp_a_OBJECTS)
+LTLIBRARIES = $(lib_LTLIBRARIES)
+libparsercpp_la_LIBADD =
+am_libparsercpp_la_OBJECTS = libparsercpp_la-parser.tab.lo \
+	libparsercpp_la-lexer.lo libparsercpp_la-driver.lo
+libparsercpp_la_OBJECTS = $(am_libparsercpp_la_OBJECTS)
+AM_V_lt = $(am__v_lt_@AM_V@)
+am__v_lt_ = $(am__v_lt_@AM_DEFAULT_V@)
+am__v_lt_0 = --silent
+am__v_lt_1 = 
+libparsercpp_la_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CXX \
+	$(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=link $(CXXLD) \
+	$(libparsercpp_la_CXXFLAGS) $(CXXFLAGS) \
+	$(libparsercpp_la_LDFLAGS) $(LDFLAGS) -o $@
 AM_V_P = $(am__v_P_@AM_V@)
 am__v_P_ = $(am__v_P_@AM_DEFAULT_V@)
 am__v_P_0 = false
@@ -154,17 +156,14 @@ am__v_at_ = $(am__v_at_@AM_DEFAULT_V@)
 am__v_at_0 = @
 am__v_at_1 = 
 DEFAULT_INCLUDES = -I.@am__isrc@
-depcomp = $(SHELL) $(top_srcdir)/../depcomp
+depcomp = $(SHELL) $(top_srcdir)/depcomp
 am__maybe_remake_depfiles = depfiles
-am__depfiles_remade = ./$(DEPDIR)/driver.Po ./$(DEPDIR)/lexer.Po \
-	./$(DEPDIR)/parser.tab.Po
+am__depfiles_remade = ./$(DEPDIR)/libparsercpp_la-driver.Plo \
+	./$(DEPDIR)/libparsercpp_la-lexer.Plo \
+	./$(DEPDIR)/libparsercpp_la-parser.tab.Plo
 am__mv = mv -f
 CXXCOMPILE = $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) \
 	$(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS)
-AM_V_lt = $(am__v_lt_@AM_V@)
-am__v_lt_ = $(am__v_lt_@AM_DEFAULT_V@)
-am__v_lt_0 = --silent
-am__v_lt_1 = 
 LTCXXCOMPILE = $(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) \
 	$(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) \
 	$(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) \
@@ -181,8 +180,8 @@ AM_V_CXXLD = $(am__v_CXXLD_@AM_V@)
 am__v_CXXLD_ = $(am__v_CXXLD_@AM_DEFAULT_V@)
 am__v_CXXLD_0 = @echo "  CXXLD   " $@;
 am__v_CXXLD_1 = 
-SOURCES = $(libparsercpp_a_SOURCES)
-DIST_SOURCES = $(libparsercpp_a_SOURCES)
+SOURCES = $(libparsercpp_la_SOURCES)
+DIST_SOURCES = $(libparsercpp_la_SOURCES)
 RECURSIVE_TARGETS = all-recursive check-recursive cscopelist-recursive \
 	ctags-recursive dvi-recursive html-recursive info-recursive \
 	install-data-recursive install-dvi-recursive \
@@ -227,12 +226,9 @@ ETAGS = etags
 CTAGS = ctags
 CSCOPE = cscope
 DIST_SUBDIRS = $(SUBDIRS)
-am__DIST_COMMON = $(srcdir)/Makefile.in $(srcdir)/config.h.in \
-	$(top_srcdir)/../compile $(top_srcdir)/../config.guess \
-	$(top_srcdir)/../config.sub $(top_srcdir)/../depcomp \
-	$(top_srcdir)/../install-sh $(top_srcdir)/../ltmain.sh \
-	$(top_srcdir)/../missing AUTHORS COPYING ChangeLog INSTALL \
-	NEWS README
+am__DIST_COMMON = $(srcdir)/Makefile.in $(srcdir)/config.h.in AUTHORS \
+	COPYING ChangeLog INSTALL NEWS README compile config.guess \
+	config.sub depcomp install-sh ltmain.sh missing
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
 distdir = $(PACKAGE)-$(VERSION)
 top_distdir = $(distdir)
@@ -449,10 +445,13 @@ INTLTOOL_FILES = intltool-extract.in \
 EXTRA_DIST = \
 	$(INTLTOOL_FILES)
 
-lib_LIBRARIES = \
-	libparsercpp.a
+lib_LTLIBRARIES = \
+	libparsercpp.la
 
-libparsercpp_a_SOURCES = \
+libparsercpp_la_CPPFLAGS = -fPIC -Wl,-Bsymbolic 
+libparsercpp_la_CXXFLAGS = -fPIC -Wl,-Bsymbolic
+libparsercpp_la_LDFLAGS = -shared -fPIC -Wl,-Bsymbolic -version-info 0:0:0
+libparsercpp_la_SOURCES = \
 	parser.tab.cc \
 	lexer.cc \
 	driver.cpp 
@@ -515,9 +514,10 @@ $(srcdir)/config.h.in:  $(am__configure_deps)
 
 distclean-hdr:
 	-rm -f config.h stamp-h1
-install-libLIBRARIES: $(lib_LIBRARIES)
+
+install-libLTLIBRARIES: $(lib_LTLIBRARIES)
 	@$(NORMAL_INSTALL)
-	@list='$(lib_LIBRARIES)'; test -n "$(libdir)" || list=; \
+	@list='$(lib_LTLIBRARIES)'; test -n "$(libdir)" || list=; \
 	list2=; for p in $$list; do \
 	  if test -f $$p; then \
 	    list2="$$list2 $$p"; \
@@ -526,31 +526,32 @@ install-libLIBRARIES: $(lib_LIBRARIES)
 	test -z "$$list2" || { \
 	  echo " $(MKDIR_P) '$(DESTDIR)$(libdir)'"; \
 	  $(MKDIR_P) "$(DESTDIR)$(libdir)" || exit 1; \
-	  echo " $(INSTALL_DATA) $$list2 '$(DESTDIR)$(libdir)'"; \
-	  $(INSTALL_DATA) $$list2 "$(DESTDIR)$(libdir)" || exit $$?; }
-	@$(POST_INSTALL)
-	@list='$(lib_LIBRARIES)'; test -n "$(libdir)" || list=; \
+	  echo " $(LIBTOOL) $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=install $(INSTALL) $(INSTALL_STRIP_FLAG) $$list2 '$(DESTDIR)$(libdir)'"; \
+	  $(LIBTOOL) $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=install $(INSTALL) $(INSTALL_STRIP_FLAG) $$list2 "$(DESTDIR)$(libdir)"; \
+	}
+
+uninstall-libLTLIBRARIES:
+	@$(NORMAL_UNINSTALL)
+	@list='$(lib_LTLIBRARIES)'; test -n "$(libdir)" || list=; \
 	for p in $$list; do \
-	  if test -f $$p; then \
-	    $(am__strip_dir) \
-	    echo " ( cd '$(DESTDIR)$(libdir)' && $(RANLIB) $$f )"; \
-	    ( cd "$(DESTDIR)$(libdir)" && $(RANLIB) $$f ) || exit $$?; \
-	  else :; fi; \
+	  $(am__strip_dir) \
+	  echo " $(LIBTOOL) $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=uninstall rm -f '$(DESTDIR)$(libdir)/$$f'"; \
+	  $(LIBTOOL) $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=uninstall rm -f "$(DESTDIR)$(libdir)/$$f"; \
 	done
 
-uninstall-libLIBRARIES:
-	@$(NORMAL_UNINSTALL)
-	@list='$(lib_LIBRARIES)'; test -n "$(libdir)" || list=; \
-	files=`for p in $$list; do echo $$p; done | sed -e 's|^.*/||'`; \
-	dir='$(DESTDIR)$(libdir)'; $(am__uninstall_files_from_dir)
+clean-libLTLIBRARIES:
+	-test -z "$(lib_LTLIBRARIES)" || rm -f $(lib_LTLIBRARIES)
+	@list='$(lib_LTLIBRARIES)'; \
+	locs=`for p in $$list; do echo $$p; done | \
+	      sed 's|^[^/]*$$|.|; s|/[^/]*$$||; s|$$|/so_locations|' | \
+	      sort -u`; \
+	test -z "$$locs" || { \
+	  echo rm -f $${locs}; \
+	  rm -f $${locs}; \
+	}
 
-clean-libLIBRARIES:
-	-test -z "$(lib_LIBRARIES)" || rm -f $(lib_LIBRARIES)
-
-libparsercpp.a: $(libparsercpp_a_OBJECTS) $(libparsercpp_a_DEPENDENCIES) $(EXTRA_libparsercpp_a_DEPENDENCIES) 
-	$(AM_V_at)-rm -f libparsercpp.a
-	$(AM_V_AR)$(libparsercpp_a_AR) libparsercpp.a $(libparsercpp_a_OBJECTS) $(libparsercpp_a_LIBADD)
-	$(AM_V_at)$(RANLIB) libparsercpp.a
+libparsercpp.la: $(libparsercpp_la_OBJECTS) $(libparsercpp_la_DEPENDENCIES) $(EXTRA_libparsercpp_la_DEPENDENCIES) 
+	$(AM_V_CXXLD)$(libparsercpp_la_LINK) -rpath $(libdir) $(libparsercpp_la_OBJECTS) $(libparsercpp_la_LIBADD) $(LIBS)
 
 mostlyclean-compile:
 	-rm -f *.$(OBJEXT)
@@ -558,9 +559,9 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/driver.Po@am__quote@ # am--include-marker
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/lexer.Po@am__quote@ # am--include-marker
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/parser.tab.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libparsercpp_la-driver.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libparsercpp_la-lexer.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libparsercpp_la-parser.tab.Plo@am__quote@ # am--include-marker
 
 $(am__depfiles_remade):
 	@$(MKDIR_P) $(@D)
@@ -588,6 +589,27 @@ am--depfiles: $(am__depfiles_remade)
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='$<' object='$@' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(LTCXXCOMPILE) -c -o $@ $<
+
+libparsercpp_la-parser.tab.lo: parser.tab.cc
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libparsercpp_la_CPPFLAGS) $(CPPFLAGS) $(libparsercpp_la_CXXFLAGS) $(CXXFLAGS) -MT libparsercpp_la-parser.tab.lo -MD -MP -MF $(DEPDIR)/libparsercpp_la-parser.tab.Tpo -c -o libparsercpp_la-parser.tab.lo `test -f 'parser.tab.cc' || echo '$(srcdir)/'`parser.tab.cc
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libparsercpp_la-parser.tab.Tpo $(DEPDIR)/libparsercpp_la-parser.tab.Plo
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='parser.tab.cc' object='libparsercpp_la-parser.tab.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libparsercpp_la_CPPFLAGS) $(CPPFLAGS) $(libparsercpp_la_CXXFLAGS) $(CXXFLAGS) -c -o libparsercpp_la-parser.tab.lo `test -f 'parser.tab.cc' || echo '$(srcdir)/'`parser.tab.cc
+
+libparsercpp_la-lexer.lo: lexer.cc
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libparsercpp_la_CPPFLAGS) $(CPPFLAGS) $(libparsercpp_la_CXXFLAGS) $(CXXFLAGS) -MT libparsercpp_la-lexer.lo -MD -MP -MF $(DEPDIR)/libparsercpp_la-lexer.Tpo -c -o libparsercpp_la-lexer.lo `test -f 'lexer.cc' || echo '$(srcdir)/'`lexer.cc
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libparsercpp_la-lexer.Tpo $(DEPDIR)/libparsercpp_la-lexer.Plo
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='lexer.cc' object='libparsercpp_la-lexer.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libparsercpp_la_CPPFLAGS) $(CPPFLAGS) $(libparsercpp_la_CXXFLAGS) $(CXXFLAGS) -c -o libparsercpp_la-lexer.lo `test -f 'lexer.cc' || echo '$(srcdir)/'`lexer.cc
+
+libparsercpp_la-driver.lo: driver.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libparsercpp_la_CPPFLAGS) $(CPPFLAGS) $(libparsercpp_la_CXXFLAGS) $(CXXFLAGS) -MT libparsercpp_la-driver.lo -MD -MP -MF $(DEPDIR)/libparsercpp_la-driver.Tpo -c -o libparsercpp_la-driver.lo `test -f 'driver.cpp' || echo '$(srcdir)/'`driver.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libparsercpp_la-driver.Tpo $(DEPDIR)/libparsercpp_la-driver.Plo
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='driver.cpp' object='libparsercpp_la-driver.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libparsercpp_la_CPPFLAGS) $(CPPFLAGS) $(libparsercpp_la_CXXFLAGS) $(CXXFLAGS) -c -o libparsercpp_la-driver.lo `test -f 'driver.cpp' || echo '$(srcdir)/'`driver.cpp
 
 .cpp.o:
 @am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXXCOMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<
@@ -939,7 +961,7 @@ distcleancheck: distclean
 	       exit 1; } >&2
 check-am: all-am
 check: check-recursive
-all-am: Makefile $(LIBRARIES) $(DATA) config.h
+all-am: Makefile $(LTLIBRARIES) $(DATA) config.h
 installdirs: installdirs-recursive
 installdirs-am:
 	for dir in "$(DESTDIR)$(libdir)" "$(DESTDIR)$(docdir)"; do \
@@ -978,14 +1000,14 @@ maintainer-clean-generic:
 	@echo "it deletes files that may require special tools to rebuild."
 clean: clean-recursive
 
-clean-am: clean-generic clean-libLIBRARIES clean-libtool \
+clean-am: clean-generic clean-libLTLIBRARIES clean-libtool \
 	mostlyclean-am
 
 distclean: distclean-recursive
 	-rm -f $(am__CONFIG_DISTCLEAN_FILES)
-		-rm -f ./$(DEPDIR)/driver.Po
-	-rm -f ./$(DEPDIR)/lexer.Po
-	-rm -f ./$(DEPDIR)/parser.tab.Po
+		-rm -f ./$(DEPDIR)/libparsercpp_la-driver.Plo
+	-rm -f ./$(DEPDIR)/libparsercpp_la-lexer.Plo
+	-rm -f ./$(DEPDIR)/libparsercpp_la-parser.tab.Plo
 	-rm -f Makefile
 distclean-am: clean-am distclean-compile distclean-generic \
 	distclean-hdr distclean-libtool distclean-tags
@@ -1008,7 +1030,7 @@ install-dvi: install-dvi-recursive
 
 install-dvi-am:
 
-install-exec-am: install-libLIBRARIES
+install-exec-am: install-libLTLIBRARIES
 
 install-html: install-html-recursive
 
@@ -1033,9 +1055,9 @@ installcheck-am:
 maintainer-clean: maintainer-clean-recursive
 	-rm -f $(am__CONFIG_DISTCLEAN_FILES)
 	-rm -rf $(top_srcdir)/autom4te.cache
-		-rm -f ./$(DEPDIR)/driver.Po
-	-rm -f ./$(DEPDIR)/lexer.Po
-	-rm -f ./$(DEPDIR)/parser.tab.Po
+		-rm -f ./$(DEPDIR)/libparsercpp_la-driver.Plo
+	-rm -f ./$(DEPDIR)/libparsercpp_la-lexer.Plo
+	-rm -f ./$(DEPDIR)/libparsercpp_la-parser.tab.Plo
 	-rm -f Makefile
 maintainer-clean-am: distclean-am maintainer-clean-generic
 
@@ -1052,14 +1074,14 @@ ps: ps-recursive
 
 ps-am:
 
-uninstall-am: uninstall-dist_docDATA uninstall-libLIBRARIES \
+uninstall-am: uninstall-dist_docDATA uninstall-libLTLIBRARIES \
 	uninstall-local
 
 .MAKE: $(am__recursive_targets) all install-am install-strip
 
 .PHONY: $(am__recursive_targets) CTAGS GTAGS TAGS all all-am \
 	am--depfiles am--refresh check check-am clean clean-cscope \
-	clean-generic clean-libLIBRARIES clean-libtool cscope \
+	clean-generic clean-libLTLIBRARIES clean-libtool cscope \
 	cscopelist-am ctags ctags-am dist dist-all dist-bzip2 \
 	dist-gzip dist-lzip dist-shar dist-tarZ dist-xz dist-zip \
 	distcheck distclean distclean-compile distclean-generic \
@@ -1068,13 +1090,14 @@ uninstall-am: uninstall-dist_docDATA uninstall-libLIBRARIES \
 	info-am install install-am install-data install-data-am \
 	install-dist_docDATA install-dvi install-dvi-am install-exec \
 	install-exec-am install-html install-html-am install-info \
-	install-info-am install-libLIBRARIES install-man install-pdf \
+	install-info-am install-libLTLIBRARIES install-man install-pdf \
 	install-pdf-am install-ps install-ps-am install-strip \
 	installcheck installcheck-am installdirs installdirs-am \
 	maintainer-clean maintainer-clean-generic mostlyclean \
 	mostlyclean-compile mostlyclean-generic mostlyclean-libtool \
 	pdf pdf-am ps ps-am tags tags-am uninstall uninstall-am \
-	uninstall-dist_docDATA uninstall-libLIBRARIES uninstall-local
+	uninstall-dist_docDATA uninstall-libLTLIBRARIES \
+	uninstall-local
 
 .PRECIOUS: Makefile
 

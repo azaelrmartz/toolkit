@@ -1,38 +1,21 @@
+%option noyywrap
+
 %{
-/* C++ string header, for string ops below */
-#include <string>
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
 
-/* Implementation of yyFlexScanner */ 
-#include "scanner.hpp"
-#undef  YY_DECL
-#define YY_DECL int octetos::toolkit::Scanner::yylex(octetos::toolkit::Parser::semantic_type * const lval, octetos::toolkit::Parser::location_type *loc,octetos::toolkit::Scanner &scanner, octetos::toolkit::Driver& drv)
+#include "../../common.h"
+#include "../Driver.h"
 
-/* typedef to make the returns for the tokens shorter */
-using token = octetos::toolkit::Parser::token;
 
-/* define yyterminate as this instead of NULL */
-#define yyterminate() return( token::ENDFILE )
+#define YY_DECL int yylex(struct Tray* ty)
+extern int parse_string(struct Tray* ty,const char* in);
 
-/* msvc2010 requires that we exclude this header file. */
-#define YY_NO_UNISTD_H
-
-/* update location on matching */
-#define YY_USER_ACTION loc->step(); loc->columns(yyleng);
+#include "parser.tab.h"
 
 %}
 
-
-%option debug
-%option perf-report
-/*%option verbose*/
-%option warn
-%option backup
-
-%option nodefault
-%option yyclass="octetos::toolkit::Scanner"
-%option noyywrap
-%option c++
-%option pointer
 
 DIGIT	[0-9]
 NAME	[a-zA-Z0-9]+
@@ -45,44 +28,43 @@ SPACE [ \t\r]
 
 %%
 %{          /** Code executed at the beginning of yylex **/
-            yylval = lval;
             BEGIN(INITIAL);
 %}
 
-"valid"                 {
-                                        //std::cout << yytext << std::endl;
-                                       // yylval->build< std::string >( atoi(yytext) );
-                                        return token::VALID;
-                                }
+"valid"     {
+				//std::cout << yytext << std::endl;
+				// yylval->build< std::string >( atoi(yytext) );
+				return VALID;
+	}
                                 
-"numbers"                {
-                                        //std::cout << yytext << std::endl;
-                                        //yylval->build< std::string >( atoi(yytext) );
-                                        return token::FIELDNAME_NUMBERS;
+"numbers"		{
+					//std::cout << yytext << std::endl;
+					//yylval->build< std::string >( atoi(yytext) );
+					return FIELDNAME_NUMBERS;
+			}
 
-                                }
 "stage"                {
                                         //std::cout << yytext << std::endl;
                                         //yylval->build< std::string >( atoi(yytext) );
-                                        return token::FIELDNAME_STAGE;
+                                        return FIELDNAME_STAGE;
 
                                 }
 "build"                 {
                                         //std::cout << yytext << std::endl;
                                         //yylval->build< std::string >( atoi(yytext) );
-                                        return token::FIELDNAME_BUILD;
+                                        return FIELDNAME_BUILD;
 
                                 }
 "name"                 {
                                         //std::cout << yytext << std::endl;
                                         //yylval->build< std::string >( atoi(yytext) );
-                                        return token::FIELDNAME_NAME;
+                                        return FIELDNAME_NAME;
 
                                 }
 "="                 {
                                         ///std::cout << yytext << std::endl;
                                         //yylval->build< std::string >( atoi(yytext) );
-                                        return token::EQUAL;
+                                        return EQUAL;
 
                                 }                                
 
@@ -90,89 +72,95 @@ SPACE [ \t\r]
 "."     {
 		//std::cout << yytext << std::endl;
 		BEGIN(sc_NUMBERS);
-		return token::DOT;
+		return DOT;
 	}
 "-"        	{
                                 //std::cout <<yytext << std::endl;
                                 BEGIN(sc_STAGE);
-                                return token::DASH;
+                                return DASH;
                 }
 
 "snapshot"|"SNAPSHOT"  {
                                         //std::cout << yytext << std::endl;
                                         BEGIN(sc_STAGE);
-                                yylval->build< std::string >( yytext );return token::VALUE_SNAPSHOT;
+                                yylval.str=yytext;
+                                return VALUE_SNAPSHOT;
                                 }
 "pre-alpha"|"PRE-ALPHA" {
                                         //std::cout << yytext << std::endl;
                                         BEGIN(sc_STAGE);
-                                yylval->build< std::string >( yytext );return token::VALUE_PREALPHA;
+                                yylval.str=yytext;
+                                return VALUE_PREALPHA;
                                 }
 "alpha"|"ALPHA"		{
                                         //std::cout << yytext << std::endl;
                                         BEGIN(sc_STAGE);
-                                yylval->build< std::string >( yytext );return token::VALUE_ALPHA;
+                                yylval.str=yytext;
+                                return VALUE_ALPHA;
                                 }
 "beta"|"BETA"     	{
                                         //std::cout << yytext << std::endl;
                                         BEGIN(sc_STAGE);
-                                yylval->build< std::string >( yytext );return token::VALUE_BETA;
+                                yylval.str=yytext;return VALUE_BETA;
                                 }
 "betar"|"betarelease"|"BETAR"|"BETARELEASE"    	{
 			//std::cout << yytext << std::endl;
 			BEGIN(sc_STAGE);
-			yylval->build< std::string >( yytext );return token::VALUE_BETARELEASE;
+			yylval.str=yytext;return VALUE_BETARELEASE;
 		}
 "rc"|"RC"       	{
                                         //std::cout << yytext << std::endl;
                                         BEGIN(sc_STAGE);
-                                        yylval->build< std::string >( yytext );return token::VALUE_RC;
+                                        yylval.str=yytext;
+                                        return VALUE_RC;
                         }
 "prerelease"|"PRERELEASE"  	{
                                         //std::cout << yytext << std::endl;
                                         BEGIN(sc_STAGE);
-                                yylval->build< std::string >( yytext );return token::VALUE_PRERELEASE;
+                                yylval.str=yytext;
+                                return VALUE_PRERELEASE;
                                 }
 "release"|"RELEASE"  	{
                                         //std::cout << yytext << std::endl;
                                         BEGIN(sc_STAGE);
-                                yylval->build< std::string >( yytext );return token::VALUE_RELEASE;
+                                yylval.str=yytext;return VALUE_RELEASE;
                                 }
 "RTM"  	{
                                         //std::cout << yytext << std::endl;
                                         BEGIN(sc_STAGE);
-                                yylval->build< std::string >( yytext );return token::VALUE_RTM;
+                                yylval.str=yytext;
+                                return VALUE_RTM;
                                 }                                
 "GA"  	{
                                         //std::cout << yytext << std::endl;
                                         BEGIN(sc_STAGE);
-                                yylval->build< std::string >( yytext );return token::VALUE_GA;
+                                yylval.str=yytext;return VALUE_GA;
                                 }
 ";"                     {
                                         //std::cout << yytext << std::endl;
-                                        return token::SEMICOLON;
+                                        return SEMICOLON;
                                 }
 
                                 
 {DIGIT}{1,11}  	{
                                         //std::cout << yytext << std::endl; 
                                         BEGIN(sc_NUMBERS);
-                                        yylval->build< int >( atoi(yytext) );
-                                        return token::VALUE_NUMBER;
+                                        yylval.sval=(short)atoi(yytext);
+                                        return VALUE_NUMBER;
                                 }
 			
 {DIGIT}{12,16}                  {
                                                         //std::cout << "Build : " << yytext << std::endl;
                                                         BEGIN(sc_BUILD);
-                                                        yylval->build< unsigned long >( std::stoul(yytext) );
-                                                        return token::VALUE_BUILD;                                                                        
+                                                        yylval.ulval=strtoul(yytext, NULL, 0);
+                                                        return VALUE_BUILD;                                                                        
                                                 }
 
 {NAME}  	{
                                 //std::cout << "Name: " << yytext << std::endl; 
                                 BEGIN(sc_NAME);
-                                yylval->build< std::string >( yytext ); 
-                                return token::VALUE_NAME;
+                                yylval.str=yytext; 
+                                return VALUE_NAME;
                         }
 
 
@@ -180,20 +168,23 @@ SPACE [ \t\r]
 
 [\n\0]		{
                                         //std::cout << "En of line" << std::endl; 
-                        return token::ENDLINE;
+                        return ENDLINE;
                         }
 .          	            {
-                                        std::string msg = "El carecter '";
-                                        msg += yytext;
-                                        msg += "' no se esperaba.";
-                                        yylval->build< std::string >( yytext ); 
-                                        return token::NOEXPECTED;
+                                        yylval.str=yytext; 
+                                        return NOEXPECTED;
                                 }
 <<EOF>>    {
                                         //std::cout << "En of file" << std::endl; 
-                                return token::ENDFILE;
+                                return ENDFILE;
                         }
 
 %%
+void set_input_string(const char* in) {
+  yy_scan_string(in);
+}
 
+void end_lexical_scan(void) {
+  yy_delete_buffer(YY_CURRENT_BUFFER);
+}
 

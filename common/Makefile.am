@@ -1,8 +1,9 @@
+## Process this file with automake to produce Makefile.in
+## Created by Anjuta
 
 AM_CPPFLAGS = -I$(top_srcdir)/version-reader  -I$(top_builddir)/version-reader 
 
-SUBDIRS = version-reader
-
+SUBDIRS = version-reader src po
 
 dist_doc_DATA = \
 	README \
@@ -12,27 +13,6 @@ dist_doc_DATA = \
 	INSTALL \
 	NEWS
 
-bin_PROGRAMS =  \
-	test
-
-test_LDADD =  version-reader/libparser.la
-
-test_SOURCES =  \
-	main.cpp
-
-
-lib_LIBRARIES =  \
-	libtoolkit_common_cpp.a
-
-libtoolkit_common_cpp_LDADD =  version-reader/libparser.la
-
-libtoolkit_common_cpp_a_SOURCES =  \
-	Version-parser.cpp \
-	Version.cpp \
-	common.cpp \
-	Error.cpp \
-	Message.cpp \
-	Object.cpp
 
 INTLTOOL_FILES = intltool-extract.in \
 	intltool-merge.in \
@@ -41,9 +21,36 @@ INTLTOOL_FILES = intltool-extract.in \
 EXTRA_DIST = \
 	$(INTLTOOL_FILES)
 
+
+lib_LTLIBRARIES = \
+	libtoolkit-common-cpp.la
+
+
+libtoolkit_common_cpp_la_LIBADD = version-reader/libparsercpp.la
+libtoolkit_common_cpp_la_CPPFLAGS=-fPIC -Wl,-Bsymbolic 
+libtoolkit_common_cpp_la_CXXFLAGS=-fPIC -Wl,-Bsymbolic -I$(top_srcdir)/version-reader  -I$(top_builddir)/version-reader 
+libtoolkit_common_cpp_la_LDFLAGS= -shared -fPIC -Wl,-Bsymbolic -version-info 0:0:0
+
+libtoolkit_common_cpp_la_SOURCES =  \
+	common.cpp \
+	Error.cpp \
+	Message.cpp \
+	Object.cpp \
+	Version.cpp\
+	Version-parser.cpp   
+
+bin_PROGRAMS =  \
+	developing
+
+developing_LDADD =  libtoolkit-common-cpp.la
+
+developing_SOURCES =  \
+	main.cpp
+
 DISTCLEANFILES = intltool-extract \
 	intltool-merge \
-	intltool-update 
+	intltool-update \
+	po/.intltool-merge-cache
 
 
 # Remove doc directory on uninstall
