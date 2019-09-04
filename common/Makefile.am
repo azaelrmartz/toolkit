@@ -29,7 +29,7 @@ lib_LTLIBRARIES = \
 libtoolkit_common_cpp_la_LIBADD = version-reader/libparsercpp.la
 libtoolkit_common_cpp_la_CPPFLAGS=-fPIC -Wl,-Bsymbolic 
 libtoolkit_common_cpp_la_CXXFLAGS=-fPIC -Wl,-Bsymbolic -I$(top_srcdir)/version-reader  -I$(top_builddir)/version-reader 
-libtoolkit_common_cpp_la_LDFLAGS= -shared -fPIC -Wl,-Bsymbolic -version-info 0:0:0
+libtoolkit_common_cpp_la_LDFLAGS= -shared -fPIC -Wl,-Bsymbolic -version-info `$(top_srcdir)/versionInfo.sh toolkit-common-c++ --dd`
 
 libtoolkit_common_cpp_la_SOURCES =  \
 	common.cpp \
