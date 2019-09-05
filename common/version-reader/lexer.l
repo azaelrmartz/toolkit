@@ -5,9 +5,9 @@
 #include <string.h>
 #include <stdlib.h>
 
-#include "../../common.h"
-#include "../Driver.h"
 
+#include "common.h"
+#include "driver.h"
 
 #define YY_DECL int yylex(struct Tray* ty)
 extern int parse_string(struct Tray* ty,const char* in);
@@ -74,6 +74,7 @@ SPACE [ \t\r]
 		BEGIN(sc_NUMBERS);
 		return DOT;
 	}
+	
 "-"        	{
                                 //std::cout <<yytext << std::endl;
                                 BEGIN(sc_STAGE);
@@ -86,7 +87,7 @@ SPACE [ \t\r]
                                 yylval.str=yytext;
                                 return VALUE_SNAPSHOT;
                                 }
-"pre-alpha"|"PRE-ALPHA" {
+"prealpha"|"PREALPHA" {
                                         //std::cout << yytext << std::endl;
                                         BEGIN(sc_STAGE);
                                 yylval.str=yytext;

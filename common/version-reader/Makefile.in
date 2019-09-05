@@ -448,9 +448,10 @@ EXTRA_DIST = \
 lib_LTLIBRARIES = \
 	libparsercpp.la
 
-libparsercpp_la_CPPFLAGS = -fPIC -Wl,-Bsymbolic 
+
+#libparsercpp_la_CPPFLAGS=-fPIC -Wl,-Bsymbolic 
 libparsercpp_la_CXXFLAGS = -fPIC -Wl,-Bsymbolic
-libparsercpp_la_LDFLAGS = -shared -fPIC -Wl,-Bsymbolic -version-info 0:0:0
+libparsercpp_la_LDFLAGS = -shared -fPIC -Wl,-Bsymbolic
 libparsercpp_la_SOURCES = \
 	parser.tab.cc \
 	lexer.cc \
@@ -591,25 +592,25 @@ am--depfiles: $(am__depfiles_remade)
 @am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(LTCXXCOMPILE) -c -o $@ $<
 
 libparsercpp_la-parser.tab.lo: parser.tab.cc
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libparsercpp_la_CPPFLAGS) $(CPPFLAGS) $(libparsercpp_la_CXXFLAGS) $(CXXFLAGS) -MT libparsercpp_la-parser.tab.lo -MD -MP -MF $(DEPDIR)/libparsercpp_la-parser.tab.Tpo -c -o libparsercpp_la-parser.tab.lo `test -f 'parser.tab.cc' || echo '$(srcdir)/'`parser.tab.cc
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libparsercpp_la_CXXFLAGS) $(CXXFLAGS) -MT libparsercpp_la-parser.tab.lo -MD -MP -MF $(DEPDIR)/libparsercpp_la-parser.tab.Tpo -c -o libparsercpp_la-parser.tab.lo `test -f 'parser.tab.cc' || echo '$(srcdir)/'`parser.tab.cc
 @am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libparsercpp_la-parser.tab.Tpo $(DEPDIR)/libparsercpp_la-parser.tab.Plo
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='parser.tab.cc' object='libparsercpp_la-parser.tab.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libparsercpp_la_CPPFLAGS) $(CPPFLAGS) $(libparsercpp_la_CXXFLAGS) $(CXXFLAGS) -c -o libparsercpp_la-parser.tab.lo `test -f 'parser.tab.cc' || echo '$(srcdir)/'`parser.tab.cc
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libparsercpp_la_CXXFLAGS) $(CXXFLAGS) -c -o libparsercpp_la-parser.tab.lo `test -f 'parser.tab.cc' || echo '$(srcdir)/'`parser.tab.cc
 
 libparsercpp_la-lexer.lo: lexer.cc
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libparsercpp_la_CPPFLAGS) $(CPPFLAGS) $(libparsercpp_la_CXXFLAGS) $(CXXFLAGS) -MT libparsercpp_la-lexer.lo -MD -MP -MF $(DEPDIR)/libparsercpp_la-lexer.Tpo -c -o libparsercpp_la-lexer.lo `test -f 'lexer.cc' || echo '$(srcdir)/'`lexer.cc
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libparsercpp_la_CXXFLAGS) $(CXXFLAGS) -MT libparsercpp_la-lexer.lo -MD -MP -MF $(DEPDIR)/libparsercpp_la-lexer.Tpo -c -o libparsercpp_la-lexer.lo `test -f 'lexer.cc' || echo '$(srcdir)/'`lexer.cc
 @am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libparsercpp_la-lexer.Tpo $(DEPDIR)/libparsercpp_la-lexer.Plo
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='lexer.cc' object='libparsercpp_la-lexer.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libparsercpp_la_CPPFLAGS) $(CPPFLAGS) $(libparsercpp_la_CXXFLAGS) $(CXXFLAGS) -c -o libparsercpp_la-lexer.lo `test -f 'lexer.cc' || echo '$(srcdir)/'`lexer.cc
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libparsercpp_la_CXXFLAGS) $(CXXFLAGS) -c -o libparsercpp_la-lexer.lo `test -f 'lexer.cc' || echo '$(srcdir)/'`lexer.cc
 
 libparsercpp_la-driver.lo: driver.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libparsercpp_la_CPPFLAGS) $(CPPFLAGS) $(libparsercpp_la_CXXFLAGS) $(CXXFLAGS) -MT libparsercpp_la-driver.lo -MD -MP -MF $(DEPDIR)/libparsercpp_la-driver.Tpo -c -o libparsercpp_la-driver.lo `test -f 'driver.cpp' || echo '$(srcdir)/'`driver.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libparsercpp_la_CXXFLAGS) $(CXXFLAGS) -MT libparsercpp_la-driver.lo -MD -MP -MF $(DEPDIR)/libparsercpp_la-driver.Tpo -c -o libparsercpp_la-driver.lo `test -f 'driver.cpp' || echo '$(srcdir)/'`driver.cpp
 @am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libparsercpp_la-driver.Tpo $(DEPDIR)/libparsercpp_la-driver.Plo
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='driver.cpp' object='libparsercpp_la-driver.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libparsercpp_la_CPPFLAGS) $(CPPFLAGS) $(libparsercpp_la_CXXFLAGS) $(CXXFLAGS) -c -o libparsercpp_la-driver.lo `test -f 'driver.cpp' || echo '$(srcdir)/'`driver.cpp
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libparsercpp_la_CXXFLAGS) $(CXXFLAGS) -c -o libparsercpp_la-driver.lo `test -f 'driver.cpp' || echo '$(srcdir)/'`driver.cpp
 
 .cpp.o:
 @am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXXCOMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<

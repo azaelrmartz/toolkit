@@ -16,28 +16,29 @@ namespace toolkit
 	class Driver
 	{
 	public:
-	   Driver();
-	   Driver(Version& version);
-           Driver(Version& version, bool announce_error);
-	   Version& getVersion();
-	   virtual ~Driver();
-	   bool getAnnounceError();
-	   /** 
+		Driver();
+		Driver(Version& version);
+		Driver(Version& version, bool announce_error);
+		Version& getVersion();
+		virtual ~Driver();
+		bool getAnnounceError();
+		/** 
 		* parse - parse from a file
 		* @param filename - valid string with input file
 		*/
-	   bool parse( const char * const filename );
-	   /** 
+		bool parse( const char * const str );
+		bool parse(const std::string& str);
+		/** 
 		* parse - parse from a c++ input stream
 		* @param is - std::istream&, valid input stream
 		*/
-	   bool parse( std::istream &iss );
-        private:
-	   bool parse_helper( std::istream &stream );
-	   Parser  *parser  = nullptr;
-	   Scanner *scanner = nullptr;
-	   Version* version;
-           bool announce_error;
+		bool parse( std::istream &iss );
+	private:
+		bool parse_helper(std::istream& stream );
+		Parser  *parser  = nullptr;
+		Scanner *scanner = nullptr;
+		Version* version;
+		bool announce_error;
 	};
 }
 } 

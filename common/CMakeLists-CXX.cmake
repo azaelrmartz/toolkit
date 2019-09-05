@@ -40,8 +40,6 @@ ELSE()
 ENDIF()
 endif()
 
-
-
 #################################################################################################
 
 INCLUDE_DIRECTORIES(version-reader ${CMAKE_CURRENT_BINARY_DIR}/version-reader)

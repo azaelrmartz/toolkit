@@ -1,0 +1,7 @@
+#define VERSION_MAJOR @octetos-toolkit-common-c_VERSION_MAJOR@
+#define VERSION_MINOR @octetos-toolkit-common-c_VERSION_MINOR@
+#define VERSION_PATCH @octetos-toolkit-common-c_VERSION_PATCH@
+#define VERSION_BUILD @octetos-toolkit-common-c_VERSION_BUILD@
+#define VERSION_STAGE @OTKCMC_VERSION_STAGE@
+
+

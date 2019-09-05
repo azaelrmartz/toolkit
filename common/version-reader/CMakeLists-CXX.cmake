@@ -1,0 +1,26 @@
+CMAKE_MINIMUM_REQUIRED(VERSION 3.0)
+
+PROJECT(octetos-version-reader-c++ CXX)
+
+FIND_PACKAGE(BISON REQUIRED)
+FIND_PACKAGE(FLEX REQUIRED)
+BISON_TARGET(parserVersion parser.yy ${CMAKE_CURRENT_BINARY_DIR}/parser.tab.cc)
+IF(BISON_parserVersion_DEFINED)
+	#MESSAGE(STATUS "Target de Bions 'parserVersion' creado.")
+ELSE()
+	MESSAGE(FATAL_ERROR "Fallo al constuir el componente de Bions 'parserVersion'")
+ENDIF()
+FLEX_TARGET(lexerVersion lexer.ll ${CMAKE_CURRENT_BINARY_DIR}/lexer.yy.cc)
+IF(FLEX_lexerVersion_DEFINED)
+	#MESSAGE(STATUS "Target de Flexer 'lexerVersion' creado.")
+ELSE()
+	MESSAGE(FATAL_ERROR "Fallo al constuir el componente de Flexer 'lexerVersion'")
+ENDIF()
+ADD_FLEX_BISON_DEPENDENCY(lexerVersion parserVersion)
+
+SET(LIBREADER ${PROJECT_NAME} PARENT_SCOPE)
+ADD_LIBRARY(${PROJECT_NAME}-obj  OBJECT driver.cpp ${FLEX_lexerVersion_OUTPUTS} ${BISON_parserVersion_OUTPUTS})
+set_target_properties(${PROJECT_NAME}-obj  PROPERTIES POSITION_INDEPENDENT_CODE 1 )
+
+ADD_LIBRARY(${PROJECT_NAME} SHARED $<TARGET_OBJECTS:${PROJECT_NAME}-obj>)
+set_target_properties(${PROJECT_NAME}  PROPERTIES POSITION_INDEPENDENT_CODE 1 )

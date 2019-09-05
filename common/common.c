@@ -9,19 +9,10 @@
 
 
 #include "common.h"
-#include "config.h"
 
-struct Version Version(short major,short minor,short patch,enum Stage stage)
-{
-	struct Version version;
-	version.major = major;
-	version.minor = minor;
-	version.patch = patch;
-	version.stage = stage;
-	
-	return version;	
-}
-const char* toString(const struct Version* version)
+
+
+const char* octetos_toolkit_Version_toString(const struct octetos_toolkit_Version* version)
 {
 	char* verstr = NULL;
 	if(version->major > -1)
@@ -84,13 +75,4 @@ const char* toString(const struct Version* version)
 	return verstr;
 }	
 
-struct Version getPakageVersionTC()
-{
-	struct Version version;
-	version.major = MAJOR;
-	version.minor = MINOR;
-	version.patch = PATCH;
-	version.stage = STAGE;
-	
-	return version;		
-}
+

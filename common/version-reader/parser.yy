@@ -26,8 +26,8 @@ namespace octetos
 
 }
 
-%param {Scanner &scanner}
-%param {Driver& drv }
+%param {Scanner& scanner}
+%param {Driver& drv}
 
 %code{
    #include <iostream>

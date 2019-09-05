@@ -1,7 +1,7 @@
 ## Process this file with automake to produce Makefile.in
 ## Created by Anjuta
 
-AM_CPPFLAGS = -I$(top_srcdir)/version-reader  -I$(top_builddir)/version-reader 
+#AM_CPPFLAGS = -I$(top_srcdir)/version-reader  -I$(top_builddir)/version-reader 
 
 SUBDIRS = version-reader src po
 
@@ -27,7 +27,7 @@ lib_LTLIBRARIES = \
 
 
 libtoolkit_common_cpp_la_LIBADD = version-reader/libparsercpp.la
-libtoolkit_common_cpp_la_CPPFLAGS=-fPIC -Wl,-Bsymbolic 
+#libtoolkit_common_cpp_la_CPPFLAGS=-fPIC -Wl,-Bsymbolic 
 libtoolkit_common_cpp_la_CXXFLAGS=-fPIC -Wl,-Bsymbolic -I$(top_srcdir)/version-reader  -I$(top_builddir)/version-reader 
 libtoolkit_common_cpp_la_LDFLAGS= -shared -fPIC -Wl,-Bsymbolic -version-info `$(top_srcdir)/versionInfo.sh toolkit-common-c++ --dd`
 
