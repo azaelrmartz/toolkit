@@ -4,7 +4,7 @@
 #include <stdlib.h>
 
 #include "../../common.h"
-#include "../Driver.h"
+#include "../driver.h"
 
 extern int yylex(struct Tray* ty);
 extern int yyparse(struct Tray* ty);

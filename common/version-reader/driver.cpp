@@ -38,17 +38,19 @@ Driver::~Driver()
 }
 
 bool 
-Driver::parse( const char * const filename )
+Driver::parse(const char * const str)
 {
-   assert( filename != nullptr );
-   std::ifstream in_file( filename );
+   assert( str != nullptr );
+   std::ifstream in_file( str );
    if( ! in_file.good() )
    {
-           std::cout << "Fallo la apertura del archivo " << filename << std::endl;
+           std::cout << "Fallo la apertura del archivo " << str << std::endl;
         return false;
    }
    return parse_helper( in_file );
 }
+
+
 
 bool
 Driver::parse( std::istream &stream )
@@ -62,8 +64,7 @@ Driver::parse( std::istream &stream )
 }
 
 
-bool 
-Driver::parse_helper( std::istream &stream )
+bool Driver::parse_helper( std::istream &stream )
 {   
    delete(scanner);
    try
@@ -89,23 +90,23 @@ Driver::parse_helper( std::istream &stream )
       return false;
    }
 
-        int retP = parser->parse();
-        if(  retP == 0 )
-        {
+	int retP = parser->parse();
+	if(  retP == 0 )
+	{
            
-        }
-        else if(  retP == 1 )
-        {
-                //std::cout << "Error  " << std::endl;
-                return false;
-        }
-        else if(  retP == 2 )
-        {
-                //std::cout << "Problema de memoria  " << std::endl;
-                return false;
-        }
+	}
+	else if(  retP == 1 )
+	{
+		//std::cout << "Error  " << std::endl;
+		return false;
+	}
+	else if(  retP == 2 )
+	{
+		//std::cout << "Problema de memoria  " << std::endl;
+		return false;
+	}
    
-        return true;
+	return true;
 }
 
 }

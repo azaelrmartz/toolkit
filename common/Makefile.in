@@ -14,6 +14,8 @@
 
 @SET_MAKE@
 
+#AM_CPPFLAGS = -I$(top_srcdir)/version-reader  -I$(top_builddir)/version-reader 
+
 
 
 VPATH = @srcdir@
@@ -447,7 +449,6 @@ target_alias = @target_alias@
 top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
-AM_CPPFLAGS = -I$(top_srcdir)/version-reader  -I$(top_builddir)/version-reader 
 SUBDIRS = version-reader src po
 dist_doc_DATA = \
 	README \
@@ -468,7 +469,7 @@ lib_LTLIBRARIES = \
 	libtoolkit-common-cpp.la
 
 libtoolkit_common_cpp_la_LIBADD = version-reader/libparsercpp.la
-libtoolkit_common_cpp_la_CPPFLAGS = -fPIC -Wl,-Bsymbolic 
+#libtoolkit_common_cpp_la_CPPFLAGS=-fPIC -Wl,-Bsymbolic 
 libtoolkit_common_cpp_la_CXXFLAGS = -fPIC -Wl,-Bsymbolic -I$(top_srcdir)/version-reader  -I$(top_builddir)/version-reader 
 libtoolkit_common_cpp_la_LDFLAGS = -shared -fPIC -Wl,-Bsymbolic -version-info `$(top_srcdir)/versionInfo.sh toolkit-common-c++ --dd`
 libtoolkit_common_cpp_la_SOURCES = \
@@ -675,46 +676,46 @@ am--depfiles: $(am__depfiles_remade)
 @am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(LTCXXCOMPILE) -c -o $@ $<
 
 libtoolkit_common_cpp_la-common.lo: common.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libtoolkit_common_cpp_la_CPPFLAGS) $(CPPFLAGS) $(libtoolkit_common_cpp_la_CXXFLAGS) $(CXXFLAGS) -MT libtoolkit_common_cpp_la-common.lo -MD -MP -MF $(DEPDIR)/libtoolkit_common_cpp_la-common.Tpo -c -o libtoolkit_common_cpp_la-common.lo `test -f 'common.cpp' || echo '$(srcdir)/'`common.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libtoolkit_common_cpp_la_CXXFLAGS) $(CXXFLAGS) -MT libtoolkit_common_cpp_la-common.lo -MD -MP -MF $(DEPDIR)/libtoolkit_common_cpp_la-common.Tpo -c -o libtoolkit_common_cpp_la-common.lo `test -f 'common.cpp' || echo '$(srcdir)/'`common.cpp
 @am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libtoolkit_common_cpp_la-common.Tpo $(DEPDIR)/libtoolkit_common_cpp_la-common.Plo
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='common.cpp' object='libtoolkit_common_cpp_la-common.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libtoolkit_common_cpp_la_CPPFLAGS) $(CPPFLAGS) $(libtoolkit_common_cpp_la_CXXFLAGS) $(CXXFLAGS) -c -o libtoolkit_common_cpp_la-common.lo `test -f 'common.cpp' || echo '$(srcdir)/'`common.cpp
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libtoolkit_common_cpp_la_CXXFLAGS) $(CXXFLAGS) -c -o libtoolkit_common_cpp_la-common.lo `test -f 'common.cpp' || echo '$(srcdir)/'`common.cpp
 
 libtoolkit_common_cpp_la-Error.lo: Error.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libtoolkit_common_cpp_la_CPPFLAGS) $(CPPFLAGS) $(libtoolkit_common_cpp_la_CXXFLAGS) $(CXXFLAGS) -MT libtoolkit_common_cpp_la-Error.lo -MD -MP -MF $(DEPDIR)/libtoolkit_common_cpp_la-Error.Tpo -c -o libtoolkit_common_cpp_la-Error.lo `test -f 'Error.cpp' || echo '$(srcdir)/'`Error.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libtoolkit_common_cpp_la_CXXFLAGS) $(CXXFLAGS) -MT libtoolkit_common_cpp_la-Error.lo -MD -MP -MF $(DEPDIR)/libtoolkit_common_cpp_la-Error.Tpo -c -o libtoolkit_common_cpp_la-Error.lo `test -f 'Error.cpp' || echo '$(srcdir)/'`Error.cpp
 @am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libtoolkit_common_cpp_la-Error.Tpo $(DEPDIR)/libtoolkit_common_cpp_la-Error.Plo
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='Error.cpp' object='libtoolkit_common_cpp_la-Error.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libtoolkit_common_cpp_la_CPPFLAGS) $(CPPFLAGS) $(libtoolkit_common_cpp_la_CXXFLAGS) $(CXXFLAGS) -c -o libtoolkit_common_cpp_la-Error.lo `test -f 'Error.cpp' || echo '$(srcdir)/'`Error.cpp
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libtoolkit_common_cpp_la_CXXFLAGS) $(CXXFLAGS) -c -o libtoolkit_common_cpp_la-Error.lo `test -f 'Error.cpp' || echo '$(srcdir)/'`Error.cpp
 
 libtoolkit_common_cpp_la-Message.lo: Message.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libtoolkit_common_cpp_la_CPPFLAGS) $(CPPFLAGS) $(libtoolkit_common_cpp_la_CXXFLAGS) $(CXXFLAGS) -MT libtoolkit_common_cpp_la-Message.lo -MD -MP -MF $(DEPDIR)/libtoolkit_common_cpp_la-Message.Tpo -c -o libtoolkit_common_cpp_la-Message.lo `test -f 'Message.cpp' || echo '$(srcdir)/'`Message.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libtoolkit_common_cpp_la_CXXFLAGS) $(CXXFLAGS) -MT libtoolkit_common_cpp_la-Message.lo -MD -MP -MF $(DEPDIR)/libtoolkit_common_cpp_la-Message.Tpo -c -o libtoolkit_common_cpp_la-Message.lo `test -f 'Message.cpp' || echo '$(srcdir)/'`Message.cpp
 @am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libtoolkit_common_cpp_la-Message.Tpo $(DEPDIR)/libtoolkit_common_cpp_la-Message.Plo
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='Message.cpp' object='libtoolkit_common_cpp_la-Message.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libtoolkit_common_cpp_la_CPPFLAGS) $(CPPFLAGS) $(libtoolkit_common_cpp_la_CXXFLAGS) $(CXXFLAGS) -c -o libtoolkit_common_cpp_la-Message.lo `test -f 'Message.cpp' || echo '$(srcdir)/'`Message.cpp
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libtoolkit_common_cpp_la_CXXFLAGS) $(CXXFLAGS) -c -o libtoolkit_common_cpp_la-Message.lo `test -f 'Message.cpp' || echo '$(srcdir)/'`Message.cpp
 
 libtoolkit_common_cpp_la-Object.lo: Object.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libtoolkit_common_cpp_la_CPPFLAGS) $(CPPFLAGS) $(libtoolkit_common_cpp_la_CXXFLAGS) $(CXXFLAGS) -MT libtoolkit_common_cpp_la-Object.lo -MD -MP -MF $(DEPDIR)/libtoolkit_common_cpp_la-Object.Tpo -c -o libtoolkit_common_cpp_la-Object.lo `test -f 'Object.cpp' || echo '$(srcdir)/'`Object.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libtoolkit_common_cpp_la_CXXFLAGS) $(CXXFLAGS) -MT libtoolkit_common_cpp_la-Object.lo -MD -MP -MF $(DEPDIR)/libtoolkit_common_cpp_la-Object.Tpo -c -o libtoolkit_common_cpp_la-Object.lo `test -f 'Object.cpp' || echo '$(srcdir)/'`Object.cpp
 @am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libtoolkit_common_cpp_la-Object.Tpo $(DEPDIR)/libtoolkit_common_cpp_la-Object.Plo
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='Object.cpp' object='libtoolkit_common_cpp_la-Object.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libtoolkit_common_cpp_la_CPPFLAGS) $(CPPFLAGS) $(libtoolkit_common_cpp_la_CXXFLAGS) $(CXXFLAGS) -c -o libtoolkit_common_cpp_la-Object.lo `test -f 'Object.cpp' || echo '$(srcdir)/'`Object.cpp
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libtoolkit_common_cpp_la_CXXFLAGS) $(CXXFLAGS) -c -o libtoolkit_common_cpp_la-Object.lo `test -f 'Object.cpp' || echo '$(srcdir)/'`Object.cpp
 
 libtoolkit_common_cpp_la-Version.lo: Version.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libtoolkit_common_cpp_la_CPPFLAGS) $(CPPFLAGS) $(libtoolkit_common_cpp_la_CXXFLAGS) $(CXXFLAGS) -MT libtoolkit_common_cpp_la-Version.lo -MD -MP -MF $(DEPDIR)/libtoolkit_common_cpp_la-Version.Tpo -c -o libtoolkit_common_cpp_la-Version.lo `test -f 'Version.cpp' || echo '$(srcdir)/'`Version.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libtoolkit_common_cpp_la_CXXFLAGS) $(CXXFLAGS) -MT libtoolkit_common_cpp_la-Version.lo -MD -MP -MF $(DEPDIR)/libtoolkit_common_cpp_la-Version.Tpo -c -o libtoolkit_common_cpp_la-Version.lo `test -f 'Version.cpp' || echo '$(srcdir)/'`Version.cpp
 @am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libtoolkit_common_cpp_la-Version.Tpo $(DEPDIR)/libtoolkit_common_cpp_la-Version.Plo
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='Version.cpp' object='libtoolkit_common_cpp_la-Version.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libtoolkit_common_cpp_la_CPPFLAGS) $(CPPFLAGS) $(libtoolkit_common_cpp_la_CXXFLAGS) $(CXXFLAGS) -c -o libtoolkit_common_cpp_la-Version.lo `test -f 'Version.cpp' || echo '$(srcdir)/'`Version.cpp
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libtoolkit_common_cpp_la_CXXFLAGS) $(CXXFLAGS) -c -o libtoolkit_common_cpp_la-Version.lo `test -f 'Version.cpp' || echo '$(srcdir)/'`Version.cpp
 
 libtoolkit_common_cpp_la-Version-parser.lo: Version-parser.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libtoolkit_common_cpp_la_CPPFLAGS) $(CPPFLAGS) $(libtoolkit_common_cpp_la_CXXFLAGS) $(CXXFLAGS) -MT libtoolkit_common_cpp_la-Version-parser.lo -MD -MP -MF $(DEPDIR)/libtoolkit_common_cpp_la-Version-parser.Tpo -c -o libtoolkit_common_cpp_la-Version-parser.lo `test -f 'Version-parser.cpp' || echo '$(srcdir)/'`Version-parser.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libtoolkit_common_cpp_la_CXXFLAGS) $(CXXFLAGS) -MT libtoolkit_common_cpp_la-Version-parser.lo -MD -MP -MF $(DEPDIR)/libtoolkit_common_cpp_la-Version-parser.Tpo -c -o libtoolkit_common_cpp_la-Version-parser.lo `test -f 'Version-parser.cpp' || echo '$(srcdir)/'`Version-parser.cpp
 @am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libtoolkit_common_cpp_la-Version-parser.Tpo $(DEPDIR)/libtoolkit_common_cpp_la-Version-parser.Plo
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='Version-parser.cpp' object='libtoolkit_common_cpp_la-Version-parser.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libtoolkit_common_cpp_la_CPPFLAGS) $(CPPFLAGS) $(libtoolkit_common_cpp_la_CXXFLAGS) $(CXXFLAGS) -c -o libtoolkit_common_cpp_la-Version-parser.lo `test -f 'Version-parser.cpp' || echo '$(srcdir)/'`Version-parser.cpp
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libtoolkit_common_cpp_la_CXXFLAGS) $(CXXFLAGS) -c -o libtoolkit_common_cpp_la-Version-parser.lo `test -f 'Version-parser.cpp' || echo '$(srcdir)/'`Version-parser.cpp
 
 mostlyclean-libtool:
 	-rm -f *.lo

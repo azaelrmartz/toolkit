@@ -3,7 +3,7 @@
 
 
 
-enum octetos_toolkit_common_Stage {
+enum octetos_toolkit_Stage {
 	unknown,
         snapshot,
 	alpha,
@@ -16,18 +16,18 @@ enum octetos_toolkit_common_Stage {
 * \brief Informacion de version
 * 
 **/
-struct octetos_toolkit_common_Version {	
+struct octetos_toolkit_Version {	
 	short major;
 	short minor;
 	short patch;
 	short tweak;
 	unsigned long build;
-	enum octetos_toolkit_common_Stage stage;	
+	enum octetos_toolkit_Stage stage;	
 	const char* name;
 };
 
-const char* toString(const struct octetos_toolkit_common_Version* version);
-struct octetos_toolkit_common_Version Version(short major,short minor,short patch,enum octetos_toolkit_common_Stage stage);
+const char* toString(const struct octetos_toolkit_Version* version);
+struct octetos_toolkit_common_Version Version(short major,short minor,short patch,enum octetos_toolkit_Stage stage);
 	
 /**
 * \brief returna la version actual de componente common

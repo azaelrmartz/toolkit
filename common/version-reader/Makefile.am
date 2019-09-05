@@ -30,9 +30,9 @@ EXTRA_DIST = \
 lib_LTLIBRARIES =  \
 	libparsercpp.la
 
-libparsercpp_la_CPPFLAGS=-fPIC -Wl,-Bsymbolic 
+#libparsercpp_la_CPPFLAGS=-fPIC -Wl,-Bsymbolic 
 libparsercpp_la_CXXFLAGS=-fPIC -Wl,-Bsymbolic
-libparsercpp_la_LDFLAGS= -shared -fPIC -Wl,-Bsymbolic -version-info 0:0:0
+libparsercpp_la_LDFLAGS= -shared -fPIC -Wl,-Bsymbolic
 
 libparsercpp_la_SOURCES =  \
 	parser.tab.cc \

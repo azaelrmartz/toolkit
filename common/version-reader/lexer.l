@@ -6,7 +6,7 @@
 #include <stdlib.h>
 
 #include "../../common.h"
-#include "../Driver.h"
+#include "../driver.h"
 
 
 #define YY_DECL int yylex(struct Tray* ty)
