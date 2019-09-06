@@ -8,7 +8,6 @@ namespace octetos
 {
 namespace toolkit
 {
-	
 	class Licence : public Object
 	{
 	public:
