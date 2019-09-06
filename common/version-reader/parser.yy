@@ -53,6 +53,7 @@ namespace octetos
   ENDFILE
 ;
 
+%token VALUE_DEVELOPING
 %token VALUE_SNAPSHOT
 %token VALUE_PREALPHA
 %token VALUE_ALPHA
@@ -129,7 +130,13 @@ namespace octetos
 		drv.getVersion().setNumbers($1,$3,$5);
 	};
 
-	stage : DASH VALUE_SNAPSHOT
+	stage : 
+	DASH VALUE_DEVELOPING
+	{
+			drv.getVersion().setStage(octetos::toolkit::Version::developing);
+	}
+	| 
+	DASH VALUE_SNAPSHOT
 	{
 			drv.getVersion().setStage(octetos::toolkit::Version::snapshot);
 	}
@@ -151,7 +158,7 @@ namespace octetos
 	|
 	DASH VALUE_BETARELEASE
 	{
-			drv.getVersion().setStage(octetos::toolkit::Version::betarelease);
+			drv.getVersion().setStage(octetos::toolkit::Version::betar);
 	}
 	| 
 	DASH VALUE_RC
@@ -212,7 +219,7 @@ namespace octetos
 	{
 	};
 	
-	stage_values : VALUE_SNAPSHOT | VALUE_PREALPHA | VALUE_ALPHA | VALUE_BETA  | VALUE_BETARELEASE | VALUE_RC | VALUE_PRERELEASE | VALUE_RTM | VALUE_GA
+	stage_values : VALUE_DEVELOPING | VALUE_SNAPSHOT | VALUE_PREALPHA | VALUE_ALPHA | VALUE_BETA  | VALUE_BETARELEASE | VALUE_RC | VALUE_PRERELEASE | VALUE_RTM | VALUE_GA
 	{
 		
 	};

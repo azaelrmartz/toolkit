@@ -1,4 +1,4 @@
-PROJECT(octetos-toolkit-common-c++ VERSION 5.1.0 DESCRIPTION "Libreria C++ para para soporte no especificado" HOMEPAGE_URL "https://github.com/azaeldevel/toolkit.git" LANGUAGES CXX)
+PROJECT(octetos-toolkit-common-c++ VERSION 5.1.0 DESCRIPTION "Libreria C++ para soporte no especificado" HOMEPAGE_URL "https://github.com/azaeldevel/toolkit.git" LANGUAGES CXX)
 
 EXECUTE_PROCESS(COMMAND date +"%Y%m%d%H%M%S" OUTPUT_VARIABLE OTKCMCC_VERSION_BUILD)
 if(NOT OCTKCMCC_VERSION_STAGE)
@@ -11,7 +11,7 @@ endif()
 if(NOT CMAKE_BUILD_TYPE)
 
 elseif(${CMAKE_BUILD_TYPE} STREQUAL "Release")
-	if(NOT OTKCM_VERSION_STAGE)
+	if(NOT OCTKCMCC_VERSION_STAGE)
 		MESSAGE(FATAL_ERROR "Asigno CMAKE_BUILD_TYPE = Release para que los componentes de toolkit-common-c++ funcione correctamente es necesario que asigne OCTKCMCC_VERSION_STAGE = release")
 	elseif(NOT ${OTKCM_VERSION_STAGE} STREQUAL "release")
 		MESSAGE(FATAL_ERROR "Asigno CMAKE_BUILD_TYPE = Release para que los componentes de toolkit-common-c++ funcione correctamente es necesario que asigne OCTKCMCC_VERSION_STAGE = release")
@@ -76,6 +76,8 @@ INSTALL(FILES Version.hpp DESTINATION include/octetos/toolkit/common/)
 INSTALL(FILES Message.hpp DESTINATION include/octetos/toolkit/common/)
 INSTALL(FILES Error.hpp DESTINATION include/octetos/toolkit/common/)
 INSTALL(FILES Object.hpp DESTINATION include/octetos/toolkit/common/)
+INSTALL(FILES Package.hpp DESTINATION include/octetos/toolkit/common/)
+INSTALL(FILES Licence.hpp DESTINATION include/octetos/toolkit/common/)
 
 
 SET(CPACK_PACKAGE_NAME "${PROJECT_NAME}")

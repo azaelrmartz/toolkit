@@ -97,7 +97,11 @@ SPACE [ \t\r]
                                 BEGIN(sc_STAGE);
                                 return token::DASH;
                 }
-
+"developing"|"DEVELOPING"  {
+                                        //std::cout << yytext << std::endl;
+                                        BEGIN(sc_STAGE);
+                                yylval->build< std::string >( yytext );return token::VALUE_DEVELOPING;
+                                }
 "snapshot"|"SNAPSHOT"  {
                                         //std::cout << yytext << std::endl;
                                         BEGIN(sc_STAGE);
