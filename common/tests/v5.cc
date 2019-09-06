@@ -5,7 +5,7 @@
 
 
 #include "../common.hpp"
-#include "../versionInfo-c++.h" 
+#include "../packInfo.hpp"
 
 
 static std::string  rootDir;

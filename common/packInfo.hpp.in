@@ -1,0 +1,7 @@
+#define VERSION_MAJOR @octetos-toolkit-common-c++_VERSION_MAJOR@
+#define VERSION_MINOR @octetos-toolkit-common-c++_VERSION_MINOR@
+#define VERSION_PATCH @octetos-toolkit-common-c++_VERSION_PATCH@
+#define VERSION_BUILD @OTKCMCC_VERSION_BUILD@
+#define VERSION_STAGE Version::Stage::@OCTKCMCC_VERSION_STAGE@
+#define PACKAGENAME "@PROJECT_NAME@"
+

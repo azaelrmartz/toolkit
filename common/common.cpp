@@ -1,9 +1,9 @@
 
 
 
-#include "versionInfo-c++.h"
+#include "packInfo.hpp"
 #include "common.hpp"
-
+	
 
 namespace octetos
 {
@@ -22,7 +22,7 @@ namespace toolkit
 
 	std::string getPakageName()
 	{
-		return std::string(PAKAGENAME);
+		return std::string(PACKAGENAME);
 	}
 	
 }
