@@ -1,4 +1,4 @@
-PROJECT(octetos-toolkit-common-c++ VERSION 5.0.0.9 LANGUAGES ${LANG})
+PROJECT(octetos-toolkit-common-c++ VERSION 5.1.0 DESCRIPTION "Libreria C++ para para soporte no especificado" HOMEPAGE_URL "https://github.com/azaeldevel/toolkit.git" LANGUAGES CXX)
 
 EXECUTE_PROCESS(COMMAND date +"%Y%m%d%H%M%S" OUTPUT_VARIABLE OTKCMCC_VERSION_BUILD)
 if(NOT OCTKCMCC_VERSION_STAGE)
@@ -46,7 +46,7 @@ include_directories(${PROJECT_BINARY_DIR})
 INCLUDE_DIRECTORIES(version-reader ${CMAKE_CURRENT_BINARY_DIR}/version-reader)
 SET(LIBREADER "NULL")
 ADD_SUBDIRECTORY(version-reader)
-ADD_LIBRARY(${PROJECT_NAME}-obj  OBJECT common.cpp Error.cpp Object.cpp Version.cpp Version-parser.cpp Message.cpp)
+ADD_LIBRARY(${PROJECT_NAME}-obj  OBJECT common.cpp Error.cpp Object.cpp Version.cpp Version-parser.cpp Message.cpp Licence.cpp)
 set_target_properties(${PROJECT_NAME}-obj  PROPERTIES POSITION_INDEPENDENT_CODE 1 )
 
 

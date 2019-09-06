@@ -150,9 +150,10 @@ int main(int argc, char *argv[])
 	/* initialize the CUnit test registry */
 	if (CUE_SUCCESS != CU_initialize_registry()) return CU_get_error();
 
-	octetos::toolkit::Version ver = octetos::toolkit::getPakageVersion();
-        std::string pkName = octetos::toolkit::getPakageName();
-	std::string classVersionString = std::string("Probando ") + pkName + " " + ver.toString();
+	octetos::toolkit::Package packinfo = octetos::toolkit::getPackageInfo();
+	octetos::toolkit::Version& ver = packinfo.version;
+	std::string& pkName = packinfo.name;
+	std::string classVersionString = std::string("Probando ") + pkName + " " + ver.toString() + "\n" + packinfo.licence.getBrief() + "\n" + packinfo.brief + "\n";
 	pSuite = CU_add_suite(classVersionString.c_str(), init_toolkit_common, clean_toolkit_common);
 	if (NULL == pSuite) 
 	{
