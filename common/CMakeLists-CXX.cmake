@@ -1,10 +1,9 @@
-PROJECT(octetos-toolkit-common-c++ VERSION 5.0.0.9 LANGUAGES ${LANG})
-SET(${PROJECT_NAME}_DOCUMENTING TRUE)
+PROJECT(octetos-toolkit-common-c++ VERSION 5.1.0 DESCRIPTION "Libreria C++ para soporte no especificado" HOMEPAGE_URL "https://github.com/azaeldevel/toolkit.git" LANGUAGES CXX)
 
-EXECUTE_PROCESS(COMMAND date +"%Y%m%d%H%M%S" OUTPUT_VARIABLE ${PROJECT_NAME}_VERSION_BUILD)
-if(NOT OTKCM_VERSION_STAGE)
-        MESSAGE(FATAL_ERROR "Es necesario que indique una etapa de desasorrollo, use -DOTKC_VERSION_STAGE='etapa'.\nEn donde etapa puede ser .. snapshot,alpha,beta,rc,release.\nEn términos generales acepta cualquier miembro de la enumeración toolkit::Version::Stage para mas detalles vea la información de este paquete.")
-elseif(${OTKCM_VERSION_STAGE} STREQUAL "release")
+EXECUTE_PROCESS(COMMAND date +"%Y%m%d%H%M%S" OUTPUT_VARIABLE OTKCMCC_VERSION_BUILD)
+if(NOT OCTKCMCC_VERSION_STAGE)
+        MESSAGE(FATAL_ERROR "Es necesario que indique una etapa de desasorrollo, use -DOTKCMCC_VERSION_STAGE='etapa'.\nEn donde etapa puede ser .. snapshot,alpha,beta,rc,release.\nEn términos generales acepta cualquier miembro de la enumeración toolkit::Version::Stage para mas detalles vea la información de este paquete.")
+elseif(${OCTKCMCC_VERSION_STAGE} STREQUAL "release")
         if(NOT CMAKE_BUILD_TYPE)
                 MESSAGE(FATAL_ERROR "La etapa del proyecto, es 'release', asigne tambien CMAKE_BUILD_TYPE=Release para mejor estabilidad.")
         endif()
@@ -12,17 +11,17 @@ endif()
 if(NOT CMAKE_BUILD_TYPE)
 
 elseif(${CMAKE_BUILD_TYPE} STREQUAL "Release")
-	if(NOT OTKCM_VERSION_STAGE)
-		MESSAGE(FATAL_ERROR "Asigno CMAKE_BUILD_TYPE = Release para que los componentes de APIDB funcione correctamente es necesario que asigne OTKCM_VERSION_STAGE = release")
+	if(NOT OCTKCMCC_VERSION_STAGE)
+		MESSAGE(FATAL_ERROR "Asigno CMAKE_BUILD_TYPE = Release para que los componentes de toolkit-common-c++ funcione correctamente es necesario que asigne OCTKCMCC_VERSION_STAGE = release")
 	elseif(NOT ${OTKCM_VERSION_STAGE} STREQUAL "release")
-		MESSAGE(FATAL_ERROR "Asigno CMAKE_BUILD_TYPE = Release para que los componentes de APIDB funcione correctamente es necesario que asigne OTKCM_VERSION_STAGE = release")
+		MESSAGE(FATAL_ERROR "Asigno CMAKE_BUILD_TYPE = Release para que los componentes de toolkit-common-c++ funcione correctamente es necesario que asigne OCTKCMCC_VERSION_STAGE = release")
 	endif()
 endif()
 
 SET(CMAKE_CXX_STANDARD 11)
 SET(CMAKE_CXX_STANDARD_REQUIRED ON)
 SET(CMAKE_CXX_EXTENSIONS OFF)
-CONFIGURE_FILE("${PROJECT_SOURCE_DIR}/versionInfo-c++.h.in" "${PROJECT_SOURCE_DIR}/versionInfo-c++.h")
+CONFIGURE_FILE("${PROJECT_SOURCE_DIR}/packInfo.hpp.in" "${PROJECT_BINARY_DIR}/packInfo.hpp")
 
 
 ###############################################################################################
@@ -40,12 +39,14 @@ ELSE()
 ENDIF()
 endif()
 
+
+include_directories(${PROJECT_BINARY_DIR})
 #################################################################################################
 
 INCLUDE_DIRECTORIES(version-reader ${CMAKE_CURRENT_BINARY_DIR}/version-reader)
 SET(LIBREADER "NULL")
 ADD_SUBDIRECTORY(version-reader)
-ADD_LIBRARY(${PROJECT_NAME}-obj  OBJECT common.cpp Error.cpp Object.cpp Version.cpp Version-parser.cpp Message.cpp)
+ADD_LIBRARY(${PROJECT_NAME}-obj  OBJECT common.cpp Error.cpp Object.cpp Version.cpp Version-parser.cpp Message.cpp Licence.cpp)
 set_target_properties(${PROJECT_NAME}-obj  PROPERTIES POSITION_INDEPENDENT_CODE 1 )
 
 
@@ -75,6 +76,8 @@ INSTALL(FILES Version.hpp DESTINATION include/octetos/toolkit/common/)
 INSTALL(FILES Message.hpp DESTINATION include/octetos/toolkit/common/)
 INSTALL(FILES Error.hpp DESTINATION include/octetos/toolkit/common/)
 INSTALL(FILES Object.hpp DESTINATION include/octetos/toolkit/common/)
+INSTALL(FILES Package.hpp DESTINATION include/octetos/toolkit/common/)
+INSTALL(FILES Licence.hpp DESTINATION include/octetos/toolkit/common/)
 
 
 SET(CPACK_PACKAGE_NAME "${PROJECT_NAME}")

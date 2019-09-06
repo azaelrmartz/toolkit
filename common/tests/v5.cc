@@ -5,7 +5,7 @@
 
 
 #include "../common.hpp"
-#include "../versionInfo-c++.h" 
+#include "../packInfo.hpp"
 
 
 static std::string  rootDir;
@@ -124,7 +124,7 @@ void testVersionGeneric()
         octetos::toolkit::Version ver3;
         CU_ASSERT(ver3.fromString("1.3.65;"));//deve aceptar ;
         CU_ASSERT(ver3.fromString("11.3.65-SNAPSHOT;"));//deve aceptar ;
-        CU_ASSERT(ver3.fromString("12.36.56-betar 12345678901233 devtest;"));//deve aceptar ;
+        CU_ASSERT(ver3.fromString("12.36.56-DEVELOPING 12345678901233 devtest;"));//deve aceptar ;
         CU_ASSERT_FALSE(ver3.fromString("12.36.56-GA 123456;78901233 devtest;"));//error sintactico la sengun version esta incompleta
         CU_ASSERT_FALSE(ver3.fromString("12.36.56-RTM 12345678901233 ;devtest;"));//error sintactico la sengun version esta incompleta
         CU_ASSERT_FALSE(ver3.fromString("12.36.56-snaps;hot 12345678901233 devtest"));//error sintactico la sengun version esta incompleta
@@ -150,9 +150,10 @@ int main(int argc, char *argv[])
 	/* initialize the CUnit test registry */
 	if (CUE_SUCCESS != CU_initialize_registry()) return CU_get_error();
 
-	octetos::toolkit::Version ver = octetos::toolkit::getPakageVersion();
-        std::string pkName = octetos::toolkit::getPakageName();
-	std::string classVersionString = std::string("Probando ") + pkName + " " + ver.toString();
+	octetos::toolkit::Package packinfo = octetos::toolkit::getPackageInfo();
+	octetos::toolkit::Version& ver = packinfo.version;
+	std::string& pkName = packinfo.name;
+	std::string classVersionString = std::string("Probando ") + pkName + " " + ver.toString() + "\n" + packinfo.licence.getBrief() + "\n" + packinfo.brief + "\n";
 	pSuite = CU_add_suite(classVersionString.c_str(), init_toolkit_common, clean_toolkit_common);
 	if (NULL == pSuite) 
 	{

@@ -5,6 +5,7 @@
 
 enum octetos_toolkit_Stage {
 	unknown,
+	developing,
 	snapshot,
 	alpha,
 	beta,

@@ -31,11 +31,12 @@ namespace toolkit
 		enum Stage
 		{
 			unknown,
+			developing,
 			snapshot,  
 			prealpha,
 			alpha,
 			beta,
-			betarelease,
+			betar,
 			rc,
 			prerelease,
 			release,

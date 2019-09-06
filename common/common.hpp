@@ -6,7 +6,7 @@
 #include "Message.hpp"
 #include "Object.hpp"
 #include "Version.hpp"
-
+#include "Package.hpp"
 
 namespace octetos
 {
@@ -17,6 +17,11 @@ namespace toolkit
 	 **/
 	Version getPakageVersion();
 	std::string getPakageName();
+	
+	/**
+	 * \brief retorna la informacion del paquete usese ne lugar getPakageVersion y getPakageName
+	 **/
+	Package getPackageInfo();
 	
 }
 }

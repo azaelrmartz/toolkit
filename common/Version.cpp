@@ -248,8 +248,14 @@ namespace toolkit
                 
 		switch(stage)
 		{
+                        case developing:
+                                ver += "-developing";
+                                break;
                         case snapshot:
                                 ver += "-snapshot";
+                                break;
+                        case prealpha:
+                                ver += "-prealpha";
                                 break;
                         case alpha:
                                 ver += "-alpha";
@@ -257,14 +263,27 @@ namespace toolkit
                         case beta:
                                 ver += "-beta";
                                 break;
+                        case betar:
+                                ver += "-betarelease";
+                                break;
                         case rc:
                                 ver += "-rc";
+                                break;
+                        case prerelease:
+                                ver += "-prerelease";
                                 break;
                         case release:
                                 ver += "-release";
                                 break;
-                        case unknown:
-                                ;
+                        case ga:
+                                ver += "-GA";
+                                break;
+                        case rtm:
+                                ver += "-RTM";
+                                break;
+						default:
+						
+							break;							
 		}
 
 		if(build > 0)
