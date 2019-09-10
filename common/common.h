@@ -4,13 +4,17 @@
 
 
 enum octetos_toolkit_Stage {
-	unknown,
-	developing,
-	snapshot,
-	alpha,
-	beta,
-	rc,
-	release
+    unknown,
+    snapshot,  
+    prealpha,
+    alpha,
+    beta,
+    betarelease,
+    rc,
+    prerelease,
+    release,
+    ga,
+    rtm
 };
 
 /**

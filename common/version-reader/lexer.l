@@ -96,7 +96,7 @@ SPACE [ \t\r]
 "alpha"|"ALPHA"		{
                                         //std::cout << yytext << std::endl;
                                         BEGIN(sc_STAGE);
-                                yylval.str=yytext;
+                                yylval.stage=alpha;
                                 return VALUE_ALPHA;
                                 }
 "beta"|"BETA"     	{
@@ -129,7 +129,7 @@ SPACE [ \t\r]
 "RTM"  	{
                                         //std::cout << yytext << std::endl;
                                         BEGIN(sc_STAGE);
-                                yylval.str=yytext;
+                                yylval.stage=rtm;
                                 return VALUE_RTM;
                                 }                                
 "GA"  	{
@@ -144,7 +144,7 @@ SPACE [ \t\r]
 
                                 
 {DIGIT}{1,11}  	{
-                                        //std::cout << yytext << std::endl; 
+                                        //printf("%s\n",yytext); 
                                         BEGIN(sc_NUMBERS);
                                         yylval.sval=(short)atoi(yytext);
                                         return VALUE_NUMBER;
