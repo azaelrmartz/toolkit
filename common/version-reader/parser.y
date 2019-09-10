@@ -23,6 +23,7 @@ void end_lexical_scan(void);
 	short sval;
 	unsigned long ulval;
 	const char* str;
+	enum octetos_toolkit_Stage stage;
 }
 
 %token
@@ -33,16 +34,16 @@ void end_lexical_scan(void);
   ENDFILE
 ;
 
-%token VALUE_SNAPSHOT
-%token VALUE_PREALPHA
-%token VALUE_ALPHA
-%token VALUE_BETA
-%token VALUE_BETARELEASE
-%token VALUE_RC 
-%token VALUE_PRERELEASE 
-%token VALUE_RELEASE 
-%token VALUE_RTM
-%token VALUE_GA
+%token <octetos_toolkit_Stage> VALUE_SNAPSHOT
+%token <octetos_toolkit_Stage> VALUE_PREALPHA
+%token <octetos_toolkit_Stage> VALUE_ALPHA
+%token <octetos_toolkit_Stage> VALUE_BETA
+%token <octetos_toolkit_Stage> VALUE_BETARELEASE
+%token <octetos_toolkit_Stage> VALUE_RC 
+%token <octetos_toolkit_Stage> VALUE_PRERELEASE 
+%token <octetos_toolkit_Stage> VALUE_RELEASE 
+%token <octetos_toolkit_Stage> VALUE_RTM
+%token <octetos_toolkit_Stage> VALUE_GA
 %token <const char*> VALUE_NAME
 %token <short> VALUE_NUMBER
 %token <unsigned long> VALUE_BUILD
@@ -92,7 +93,7 @@ void end_lexical_scan(void);
 	{
 	}
 
-	version_list : | version SEMICOLON  version_list
+	version_list : %empty | version SEMICOLON  version_list
 
 	numbers_value : one_number | two_numbers | three_numbers;
 
@@ -106,10 +107,10 @@ void end_lexical_scan(void);
 	};
 	three_numbers : VALUE_NUMBER DOT VALUE_NUMBER DOT VALUE_NUMBER
 	{
-		ty->version.major = $1;
-		ty->version.minor = $3;
-		ty->version.patch = $5;
-		printf("N1: %d\n",ty->version.major);
+		//ty->version.major = $1;
+		//ty->version.minor = $3;
+		//ty->version.patch = $5;
+		//printf("N1: %d\n",ty->version.major);
 	};
 
 	stage : DASH VALUE_SNAPSHOT

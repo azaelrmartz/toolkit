@@ -1,9 +1,11 @@
 
 #include <CUnit/Basic.h>
+#include <stdio.h>
 
 
-
-#include "../common.h"
+#include "driver.h"
+//#include "../common.h"
+#include "../version-reader/parser.tab.h"
 #include "../versionInfo-c.h" 
 
 
@@ -26,7 +28,11 @@ int clean_toolkit_common(void)
         return 0;
 }
 
-
+void versionreader()
+{    
+	struct Tray ty;
+    parse_string(&ty,"1.0.55-alpha");
+}
 
 
 int main(int argc, char *argv[])
@@ -38,7 +44,7 @@ int main(int argc, char *argv[])
 
 	
 
-	pSuite = CU_add_suite(classVersionString.c_str(), init_toolkit_common, clean_toolkit_common);
+	pSuite = CU_add_suite("Testing C component...\n", init_toolkit_common, clean_toolkit_common);
 	if (NULL == pSuite) 
 	{
 		CU_cleanup_registry();

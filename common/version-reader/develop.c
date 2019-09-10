@@ -13,6 +13,6 @@ int main()
 	
 	printf( "Parsre C!\n" );
 	
-	parse_string(&ty,"1.0.23-alpha");
+	parse_string(&ty,"1.0.55-alpha");
 	
 }
