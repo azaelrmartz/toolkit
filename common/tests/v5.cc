@@ -129,6 +129,36 @@ void testComparators()
     else 
     {
         CU_ASSERT(true);
+    }    
+    
+    //x simepre es amjor que x.y
+    octetos::toolkit::Version ver5;
+    octetos::toolkit::Version ver6;
+    ver5.setNumbers(1,50);
+    ver6.setNumbers(1,50,100);
+    if(ver5 >= ver6) 
+    {
+        CU_ASSERT(true);
+    }
+    else 
+    {
+        CU_ASSERT(false);
+    }
+    if(ver5 > ver6) 
+    {
+        CU_ASSERT(true);
+    }
+    else 
+    {
+        CU_ASSERT(false);
+    }
+    if(ver5 < ver6) 
+    {
+        CU_ASSERT(false);
+    }
+    else 
+    {
+        CU_ASSERT(true);
     }
 }
 void testVersionGeneric()

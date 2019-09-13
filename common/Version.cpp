@@ -180,10 +180,14 @@ namespace toolkit
         
         if(minor > -1 and v.minor > -1)
         {
-            if(minor <= v.minor)
+            if(minor < v.minor)
             {
                 //std::cout << "por minor" << std::endl;
                 return false;
+            }
+            else if(minor > v.minor)
+            {
+                return true;
             }
         }
         else if( minor > v.minor)
@@ -206,6 +210,10 @@ namespace toolkit
             {
                 return false;
             }
+        }
+        else if(patch < 0 and v.patch > -1)
+        {
+            return true;
         }
         else if(patch > v.patch)
         {
@@ -238,7 +246,7 @@ namespace toolkit
         {
             throw InvalidComparison("Operación invalidad, está comprando objetos Version sin antes asignarles valores.");
         }
-        
+               
         if(minor > -1 and v.minor > -1)
         {
             if(minor > v.minor)
@@ -270,6 +278,14 @@ namespace toolkit
             {
                 return false;
             }
+        }
+        else if(patch < 0 and v.patch > -1)
+        {
+            return true;
+        }
+        else if(patch > v.patch)
+        {
+            return true;
         }
         else//El menor se asigno pero el patch no.
         {
