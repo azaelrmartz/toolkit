@@ -142,6 +142,7 @@ namespace toolkit
                  * \return true si el objeto pasado como parametro es amyor o igual, false en otro caso
                  * */
 		bool operator >=(const Version& v);
+        bool operator >(const Version& v);
                 /**
                  * \brief Determina el orden relativo entre dos obejtos Version
                  * \return true si el objeto pasado como parametro es menor, false en otro caso

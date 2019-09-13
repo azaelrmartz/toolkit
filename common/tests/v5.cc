@@ -99,14 +99,44 @@ void testComparators()
         else
         {
                 CU_ASSERT(true);
-        }        
+        }   
+        
+    //x simepre es amjor que x.y
+    octetos::toolkit::Version ver3;
+    octetos::toolkit::Version ver4;
+    ver3.setNumbers(1);
+    ver4.setNumbers(1,50);
+    if(ver3 >= ver4) 
+    {
+        CU_ASSERT(true);
+    }
+    else 
+    {
+        CU_ASSERT(false);
+    }
+    if(ver3 > ver4) 
+    {
+        CU_ASSERT(true);
+    }
+    else 
+    {
+        CU_ASSERT(false);
+    }
+    if(ver3 < ver4) 
+    {
+        CU_ASSERT(false);
+    }
+    else 
+    {
+        CU_ASSERT(true);
+    }
 }
 void testVersionGeneric()
 {
 	//for class Version
 	octetos::toolkit::Version ver;
 	
-        //valores iniciales
+    //valores iniciales
 	CU_ASSERT(ver.getMajor() == -1)
 	CU_ASSERT(ver.getMinor() == -1)
 	CU_ASSERT(ver.getPatch() == -1)	
@@ -151,7 +181,15 @@ void testBuildExtension()
 {
     octetos::toolkit::Version ver1;
     ver1.setBuild(12345678901233);
-    CU_ASSERT(ver1.getBuild() == 12345678901233);    
+    CU_ASSERT(ver1.getBuild() == 12345678901233);
+    octetos::toolkit::Version ver2;
+    ver2.setNumbers(2,36,98);
+    ver2.setStage(octetos::toolkit::Version::alpha);
+    octetos::toolkit::Version ver3;
+    ver3.setNumbers(1);
+    ver3.setStage(octetos::toolkit::Version::release);
+    ver2.setBuild(ver3);
+    std::cout << std::endl << "Build complejo " << ver2.toString() << std::endl; 
 }
 int main(int argc, char *argv[])
 {

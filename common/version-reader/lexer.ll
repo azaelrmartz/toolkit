@@ -165,7 +165,7 @@ SPACE [ \t\r]
                                         return token::VALUE_NUMBER;
                                 }
 			
-{DIGIT}{12,16}                  {
+{DIGIT}{14}                  {
                                                         //std::cout << "Build : " << yytext << std::endl;
                                                         BEGIN(sc_BUILD);
                                                         yylval->build< unsigned long >( std::stoul(yytext) );

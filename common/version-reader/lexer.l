@@ -150,7 +150,7 @@ SPACE [ \t\r]
                                         return VALUE_NUMBER;
                                 }
 			
-{DIGIT}{12,16}                  {
+{DIGIT}{14}                  {
                                                         //std::cout << "Build : " << yytext << std::endl;
                                                         BEGIN(sc_BUILD);
                                                         yylval.ulval=strtoul(yytext, NULL, 0);

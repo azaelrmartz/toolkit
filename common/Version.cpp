@@ -43,11 +43,15 @@ namespace toolkit
     {
         val.version = build;
         type = etype::version;
+        
+        return *this;
     }
     Version::Build& Version::Build::operator =(unsigned long ul)
     {
         val.ul = ul;
         type = Build::etype::ul;
+        
+        return *this;
     }
     
     
@@ -88,15 +92,15 @@ namespace toolkit
         {
                 
         }
-        void Version::init()
-        {
+    void Version::init()
+    {
 		major = -1;
 		minor = -1;
 		patch = -1;
 		stage = unknown;
-                build = (unsigned long)0;
-                name = "";
-        }
+        build = (unsigned long)0;
+        name = "";
+    }
         bool Version::operator <(const Version& v)
         {                              
                 //por numeros
@@ -150,61 +154,131 @@ namespace toolkit
                 
                 return *this;
         }
-        bool Version::operator >=(const Version& v)
+    bool Version::operator >(const Version& v)
+    {
+        //por numeros
+        if(major > -1 and v.major > -1)
         {
-                //por numeros
-                if(major > -1 and v.major > -1)
-                {
-                        if(major > v.major)
-                        {
-                                //std::cout << "por major" << std::endl;
-                                return true;
-                        }
-                        else if(major < v.major) 
-                        {
-                                return false;
-                        }                                
-                }
-                else // no se puede retornar false y escribir un erro ya que el programa tendria la false idea de que la comparacion fue correcta con valor de retorno falso.
-                {
-                        throw InvalidComparison("Operación invalidad, está comprando objetos Version sin antes asignarles valores.");
-                }
-                if(minor > -1 and v.minor > -1)
-                {
-                        if(minor > v.minor)
-                        {
-                                //std::cout << "por minor" << std::endl;
-                                return true;
-                        }
-                        else if(minor < v.minor)
-                        {
-                                return false;
-                        }
-                }
-                else//El menor se asigno pero el patch no.
-                {
-                        return false;
-                }
-                if(patch > -1 and v.patch > -1)
-                {
-                        if(patch >= v.patch)
-                        {
-                                //std::cout << "por patch" << std::endl;
-                                return true;
-                        }
-                        else if(patch < v.patch)
-                        {
-                                return false;
-                        }
-                }
-                else//El menor se asigno pero el patch no.
-                {
-                        return false;
-                }
-                
-                //std::cout << "no cumple" << std::endl;
+            if(major < v.major)
+            {
+                //std::cout << "por major" << std::endl;
                 return false;
+            }
+            else if(major > v.major)
+            {
+                return false;
+            }
         }
+        else if(major > v.major)
+        {
+            return true;
+        }
+        else // no se puede retornar false y escribir un erro ya que el programa tendria la false idea de que la comparacion fue correcta con valor de retorno falso.
+        {
+            throw InvalidComparison("Operación invalidad, está comprando objetos Version sin antes asignarles valores.");
+        }
+        
+        if(minor > -1 and v.minor > -1)
+        {
+            if(minor <= v.minor)
+            {
+                //std::cout << "por minor" << std::endl;
+                return false;
+            }
+        }
+        else if( minor > v.minor)
+        {
+            return true;
+        }
+        else if(minor < 0 and -1 < v.minor) //x simepre es major que x.y
+        {
+            return true;
+        }
+        
+        if(patch > -1 and v.patch > -1)
+        {
+            if(patch > v.patch)
+            {
+                //std::cout << "por patch" << std::endl;
+                return true;
+            }
+            else if(patch <= v.patch)
+            {
+                return false;
+            }
+        }
+        else if(patch > v.patch)
+        {
+            return true;
+        }
+        else//El menor se asigno pero el patch no.
+        {
+            return false;
+        }
+                
+        //std::cout << "no cumple" << std::endl;
+        return false;
+    }
+    bool Version::operator >=(const Version& v)
+    {
+        //por numeros
+        if(major > -1 and v.major > -1)
+        {
+            if(major > v.major)
+            {
+                //std::cout << "por major" << std::endl;
+                return true;
+            }
+            else if(major < v.major) 
+            {
+                return false;
+            }                                
+        }
+        else // no se puede retornar false y escribir un erro ya que el programa tendria la false idea de que la comparacion fue correcta con valor de retorno falso.
+        {
+            throw InvalidComparison("Operación invalidad, está comprando objetos Version sin antes asignarles valores.");
+        }
+        
+        if(minor > -1 and v.minor > -1)
+        {
+            if(minor > v.minor)
+            {
+                //std::cout << "por minor" << std::endl;
+                return true;
+            }
+            else if(minor < v.minor)
+            {
+                return false;
+            }
+        }
+        else if(minor < 0 and v.minor > -1) //x simepre es major que x.y
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+        if(patch > -1 and v.patch > -1)
+        {
+            if(patch >= v.patch)
+            {
+                //std::cout << "por patch" << std::endl;
+                return true;
+            }
+            else if(patch < v.patch)
+            {
+                return false;
+            }
+        }
+        else//El menor se asigno pero el patch no.
+        {
+            return false;
+        }
+                
+        //std::cout << "no cumple" << std::endl;
+        return false;
+    }
         const std::string& Version::getName() const
         {
                 return name;
@@ -240,13 +314,13 @@ namespace toolkit
         {
                 this->major = major;
                 this->minor = minor;
-                patch = 0;
+                patch = -1;
         }
         void Version::setNumbers(short major)
         {
                 this->major = major;
-                minor = 0;
-                patch = 0;
+                minor = -1;
+                patch = -1;
         }
         void Version::setStage(Stage stage)
         {
@@ -284,7 +358,7 @@ namespace toolkit
     {
 		this->major = major;
 		this->minor = minor;
-		patch = 0;
+		patch = -1;
 		stage = unknown;
         build = (unsigned long)0;
         name = "";
@@ -360,6 +434,12 @@ namespace toolkit
                 ver += " ";
                 ver += std::to_string(build.getUL());	
             }
+        }
+        else if(build.getType() == Build::etype::version)
+        {
+            
+            ver += " ";
+            ver += build.getVersion()->toString(formato);
         }
         if(name.size() > 0)
         {
