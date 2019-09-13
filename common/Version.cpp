@@ -101,6 +101,44 @@ namespace toolkit
         build = (unsigned long)0;
         name = "";
     }
+    bool Version::operator !=(const Version& v)
+    {
+        if(major == v.major)
+        {
+            return false;
+        }
+        
+        if(minor == v.minor)
+        {
+            return false;
+        }
+        
+        if(patch == v.patch)
+        {
+            return false;
+        }
+        
+        return true;
+    }
+    bool Version::operator ==(const Version& v)
+    {
+        if(major != v.major)
+        {
+            return false;
+        }
+        
+        if(minor != v.minor)
+        {
+            return false;
+        }
+        
+        if(patch != v.patch)
+        {
+            return false;
+        }
+        
+        return true;
+    }
         bool Version::operator <(const Version& v)
         {                              
                 //por numeros

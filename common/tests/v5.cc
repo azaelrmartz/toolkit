@@ -160,6 +160,24 @@ void testComparators()
     {
         CU_ASSERT(true);
     }
+    
+    
+    if(ver5 == ver6)
+    {
+        CU_ASSERT(true);
+    }
+    else
+    {
+        CU_ASSERT(false);
+    }
+    if(ver5 != ver6)
+    {
+        CU_ASSERT(true);
+    }
+    else
+    {
+        CU_ASSERT(false);
+    }
 }
 void testVersionGeneric()
 {
