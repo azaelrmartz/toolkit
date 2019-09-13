@@ -2,6 +2,8 @@
 #define TOOLKIT_COMMON_VERSION_HPP
 #include <string>
 
+#include <vector>
+
 #include "Error.hpp"
 #include "Object.hpp"
 
@@ -53,7 +55,29 @@ namespace toolkit
 			ONLY_NUMBERS
 		};
 		
-	private:	
+	private:
+        class Build
+        {
+        public:
+            union types
+            {
+                unsigned long ul;
+                //Version* version;
+                //std::vector<Version*> versions;
+                //std::string* str;
+            };
+            enum etype
+            {
+                ul,
+                version,
+                vector
+            };
+            types ts;
+            etype et;
+        public:
+            Build& operator =(unsigned long);
+            
+        };
 		/**
 		* \brief Número major
 		* */
@@ -69,7 +93,7 @@ namespace toolkit
 		/**
 		* \brief Build del projecto(solose acepta un numero intero largo)
 		* */
-		unsigned long build;
+		Build build;
 		/**
 		* \brief Fase del proyecto
 		* */

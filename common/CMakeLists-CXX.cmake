@@ -1,4 +1,4 @@
-PROJECT(octetos-toolkit-common-c++ VERSION 5.1.0 DESCRIPTION "Libreria C++ para soporte no especificado" HOMEPAGE_URL "https://github.com/azaeldevel/toolkit.git" LANGUAGES CXX)
+PROJECT(octetos-toolkit-common-c++ VERSION 5.2.0.1 DESCRIPTION "Libreria C++ para soporte no especificado" HOMEPAGE_URL "https://github.com/azaeldevel/toolkit.git" LANGUAGES CXX)
 
 EXECUTE_PROCESS(COMMAND date +"%Y%m%d%H%M%S" OUTPUT_VARIABLE OTKCMCC_VERSION_BUILD)
 if(NOT OCTKCMCC_VERSION_STAGE)

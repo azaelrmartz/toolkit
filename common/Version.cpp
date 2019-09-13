@@ -13,6 +13,12 @@ namespace octetos
 {
 namespace toolkit
 {
+    
+    Version::Build& Version::Build::operator =(unsigned long ul)
+    {
+        ts.ul = ul;
+        et = Build::etype::ul;
+    }
         Version::InvalidComparison::InvalidComparison(const std::string& msg):Error(msg,Error::ERROR_VERSION_INVALID_COMPARISON)
         {
                 
@@ -157,8 +163,15 @@ namespace toolkit
         }
 	unsigned long Version::getBuild() const
 	{
-                return build;
+        if(build.et == Build::etype::ul)
+        {
+                return build.ts.ul;
         }
+        else
+        {
+            throw Error("El tipo de este dato no es 'unsigned long'",0);
+        }
+    }
         Version::Stage Version::getStage() const
         {
                 return stage;
@@ -286,17 +299,19 @@ namespace toolkit
 							break;							
 		}
 
-		if(build > 0)
-                {
-                        ver += " ";
-                        ver += std::to_string(build);	
-                }
-                
-                if(name.size() > 0)
-                {
-                        ver += " ";
-                        ver += name;
-                }
+		if(build.et == Build::etype::ul)
+        {
+            if(build.ts.ul > 0)
+            {
+                ver += " ";
+                ver += std::to_string(build.ts.ul);	
+            }
+        }
+        if(name.size() > 0)
+        {
+            ver += " ";
+            ver += name;
+        }
                 
 		return ver;
 	}
