@@ -156,9 +156,12 @@ libtoolkit_common_cpp_la_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CXX \
 	$(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=link $(CXXLD) \
 	$(libtoolkit_common_cpp_la_CXXFLAGS) $(CXXFLAGS) \
 	$(libtoolkit_common_cpp_la_LDFLAGS) $(LDFLAGS) -o $@
-am_developing_OBJECTS = main.$(OBJEXT)
+am_developing_OBJECTS = developing-main.$(OBJEXT)
 developing_OBJECTS = $(am_developing_OBJECTS)
 developing_DEPENDENCIES = libtoolkit-common-cpp.la
+developing_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) \
+	$(LIBTOOLFLAGS) --mode=link $(CXXLD) $(developing_CXXFLAGS) \
+	$(CXXFLAGS) $(AM_LDFLAGS) $(LDFLAGS) -o $@
 AM_V_P = $(am__v_P_@AM_V@)
 am__v_P_ = $(am__v_P_@AM_DEFAULT_V@)
 am__v_P_0 = false
@@ -174,13 +177,13 @@ am__v_at_1 =
 DEFAULT_INCLUDES = -I.@am__isrc@
 depcomp = $(SHELL) $(top_srcdir)/depcomp
 am__maybe_remake_depfiles = depfiles
-am__depfiles_remade = ./$(DEPDIR)/libtoolkit_common_cpp_la-Error.Plo \
+am__depfiles_remade = ./$(DEPDIR)/developing-main.Po \
+	./$(DEPDIR)/libtoolkit_common_cpp_la-Error.Plo \
 	./$(DEPDIR)/libtoolkit_common_cpp_la-Message.Plo \
 	./$(DEPDIR)/libtoolkit_common_cpp_la-Object.Plo \
 	./$(DEPDIR)/libtoolkit_common_cpp_la-Version-parser.Plo \
 	./$(DEPDIR)/libtoolkit_common_cpp_la-Version.Plo \
-	./$(DEPDIR)/libtoolkit_common_cpp_la-common.Plo \
-	./$(DEPDIR)/main.Po
+	./$(DEPDIR)/libtoolkit_common_cpp_la-common.Plo
 am__mv = mv -f
 CXXCOMPILE = $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) \
 	$(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS)
@@ -439,7 +442,6 @@ pdfdir = @pdfdir@
 prefix = @prefix@
 program_transform_name = @program_transform_name@
 psdir = @psdir@
-runstatedir = @runstatedir@
 sbindir = @sbindir@
 sharedstatedir = @sharedstatedir@
 srcdir = @srcdir@
@@ -470,7 +472,7 @@ lib_LTLIBRARIES = \
 
 libtoolkit_common_cpp_la_LIBADD = version-reader/libparsercpp.la
 #libtoolkit_common_cpp_la_CPPFLAGS=-fPIC -Wl,-Bsymbolic 
-libtoolkit_common_cpp_la_CXXFLAGS = -fPIC -Wl,-Bsymbolic -I$(top_srcdir)/version-reader  -I$(top_builddir)/version-reader 
+libtoolkit_common_cpp_la_CXXFLAGS = -DENABLED_AUTOT -fPIC -Wl,-Bsymbolic -I$(top_srcdir)/version-reader  -I$(top_builddir)/version-reader 
 libtoolkit_common_cpp_la_LDFLAGS = -shared -fPIC -Wl,-Bsymbolic -version-info `$(top_srcdir)/versionInfo.sh toolkit-common-c++ --dd`
 libtoolkit_common_cpp_la_SOURCES = \
 	common.cpp \
@@ -480,7 +482,8 @@ libtoolkit_common_cpp_la_SOURCES = \
 	Version.cpp\
 	Version-parser.cpp   
 
-developing_LDADD = libtoolkit-common-cpp.la
+developing_CXXFLAGS = -DENABLED_AUTOT
+developing_LDADD = libtoolkit-common-cpp.la 
 developing_SOURCES = \
 	main.cpp
 
@@ -632,7 +635,7 @@ libtoolkit-common-cpp.la: $(libtoolkit_common_cpp_la_OBJECTS) $(libtoolkit_commo
 
 developing$(EXEEXT): $(developing_OBJECTS) $(developing_DEPENDENCIES) $(EXTRA_developing_DEPENDENCIES) 
 	@rm -f developing$(EXEEXT)
-	$(AM_V_CXXLD)$(CXXLINK) $(developing_OBJECTS) $(developing_LDADD) $(LIBS)
+	$(AM_V_CXXLD)$(developing_LINK) $(developing_OBJECTS) $(developing_LDADD) $(LIBS)
 
 mostlyclean-compile:
 	-rm -f *.$(OBJEXT)
@@ -640,13 +643,13 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/developing-main.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libtoolkit_common_cpp_la-Error.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libtoolkit_common_cpp_la-Message.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libtoolkit_common_cpp_la-Object.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libtoolkit_common_cpp_la-Version-parser.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libtoolkit_common_cpp_la-Version.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libtoolkit_common_cpp_la-common.Plo@am__quote@ # am--include-marker
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/main.Po@am__quote@ # am--include-marker
 
 $(am__depfiles_remade):
 	@$(MKDIR_P) $(@D)
@@ -716,6 +719,20 @@ libtoolkit_common_cpp_la-Version-parser.lo: Version-parser.cpp
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='Version-parser.cpp' object='libtoolkit_common_cpp_la-Version-parser.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libtoolkit_common_cpp_la_CXXFLAGS) $(CXXFLAGS) -c -o libtoolkit_common_cpp_la-Version-parser.lo `test -f 'Version-parser.cpp' || echo '$(srcdir)/'`Version-parser.cpp
+
+developing-main.o: main.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(developing_CXXFLAGS) $(CXXFLAGS) -MT developing-main.o -MD -MP -MF $(DEPDIR)/developing-main.Tpo -c -o developing-main.o `test -f 'main.cpp' || echo '$(srcdir)/'`main.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/developing-main.Tpo $(DEPDIR)/developing-main.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='main.cpp' object='developing-main.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(developing_CXXFLAGS) $(CXXFLAGS) -c -o developing-main.o `test -f 'main.cpp' || echo '$(srcdir)/'`main.cpp
+
+developing-main.obj: main.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(developing_CXXFLAGS) $(CXXFLAGS) -MT developing-main.obj -MD -MP -MF $(DEPDIR)/developing-main.Tpo -c -o developing-main.obj `if test -f 'main.cpp'; then $(CYGPATH_W) 'main.cpp'; else $(CYGPATH_W) '$(srcdir)/main.cpp'; fi`
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/developing-main.Tpo $(DEPDIR)/developing-main.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='main.cpp' object='developing-main.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(developing_CXXFLAGS) $(CXXFLAGS) -c -o developing-main.obj `if test -f 'main.cpp'; then $(CYGPATH_W) 'main.cpp'; else $(CYGPATH_W) '$(srcdir)/main.cpp'; fi`
 
 mostlyclean-libtool:
 	-rm -f *.lo
@@ -1092,13 +1109,13 @@ clean-am: clean-binPROGRAMS clean-generic clean-libLTLIBRARIES \
 
 distclean: distclean-recursive
 	-rm -f $(am__CONFIG_DISTCLEAN_FILES)
-		-rm -f ./$(DEPDIR)/libtoolkit_common_cpp_la-Error.Plo
+		-rm -f ./$(DEPDIR)/developing-main.Po
+	-rm -f ./$(DEPDIR)/libtoolkit_common_cpp_la-Error.Plo
 	-rm -f ./$(DEPDIR)/libtoolkit_common_cpp_la-Message.Plo
 	-rm -f ./$(DEPDIR)/libtoolkit_common_cpp_la-Object.Plo
 	-rm -f ./$(DEPDIR)/libtoolkit_common_cpp_la-Version-parser.Plo
 	-rm -f ./$(DEPDIR)/libtoolkit_common_cpp_la-Version.Plo
 	-rm -f ./$(DEPDIR)/libtoolkit_common_cpp_la-common.Plo
-	-rm -f ./$(DEPDIR)/main.Po
 	-rm -f Makefile
 distclean-am: clean-am distclean-compile distclean-generic \
 	distclean-hdr distclean-libtool distclean-tags
@@ -1146,13 +1163,13 @@ installcheck-am:
 maintainer-clean: maintainer-clean-recursive
 	-rm -f $(am__CONFIG_DISTCLEAN_FILES)
 	-rm -rf $(top_srcdir)/autom4te.cache
-		-rm -f ./$(DEPDIR)/libtoolkit_common_cpp_la-Error.Plo
+		-rm -f ./$(DEPDIR)/developing-main.Po
+	-rm -f ./$(DEPDIR)/libtoolkit_common_cpp_la-Error.Plo
 	-rm -f ./$(DEPDIR)/libtoolkit_common_cpp_la-Message.Plo
 	-rm -f ./$(DEPDIR)/libtoolkit_common_cpp_la-Object.Plo
 	-rm -f ./$(DEPDIR)/libtoolkit_common_cpp_la-Version-parser.Plo
 	-rm -f ./$(DEPDIR)/libtoolkit_common_cpp_la-Version.Plo
 	-rm -f ./$(DEPDIR)/libtoolkit_common_cpp_la-common.Plo
-	-rm -f ./$(DEPDIR)/main.Po
 	-rm -f Makefile
 maintainer-clean-am: distclean-am maintainer-clean-generic
 

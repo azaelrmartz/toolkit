@@ -28,7 +28,7 @@ lib_LTLIBRARIES = \
 
 libtoolkit_common_cpp_la_LIBADD = version-reader/libparsercpp.la
 #libtoolkit_common_cpp_la_CPPFLAGS=-fPIC -Wl,-Bsymbolic 
-libtoolkit_common_cpp_la_CXXFLAGS=-fPIC -Wl,-Bsymbolic -I$(top_srcdir)/version-reader  -I$(top_builddir)/version-reader 
+libtoolkit_common_cpp_la_CXXFLAGS= -DENABLED_AUTOT -fPIC -Wl,-Bsymbolic -I$(top_srcdir)/version-reader  -I$(top_builddir)/version-reader 
 libtoolkit_common_cpp_la_LDFLAGS= -shared -fPIC -Wl,-Bsymbolic -version-info `$(top_srcdir)/versionInfo.sh toolkit-common-c++ --dd`
 
 libtoolkit_common_cpp_la_SOURCES =  \
@@ -41,8 +41,8 @@ libtoolkit_common_cpp_la_SOURCES =  \
 
 bin_PROGRAMS =  \
 	developing
-
-developing_LDADD =  libtoolkit-common-cpp.la
+developing_CXXFLAGS = -DENABLED_AUTOT
+developing_LDADD =  libtoolkit-common-cpp.la 
 
 developing_SOURCES =  \
 	main.cpp

@@ -417,6 +417,10 @@ namespace toolkit
         build = (unsigned long)0;
         name = "";
     }
+	void Version::set(const std::string& str)
+	{
+		fromString(str);
+	}
 	Version::Version()
 	{
                 init();
