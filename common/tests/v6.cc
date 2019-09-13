@@ -195,7 +195,7 @@ void testVersionGeneric()
 	CU_ASSERT(ver.getMinor() == -1)
 	CU_ASSERT(ver.getPatch() == -1)	
         CU_ASSERT(ver.getStage() == octetos::toolkit::Version::unknown)
-        CU_ASSERT(ver.getBuild() == 0);
+        CU_ASSERT(ver.getBuildUL() == 0);
         CU_ASSERT(ver.getName().size() == 0);
         
         std::string fileNameVersion = "ver";
@@ -207,7 +207,7 @@ void testVersionGeneric()
         CU_ASSERT(ver2.getMinor() == 36);
         CU_ASSERT(ver2.getPatch() == 56);
         CU_ASSERT(ver2.getStage() == octetos::toolkit::Version::snapshot);
-        CU_ASSERT(ver2.getBuild() == 12345678901233);
+        CU_ASSERT(ver2.getBuildUL() == 12345678901233);
         CU_ASSERT(ver2.getName().compare("devtest") == 0);   
         octetos::toolkit::Version ver3;
         CU_ASSERT(ver3.fromString("1.3.65;"));//deve aceptar ;
@@ -235,7 +235,7 @@ void testBuildExtension()
 {
     octetos::toolkit::Version ver1;
     ver1.setBuild(12345678901233);
-    CU_ASSERT(ver1.getBuild() == 12345678901233);
+    CU_ASSERT(ver1.getBuildUL() == 12345678901233);
     octetos::toolkit::Version ver2;
     ver2.setNumbers(2,36,98);
     ver2.setStage(octetos::toolkit::Version::alpha);
