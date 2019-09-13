@@ -62,11 +62,13 @@ namespace toolkit
             {
                 unsigned long ul;
                 Version* version;
+				std::string* string;
             };
             enum etype
             {
                 ul,
-                version
+                version,
+				string
             };
             
         private:
@@ -75,6 +77,7 @@ namespace toolkit
         public:
             Build& operator =(unsigned long);
             Build& operator =(Version*);
+            Build& operator =(std::string*);
             etype getType()const;
             //unsigned long operator(unsigned long)();
             unsigned long getUL()const;
@@ -103,6 +106,7 @@ namespace toolkit
 		* \brief Fase del proyecto
 		* */
 		Stage stage;
+		short stageNumber;
 		/**
 		* \brief Nombre de la version
 		* */
@@ -191,13 +195,15 @@ namespace toolkit
                  * \brief Asigna la etapa del proyecto
                  * */
 		void setStage(Stage stage);
+		void setStage(Stage stage,short number);
                 /**
                  * \brief Asigna el build de la version
                  * \details Solo se acepta un entero largo positivo. por lo que no se aceptan metadatos en el sentido convencional, tampoco tiene signifacod alguno el compracion o validaciones por lo que es libre ade asignar el valor que desea
                  * */
 		void setBuild(unsigned long);
         void setBuild(const Version&);
-        void setBuild(const Version*);
+        //void setBuild(const Version*);
+        void setBuild(const std::string&);
                 /**
                  * Asigna el nombre de la version
                  * */

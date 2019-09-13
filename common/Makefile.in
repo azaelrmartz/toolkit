@@ -92,7 +92,7 @@ PRE_UNINSTALL = :
 POST_UNINSTALL = :
 build_triplet = @build@
 host_triplet = @host@
-bin_PROGRAMS = developing$(EXEEXT)
+bin_PROGRAMS = developing$(EXEEXT) testing-v5$(EXEEXT)
 subdir = .
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 am__aclocal_m4_deps = $(top_srcdir)/configure.ac
@@ -162,6 +162,12 @@ developing_DEPENDENCIES = libtoolkit-common-cpp.la
 developing_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) \
 	$(LIBTOOLFLAGS) --mode=link $(CXXLD) $(developing_CXXFLAGS) \
 	$(CXXFLAGS) $(AM_LDFLAGS) $(LDFLAGS) -o $@
+am_testing_v5_OBJECTS = testing_v5-v5.$(OBJEXT)
+testing_v5_OBJECTS = $(am_testing_v5_OBJECTS)
+testing_v5_DEPENDENCIES = libtoolkit-common-cpp.la
+testing_v5_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) \
+	$(LIBTOOLFLAGS) --mode=link $(CXXLD) $(testing_v5_CXXFLAGS) \
+	$(CXXFLAGS) $(AM_LDFLAGS) $(LDFLAGS) -o $@
 AM_V_P = $(am__v_P_@AM_V@)
 am__v_P_ = $(am__v_P_@AM_DEFAULT_V@)
 am__v_P_0 = false
@@ -183,7 +189,8 @@ am__depfiles_remade = ./$(DEPDIR)/developing-main.Po \
 	./$(DEPDIR)/libtoolkit_common_cpp_la-Object.Plo \
 	./$(DEPDIR)/libtoolkit_common_cpp_la-Version-parser.Plo \
 	./$(DEPDIR)/libtoolkit_common_cpp_la-Version.Plo \
-	./$(DEPDIR)/libtoolkit_common_cpp_la-common.Plo
+	./$(DEPDIR)/libtoolkit_common_cpp_la-common.Plo \
+	./$(DEPDIR)/testing_v5-v5.Po
 am__mv = mv -f
 CXXCOMPILE = $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) \
 	$(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS)
@@ -203,9 +210,10 @@ AM_V_CXXLD = $(am__v_CXXLD_@AM_V@)
 am__v_CXXLD_ = $(am__v_CXXLD_@AM_DEFAULT_V@)
 am__v_CXXLD_0 = @echo "  CXXLD   " $@;
 am__v_CXXLD_1 = 
-SOURCES = $(libtoolkit_common_cpp_la_SOURCES) $(developing_SOURCES)
+SOURCES = $(libtoolkit_common_cpp_la_SOURCES) $(developing_SOURCES) \
+	$(testing_v5_SOURCES)
 DIST_SOURCES = $(libtoolkit_common_cpp_la_SOURCES) \
-	$(developing_SOURCES)
+	$(developing_SOURCES) $(testing_v5_SOURCES)
 RECURSIVE_TARGETS = all-recursive check-recursive cscopelist-recursive \
 	ctags-recursive dvi-recursive html-recursive info-recursive \
 	install-data-recursive install-dvi-recursive \
@@ -467,6 +475,7 @@ INTLTOOL_FILES = intltool-extract.in \
 EXTRA_DIST = \
 	$(INTLTOOL_FILES)
 
+AM_CPPFLAGS = $(cunit_CFLAGS) 
 lib_LTLIBRARIES = \
 	libtoolkit-common-cpp.la
 
@@ -487,6 +496,13 @@ developing_LDADD = libtoolkit-common-cpp.la
 developing_SOURCES = \
 	main.cpp
 
+testing_v5_CXXFLAGS = -DENABLED_AUTOT 
+testing_v5_LDADD = libtoolkit-common-cpp.la \
+	$(cunit_LIBS) 
+
+testing_v5_SOURCES = \
+	tests/v5.cc
+
 DISTCLEANFILES = intltool-extract \
 	intltool-merge \
 	intltool-update \
@@ -496,7 +512,7 @@ all: config.h
 	$(MAKE) $(AM_MAKEFLAGS) all-recursive
 
 .SUFFIXES:
-.SUFFIXES: .cpp .lo .o .obj
+.SUFFIXES: .cc .cpp .lo .o .obj
 am--refresh: Makefile
 	@:
 $(srcdir)/Makefile.in:  $(srcdir)/Makefile.am  $(am__configure_deps)
@@ -637,6 +653,10 @@ developing$(EXEEXT): $(developing_OBJECTS) $(developing_DEPENDENCIES) $(EXTRA_de
 	@rm -f developing$(EXEEXT)
 	$(AM_V_CXXLD)$(developing_LINK) $(developing_OBJECTS) $(developing_LDADD) $(LIBS)
 
+testing-v5$(EXEEXT): $(testing_v5_OBJECTS) $(testing_v5_DEPENDENCIES) $(EXTRA_testing_v5_DEPENDENCIES) 
+	@rm -f testing-v5$(EXEEXT)
+	$(AM_V_CXXLD)$(testing_v5_LINK) $(testing_v5_OBJECTS) $(testing_v5_LDADD) $(LIBS)
+
 mostlyclean-compile:
 	-rm -f *.$(OBJEXT)
 
@@ -650,6 +670,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libtoolkit_common_cpp_la-Version-parser.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libtoolkit_common_cpp_la-Version.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libtoolkit_common_cpp_la-common.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/testing_v5-v5.Po@am__quote@ # am--include-marker
 
 $(am__depfiles_remade):
 	@$(MKDIR_P) $(@D)
@@ -657,21 +678,21 @@ $(am__depfiles_remade):
 
 am--depfiles: $(am__depfiles_remade)
 
-.cpp.o:
+.cc.o:
 @am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXXCOMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<
 @am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/$*.Tpo $(DEPDIR)/$*.Po
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='$<' object='$@' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXXCOMPILE) -c -o $@ $<
 
-.cpp.obj:
+.cc.obj:
 @am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXXCOMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ `$(CYGPATH_W) '$<'`
 @am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/$*.Tpo $(DEPDIR)/$*.Po
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='$<' object='$@' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXXCOMPILE) -c -o $@ `$(CYGPATH_W) '$<'`
 
-.cpp.lo:
+.cc.lo:
 @am__fastdepCXX_TRUE@	$(AM_V_CXX)$(LTCXXCOMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<
 @am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/$*.Tpo $(DEPDIR)/$*.Plo
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='$<' object='$@' libtool=yes @AMDEPBACKSLASH@
@@ -733,6 +754,41 @@ developing-main.obj: main.cpp
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='main.cpp' object='developing-main.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(developing_CXXFLAGS) $(CXXFLAGS) -c -o developing-main.obj `if test -f 'main.cpp'; then $(CYGPATH_W) 'main.cpp'; else $(CYGPATH_W) '$(srcdir)/main.cpp'; fi`
+
+testing_v5-v5.o: tests/v5.cc
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(testing_v5_CXXFLAGS) $(CXXFLAGS) -MT testing_v5-v5.o -MD -MP -MF $(DEPDIR)/testing_v5-v5.Tpo -c -o testing_v5-v5.o `test -f 'tests/v5.cc' || echo '$(srcdir)/'`tests/v5.cc
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/testing_v5-v5.Tpo $(DEPDIR)/testing_v5-v5.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='tests/v5.cc' object='testing_v5-v5.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(testing_v5_CXXFLAGS) $(CXXFLAGS) -c -o testing_v5-v5.o `test -f 'tests/v5.cc' || echo '$(srcdir)/'`tests/v5.cc
+
+testing_v5-v5.obj: tests/v5.cc
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(testing_v5_CXXFLAGS) $(CXXFLAGS) -MT testing_v5-v5.obj -MD -MP -MF $(DEPDIR)/testing_v5-v5.Tpo -c -o testing_v5-v5.obj `if test -f 'tests/v5.cc'; then $(CYGPATH_W) 'tests/v5.cc'; else $(CYGPATH_W) '$(srcdir)/tests/v5.cc'; fi`
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/testing_v5-v5.Tpo $(DEPDIR)/testing_v5-v5.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='tests/v5.cc' object='testing_v5-v5.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(testing_v5_CXXFLAGS) $(CXXFLAGS) -c -o testing_v5-v5.obj `if test -f 'tests/v5.cc'; then $(CYGPATH_W) 'tests/v5.cc'; else $(CYGPATH_W) '$(srcdir)/tests/v5.cc'; fi`
+
+.cpp.o:
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXXCOMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/$*.Tpo $(DEPDIR)/$*.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='$<' object='$@' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXXCOMPILE) -c -o $@ $<
+
+.cpp.obj:
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXXCOMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ `$(CYGPATH_W) '$<'`
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/$*.Tpo $(DEPDIR)/$*.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='$<' object='$@' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXXCOMPILE) -c -o $@ `$(CYGPATH_W) '$<'`
+
+.cpp.lo:
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(LTCXXCOMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/$*.Tpo $(DEPDIR)/$*.Plo
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='$<' object='$@' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(LTCXXCOMPILE) -c -o $@ $<
 
 mostlyclean-libtool:
 	-rm -f *.lo
@@ -1116,6 +1172,7 @@ distclean: distclean-recursive
 	-rm -f ./$(DEPDIR)/libtoolkit_common_cpp_la-Version-parser.Plo
 	-rm -f ./$(DEPDIR)/libtoolkit_common_cpp_la-Version.Plo
 	-rm -f ./$(DEPDIR)/libtoolkit_common_cpp_la-common.Plo
+	-rm -f ./$(DEPDIR)/testing_v5-v5.Po
 	-rm -f Makefile
 distclean-am: clean-am distclean-compile distclean-generic \
 	distclean-hdr distclean-libtool distclean-tags
@@ -1170,6 +1227,7 @@ maintainer-clean: maintainer-clean-recursive
 	-rm -f ./$(DEPDIR)/libtoolkit_common_cpp_la-Version-parser.Plo
 	-rm -f ./$(DEPDIR)/libtoolkit_common_cpp_la-Version.Plo
 	-rm -f ./$(DEPDIR)/libtoolkit_common_cpp_la-common.Plo
+	-rm -f ./$(DEPDIR)/testing_v5-v5.Po
 	-rm -f Makefile
 maintainer-clean-am: distclean-am maintainer-clean-generic
 

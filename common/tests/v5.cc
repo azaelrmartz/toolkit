@@ -5,7 +5,13 @@
 
 
 #include "../common.hpp"
-#include "../packInfo.hpp"
+#ifdef ENABLED_CMAKE
+	#include "packInfo.hpp"
+#endif
+#ifdef ENABLED_AUTOT
+	#include "config.h"
+#endif
+//#include "common.hpp"
 
 
 static std::string  rootDir;
@@ -164,11 +170,11 @@ void testComparators()
     
     if(ver5 == ver6)
     {
-        CU_ASSERT(true);
+        CU_ASSERT(false);
     }
     else
     {
-        CU_ASSERT(false);
+        CU_ASSERT(true);
     }
     if(ver5 != ver6)
     {
@@ -237,7 +243,7 @@ void testBuildExtension()
     ver3.setNumbers(1);
     ver3.setStage(octetos::toolkit::Version::release);
     ver2.setBuild(ver3);
-    std::cout << std::endl << "Build complejo " << ver2.toString() << std::endl; 
+    std::cout << std::endl << "Build complejo " << ver2.toString() << std::endl;
 }
 int main(int argc, char *argv[])
 {

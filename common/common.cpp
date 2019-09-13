@@ -31,7 +31,12 @@ namespace toolkit
 
 	std::string getPakageName()
 	{
+        #ifdef ENABLED_CMAKE
+        return PACKAGE_NAME;
+        #endif
+        #ifdef ENABLED_AUTOT
 		return PACKAGE;
+        #endif
 	}
 	
 	Package getPackageInfo()

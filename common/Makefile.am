@@ -21,6 +21,8 @@ INTLTOOL_FILES = intltool-extract.in \
 EXTRA_DIST = \
 	$(INTLTOOL_FILES)
 
+AM_CPPFLAGS = $(cunit_CFLAGS) 
+
 
 lib_LTLIBRARIES = \
 	libtoolkit-common-cpp.la
@@ -40,12 +42,22 @@ libtoolkit_common_cpp_la_SOURCES =  \
 	Version-parser.cpp   
 
 bin_PROGRAMS =  \
-	developing
+	developing \
+	testing-v5
 developing_CXXFLAGS = -DENABLED_AUTOT
 developing_LDADD =  libtoolkit-common-cpp.la 
 
 developing_SOURCES =  \
 	main.cpp
+
+
+	
+testing_v5_CXXFLAGS = -DENABLED_AUTOT 
+testing_v5_LDADD = libtoolkit-common-cpp.la \
+	$(cunit_LIBS) 
+
+testing_v5_SOURCES =  \
+	tests/v5.cc
 
 DISTCLEANFILES = intltool-extract \
 	intltool-merge \

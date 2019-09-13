@@ -53,6 +53,13 @@ namespace toolkit
         
         return *this;
     }
+    Version::Build& Version::Build::operator =(std::string* str)
+    {
+        val.string = str;
+        type = Build::etype::string;
+        
+        return *this;
+    }
     
     
     
@@ -79,11 +86,16 @@ namespace toolkit
         Version* ver = new Version(v);
         this->build = ver;
     }
-    void Version::setBuild(const Version* v)
+    void Version::setBuild(const std::string& v)
+    {
+        std::string* str = new std::string(v);
+        this->build = str;
+    }
+    /*void Version::setBuild(const Version* v)
     {
         Version* ver = new Version(v);
         this->build = ver;        
-    }    
+    }  */  
         Version::InvalidComparison::InvalidComparison(const std::string& msg):Error(msg,Error::ERROR_VERSION_INVALID_COMPARISON)
         {
                 
@@ -98,22 +110,13 @@ namespace toolkit
 		minor = -1;
 		patch = -1;
 		stage = unknown;
+		stageNumber = -1;
         build = (unsigned long)0;
         name = "";
     }
     bool Version::operator !=(const Version& v)
     {
-        if(major == v.major)
-        {
-            return false;
-        }
-        
-        if(minor == v.minor)
-        {
-            return false;
-        }
-        
-        if(patch == v.patch)
+        if(major == v.major && minor == v.minor && patch == v.patch)
         {
             return false;
         }
@@ -122,22 +125,12 @@ namespace toolkit
     }
     bool Version::operator ==(const Version& v)
     {
-        if(major != v.major)
+        if(major == v.major && minor == v.minor && patch == v.patch)
         {
-            return false;
+            return true;
         }
         
-        if(minor != v.minor)
-        {
-            return false;
-        }
-        
-        if(patch != v.patch)
-        {
-            return false;
-        }
-        
-        return true;
+        return false;
     }
         bool Version::operator <(const Version& v)
         {                              
@@ -285,6 +278,7 @@ namespace toolkit
             throw InvalidComparison("Operación invalidad, está comprando objetos Version sin antes asignarles valores.");
         }
                
+               
         if(minor > -1 and v.minor > -1)
         {
             if(minor > v.minor)
@@ -301,10 +295,8 @@ namespace toolkit
         {
             return true;
         }
-        else
-        {
-            return false;
-        }
+        
+        
         if(patch > -1 and v.patch > -1)
         {
             if(patch >= v.patch)
@@ -376,10 +368,15 @@ namespace toolkit
                 minor = -1;
                 patch = -1;
         }
-        void Version::setStage(Stage stage)
-        {
-                this->stage = stage;
-        }
+ 	void Version::setStage(Stage stage)
+	{
+		this->stage = stage;
+	}
+ 	void Version::setStage(Stage stage,short number)
+	{
+		this->stage = stage;
+		this->stageNumber = number;
+	}
     void Version::setBuild(unsigned long build)
     {
         this->build = build;
