@@ -9,6 +9,7 @@
 
 
 static std::string  rootDir;
+static int majorNumber;
 
 /* Pointer to the file used by the tests. */
 static FILE* temp_file = NULL;
@@ -113,8 +114,11 @@ void testVersionGeneric()
         CU_ASSERT(ver.getBuild() == 0);
         CU_ASSERT(ver.getName().size() == 0);
         
+        std::string fileNameVersion = "ver";
+        fileNameVersion += std::to_string(majorNumber);
+        
         octetos::toolkit::Version ver2;
-        CU_ASSERT(ver2.fromFile("../tests/ver"));
+        CU_ASSERT(ver2.fromFile(fileNameVersion));
         CU_ASSERT(ver2.getMajor() == 12);
         CU_ASSERT(ver2.getMinor() == 36);
         CU_ASSERT(ver2.getPatch() == 56);
@@ -143,15 +147,23 @@ void testValidStatement()
         CU_ASSERT(octetos::toolkit::Version::valid("valid build = 12389678111233"));
 }
 
+void testBuildExtension()
+{
+    octetos::toolkit::Version ver1;
+    ver1.setBuild(12345678901233);
+    CU_ASSERT(ver1.getBuild() == 12345678901233);    
+}
 int main(int argc, char *argv[])
 {
-	CU_pSuite pSuite = NULL;
-	
-	/* initialize the CUnit test registry */
-	if (CUE_SUCCESS != CU_initialize_registry()) return CU_get_error();
 
 	octetos::toolkit::Package packinfo = octetos::toolkit::getPackageInfo();
 	octetos::toolkit::Version& ver = packinfo.version;
+    
+	CU_pSuite pSuite = NULL;
+	majorNumber = ver.getMajor();
+	/* initialize the CUnit test registry */
+	if (CUE_SUCCESS != CU_initialize_registry()) return CU_get_error();
+
 	std::string& pkName = packinfo.name;
 	std::string classVersionString = std::string("Probando ") + pkName + " " + ver.toString() + "\n" + packinfo.licence.getBrief() + "\n" + packinfo.brief + "\n";
 	pSuite = CU_add_suite(classVersionString.c_str(), init_toolkit_common, clean_toolkit_common);
@@ -167,13 +179,20 @@ int main(int argc, char *argv[])
 		return CU_get_error();
 	}
 	
-	if ((NULL == CU_add_test(pSuite, "Pruebas de comparacion", testComparators)))
+	if ((NULL == CU_add_test(pSuite, "Criterios de comparación", testComparators)))
 	{
 		CU_cleanup_registry();
 		return CU_get_error();
 	}
 	
 	if ((NULL == CU_add_test(pSuite, "Pruebas de validadacion", testValidStatement)))
+	{
+		CU_cleanup_registry();
+		return CU_get_error();
+	}
+	
+	
+	if ((NULL == CU_add_test(pSuite, "Extención de Campo Build.", testBuildExtension)))
 	{
 		CU_cleanup_registry();
 		return CU_get_error();

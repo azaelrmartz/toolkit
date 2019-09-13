@@ -55,29 +55,34 @@ namespace toolkit
 			ONLY_NUMBERS
 		};
 		
-	private:
         class Build
         {
         public:
             union types
             {
                 unsigned long ul;
-                //Version* version;
-                //std::vector<Version*> versions;
-                //std::string* str;
+                Version* version;
             };
             enum etype
             {
                 ul,
-                version,
-                vector
+                version
             };
-            types ts;
-            etype et;
+            
+        private:
+            types val;
+            etype type;
         public:
             Build& operator =(unsigned long);
+            Build& operator =(Version*);
+            etype getType()const;
+            //unsigned long operator(unsigned long)();
+            unsigned long getUL()const;
+            Version* getVersion()const;
             
         };
+        
+	private:
 		/**
 		* \brief Número major
 		* */
@@ -150,6 +155,9 @@ namespace toolkit
                 /**
                  * \brief Simple mente limpa las variables intenas
                  * */
+        ~Version();
+        Version(const Version*);
+        Version(const Version&);
 		Version();
                 /**
                  * \brief Asigna numero major y menor. A patch se asigna a 0, los restantas datos son limpiados.
@@ -183,7 +191,9 @@ namespace toolkit
                  * \brief Asigna el build de la version
                  * \details Solo se acepta un entero largo positivo. por lo que no se aceptan metadatos en el sentido convencional, tampoco tiene signifacod alguno el compracion o validaciones por lo que es libre ade asignar el valor que desea
                  * */
-		void setBuild(unsigned long build);
+		void setBuild(unsigned long);
+        void setBuild(const Version&);
+        void setBuild(const Version*);
                 /**
                  * Asigna el nombre de la version
                  * */

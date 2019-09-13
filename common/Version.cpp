@@ -13,12 +13,73 @@ namespace octetos
 {
 namespace toolkit
 {
-    
+    Version* Version::Build::getVersion() const
+    {
+        if(type == etype::version)
+        {
+                return val.version;
+        }
+        else
+        {
+            throw Error("El tipo de este dato no es 'Version'",0);
+        }
+    }
+    unsigned long Version::Build::getUL() const
+    {
+        if(type == etype::ul)
+        {
+                return val.ul;
+        }
+        else
+        {
+            throw Error("El tipo de este dato no es 'unsigned long'",0);
+        }
+    }
+    Version::Build::etype Version::Build::getType()const
+    {
+        return type;
+    }    
+    Version::Build& Version::Build::operator =(Version* build)
+    {
+        val.version = build;
+        type = etype::version;
+    }
     Version::Build& Version::Build::operator =(unsigned long ul)
     {
-        ts.ul = ul;
-        et = Build::etype::ul;
+        val.ul = ul;
+        type = Build::etype::ul;
     }
+    
+    
+    
+    
+    
+
+    Version::Version(const Version* v)
+    {
+        (*this) = *v;
+    }
+    Version::Version(const Version& v)
+    {
+        (*this) = v;
+    }
+    Version::~Version()
+    {
+        if(build.getType() == Build::etype::version)
+        {
+            delete this->build.getVersion();
+        }
+    }
+    void Version::setBuild(const Version& v)
+    {
+        Version* ver = new Version(v);
+        this->build = ver;
+    }
+    void Version::setBuild(const Version* v)
+    {
+        Version* ver = new Version(v);
+        this->build = ver;        
+    }    
         Version::InvalidComparison::InvalidComparison(const std::string& msg):Error(msg,Error::ERROR_VERSION_INVALID_COMPARISON)
         {
                 
@@ -33,7 +94,7 @@ namespace toolkit
 		minor = -1;
 		patch = -1;
 		stage = unknown;
-                build = 0;
+                build = (unsigned long)0;
                 name = "";
         }
         bool Version::operator <(const Version& v)
@@ -163,14 +224,7 @@ namespace toolkit
         }
 	unsigned long Version::getBuild() const
 	{
-        if(build.et == Build::etype::ul)
-        {
-                return build.ts.ul;
-        }
-        else
-        {
-            throw Error("El tipo de este dato no es 'unsigned long'",0);
-        }
+        return build.getUL();
     }
         Version::Stage Version::getStage() const
         {
@@ -198,10 +252,10 @@ namespace toolkit
         {
                 this->stage = stage;
         }
-        void Version::setBuild(unsigned long build)
-        {
-                this->build = build;
-        }
+    void Version::setBuild(unsigned long build)
+    {
+        this->build = build;
+    }
 	short Version::getMajor() const
 	{
 		return this->major;		
@@ -218,23 +272,23 @@ namespace toolkit
 	}
 
 	Version::Version(short major,short minor,short patch)
-        {
+    {
 		this->major = major;
 		this->minor = minor;
 		this->patch = patch;
 		stage = unknown;
-                build = 0;
-                name = "";
-        }
+        build = (unsigned long)0;
+        name = "";
+    }
 	Version::Version(short major,short minor)
-        {
+    {
 		this->major = major;
 		this->minor = minor;
 		patch = 0;
 		stage = unknown;
-                build = 0;
-                name = "";
-        }
+        build = (unsigned long)0;
+        name = "";
+    }
 	Version::Version()
 	{
                 init();
@@ -299,12 +353,12 @@ namespace toolkit
 							break;							
 		}
 
-		if(build.et == Build::etype::ul)
+		if(build.getType() == Build::etype::ul)
         {
-            if(build.ts.ul > 0)
+            if(build.getUL() > 0)
             {
                 ver += " ";
-                ver += std::to_string(build.ts.ul);	
+                ver += std::to_string(build.getUL());	
             }
         }
         if(name.size() > 0)
