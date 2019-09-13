@@ -61,13 +61,13 @@ namespace toolkit
             union types
             {
                 unsigned long ul;
-                Version* version;
+                //Version* version;
 				std::string* string;
             };
             enum etype
             {
                 ul,
-                version,
+                //version,
 				string
             };
             
@@ -75,13 +75,15 @@ namespace toolkit
             types val;
             etype type;
         public:
+            ~Build();
             Build& operator =(unsigned long);
-            Build& operator =(Version*);
-            Build& operator =(std::string*);
+            //Build& operator =(Version*);
+            Build& operator =(const std::string*);
             etype getType()const;
             //unsigned long operator(unsigned long)();
             unsigned long getUL()const;
-            Version* getVersion()const;
+            //Version* getVersion()const;
+            const std::string& getString()const;
             
         };
         
@@ -201,7 +203,7 @@ namespace toolkit
                  * \details Solo se acepta un entero largo positivo. por lo que no se aceptan metadatos en el sentido convencional, tampoco tiene signifacod alguno el compracion o validaciones por lo que es libre ade asignar el valor que desea
                  * */
 		void setBuild(unsigned long);
-        void setBuild(const Version&);
+        //void setBuild(const Version&);
         //void setBuild(const Version*);
         void setBuild(const std::string&);
                 /**
