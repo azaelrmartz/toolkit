@@ -229,7 +229,7 @@ namespace toolkit
 		* */                 
 		bool fromString(const std::string& str); 
                 
-		static bool valid(const std::string& str);
+		//static bool valid(const std::string& str);
 	};
 	
 }
