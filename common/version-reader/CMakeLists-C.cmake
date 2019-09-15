@@ -2,9 +2,11 @@ CMAKE_MINIMUM_REQUIRED(VERSION 3.0)
 
 PROJECT(octetos-version-reader-c C)
 
+#set (CMAKE_C_FLAGS "-std=gnu99 ${CMAKE_C_FLAGS}")
+
 FIND_PACKAGE(BISON REQUIRED)
 FIND_PACKAGE(FLEX REQUIRED)
-BISON_TARGET(parserVersion parser.y ${CMAKE_CURRENT_BINARY_DIR}/parser.tab.c COMPILE_FLAGS "-v -W -Lc -y")
+BISON_TARGET(parserVersion parser.y ${CMAKE_CURRENT_BINARY_DIR}/parser.tab.c)
 if(BISON_parserVersion_DEFINED)
 	#MESSAGE(STATUS "Target de Bions 'parserVersion' creado.")
 else()

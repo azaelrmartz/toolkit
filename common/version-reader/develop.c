@@ -10,9 +10,11 @@
 int main()
 {
 	struct Tray ty;
-	
-	printf( "Parsre C!\n" );
-	
+		
 	parse_string(&ty,"1.0.55-alpha");
+    
+    printf( "M: %d\n",ty.version.major);
+    printf( "m: %d\n",ty.version.minor);
+    printf( "p: %d\n",ty.version.patch);
 	
 }
