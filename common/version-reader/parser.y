@@ -29,13 +29,15 @@ void end_lexical_scan(void);
 }
 
 %token
-  DOT
-  DASH
-  ENDLINE
-  SEMICOLON
-  ENDFILE
+  //DOT
+  //DASH
+  //ENDLINE
+  //SEMICOLON
+  //ENDFILE
+  ENDOFINPUT
 ;
 
+%token <stage> VALUE_DEVELOPING
 %token <stage> VALUE_SNAPSHOT
 %token <stage> VALUE_PREALPHA
 %token <stage> VALUE_ALPHA
@@ -48,7 +50,8 @@ void end_lexical_scan(void);
 %token <stage> VALUE_GA
 %token <str> VALUE_NAME
 %token <sval> VALUE_NUMBER
-%token <ulval> VALUE_BUILD
+%token <ulval> VALUE_BUILD_UL
+%token <str> VALUE_BUILD_STRING
 %token <str> NOEXPECTED
 
 %token VALID 
@@ -63,17 +66,7 @@ void end_lexical_scan(void);
 %%
 %start stmt;
 
-	stmt : version end
-	{
-		YYACCEPT;
-	}
-	|
-	version_list end
-	{
-		YYACCEPT;
-	}
-	| 
-	valid end
+	stmt : version ENDOFINPUT
 	{
 		YYACCEPT;
 	};
@@ -89,25 +82,19 @@ void end_lexical_scan(void);
 	| 
 	numbers_value stage build
 	{
-	}
-	| 
-	numbers_value stage build name
-	{
-	}
-
-	version_list : %empty | version SEMICOLON  version_list
-
+	};
+	
 	numbers_value : one_number | two_numbers | three_numbers;
 
 	one_number : VALUE_NUMBER
 	{
 		//drv.getVersion().setNumbers($1);
 	};
-	two_numbers : VALUE_NUMBER DOT VALUE_NUMBER
+	two_numbers : VALUE_NUMBER '.' VALUE_NUMBER
 	{
 		//drv.getVersion().setNumbers($1,$3);
 	};
-	three_numbers : VALUE_NUMBER DOT VALUE_NUMBER DOT VALUE_NUMBER
+	three_numbers : VALUE_NUMBER '.' VALUE_NUMBER '.' VALUE_NUMBER
 	{
 		ty->version.major = $1;
 		ty->version.minor = $3;
@@ -115,93 +102,69 @@ void end_lexical_scan(void);
 		//printf("N1: %d\n",ty->version.major);
 	};
 
-	stage : DASH VALUE_SNAPSHOT
+	stage : 
+	'-' VALUE_DEVELOPING
 	{
-			//drv.getVersion().setStage(octetos::toolkit::Version::snapshot);
+		ty->version.stage = developing;
+	}'-' VALUE_SNAPSHOT
+	{
+        ty->version.stage = snapshot;
 	}
 	| 
-	DASH VALUE_PREALPHA
+	'-' VALUE_ALPHA
 	{
-			//drv.getVersion().setStage(octetos::toolkit::Version::prealpha);
+        ty->version.stage = alpha;
 	}
 	| 
-	DASH VALUE_ALPHA
+	'-' VALUE_BETA
 	{
-			//drv.getVersion().setStage(octetos::toolkit::Version::alpha);
-	}
-	| 
-	DASH VALUE_BETA
-	{
-			//drv.getVersion().setStage(octetos::toolkit::Version::beta);
+        ty->version.stage = beta;
 	} 
 	|
-	DASH VALUE_BETARELEASE
+	'-' VALUE_BETARELEASE
 	{
-			//drv.getVersion().setStage(octetos::toolkit::Version::betarelease);
+		ty->version.stage = betarelease;
 	}
 	| 
-	DASH VALUE_RC
+	'-' VALUE_RC
 	{
-			//drv.getVersion().setStage(octetos::toolkit::Version::rc);
+		ty->version.stage = rc;
 	}
 	| 
-	DASH VALUE_PRERELEASE
+	'-' VALUE_PRERELEASE
 	{
-			//drv.getVersion().setStage(octetos::toolkit::Version::prerelease);
+		ty->version.stage = prerelease;
 	}
 	| 
-	DASH VALUE_RELEASE
+	'-' VALUE_RELEASE
 	{
-			//drv.getVersion().setStage(octetos::toolkit::Version::release);
+		ty->version.stage = release;
 	}
 	| 
-	DASH VALUE_RTM
+	'-' VALUE_RTM
 	{
-			//drv.getVersion().setStage(octetos::toolkit::Version::rtm);
+		ty->version.stage = rtm;
 	}
 	| 
-	DASH VALUE_GA
+	'-' VALUE_GA
 	{
-			//drv.getVersion().setStage(octetos::toolkit::Version::ga);
+		ty->version.stage = ga;
 	}
 	;
 
-	build : VALUE_BUILD
+	build : 
+	'+' VALUE_BUILD_UL
 	{
 		//drv.getVersion().setBuild($1);      
 			//std::cout << "Build = " << $1 << std::endl;
-	};
-
-	name : VALUE_NAME
-	{
-		//drv.getVersion().setName($1);
-		//std::cout << "Name = " << $1 << std::endl;
-	};
-
-	end : ENDLINE | ENDFILE | SEMICOLON
-	{
-	};
-
-	valid : VALID FIELDNAME_NUMBERS EQUAL numbers_value 
-	{
 	}
 	|
-	VALID FIELDNAME_STAGE EQUAL stage_values 
+	'+' VALUE_BUILD_STRING
 	{
-	}
-	|
-	VALID FIELDNAME_BUILD EQUAL VALUE_BUILD 
-	{
-	}
-	|
-	VALID  FIELDNAME_NAME EQUAL VALUE_NAME
-	{
-	};
+		//drv.getVersion().setBuild($1);     
+    }
+	;
 	
-	stage_values : VALUE_SNAPSHOT | VALUE_PREALPHA | VALUE_ALPHA | VALUE_BETA  | VALUE_BETARELEASE | VALUE_RC | VALUE_PRERELEASE | VALUE_RTM | VALUE_GA
-	{
-		
-	};
 
 %%
 void yyerror(struct Tray* ty,const char* s) {

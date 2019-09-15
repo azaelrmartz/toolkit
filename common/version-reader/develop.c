@@ -16,5 +16,6 @@ int main()
     printf( "M: %d\n",ty.version.major);
     printf( "m: %d\n",ty.version.minor);
     printf( "p: %d\n",ty.version.patch);
+    if(ty.version.stage == alpha) printf( "s: -alpha\n");
 	
 }
