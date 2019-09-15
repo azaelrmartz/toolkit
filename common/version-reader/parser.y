@@ -14,6 +14,8 @@ extern FILE* yyin;
 void yyerror(struct Tray* ty, const char* s);
 void set_input_string(const char* in);
 void end_lexical_scan(void);
+
+
 %}
 
 %lex-param {struct Tray* ty}
@@ -34,20 +36,20 @@ void end_lexical_scan(void);
   ENDFILE
 ;
 
-%token <octetos_toolkit_Stage> VALUE_SNAPSHOT
-%token <octetos_toolkit_Stage> VALUE_PREALPHA
-%token <octetos_toolkit_Stage> VALUE_ALPHA
-%token <octetos_toolkit_Stage> VALUE_BETA
-%token <octetos_toolkit_Stage> VALUE_BETARELEASE
-%token <octetos_toolkit_Stage> VALUE_RC 
-%token <octetos_toolkit_Stage> VALUE_PRERELEASE 
-%token <octetos_toolkit_Stage> VALUE_RELEASE 
-%token <octetos_toolkit_Stage> VALUE_RTM
-%token <octetos_toolkit_Stage> VALUE_GA
-%token <const char*> VALUE_NAME
-%token <short> VALUE_NUMBER
-%token <unsigned long> VALUE_BUILD
-%token <const char*> NOEXPECTED
+%token <stage> VALUE_SNAPSHOT
+%token <stage> VALUE_PREALPHA
+%token <stage> VALUE_ALPHA
+%token <stage> VALUE_BETA
+%token <stage> VALUE_BETARELEASE
+%token <stage> VALUE_RC 
+%token <stage> VALUE_PRERELEASE 
+%token <stage> VALUE_RELEASE 
+%token <stage> VALUE_RTM
+%token <stage> VALUE_GA
+%token <str> VALUE_NAME
+%token <sval> VALUE_NUMBER
+%token <ulval> VALUE_BUILD
+%token <str> NOEXPECTED
 
 %token VALID 
 %token FIELDNAME_NUMBERS
@@ -107,9 +109,9 @@ void end_lexical_scan(void);
 	};
 	three_numbers : VALUE_NUMBER DOT VALUE_NUMBER DOT VALUE_NUMBER
 	{
-		//ty->version.major = $1;
-		//ty->version.minor = $3;
-		//ty->version.patch = $5;
+		ty->version.major = $1;
+		ty->version.minor = $3;
+		ty->version.patch = $5;
 		//printf("N1: %d\n",ty->version.major);
 	};
 

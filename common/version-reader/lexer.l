@@ -13,7 +13,7 @@
 extern int parse_string(struct Tray* ty,const char* in);
 
 #include "parser.tab.h"
-
+//extern YYSTYPE yylval;
 %}
 
 
@@ -21,10 +21,6 @@ DIGIT	[0-9]
 NAME	[a-zA-Z0-9]+
 SPACE [ \t\r]
 
-%x sc_NUMBERS
-%x sc_STAGE
-%x sc_BUILD
-%x sc_NAME
 
 %%
 %{          /** Code executed at the beginning of yylex **/
@@ -71,71 +67,60 @@ SPACE [ \t\r]
 
 "."     {
 		//std::cout << yytext << std::endl;
-		BEGIN(sc_NUMBERS);
 		return DOT;
 	}
 	
 "-"        	{
                                 //std::cout <<yytext << std::endl;
-                                BEGIN(sc_STAGE);
                                 return DASH;
                 }
 
 "snapshot"|"SNAPSHOT"  {
                                         //std::cout << yytext << std::endl;
-                                        BEGIN(sc_STAGE);
-                                yylval.str=yytext;
+                                yylval.stage=snapshot;
                                 return VALUE_SNAPSHOT;
                                 }
 "prealpha"|"PREALPHA" {
                                         //std::cout << yytext << std::endl;
-                                        BEGIN(sc_STAGE);
-                                yylval.str=yytext;
+                                yylval.stage=prealpha;
                                 return VALUE_PREALPHA;
                                 }
 "alpha"|"ALPHA"		{
                                         //std::cout << yytext << std::endl;
-                                        BEGIN(sc_STAGE);
                                 yylval.stage=alpha;
                                 return VALUE_ALPHA;
                                 }
 "beta"|"BETA"     	{
                                         //std::cout << yytext << std::endl;
-                                        BEGIN(sc_STAGE);
-                                yylval.str=yytext;return VALUE_BETA;
+                                yylval.stage=beta;return VALUE_BETA;
                                 }
 "betar"|"betarelease"|"BETAR"|"BETARELEASE"    	{
 			//std::cout << yytext << std::endl;
-			BEGIN(sc_STAGE);
-			yylval.str=yytext;return VALUE_BETARELEASE;
+			yylval.stage=betarelease;return VALUE_BETARELEASE;
 		}
 "rc"|"RC"       	{
                                         //std::cout << yytext << std::endl;
-                                        BEGIN(sc_STAGE);
-                                        yylval.str=yytext;
+                                        yylval.stage=rc;
                                         return VALUE_RC;
                         }
 "prerelease"|"PRERELEASE"  	{
                                         //std::cout << yytext << std::endl;
-                                        BEGIN(sc_STAGE);
-                                yylval.str=yytext;
+                                yylval.stage=prerelease;
                                 return VALUE_PRERELEASE;
                                 }
 "release"|"RELEASE"  	{
                                         //std::cout << yytext << std::endl;
-                                        BEGIN(sc_STAGE);
-                                yylval.str=yytext;return VALUE_RELEASE;
-                                }
+                                yylval.stage=release;
+                                return VALUE_RELEASE;
+                        }
 "RTM"  	{
                                         //std::cout << yytext << std::endl;
-                                        BEGIN(sc_STAGE);
                                 yylval.stage=rtm;
                                 return VALUE_RTM;
                                 }                                
 "GA"  	{
                                         //std::cout << yytext << std::endl;
-                                        BEGIN(sc_STAGE);
-                                yylval.str=yytext;return VALUE_GA;
+                                yylval.stage=ga;return VALUE_GA;
                                 }
 ";"                     {
                                         //std::cout << yytext << std::endl;
@@ -145,21 +130,18 @@ SPACE [ \t\r]
                                 
 {DIGIT}{1,11}  	{
                                         //printf("%s\n",yytext); 
-                                        BEGIN(sc_NUMBERS);
                                         yylval.sval=(short)atoi(yytext);
                                         return VALUE_NUMBER;
                                 }
 			
 {DIGIT}{12,16}                  {
                                                         //std::cout << "Build : " << yytext << std::endl;
-                                                        BEGIN(sc_BUILD);
                                                         yylval.ulval=strtoul(yytext, NULL, 0);
                                                         return VALUE_BUILD;                                                                        
                                                 }
 
 {NAME}  	{
                                 //std::cout << "Name: " << yytext << std::endl; 
-                                BEGIN(sc_NAME);
                                 yylval.str=yytext; 
                                 return VALUE_NAME;
                         }
