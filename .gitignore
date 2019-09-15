@@ -113,4 +113,4 @@ version-reader/*.anjuta
 version-reader/*.kdev4
 buiild-*
 CMakeCacheFiles
-
+common/versionInfo-c.h
