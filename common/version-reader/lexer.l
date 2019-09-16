@@ -28,6 +28,11 @@ SPACE [ \t\r]
 %}
                      
 
+{DIGIT}{1,5}  	{
+                                        //printf("%s\n",yytext); 
+                                        yylval.sval=(short)atoi(yytext);
+                                        return VALUE_NUMBER;
+                                }
 
 "."     {
 		//std::cout << yytext << std::endl;
@@ -94,40 +99,23 @@ SPACE [ \t\r]
                 //BEGIN(scPlus);
                 return yytext[0];
             }
-                                
-{DIGIT}{1,5}  	{
-                                        //printf("%s\n",yytext); 
-                                        yylval.sval=(short)atoi(yytext);
-                                        return VALUE_NUMBER;
-                                }
-                                
 
-			
 {DIGIT}{14}                  {
-                                                        //std::cout << "Build : " << yytext << std::endl;
+                                                        printf("build : %s\n",yytext);
                                                         yylval.ulval=strtoul(yytext, NULL, 0);
                                                         return VALUE_BUILD_UL;                                                                        
                                                 }
-[a-zA-Z][a-zA-Z0-9\.]+ {
+[a-zA-Z]+[a-zA-Z0-9\.]* {
                             yylval.str = yytext;
                             return VALUE_BUILD_STRING;
 }
 
-{NAME}  	{
-                                //std::cout << "Name: " << yytext << std::endl; 
-                                yylval.str=yytext; 
-                                return VALUE_NAME;
-                        }
-
-
-{SPACE}+	;
-
-[\n\0]		{
-                                        //std::cout << "En of line" << std::endl; 
+[\0\n]            {
                         return ENDOFINPUT;
-                        }
+}
 .          	            {
-                                        yylval.str=yytext; 
+                                                        printf("build : %s\n",yytext);
+                                        printf("invalid : %s\n",yytext);
                                         return NOEXPECTED;
                                 }
 <<EOF>>    {

@@ -88,11 +88,12 @@ void end_lexical_scan(void);
 
 	one_number : VALUE_NUMBER
 	{
-		//drv.getVersion().setNumbers($1);
+		ty->version.major = $1;
 	};
 	two_numbers : VALUE_NUMBER '.' VALUE_NUMBER
 	{
-		//drv.getVersion().setNumbers($1,$3);
+		ty->version.major = $1;
+		ty->version.minor = $3;
 	};
 	three_numbers : VALUE_NUMBER '.' VALUE_NUMBER '.' VALUE_NUMBER
 	{
@@ -154,14 +155,15 @@ void end_lexical_scan(void);
 
 	build : 
 	'+' VALUE_BUILD_UL
-	{
-		//drv.getVersion().setBuild($1);      
-			//std::cout << "Build = " << $1 << std::endl;
+	{    
+        ty->version.build.type = ul_e;
+        ty->version.build.value.ul = $2;
 	}
 	|
 	'+' VALUE_BUILD_STRING
 	{
-		//drv.getVersion().setBuild($1);     
+        ty->version.build.type = string_e;
+        ty->version.build.value.string = $2;    
     }
 	;
 	
