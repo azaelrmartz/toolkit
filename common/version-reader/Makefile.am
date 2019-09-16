@@ -5,10 +5,16 @@ SUBDIRS = src po
 
 AM_CPPFLAGS = -I$(top_builddir)
 
-parser.tab.cc parser.tab.hh : parser.yy
+#parser.tab.cc parser.tab.hh : parser.yy
+#	bison -o $@ $<
+
+#lexer.cc : lexer.ll
+#	flex -o $@ $<
+
+parser.tab.c parser.tab.h : parser.y
 	bison -o $@ $<
 
-lexer.cc : lexer.ll
+lexer.c : lexer.l
 	flex -o $@ $<
 
 dist_doc_DATA = \
@@ -31,13 +37,18 @@ lib_LTLIBRARIES =  \
 	libparsercpp.la
 
 #libparsercpp_la_CPPFLAGS=-fPIC -Wl,-Bsymbolic 
-libparsercpp_la_CXXFLAGS=-fPIC -Wl,-Bsymbolic
-libparsercpp_la_LDFLAGS= -shared -fPIC -Wl,-Bsymbolic
+#libparsercpp_la_CXXFLAGS=-fPIC -Wl,-Bsymbolic
+#libparsercpp_la_LDFLAGS= -shared -fPIC -Wl,-Bsymbolic
 
-libparsercpp_la_SOURCES =  \
-	parser.tab.cc \
-	lexer.cc \
-	driver.cpp 
+#libparsercpp_la_SOURCES =  parser.tab.cc lexer.cc driver.cpp 
+
+libparserc_la_CXXFLAGS=-fPIC -Wl,-Bsymbolic
+libparserc_la_LDFLAGS= -shared -fPIC -Wl,-Bsymbolic
+
+libparserc_la_SOURCES =  \
+	parser.tab.c \
+	lexer.c 
+
 
 DISTCLEANFILES = intltool-extract \
 	intltool-merge \

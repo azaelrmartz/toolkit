@@ -1,4 +1,4 @@
-PROJECT(octetos-toolkit-common-c++ VERSION 6.0.0.1 DESCRIPTION "Libreria C++ para soporte no especificado aun." HOMEPAGE_URL "https://github.com/azaeldevel/toolkit.git" LANGUAGES CXX)
+PROJECT(octetos-toolkit-common-c++ VERSION 6.0.0.1 DESCRIPTION "Libreria C++ para soporte no especificado aun." HOMEPAGE_URL "https://github.com/azaeldevel/toolkit.git" LANGUAGES C CXX)
 
 add_definitions(-DENABLED_CMAKE)
 EXECUTE_PROCESS(COMMAND date +"%Y%m%d%H%M%S" OUTPUT_VARIABLE OTKCMCC_VERSION_BUILD)
@@ -25,6 +25,8 @@ SET(CMAKE_CXX_EXTENSIONS OFF)
 CONFIGURE_FILE("${PROJECT_SOURCE_DIR}/packInfo.hpp.in" "${PROJECT_BINARY_DIR}/packInfo.hpp")
 
 
+set(OCTKCM_DIR_SRC ${CMAKE_CURRENT_SRC_DIR})
+
 ###############################################################################################
 
 FIND_PACKAGE(CUnit REQUIRED PATHS ${PROJECT_SOURCE_DIR}/../cmake/Modules/)
@@ -40,15 +42,16 @@ ELSE()
 ENDIF()
 endif()
 
+include_directories(${CMAKE_CURRENT_BINARY_DIR})
+include_directories(version-reader ${CMAKE_CURRENT_BINARY_DIR}/version-reader)
 
-include_directories(${PROJECT_BINARY_DIR})
 #################################################################################################
 
-INCLUDE_DIRECTORIES(version-reader ${CMAKE_CURRENT_BINARY_DIR}/version-reader)
-SET(LIBREADER "NULL")
+SET(LIBREADER )
 ADD_SUBDIRECTORY(version-reader)
-ADD_LIBRARY(${PROJECT_NAME}-obj  OBJECT common.cpp Error.cpp Object.cpp Version.cpp Version-parser.cpp Message.cpp Licence.cpp)
-set_target_properties(${PROJECT_NAME}-obj  PROPERTIES POSITION_INDEPENDENT_CODE 1 )
+
+ADD_LIBRARY(${PROJECT_NAME}-obj  OBJECT common.cpp Error.cpp Object.cpp Version.cpp Version-parser.cpp common.c Message.cpp Licence.cpp)
+set_target_properties(${PROJECT_NAME}-obj  PROPERTIES POSITION_INDEPENDENT_CODE 1)
 ADD_DEPENDENCIES(${PROJECT_NAME}-obj ${LIBREADER})
 
 ADD_LIBRARY(${PROJECT_NAME} SHARED $<TARGET_OBJECTS:${PROJECT_NAME}-obj> $<TARGET_OBJECTS:${LIBREADER}-obj>)
@@ -58,11 +61,7 @@ SET_TARGET_PROPERTIES(${PROJECT_NAME} PROPERTIES LINK_FLAGS -Wl,-Bsymbolic)
 ADD_EXECUTABLE(testing-v${${PROJECT_NAME}_VERSION_MAJOR} tests/v${${PROJECT_NAME}_VERSION_MAJOR}.cc)
 ADD_DEPENDENCIES(testing-v${${PROJECT_NAME}_VERSION_MAJOR} ${PROJECT_NAME})
 TARGET_LINK_LIBRARIES(testing-v${${PROJECT_NAME}_VERSION_MAJOR} ${CUNIT_LIBRARIES} ${PROJECT_NAME})
-#[[add_custom_command(
-        TARGET ver${${PROJECT_NAME}_VERSION_MAJOR} POST_BUILD
-        COMMAND ${CMAKE_COMMAND} -E copy
-                ${CMAKE_SOURCE_DIR}/test/ver${${PROJECT_NAME}_VERSION_MAJOR}
-                ${CMAKE_CURRENT_BINARY_DIR}/ver${${PROJECT_NAME}_VERSION_MAJOR})]]
+
 add_custom_target(
   ver${${PROJECT_NAME}_VERSION_MAJOR} ALL
   COMMAND cp -u ${PROJECT_SOURCE_DIR}/tests/ver${${PROJECT_NAME}_VERSION_MAJOR} ${CMAKE_CURRENT_BINARY_DIR}/ver${${PROJECT_NAME}_VERSION_MAJOR}

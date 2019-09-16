@@ -1,7 +1,6 @@
 CMAKE_MINIMUM_REQUIRED(VERSION 3.0)
-PROJECT(${octetos-toolkit}-common LANGUAGES ${LANG})
-set(${octetos-toolkit}-common_VERSION_MAJOR ${octetos-toolkit}_VERSION_MAJOR)
-
+PROJECT(octetos-toolkit-common LANGUAGES C CXX)
+#set(${octetos-toolkit}-common_VERSION_MAJOR ${octetos-toolkit}_VERSION_MAJOR)
 
 if(NOT LANG)
 	MESSAGE(FATAL_ERROR "Use la variable LANG para indicar el lenguaje.")	

@@ -1,13 +1,13 @@
 
 #include <sstream>
-#include <driver.hpp>
+#include <driver.h>
 
 
 namespace octetos
 {
 namespace toolkit
 {
-		bool Version::fromString(const std::string& str)
+		/*bool Version::fromString(const std::string& str)
 		{
                 //std::cout << "Calling fromFile" << std::endl;
                 Driver dr(*this,false);
@@ -19,7 +19,7 @@ namespace toolkit
                 //std::cout << "Calling fromFile" << std::endl;
                 Driver dr(*this,false);
                 return dr.parse(filestring.c_str());
-        } 
+        } */
         /*bool Version::valid(const std::string& str)
         {
                 Version ver;
