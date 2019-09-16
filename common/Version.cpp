@@ -439,7 +439,7 @@ namespace toolkit
     }
 	void Version::set(const std::string& str)
 	{
-		fromString(str);
+		from(str);
 	}
 	Version::Version()
 	{

@@ -34,11 +34,13 @@ include_directories(${PROJECT_BINARY_DIR})
 
 
 ##################################################################
-SET(LIBREADER ${PROJECT_NAME} PARENT_SCOPE)
+
 ADD_LIBRARY(${PROJECT_NAME}-obj  OBJECT ${FLEX_lexerVersion_OUTPUTS} ${BISON_parserVersion_OUTPUTS})
 set_target_properties(${PROJECT_NAME}-obj  PROPERTIES POSITION_INDEPENDENT_CODE 1 )
 
 ADD_LIBRARY(${PROJECT_NAME} SHARED $<TARGET_OBJECTS:${PROJECT_NAME}-obj>)
 set_target_properties(${PROJECT_NAME}  PROPERTIES POSITION_INDEPENDENT_CODE 1 )
+SET(LIBREADER ${PROJECT_NAME} PARENT_SCOPE)
+
 
 add_executable(develop develop.c ${FLEX_lexerVersion_OUTPUTS} ${BISON_parserVersion_OUTPUTS})
