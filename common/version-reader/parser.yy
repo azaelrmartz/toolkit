@@ -46,8 +46,9 @@ namespace octetos
 %verbose
 
 %token
-  DOT
-  DASH
+  //DOT
+  //DASH
+  //PLUS
   ENDLINE
   SEMICOLON
   ENDFILE
@@ -66,7 +67,7 @@ namespace octetos
 %token VALUE_GA
 %token <std::string> VALUE_NAME
 %token <short> VALUE_NUMBER
-%token <unsigned long> VALUE_BUILD
+%token <std::string> VALUE_BUILD
 %token <std::string> NOEXPECTED
 
 %token VALID 
@@ -81,17 +82,7 @@ namespace octetos
 %%
 %start stmt;
 
-	stmt : version end
-	{
-		YYACCEPT;
-	}
-	|
-	version_list end
-	{
-		YYACCEPT;
-	}
-	| 
-	valid end
+	stmt : version ENDFILE
 	{
 		YYACCEPT;
 	};
@@ -108,12 +99,7 @@ namespace octetos
 	numbers_value stage build
 	{
 	}
-	| 
-	numbers_value stage build name
-	{
-	}
-
-	version_list : | version SEMICOLON  version_list
+	;
 
 	numbers_value : one_number | two_numbers | three_numbers;
 
@@ -121,108 +107,79 @@ namespace octetos
 	{
 			drv.getVersion().setNumbers($1);
 	};
-	two_numbers : VALUE_NUMBER DOT VALUE_NUMBER
+	two_numbers : VALUE_NUMBER '.' VALUE_NUMBER
 	{
 		drv.getVersion().setNumbers($1,$3);
 	};
-	three_numbers : VALUE_NUMBER DOT VALUE_NUMBER DOT VALUE_NUMBER
+	three_numbers : VALUE_NUMBER '.' VALUE_NUMBER '.' VALUE_NUMBER
 	{
 		drv.getVersion().setNumbers($1,$3,$5);
 	};
 
 	stage : 
-	DASH VALUE_DEVELOPING
+	'-' VALUE_DEVELOPING
 	{
 			drv.getVersion().setStage(octetos::toolkit::Version::developing);
 	}
 	| 
-	DASH VALUE_SNAPSHOT
+	'-' VALUE_SNAPSHOT
 	{
 			drv.getVersion().setStage(octetos::toolkit::Version::snapshot);
 	}
 	| 
-	DASH VALUE_PREALPHA
+	'-' VALUE_PREALPHA
 	{
 			drv.getVersion().setStage(octetos::toolkit::Version::prealpha);
 	}
 	| 
-	DASH VALUE_ALPHA
+	'-' VALUE_ALPHA
 	{
 			drv.getVersion().setStage(octetos::toolkit::Version::alpha);
 	}
 	| 
-	DASH VALUE_BETA
+	'-' VALUE_BETA
 	{
 			drv.getVersion().setStage(octetos::toolkit::Version::beta);
 	} 
 	|
-	DASH VALUE_BETARELEASE
+	'-' VALUE_BETARELEASE
 	{
 			drv.getVersion().setStage(octetos::toolkit::Version::betar);
 	}
 	| 
-	DASH VALUE_RC
+	'-' VALUE_RC
 	{
 			drv.getVersion().setStage(octetos::toolkit::Version::rc);
 	}
 	| 
-	DASH VALUE_PRERELEASE
+	'-' VALUE_PRERELEASE
 	{
 			drv.getVersion().setStage(octetos::toolkit::Version::prerelease);
 	}
 	| 
-	DASH VALUE_RELEASE
+	'-' VALUE_RELEASE
 	{
 			drv.getVersion().setStage(octetos::toolkit::Version::release);
 	}
 	| 
-	DASH VALUE_RTM
+	'-' VALUE_RTM
 	{
 			drv.getVersion().setStage(octetos::toolkit::Version::rtm);
 	}
 	| 
-	DASH VALUE_GA
+	'-' VALUE_GA
 	{
 			drv.getVersion().setStage(octetos::toolkit::Version::ga);
 	}
 	;
 
-	build : VALUE_BUILD
+	build : 
+	'+' VALUE_BUILD
 	{
-		drv.getVersion().setBuild($1);      
+		//drv.getVersion().setBuild($2);      
 			//std::cout << "Build = " << $1 << std::endl;
 	};
 
-	name : VALUE_NAME
-	{
-		drv.getVersion().setName($1);
-			//std::cout << "Name = " << $1 << std::endl;
-	};
-
-	end : ENDLINE | ENDFILE | SEMICOLON
-	{
-	};
-
-	valid : VALID FIELDNAME_NUMBERS EQUAL numbers_value 
-	{
-	}
-	|
-	VALID FIELDNAME_STAGE EQUAL stage_values 
-	{
-	}
-	|
-	VALID FIELDNAME_BUILD EQUAL VALUE_BUILD 
-	{
-	}
-	|
-	VALID  FIELDNAME_NAME EQUAL VALUE_NAME
-	{
-	};
-	
-	stage_values : VALUE_DEVELOPING | VALUE_SNAPSHOT | VALUE_PREALPHA | VALUE_ALPHA | VALUE_BETA  | VALUE_BETARELEASE | VALUE_RC | VALUE_PRERELEASE | VALUE_RTM | VALUE_GA
-	{
-		
-	};
 
 %%
 

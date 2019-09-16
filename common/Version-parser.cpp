@@ -20,12 +20,12 @@ namespace toolkit
                 Driver dr(*this,false);
                 return dr.parse(filestring.c_str());
         } 
-        bool Version::valid(const std::string& str)
+        /*bool Version::valid(const std::string& str)
         {
                 Version ver;
                 Driver dr(ver,false);
                 std::istringstream istr(str);
                 return dr.parse(istr);
-        } 
+        } */
 }
 }

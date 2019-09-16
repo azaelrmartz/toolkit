@@ -1,4 +1,3 @@
-
 PROJECT(octetos-toolkit-common-c++ VERSION 6.0.0.1 DESCRIPTION "Libreria C++ para soporte no especificado aun." HOMEPAGE_URL "https://github.com/azaeldevel/toolkit.git" LANGUAGES CXX)
 
 add_definitions(-DENABLED_CMAKE)
