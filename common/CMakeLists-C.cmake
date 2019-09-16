@@ -32,18 +32,10 @@ ENDIF()
 INCLUDE_DIRECTORIES(${PROJECT_BINARY_DIR})
 INCLUDE_DIRECTORIES(version-reader ${CMAKE_CURRENT_BINARY_DIR}/version-reader)
 
-<<<<<<< HEAD
-<<<<<<< HEAD
+
 
 set(OCTKCO_SRC_DIR ${PROJECT_SOURCE_DIR})
-=======
 INCLUDE_DIRECTORIES(version-reader ${CMAKE_CURRENT_BINARY_DIR}/version-reader)
-set(OCTKCM_DIR_SRC ${CMAKE_CURRENT_SRC_DIR})
->>>>>>> [inclompleto] simplemete para guardar los cambion locales
-=======
-INCLUDE_DIRECTORIES(version-reader ${CMAKE_CURRENT_BINARY_DIR}/version-reader)
-set(OCTKCM_DIR_SRC ${CMAKE_CURRENT_SRC_DIR})
->>>>>>> a5aace4aae9d343e9cba4cc0cf504678318bd629
 #################################################################################################
 
 SET(LIBREADER "NULL")

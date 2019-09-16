@@ -2,24 +2,25 @@
 #include <sstream>
 #include <driver.h>
 
+#include "Version.hpp"
 
 namespace octetos
 {
 namespace toolkit
 {
-		/*bool Version::fromString(const std::string& str)
+        bool Version::fromString(const std::string& str)
 		{
                 //std::cout << "Calling fromFile" << std::endl;
-                Driver dr(*this,false);
+                /*Driver dr(*this,false);
                 std::istringstream istr(str);
-                return dr.parse(istr);
+                return dr.parse(istr);*/
         } 
         bool Version::fromFile(const std::string& filestring)
         {
                 //std::cout << "Calling fromFile" << std::endl;
-                Driver dr(*this,false);
-                return dr.parse(filestring.c_str());
-        } */
+                /*Driver dr(*this,false);
+                return dr.parse(filestring.c_str());*/
+        } 
         /*bool Version::valid(const std::string& str)
         {
                 Version ver;

@@ -199,14 +199,14 @@ void testVersionGeneric()
     CU_ASSERT(ver.getName().size() == 0);
         
     std::string fileNameVersion = "ver";
-    fileNameVersion += std::to_string(majorNumber);        
-    octetos::toolkit::Version ver2;
-    std::cout << "\nFile " << fileNameVersion << std::endl;
-    CU_ASSERT(ver2.fromFile(fileNameVersion));
-    CU_ASSERT(ver2.getMajor() == 12);
-    CU_ASSERT(ver2.getMinor() == 36);
-    CU_ASSERT(ver2.getPatch() == 56);
-    CU_ASSERT(ver2.getStage() == octetos::toolkit::Version::snapshot);
+    //fileNameVersion += std::to_string(majorNumber);        
+    //octetos::toolkit::Version ver2;
+    //std::cout << "\nFile " << fileNameVersion << std::endl;
+    //CU_ASSERT(ver2.fromFile(fileNameVersion));
+    //CU_ASSERT(ver2.getMajor() == 12);
+    //CU_ASSERT(ver2.getMinor() == 36);
+    //CU_ASSERT(ver2.getPatch() == 56);
+    //CU_ASSERT(ver2.getStage() == octetos::toolkit::Version::snapshot);
     //CU_ASSERT(ver2.getBuildUL() == 12345678901233);        
     //octetos::toolkit::Version ver3;
     //CU_ASSERT(ver3.fromString("1.3.65"));//deve aceptar ;

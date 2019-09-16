@@ -25,7 +25,7 @@ SET(CMAKE_CXX_EXTENSIONS OFF)
 CONFIGURE_FILE("${PROJECT_SOURCE_DIR}/packInfo.hpp.in" "${PROJECT_BINARY_DIR}/packInfo.hpp")
 
 
-set(OCTKCM_DIR_SRC ${CMAKE_CURRENT_SRC_DIR})
+set(OCTKCO_SRC_DIR ${PROJECT_SOURCE_DIR})
 
 ###############################################################################################
 
