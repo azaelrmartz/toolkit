@@ -1,8 +1,0 @@
-#define VERSION_MAJOR 0
-#define VERSION_MINOR 1
-#define VERSION_PATCH 
-#define VERSION_BUILD "20190915155012"
-
-#define VERSION_STAGE 
-
-
