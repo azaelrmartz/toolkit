@@ -32,6 +32,8 @@ ENDIF()
 INCLUDE_DIRECTORIES(${PROJECT_BINARY_DIR})
 INCLUDE_DIRECTORIES(version-reader ${CMAKE_CURRENT_BINARY_DIR}/version-reader)
 
+
+set(OCTKCO_SRC_DIR ${PROJECT_SOURCE_DIR})
 #################################################################################################
 
 SET(LIBREADER "NULL")
