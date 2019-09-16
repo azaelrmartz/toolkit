@@ -1,4 +1,4 @@
-PROJECT(octetos-toolkit-common-c VERSION 0.1 LANGUAGES ${LANG})
+PROJECT(octetos-toolkit-common-c VERSION 0.1.0.1 LANGUAGES ${LANG})
 
 EXECUTE_PROCESS(COMMAND date +"%Y%m%d%H%M%S" OUTPUT_VARIABLE ${PROJECT_NAME}_VERSION_BUILD)
 if(NOT OCTKCMC_VERSION_STAGE)
@@ -18,16 +18,18 @@ elseif(${CMAKE_BUILD_TYPE} STREQUAL "Release")
 	endif()
 endif()
 
-CONFIGURE_FILE("${PROJECT_SOURCE_DIR}/versionInfo-c.h.in" "${PROJECT_SOURCE_DIR}/versionInfo-c.h")
+CONFIGURE_FILE("${PROJECT_SOURCE_DIR}/packInfo.h.in" "${PROJECT_BINARY_DIR}/packInfo.h")
 
 
 ###############################################################################################
+
 
 FIND_PACKAGE(CUnit REQUIRED PATHS ${PROJECT_SOURCE_DIR}/../cmake/Modules/)
 IF(CUNIT_FOUND)
 	INCLUDE_DIRECTORIES(${CUNIT_INCLUDE_DIR})
 ENDIF()
 
+INCLUDE_DIRECTORIES(${PROJECT_BINARY_DIR})
 INCLUDE_DIRECTORIES(version-reader ${CMAKE_CURRENT_BINARY_DIR}/version-reader)
 
 #################################################################################################
@@ -43,9 +45,9 @@ set_target_properties(${PROJECT_NAME}  PROPERTIES POSITION_INDEPENDENT_CODE 1 )
 SET_TARGET_PROPERTIES(${PROJECT_NAME} PROPERTIES LINK_FLAGS -Wl,-Bsymbolic)
 
 ADD_EXECUTABLE(testing-v${${PROJECT_NAME}_VERSION_MAJOR} tests/v${${PROJECT_NAME}_VERSION_MAJOR}.c)
-ADD_DEPENDENCIES(testing-v${${PROJECT_NAME}_VERSION_MAJOR} ${PROJECT_NAME})
+ADD_DEPENDENCIES(testing-v${${PROJECT_NAME}_VERSION_MAJOR} ${PROJECT_NAME}-obj)
 TARGET_LINK_LIBRARIES(testing-v${${PROJECT_NAME}_VERSION_MAJOR} ${CUNIT_LIBRARIES} ${PROJECT_NAME})
-
+ADD_DEPENDENCIES(testing-v${${PROJECT_NAME}_VERSION_MAJOR} ${LIBREADER})
 
 INSTALL(TARGETS ${PROJECT_NAME} DESTINATION lib)
 INSTALL(FILES common.h DESTINATION include/octetos/toolkit/common/)

@@ -171,7 +171,7 @@ void end_lexical_scan(void);
 %%
 void yyerror(struct Tray* ty,const char* s) {
 	//if(ty.getAnnounceError())
-	fprintf(stderr, "Parse error: %s\n", s);
+	if(ty->dysplay_erro > 0) fprintf(stderr, "Parse error: %s\n", s);
 }
 int parse_string(struct Tray* ty,const char* in) {
   set_input_string(in);

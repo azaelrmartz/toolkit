@@ -23,6 +23,6 @@ int main()
     printf( "p: %d\n",ty2.version.patch);
     if(ty2.version.stage == alpha) printf( "s: -alpha\n");
     if(ty2.version.build.type == string_e) printf("b: %s\n",ty2.version.build.value.string);
-    if(ty2.version.build.type == ul_e) printf("b: %uli\n",ty2.version.build.value.ul);
+    if(ty2.version.build.type == ul_e) printf("b: %lu\n",ty2.version.build.value.ul);
 	
 }
