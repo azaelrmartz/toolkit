@@ -1,6 +1,11 @@
 CMAKE_MINIMUM_REQUIRED(VERSION 3.0)
-
 PROJECT(octetos-version-reader-c C)
+
+
+
+SET(LIBREADER ${PROJECT_NAME} PARENT_SCOPE)
+
+##############################################################
 
 FIND_PACKAGE(BISON REQUIRED)
 FIND_PACKAGE(FLEX REQUIRED)
@@ -17,10 +22,17 @@ ELSE()
 	MESSAGE(FATAL_ERROR "Fallo al constuir el componente de Flexer 'lexerVersion'")
 ENDIF()
 ADD_FLEX_BISON_DEPENDENCY(lexerVersion parserVersion)
-include_directories(${octetos-toolkit-common-c_SOURCE_DIR})
-include_directories(${PROJECT_BINARY_DIR})
 
-SET(LIBREADER ${PROJECT_NAME} PARENT_SCOPE)
+
+##############################################################
+
+
+include_directories(${OCTKCM_DIR_SRC})
+include_directories(${CMAKE_CURRENT_BINARY_DIR})
+
+
+##############################################################
+
 ADD_LIBRARY(${PROJECT_NAME}-obj  OBJECT ${FLEX_lexerVersion_OUTPUTS} ${BISON_parserVersion_OUTPUTS})
 set_target_properties(${PROJECT_NAME}-obj  PROPERTIES POSITION_INDEPENDENT_CODE 1 )
 

@@ -29,12 +29,13 @@ IF(CUNIT_FOUND)
 ENDIF()
 
 
-
+INCLUDE_DIRECTORIES(version-reader ${CMAKE_CURRENT_BINARY_DIR}/version-reader)
+set(OCTKCM_DIR_SRC ${CMAKE_CURRENT_SRC_DIR})
 #################################################################################################
 
-INCLUDE_DIRECTORIES(version-reader ${CMAKE_CURRENT_BINARY_DIR}/version-reader)
 SET(LIBREADER "NULL")
 ADD_SUBDIRECTORY(version-reader)
+
 ADD_LIBRARY(${PROJECT_NAME}-obj  OBJECT common.c)
 set_target_properties(${PROJECT_NAME}-obj  PROPERTIES POSITION_INDEPENDENT_CODE 1 )
 
