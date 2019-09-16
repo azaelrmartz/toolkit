@@ -3,17 +3,17 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "common.h"
+#include <common.h>
 #include "driver.h"
 
 extern int yylex(struct Tray* ty);
 extern int yyparse(struct Tray* ty);
-extern int parse_string(struct Tray* ty, const char* in);
+//int parse_string(struct Tray* ty, const char* in);
 extern FILE* yyin;
 
 void yyerror(struct Tray* ty, const char* s);
-void set_input_string(const char* in);
-void end_lexical_scan(void);
+//void set_input_string(const char* in);
+//void end_lexical_scan(void);
 
 
 %}
@@ -173,6 +173,9 @@ void yyerror(struct Tray* ty,const char* s) {
 	//if(ty.getAnnounceError())
 	if(ty->dysplay_erro > 0) fprintf(stderr, "Parse error: %s\n", s);
 }
+/* Declarations */
+void set_input_string(const char* in);
+void end_lexical_scan(void);
 int parse_string(struct Tray* ty,const char* in) {
   set_input_string(in);
   int rv = yyparse(ty);

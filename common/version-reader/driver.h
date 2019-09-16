@@ -1,7 +1,7 @@
-#ifndef DRIVER_H
-#define DRIVER_H
+#ifndef VERSION_READER_DRIVER_H
+#define VERSION_READER_DRIVER_H
 
-#include "../common.h"
+#include <common.h>
 
 struct Tray
 {
@@ -9,7 +9,15 @@ struct Tray
     int dysplay_erro;
 };
 
-extern int parse_string(struct Tray* ty,const char* in);
+#ifdef __cplusplus  
+extern "C" { 
+#endif 
+    /* Declarations of this file */
+    int parse_string(struct Tray* ty,const char* in);
+#ifdef __cplusplus 
+} 
+#endif
+//
 
 #endif
 

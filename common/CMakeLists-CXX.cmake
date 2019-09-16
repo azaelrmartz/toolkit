@@ -42,12 +42,13 @@ ELSE()
 ENDIF()
 endif()
 
+include_directories(${PROJECT_SOURCE_DIR})
 include_directories(${CMAKE_CURRENT_BINARY_DIR})
 include_directories(version-reader ${CMAKE_CURRENT_BINARY_DIR}/version-reader)
 
 #################################################################################################
 
-SET(LIBREADER "")
+SET(LIBREADER "-")
 ADD_SUBDIRECTORY(version-reader)
 
 ADD_LIBRARY(${PROJECT_NAME}-obj  OBJECT common.cpp Error.cpp Object.cpp Version.cpp Version-parser.cpp common.c Message.cpp Licence.cpp)
@@ -55,7 +56,7 @@ set_target_properties(${PROJECT_NAME}-obj  PROPERTIES POSITION_INDEPENDENT_CODE 
 ADD_DEPENDENCIES(${PROJECT_NAME}-obj ${LIBREADER})
 
 ADD_LIBRARY(${PROJECT_NAME} SHARED $<TARGET_OBJECTS:${PROJECT_NAME}-obj> $<TARGET_OBJECTS:${LIBREADER}-obj>)
-set_target_properties(${PROJECT_NAME}  PROPERTIES POSITION_INDEPENDENT_CODE 1 )
+set_target_properties(${PROJECT_NAME} PROPERTIES POSITION_INDEPENDENT_CODE 1)
 SET_TARGET_PROPERTIES(${PROJECT_NAME} PROPERTIES LINK_FLAGS -Wl,-Bsymbolic)
 ADD_DEPENDENCIES(${PROJECT_NAME} ${PROJECT_NAME}-obj)
 
@@ -79,6 +80,7 @@ add_custom_target(
   VERBATIM
 )
 ENDIF()
+
 
 INSTALL(TARGETS ${PROJECT_NAME} DESTINATION lib)
 INSTALL(FILES common.hpp DESTINATION include/octetos/toolkit/common/)

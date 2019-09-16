@@ -6,11 +6,11 @@
 #include <stdlib.h>
 
 
-#include "common.h"
+#include <common.h>
 #include "driver.h"
 
 #define YY_DECL int yylex(struct Tray* ty)
-extern int parse_string(struct Tray* ty,const char* in);
+//int parse_string(struct Tray* ty,const char* in);
 
 #include "parser.tab.h"
 //extern YYSTYPE yylval;

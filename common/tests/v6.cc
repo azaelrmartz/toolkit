@@ -198,7 +198,7 @@ void testVersionGeneric()
     CU_ASSERT(ver.getBuildUL() == 0);
     CU_ASSERT(ver.getName().size() == 0);
         
-    std::string fileNameVersion = "ver";
+    //std::string fileNameVersion = "ver";
     //fileNameVersion += std::to_string(majorNumber);        
     //octetos::toolkit::Version ver2;
     //std::cout << "\nFile " << fileNameVersion << std::endl;
@@ -208,8 +208,8 @@ void testVersionGeneric()
     //CU_ASSERT(ver2.getPatch() == 56);
     //CU_ASSERT(ver2.getStage() == octetos::toolkit::Version::snapshot);
     //CU_ASSERT(ver2.getBuildUL() == 12345678901233);        
-    //octetos::toolkit::Version ver3;
-    //CU_ASSERT(ver3.fromString("1.3.65"));//deve aceptar ;
+    octetos::toolkit::Version ver3;
+    CU_ASSERT(ver3.from("1.3.65"));//deve aceptar ;
     //CU_ASSERT(ver3.fromString("11.3.65-SNAPSHOT"));//deve aceptar ;
     //CU_ASSERT(ver3.fromString("12.36.56-DEVELOPING+12345678901233"));//deve aceptar ;
     //CU_ASSERT_FALSE(ver3.fromString("12.36.56-GA+123456;78901233"));//error sintactico la sengun version esta incompleta

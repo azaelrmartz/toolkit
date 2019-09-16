@@ -33,7 +33,7 @@ INCLUDE_DIRECTORIES(${PROJECT_BINARY_DIR})
 INCLUDE_DIRECTORIES(version-reader ${CMAKE_CURRENT_BINARY_DIR}/version-reader)
 
 
-
+include_directories(${PROJECT_SOURCE_DIR})
 set(OCTKCO_SRC_DIR ${PROJECT_SOURCE_DIR})
 INCLUDE_DIRECTORIES(version-reader ${CMAKE_CURRENT_BINARY_DIR}/version-reader)
 #################################################################################################
