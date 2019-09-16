@@ -1,7 +1,7 @@
 dnl Process this file with autoconf to produce a configure script.
 dnl Created by Anjuta application wizard.
 
-AC_INIT(version_reader, 0.1)
+AC_INIT(parser_c, 0.1)
 
 AC_CONFIG_HEADERS([config.h])
 
@@ -9,9 +9,7 @@ AM_INIT_AUTOMAKE([1.11])
 
 AM_SILENT_RULES([yes])
 
-AC_PROG_YACC
-AM_PROG_LEX
-AC_PROG_CXX
+AC_PROG_CC
 
 
 
@@ -21,9 +19,10 @@ dnl Internationalization
 dnl ***************************************************************************
 IT_PROG_INTLTOOL([0.35.0])
 
-GETTEXT_PACKAGE=version_reader
+GETTEXT_PACKAGE=parser_c
 AC_SUBST(GETTEXT_PACKAGE)
 AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE,"$GETTEXT_PACKAGE", [GETTEXT package name])
+
 AM_GLIB_GNU_GETTEXT
 
 
@@ -53,6 +52,8 @@ AM_CONDITIONAL(NATIVE_WIN32, test x"$native_win32" = "xyes")
 
 LT_INIT([win32-dll])
 
+
+PKG_CHECK_MODULES(PARSER_C, [cunit ])
 
 
 

@@ -1,15 +1,6 @@
-## Process this file with automake to produce Makefile.in
-## Created by Anjuta
+
 
 SUBDIRS = src po
-
-AM_CPPFLAGS = -I$(top_builddir)
-
-parser.tab.cc parser.tab.hh : parser.yy
-	bison -o $@ $<
-
-lexer.cc : lexer.ll
-	flex -o $@ $<
 
 dist_doc_DATA = \
 	README \
@@ -20,6 +11,12 @@ dist_doc_DATA = \
 	NEWS
 
 
+parser.tab.c parser.tab.h : parser.y
+	bison -d -o $@ $<
+
+lexer.c : lexer.l
+	flex -o $@ $<
+
 INTLTOOL_FILES = intltool-extract.in \
 	intltool-merge.in \
 	intltool-update.in
@@ -27,17 +24,24 @@ INTLTOOL_FILES = intltool-extract.in \
 EXTRA_DIST = \
 	$(INTLTOOL_FILES)
 
+bin_PROGRAMS =  \
+	developing
+
+developing_SOURCES =  \
+	develop.c
+
+developing_LDADD = libparserc.la 
+
 lib_LTLIBRARIES =  \
-	libparsercpp.la
+	libparserc.la
 
-#libparsercpp_la_CPPFLAGS=-fPIC -Wl,-Bsymbolic 
-libparsercpp_la_CXXFLAGS=-fPIC -Wl,-Bsymbolic
-libparsercpp_la_LDFLAGS= -shared -fPIC -Wl,-Bsymbolic
+libparserc_la_CFLAGS=-fPIC -Wl,-Bsymbolic -I/home/azael/develop/toolkit-c++/common/ $(top_builddir)
+libparserc_la_LDFLAGS=-shared -fPIC -Wl,-Bsymbolic 
 
-libparsercpp_la_SOURCES =  \
-	parser.tab.cc \
-	lexer.cc \
-	driver.cpp 
+libparserc_la_SOURCES =  \
+	parser.tab.c \
+	lexer.c 
+
 
 DISTCLEANFILES = intltool-extract \
 	intltool-merge \
