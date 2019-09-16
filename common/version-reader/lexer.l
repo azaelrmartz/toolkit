@@ -18,8 +18,7 @@
 
 
 
-%s scBUILD
-%s scSTAGE
+
 %%
 %{          /** Code executed at the beginning of yylex **/
             BEGIN(INITIAL);
@@ -38,8 +37,8 @@
 	}
 	
 "-"     {
-                                printf("%s\n",yytext);
-                                BEGIN(scSTAGE);
+                                //printf("%s\n",yytext);
+                                //BEGIN(scSTAGE);
                                 return yytext[0];
                 }
 
@@ -95,7 +94,7 @@
 "+"        	{
                 //printf("P : %s\n",yytext);
                 //yylval->build< std::string >( yytext );
-                BEGIN(scBUILD);
+                //BEGIN(scBUILD);
                 return yytext[0];
             }
 

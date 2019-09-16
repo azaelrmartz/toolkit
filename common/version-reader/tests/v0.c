@@ -40,8 +40,8 @@ void testPositiveSintax()
     CU_ASSERT_TRUE(parse_string(&ty1,"1.3.65") == 0);//deve aceptar ;
     CU_ASSERT_TRUE(parse_string(&ty1,"11.3.65-SNAPSHOT") == 0);//deve aceptar ;
     CU_ASSERT_TRUE(parse_string(&ty1,"12.36.56-DEVELOPING+12345678901233") == 0);//deve aceptar ;
-    printf("Ultima prueba\n");
-    CU_ASSERT_TRUE(parse_string(&ty1,"12.36.56-snapshot+ver54.23") == 0);
+    //printf("Ultima prueba\n");
+    CU_ASSERT_TRUE(parse_string(&ty1,"12.36.56-snapshot+alpha.23") == 0);
 }
 
 void testNegativeSintax()
