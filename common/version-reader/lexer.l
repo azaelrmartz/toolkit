@@ -13,7 +13,7 @@
 extern int parse_string(struct Tray* ty,const char* in);
 
 #include "parser.tab.h"
-
+//extern YYSTYPE yylval;
 %}
 
 
@@ -21,163 +21,106 @@ DIGIT	[0-9]
 NAME	[a-zA-Z0-9]+
 SPACE [ \t\r]
 
-%x sc_NUMBERS
-%x sc_STAGE
-%x sc_BUILD
-%x sc_NAME
 
 %%
 %{          /** Code executed at the beginning of yylex **/
             BEGIN(INITIAL);
 %}
+                     
 
-"valid"     {
-				//std::cout << yytext << std::endl;
-				// yylval->build< std::string >( atoi(yytext) );
-				return VALID;
-	}
-                                
-"numbers"		{
-					//std::cout << yytext << std::endl;
-					//yylval->build< std::string >( atoi(yytext) );
-					return FIELDNAME_NUMBERS;
-			}
-
-"stage"                {
-                                        //std::cout << yytext << std::endl;
-                                        //yylval->build< std::string >( atoi(yytext) );
-                                        return FIELDNAME_STAGE;
-
+{DIGIT}{1,5}  	{
+                                        //printf("%s\n",yytext); 
+                                        yylval.sval=(short)atoi(yytext);
+                                        return VALUE_NUMBER;
                                 }
-"build"                 {
-                                        //std::cout << yytext << std::endl;
-                                        //yylval->build< std::string >( atoi(yytext) );
-                                        return FIELDNAME_BUILD;
-
-                                }
-"name"                 {
-                                        //std::cout << yytext << std::endl;
-                                        //yylval->build< std::string >( atoi(yytext) );
-                                        return FIELDNAME_NAME;
-
-                                }
-"="                 {
-                                        ///std::cout << yytext << std::endl;
-                                        //yylval->build< std::string >( atoi(yytext) );
-                                        return EQUAL;
-
-                                }                                
-
 
 "."     {
 		//std::cout << yytext << std::endl;
-		BEGIN(sc_NUMBERS);
-		return DOT;
+		return yytext[0];
 	}
 	
-"-"        	{
+"-"     {
                                 //std::cout <<yytext << std::endl;
-                                BEGIN(sc_STAGE);
-                                return DASH;
+                                return yytext[0];
                 }
 
+"dev"|"devel"|"developing"|"DEV"|"DEVEL"|"DEVELOPING"   {
+                                yylval.stage=developing;
+                                return VALUE_SNAPSHOT;
+                                        
+                            }
 "snapshot"|"SNAPSHOT"  {
                                         //std::cout << yytext << std::endl;
-                                        BEGIN(sc_STAGE);
-                                yylval.str=yytext;
+                                yylval.stage=snapshot;
                                 return VALUE_SNAPSHOT;
-                                }
-"prealpha"|"PREALPHA" {
+                        }
+"a"|"alpha"|"ALPHA"		{
                                         //std::cout << yytext << std::endl;
-                                        BEGIN(sc_STAGE);
-                                yylval.str=yytext;
-                                return VALUE_PREALPHA;
-                                }
-"alpha"|"ALPHA"		{
-                                        //std::cout << yytext << std::endl;
-                                        BEGIN(sc_STAGE);
-                                yylval.str=yytext;
+                                yylval.stage=alpha;
                                 return VALUE_ALPHA;
                                 }
-"beta"|"BETA"     	{
+
+"b"|"beta"|"BETA"     	{
                                         //std::cout << yytext << std::endl;
-                                        BEGIN(sc_STAGE);
-                                yylval.str=yytext;return VALUE_BETA;
+                                yylval.stage=beta;return VALUE_BETA;
                                 }
 "betar"|"betarelease"|"BETAR"|"BETARELEASE"    	{
 			//std::cout << yytext << std::endl;
-			BEGIN(sc_STAGE);
-			yylval.str=yytext;return VALUE_BETARELEASE;
+			yylval.stage=betarelease;return VALUE_BETARELEASE;
 		}
 "rc"|"RC"       	{
                                         //std::cout << yytext << std::endl;
-                                        BEGIN(sc_STAGE);
-                                        yylval.str=yytext;
+                                        yylval.stage=rc;
                                         return VALUE_RC;
                         }
 "prerelease"|"PRERELEASE"  	{
                                         //std::cout << yytext << std::endl;
-                                        BEGIN(sc_STAGE);
-                                yylval.str=yytext;
+                                yylval.stage=prerelease;
                                 return VALUE_PRERELEASE;
                                 }
-"release"|"RELEASE"  	{
+"r"|"release"|"RELEASE"  	{
                                         //std::cout << yytext << std::endl;
-                                        BEGIN(sc_STAGE);
-                                yylval.str=yytext;return VALUE_RELEASE;
-                                }
+                                yylval.stage=release;
+                                return VALUE_RELEASE;
+                        }
 "RTM"  	{
                                         //std::cout << yytext << std::endl;
-                                        BEGIN(sc_STAGE);
-                                yylval.str=yytext;
+                                yylval.stage=rtm;
                                 return VALUE_RTM;
                                 }                                
 "GA"  	{
                                         //std::cout << yytext << std::endl;
-                                        BEGIN(sc_STAGE);
-                                yylval.str=yytext;return VALUE_GA;
-                                }
-";"                     {
-                                        //std::cout << yytext << std::endl;
-                                        return SEMICOLON;
+                                yylval.stage=ga;return VALUE_GA;
                                 }
 
-                                
-{DIGIT}{1,11}  	{
-                                        //std::cout << yytext << std::endl; 
-                                        BEGIN(sc_NUMBERS);
-                                        yylval.sval=(short)atoi(yytext);
-                                        return VALUE_NUMBER;
-                                }
-			
+"+"        	{
+                //std::cout <<yytext << std::endl;
+                //yylval->build< std::string >( yytext );
+                //BEGIN(scPlus);
+                return yytext[0];
+            }
+
 {DIGIT}{14}                  {
-                                                        //std::cout << "Build : " << yytext << std::endl;
-                                                        BEGIN(sc_BUILD);
+                                                        printf("build : %s\n",yytext);
                                                         yylval.ulval=strtoul(yytext, NULL, 0);
-                                                        return VALUE_BUILD;                                                                        
+                                                        return VALUE_BUILD_UL;                                                                        
                                                 }
+[a-zA-Z]+[a-zA-Z0-9\.]* {
+                            yylval.str = yytext;
+                            return VALUE_BUILD_STRING;
+}
 
-{NAME}  	{
-                                //std::cout << "Name: " << yytext << std::endl; 
-                                BEGIN(sc_NAME);
-                                yylval.str=yytext; 
-                                return VALUE_NAME;
-                        }
-
-
-{SPACE}+	;
-
-[\n\0]		{
-                                        //std::cout << "En of line" << std::endl; 
-                        return ENDLINE;
-                        }
+[\0\n]            {
+                        return ENDOFINPUT;
+}
 .          	            {
-                                        yylval.str=yytext; 
+                                                        printf("build : %s\n",yytext);
+                                        printf("invalid : %s\n",yytext);
                                         return NOEXPECTED;
                                 }
 <<EOF>>    {
                                         //std::cout << "En of file" << std::endl; 
-                                return ENDFILE;
+                                return ENDOFINPUT;
                         }
 
 %%

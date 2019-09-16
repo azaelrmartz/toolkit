@@ -4,15 +4,35 @@
 
 
 enum octetos_toolkit_Stage {
-	unknown,
-	developing,
-	snapshot,
-	alpha,
-	beta,
-	rc,
-	release
+    unknown,
+    developing,
+    snapshot,  
+    prealpha,
+    alpha,
+    beta,
+    betarelease,
+    rc,
+    prerelease,
+    release,
+    rtm,
+    ga
 };
 
+enum octetos_toolkit_eBuild
+{
+    ul_e,
+    string_e
+};
+union octetos_toolkit_vBuild
+{
+    const char* string;
+    unsigned long ul;
+};
+struct octetos_toolkit_Build
+{
+    enum octetos_toolkit_eBuild type;
+    union octetos_toolkit_vBuild value;
+};
 /**
 * \brief Informacion de version
 * 
@@ -22,7 +42,7 @@ struct octetos_toolkit_Version {
 	short minor;
 	short patch;
 	short tweak;
-	unsigned long build;
+	struct octetos_toolkit_Build build;
 	enum octetos_toolkit_Stage stage;	
 	const char* name;
 };

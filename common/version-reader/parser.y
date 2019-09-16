@@ -14,6 +14,8 @@ extern FILE* yyin;
 void yyerror(struct Tray* ty, const char* s);
 void set_input_string(const char* in);
 void end_lexical_scan(void);
+
+
 %}
 
 %lex-param {struct Tray* ty}
@@ -23,30 +25,34 @@ void end_lexical_scan(void);
 	short sval;
 	unsigned long ulval;
 	const char* str;
+	enum octetos_toolkit_Stage stage;
 }
 
 %token
-  DOT
-  DASH
-  ENDLINE
-  SEMICOLON
-  ENDFILE
+  //DOT
+  //DASH
+  //ENDLINE
+  //SEMICOLON
+  //ENDFILE
+  ENDOFINPUT
 ;
 
-%token VALUE_SNAPSHOT
-%token VALUE_PREALPHA
-%token VALUE_ALPHA
-%token VALUE_BETA
-%token VALUE_BETARELEASE
-%token VALUE_RC 
-%token VALUE_PRERELEASE 
-%token VALUE_RELEASE 
-%token VALUE_RTM
-%token VALUE_GA
-%token <const char*> VALUE_NAME
-%token <short> VALUE_NUMBER
-%token <unsigned long> VALUE_BUILD
-%token <const char*> NOEXPECTED
+%token <stage> VALUE_DEVELOPING
+%token <stage> VALUE_SNAPSHOT
+%token <stage> VALUE_PREALPHA
+%token <stage> VALUE_ALPHA
+%token <stage> VALUE_BETA
+%token <stage> VALUE_BETARELEASE
+%token <stage> VALUE_RC 
+%token <stage> VALUE_PRERELEASE 
+%token <stage> VALUE_RELEASE 
+%token <stage> VALUE_RTM
+%token <stage> VALUE_GA
+%token <str> VALUE_NAME
+%token <sval> VALUE_NUMBER
+%token <ulval> VALUE_BUILD_UL
+%token <str> VALUE_BUILD_STRING
+%token <str> NOEXPECTED
 
 %token VALID 
 %token FIELDNAME_NUMBERS
@@ -60,17 +66,7 @@ void end_lexical_scan(void);
 %%
 %start stmt;
 
-	stmt : version end
-	{
-		YYACCEPT;
-	}
-	|
-	version_list end
-	{
-		YYACCEPT;
-	}
-	| 
-	valid end
+	stmt : version ENDOFINPUT
 	{
 		YYACCEPT;
 	};
@@ -86,124 +82,96 @@ void end_lexical_scan(void);
 	| 
 	numbers_value stage build
 	{
-	}
-	| 
-	numbers_value stage build name
-	{
-	}
-
-	version_list : | version SEMICOLON  version_list
-
+	};
+	
 	numbers_value : one_number | two_numbers | three_numbers;
 
 	one_number : VALUE_NUMBER
 	{
-		//drv.getVersion().setNumbers($1);
+		ty->version.major = $1;
 	};
-	two_numbers : VALUE_NUMBER DOT VALUE_NUMBER
+	two_numbers : VALUE_NUMBER '.' VALUE_NUMBER
 	{
-		//drv.getVersion().setNumbers($1,$3);
+		ty->version.major = $1;
+		ty->version.minor = $3;
 	};
-	three_numbers : VALUE_NUMBER DOT VALUE_NUMBER DOT VALUE_NUMBER
+	three_numbers : VALUE_NUMBER '.' VALUE_NUMBER '.' VALUE_NUMBER
 	{
 		ty->version.major = $1;
 		ty->version.minor = $3;
 		ty->version.patch = $5;
-		printf("N1: %d\n",ty->version.major);
+		//printf("N1: %d\n",ty->version.major);
 	};
 
-	stage : DASH VALUE_SNAPSHOT
+	stage : 
+	'-' VALUE_DEVELOPING
 	{
-			//drv.getVersion().setStage(octetos::toolkit::Version::snapshot);
+		ty->version.stage = developing;
+	}'-' VALUE_SNAPSHOT
+	{
+        ty->version.stage = snapshot;
 	}
 	| 
-	DASH VALUE_PREALPHA
+	'-' VALUE_ALPHA
 	{
-			//drv.getVersion().setStage(octetos::toolkit::Version::prealpha);
+        ty->version.stage = alpha;
 	}
 	| 
-	DASH VALUE_ALPHA
+	'-' VALUE_BETA
 	{
-			//drv.getVersion().setStage(octetos::toolkit::Version::alpha);
-	}
-	| 
-	DASH VALUE_BETA
-	{
-			//drv.getVersion().setStage(octetos::toolkit::Version::beta);
+        ty->version.stage = beta;
 	} 
 	|
-	DASH VALUE_BETARELEASE
+	'-' VALUE_BETARELEASE
 	{
-			//drv.getVersion().setStage(octetos::toolkit::Version::betarelease);
+		ty->version.stage = betarelease;
 	}
 	| 
-	DASH VALUE_RC
+	'-' VALUE_RC
 	{
-			//drv.getVersion().setStage(octetos::toolkit::Version::rc);
+		ty->version.stage = rc;
 	}
 	| 
-	DASH VALUE_PRERELEASE
+	'-' VALUE_PRERELEASE
 	{
-			//drv.getVersion().setStage(octetos::toolkit::Version::prerelease);
+		ty->version.stage = prerelease;
 	}
 	| 
-	DASH VALUE_RELEASE
+	'-' VALUE_RELEASE
 	{
-			//drv.getVersion().setStage(octetos::toolkit::Version::release);
+		ty->version.stage = release;
 	}
 	| 
-	DASH VALUE_RTM
+	'-' VALUE_RTM
 	{
-			//drv.getVersion().setStage(octetos::toolkit::Version::rtm);
+		ty->version.stage = rtm;
 	}
 	| 
-	DASH VALUE_GA
+	'-' VALUE_GA
 	{
-			//drv.getVersion().setStage(octetos::toolkit::Version::ga);
+		ty->version.stage = ga;
 	}
 	;
 
-	build : VALUE_BUILD
-	{
-		//drv.getVersion().setBuild($1);      
-			//std::cout << "Build = " << $1 << std::endl;
-	};
-
-	name : VALUE_NAME
-	{
-		//drv.getVersion().setName($1);
-		//std::cout << "Name = " << $1 << std::endl;
-	};
-
-	end : ENDLINE | ENDFILE | SEMICOLON
-	{
-	};
-
-	valid : VALID FIELDNAME_NUMBERS EQUAL numbers_value 
-	{
+	build : 
+	'+' VALUE_BUILD_UL
+	{    
+        ty->version.build.type = ul_e;
+        ty->version.build.value.ul = $2;
 	}
 	|
-	VALID FIELDNAME_STAGE EQUAL stage_values 
+	'+' VALUE_BUILD_STRING
 	{
-	}
-	|
-	VALID FIELDNAME_BUILD EQUAL VALUE_BUILD 
-	{
-	}
-	|
-	VALID  FIELDNAME_NAME EQUAL VALUE_NAME
-	{
-	};
+        ty->version.build.type = string_e;
+        ty->version.build.value.string = $2;    
+    }
+	;
 	
-	stage_values : VALUE_SNAPSHOT | VALUE_PREALPHA | VALUE_ALPHA | VALUE_BETA  | VALUE_BETARELEASE | VALUE_RC | VALUE_PRERELEASE | VALUE_RTM | VALUE_GA
-	{
-		
-	};
 
 %%
 void yyerror(struct Tray* ty,const char* s) {
 	//if(ty.getAnnounceError())
-	fprintf(stderr, "Parse error: %s\n", s);
+	if(ty->dysplay_erro > 0) fprintf(stderr, "Parse error: %s\n", s);
 }
 int parse_string(struct Tray* ty,const char* in) {
   set_input_string(in);
