@@ -107,7 +107,9 @@ void yyerror(struct Tray* ty, const char* s);
 	'-' VALUE_DEVELOPING
 	{
 		ty->version.stage = developing;
-	}'-' VALUE_SNAPSHOT
+	}
+	|
+	'-' VALUE_SNAPSHOT
 	{
         ty->version.stage = snapshot;
 	}
@@ -170,7 +172,6 @@ void yyerror(struct Tray* ty, const char* s);
 
 %%
 void yyerror(struct Tray* ty,const char* s) {
-	//if(ty.getAnnounceError())
 	if(ty->dysplay_erro > 0) fprintf(stderr, "Parse error: %s\n", s);
 }
 /* Declarations */

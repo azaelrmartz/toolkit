@@ -17,18 +17,16 @@
 %}
 
 
-DIGIT	[0-9]
-NAME	[a-zA-Z0-9]+
-SPACE [ \t\r]
 
-
+%s scBUILD
+%s scSTAGE
 %%
 %{          /** Code executed at the beginning of yylex **/
             BEGIN(INITIAL);
 %}
                      
 
-{DIGIT}{1,5}  	{
+[0-9]{1,5}  	{
                                         //printf("%s\n",yytext); 
                                         yylval.sval=(short)atoi(yytext);
                                         return VALUE_NUMBER;
@@ -40,7 +38,8 @@ SPACE [ \t\r]
 	}
 	
 "-"     {
-                                //std::cout <<yytext << std::endl;
+                                printf("%s\n",yytext);
+                                BEGIN(scSTAGE);
                                 return yytext[0];
                 }
 
@@ -55,7 +54,7 @@ SPACE [ \t\r]
                                 return VALUE_SNAPSHOT;
                         }
 "a"|"alpha"|"ALPHA"		{
-                                        //std::cout << yytext << std::endl;
+                                printf("stage : %s\n",yytext);
                                 yylval.stage=alpha;
                                 return VALUE_ALPHA;
                                 }
@@ -94,18 +93,19 @@ SPACE [ \t\r]
                                 }
 
 "+"        	{
-                //std::cout <<yytext << std::endl;
+                //printf("P : %s\n",yytext);
                 //yylval->build< std::string >( yytext );
-                //BEGIN(scPlus);
+                BEGIN(scBUILD);
                 return yytext[0];
             }
 
-{DIGIT}{14}                  {
-                                                        printf("build : %s\n",yytext);
+[0-9]{14}                  {
+                                                        //printf("build : %s\n",yytext);
                                                         yylval.ulval=strtoul(yytext, NULL, 0);
                                                         return VALUE_BUILD_UL;                                                                        
                                                 }
-[a-zA-Z]+[a-zA-Z0-9\.]* {
+[a-zA-Z][a-zA-Z0-9\.]* {
+                            //printf("build : %s\n",yytext);
                             yylval.str = yytext;
                             return VALUE_BUILD_STRING;
 }
@@ -114,9 +114,10 @@ SPACE [ \t\r]
                         return ENDOFINPUT;
 }
 .          	            {
-                                                        printf("build : %s\n",yytext);
-                                        printf("invalid : %s\n",yytext);
-                                        return NOEXPECTED;
+                                                        //printf("build : %s\n",yytext);
+                                        //printf("invalid : %s\n",yytext);
+                                        yylval.str = yytext;
+                                        
                                 }
 <<EOF>>    {
                                         //std::cout << "En of file" << std::endl; 
