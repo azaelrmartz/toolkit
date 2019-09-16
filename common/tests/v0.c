@@ -6,7 +6,7 @@
 #include "driver.h"
 //#include "../common.h"
 #include "../version-reader/parser.tab.h"
-#include "../versionInfo-c.h" 
+#include "packInfo.h" 
 
 
 
