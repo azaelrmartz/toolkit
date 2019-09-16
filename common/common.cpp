@@ -20,8 +20,7 @@ namespace toolkit
 		v.setNumbers(VERSION_MAJOR,VERSION_MINOR,VERSION_PATCH);
 		v.setStage(VERSION_STAGE);
 		v.setBuild(std::stoul(VERSION_BUILD));
-		#endif
-		#ifdef ENABLED_AUTOT
+		#elif defined ENABLED_AUTOT
 		v.set(VERSION);
 		//v.setStage(octetos::toolkit::Version::Stage::alpha);
 		//v.setBuild(std::stoul(VERSION_BUILD));
@@ -31,12 +30,11 @@ namespace toolkit
 
 	std::string getPakageName()
 	{
-        #ifdef ENABLED_CMAKE
-        return PACKAGE_NAME;
-        #endif
-        #ifdef ENABLED_AUTOT
+        	#ifdef ENABLED_CMAKE
+        	return PACKAGE_NAME;
+		#elif defined ENABLED_AUTOT
 		return PACKAGE;
-        #endif
+        	#endif
 	}
 	
 	Package getPackageInfo()
@@ -56,8 +54,7 @@ namespace toolkit
 		packinfo.licence.name_public = packinfo.name;
 		packinfo.licence.owner = "Azael Reyes";
 		packinfo.licence.year = 2018;
-		#endif
-		#ifdef ENABLED_AUTOT
+		#elif defined ENABLED_AUTOT
 		packinfo.name = PACKAGE;
 		packinfo.brief = "";
 		packinfo.url = "";

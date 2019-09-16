@@ -198,25 +198,25 @@ void testVersionGeneric()
     CU_ASSERT(ver.getBuildUL() == 0);
     CU_ASSERT(ver.getName().size() == 0);
         
-    //std::string fileNameVersion = "ver";
-    //fileNameVersion += std::to_string(majorNumber);
-        
+    std::string fileNameVersion = "ver";
+    fileNameVersion += std::to_string(majorNumber);        
     octetos::toolkit::Version ver2;
-        //CU_ASSERT(ver2.fromFile(fileNameVersion));
-        //CU_ASSERT(ver2.getMajor() == 12);
-        //CU_ASSERT(ver2.getMinor() == 36);
-        //CU_ASSERT(ver2.getPatch() == 56);
-        //CU_ASSERT(ver2.getStage() == octetos::toolkit::Version::snapshot);
-        //CU_ASSERT(ver2.getBuildUL() == 12345678901233);
-        //CU_ASSERT(ver2.getName().compare("devtest") == 0);   
-        octetos::toolkit::Version ver3;
-        CU_ASSERT(ver3.fromString("1.3.65"));//deve aceptar ;
-        CU_ASSERT(ver3.fromString("11.3.65-SNAPSHOT"));//deve aceptar ;
-        CU_ASSERT(ver3.fromString("12.36.56-DEVELOPING+12345678901233"));//deve aceptar ;
-        //CU_ASSERT_FALSE(ver3.fromString("12.36.56-GA+123456;78901233-devtest;"));//error sintactico la sengun version esta incompleta
-        //CU_ASSERT_FALSE(ver3.fromString("12.36.56-RTM+12345678901233;devtest;"));//error sintactico la sengun version esta incompleta
-        //CU_ASSERT_FALSE(ver3.fromString("12.36.56-snaps;hot+12345678901233 devtest"));//error sintactico la sengun version esta incompleta
-        //CU_ASSERT(ver3.fromString("12.36.56-snapshot+12345678901233-devtest;12.36.56-RTM;"));
+    std::cout << "\nFile " << fileNameVersion << std::endl;
+    CU_ASSERT(ver2.fromFile(fileNameVersion));
+    CU_ASSERT(ver2.getMajor() == 12);
+    CU_ASSERT(ver2.getMinor() == 36);
+    CU_ASSERT(ver2.getPatch() == 56);
+    CU_ASSERT(ver2.getStage() == octetos::toolkit::Version::snapshot);
+    //CU_ASSERT(ver2.getBuildUL() == 12345678901233);        
+    //octetos::toolkit::Version ver3;
+    //CU_ASSERT(ver3.fromString("1.3.65"));//deve aceptar ;
+    //CU_ASSERT(ver3.fromString("11.3.65-SNAPSHOT"));//deve aceptar ;
+    //CU_ASSERT(ver3.fromString("12.36.56-DEVELOPING+12345678901233"));//deve aceptar ;
+    //CU_ASSERT_FALSE(ver3.fromString("12.36.56-GA+123456;78901233"));//error sintactico la sengun version esta incompleta
+    //CU_ASSERT_FALSE(ver3.fromString("12.36.56-RTM+12345678901233;devtest;"));//error sintactico la sengun version esta incompleta
+    //CU_ASSERT_FALSE(ver3.fromString("12.36.56-snaps;hot+12345678901233"));//error sintactico la sengun version esta incompleta
+    //CU_ASSERT_FALSE(ver3.fromString("12.36.56-snapshot+12345678901233;"));
+    //CU_ASSERT(ver3.fromString("12.36.56-snapshot+alpha"));
 }
 
 void testValidStatement()
