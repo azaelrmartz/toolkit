@@ -1,15 +1,13 @@
-## Process this file with automake to produce Makefile.in
-## Created by Anjuta
 
 SUBDIRS = src po
 
 AM_CPPFLAGS = -I$(top_builddir)
 
-#parser.tab.cc parser.tab.hh : parser.yy
-#	bison -o $@ $<
+bin_PROGRAMS =  \
+	developing
 
-#lexer.cc : lexer.ll
-#	flex -o $@ $<
+developing_SOURCES =  \
+	develop.c
 
 parser.tab.c parser.tab.h : parser.y
 	bison -o $@ $<
@@ -34,13 +32,8 @@ EXTRA_DIST = \
 	$(INTLTOOL_FILES)
 
 lib_LTLIBRARIES =  \
-	libparsercpp.la
+	libparserc.la
 
-#libparsercpp_la_CPPFLAGS=-fPIC -Wl,-Bsymbolic 
-#libparsercpp_la_CXXFLAGS=-fPIC -Wl,-Bsymbolic
-#libparsercpp_la_LDFLAGS= -shared -fPIC -Wl,-Bsymbolic
-
-#libparsercpp_la_SOURCES =  parser.tab.cc lexer.cc driver.cpp 
 
 libparserc_la_CXXFLAGS=-fPIC -Wl,-Bsymbolic
 libparserc_la_LDFLAGS= -shared -fPIC -Wl,-Bsymbolic
