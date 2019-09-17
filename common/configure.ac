@@ -1,7 +1,7 @@
 dnl Process this file with autoconf to produce a configure script.
 dnl Created by Anjuta application wizard.
 
-AC_INIT(toolkit-common, 0.1)
+AC_INIT(toolkit_common, 0.1)
 
 AC_CONFIG_HEADERS([config.h])
 
@@ -11,8 +11,7 @@ AM_SILENT_RULES([yes])
 
 AC_PROG_CXX
 
-AC_ENABLE_SHARED
-AC_PROG_LIBTOOL(libtool)
+
 
 
 dnl ***************************************************************************

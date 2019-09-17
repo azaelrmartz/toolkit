@@ -1,6 +1,3 @@
-## Process this file with automake to produce Makefile.in
-
-## Created by Anjuta
 
 AM_CPPFLAGS = \
 	-DPACKAGE_LOCALE_DIR=\""$(localedir)"\" \
@@ -13,8 +10,6 @@ AM_CFLAGS =\
 	 -g
 
 bin_PROGRAMS = toolkit_common
-
-toolkit_common_LDADD =  version-reader/libparsercpp.la
 
 toolkit_common_SOURCES = \
 	main.cc
