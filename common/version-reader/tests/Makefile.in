@@ -88,8 +88,8 @@ PRE_UNINSTALL = :
 POST_UNINSTALL = :
 build_triplet = @build@
 host_triplet = @host@
-bin_PROGRAMS = parser_c$(EXEEXT)
-subdir = src
+bin_PROGRAMS = parser_c$(EXEEXT) tests-v0$(EXEEXT)
+subdir = tests
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 am__aclocal_m4_deps = $(top_srcdir)/configure.ac
 am__configure_deps = $(am__aclocal_m4_deps) $(CONFIGURE_DEPENDENCIES) \
@@ -112,6 +112,12 @@ am__v_lt_1 =
 parser_c_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) \
 	$(LIBTOOLFLAGS) --mode=link $(CCLD) $(AM_CFLAGS) $(CFLAGS) \
 	$(parser_c_LDFLAGS) $(LDFLAGS) -o $@
+am_tests_v0_OBJECTS = tests_v0-v0.$(OBJEXT)
+tests_v0_OBJECTS = $(am_tests_v0_OBJECTS)
+tests_v0_DEPENDENCIES = $(am__DEPENDENCIES_1) ../libparserc.la
+tests_v0_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) \
+	$(LIBTOOLFLAGS) --mode=link $(CCLD) $(tests_v0_CFLAGS) \
+	$(CFLAGS) $(AM_LDFLAGS) $(LDFLAGS) -o $@
 AM_V_P = $(am__v_P_@AM_V@)
 am__v_P_ = $(am__v_P_@AM_DEFAULT_V@)
 am__v_P_0 = false
@@ -146,8 +152,8 @@ AM_V_CCLD = $(am__v_CCLD_@AM_V@)
 am__v_CCLD_ = $(am__v_CCLD_@AM_DEFAULT_V@)
 am__v_CCLD_0 = @echo "  CCLD    " $@;
 am__v_CCLD_1 = 
-SOURCES = $(parser_c_SOURCES)
-DIST_SOURCES = $(parser_c_SOURCES)
+SOURCES = $(parser_c_SOURCES) $(tests_v0_SOURCES)
+DIST_SOURCES = $(parser_c_SOURCES) $(tests_v0_SOURCES)
 am__can_run_installinfo = \
   case $$AM_UPDATE_INFO_DIR in \
     n|no|NO) false;; \
@@ -345,6 +351,11 @@ parser_c_SOURCES = \
 
 parser_c_LDFLAGS = 
 parser_c_LDADD = $(PARSER_C_LIBS)
+tests_v0_CFLAGS = -I/home/azael/develop/toolkit-c++/common/
+tests_v0_LDADD = $(PARSER_C_LIBS) ../libparserc.la
+tests_v0_SOURCES = \
+	v0.c
+
 all: all-am
 
 .SUFFIXES:
@@ -358,9 +369,9 @@ $(srcdir)/Makefile.in:  $(srcdir)/Makefile.am  $(am__configure_deps)
 	      exit 1;; \
 	  esac; \
 	done; \
-	echo ' cd $(top_srcdir) && $(AUTOMAKE) --gnu src/Makefile'; \
+	echo ' cd $(top_srcdir) && $(AUTOMAKE) --gnu tests/Makefile'; \
 	$(am__cd) $(top_srcdir) && \
-	  $(AUTOMAKE) --gnu src/Makefile
+	  $(AUTOMAKE) --gnu tests/Makefile
 Makefile: $(srcdir)/Makefile.in $(top_builddir)/config.status
 	@case '$?' in \
 	  *config.status*) \
@@ -432,6 +443,10 @@ parser_c$(EXEEXT): $(parser_c_OBJECTS) $(parser_c_DEPENDENCIES) $(EXTRA_parser_c
 	@rm -f parser_c$(EXEEXT)
 	$(AM_V_CCLD)$(parser_c_LINK) $(parser_c_OBJECTS) $(parser_c_LDADD) $(LIBS)
 
+tests-v0$(EXEEXT): $(tests_v0_OBJECTS) $(tests_v0_DEPENDENCIES) $(EXTRA_tests_v0_DEPENDENCIES) 
+	@rm -f tests-v0$(EXEEXT)
+	$(AM_V_CCLD)$(tests_v0_LINK) $(tests_v0_OBJECTS) $(tests_v0_LDADD) $(LIBS)
+
 mostlyclean-compile:
 	-rm -f *.$(OBJEXT)
 
@@ -439,6 +454,7 @@ distclean-compile:
 	-rm -f *.tab.c
 
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/main.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/tests_v0-v0.Po@am__quote@
 
 .c.o:
 @am__fastdepCC_TRUE@	$(AM_V_CC)$(COMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<
@@ -460,6 +476,20 @@ distclean-compile:
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='$<' object='$@' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LTCOMPILE) -c -o $@ $<
+
+tests_v0-v0.o: v0.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(tests_v0_CFLAGS) $(CFLAGS) -MT tests_v0-v0.o -MD -MP -MF $(DEPDIR)/tests_v0-v0.Tpo -c -o tests_v0-v0.o `test -f 'v0.c' || echo '$(srcdir)/'`v0.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/tests_v0-v0.Tpo $(DEPDIR)/tests_v0-v0.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='v0.c' object='tests_v0-v0.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(tests_v0_CFLAGS) $(CFLAGS) -c -o tests_v0-v0.o `test -f 'v0.c' || echo '$(srcdir)/'`v0.c
+
+tests_v0-v0.obj: v0.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(tests_v0_CFLAGS) $(CFLAGS) -MT tests_v0-v0.obj -MD -MP -MF $(DEPDIR)/tests_v0-v0.Tpo -c -o tests_v0-v0.obj `if test -f 'v0.c'; then $(CYGPATH_W) 'v0.c'; else $(CYGPATH_W) '$(srcdir)/v0.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/tests_v0-v0.Tpo $(DEPDIR)/tests_v0-v0.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='v0.c' object='tests_v0-v0.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(tests_v0_CFLAGS) $(CFLAGS) -c -o tests_v0-v0.obj `if test -f 'v0.c'; then $(CYGPATH_W) 'v0.c'; else $(CYGPATH_W) '$(srcdir)/v0.c'; fi`
 
 mostlyclean-libtool:
 	-rm -f *.lo

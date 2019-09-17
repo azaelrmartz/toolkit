@@ -90,7 +90,7 @@ PRE_UNINSTALL = :
 POST_UNINSTALL = :
 build_triplet = @build@
 host_triplet = @host@
-bin_PROGRAMS = developing$(EXEEXT)
+bin_PROGRAMS = develop$(EXEEXT)
 subdir = .
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 am__aclocal_m4_deps = $(top_srcdir)/configure.ac
@@ -146,9 +146,12 @@ libparserc_la_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) \
 	$(LIBTOOLFLAGS) --mode=link $(CCLD) $(libparserc_la_CFLAGS) \
 	$(CFLAGS) $(libparserc_la_LDFLAGS) $(LDFLAGS) -o $@
 PROGRAMS = $(bin_PROGRAMS)
-am_developing_OBJECTS = develop.$(OBJEXT)
-developing_OBJECTS = $(am_developing_OBJECTS)
-developing_DEPENDENCIES = libparserc.la
+am_develop_OBJECTS = develop-develop.$(OBJEXT)
+develop_OBJECTS = $(am_develop_OBJECTS)
+develop_DEPENDENCIES = libparserc.la
+develop_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) \
+	$(LIBTOOLFLAGS) --mode=link $(CCLD) $(develop_CFLAGS) \
+	$(CFLAGS) $(AM_LDFLAGS) $(LDFLAGS) -o $@
 AM_V_P = $(am__v_P_@AM_V@)
 am__v_P_ = $(am__v_P_@AM_DEFAULT_V@)
 am__v_P_0 = false
@@ -162,7 +165,7 @@ am__v_at_ = $(am__v_at_@AM_DEFAULT_V@)
 am__v_at_0 = @
 am__v_at_1 = 
 DEFAULT_INCLUDES = -I.@am__isrc@
-depcomp = $(SHELL) $(top_srcdir)/depcomp
+depcomp = $(SHELL) $(top_srcdir)/../depcomp
 am__depfiles_maybe = depfiles
 am__mv = mv -f
 COMPILE = $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) \
@@ -183,8 +186,8 @@ AM_V_CCLD = $(am__v_CCLD_@AM_V@)
 am__v_CCLD_ = $(am__v_CCLD_@AM_DEFAULT_V@)
 am__v_CCLD_0 = @echo "  CCLD    " $@;
 am__v_CCLD_1 = 
-SOURCES = $(libparserc_la_SOURCES) $(developing_SOURCES)
-DIST_SOURCES = $(libparserc_la_SOURCES) $(developing_SOURCES)
+SOURCES = $(libparserc_la_SOURCES) $(develop_SOURCES)
+DIST_SOURCES = $(libparserc_la_SOURCES) $(develop_SOURCES)
 RECURSIVE_TARGETS = all-recursive check-recursive cscopelist-recursive \
 	ctags-recursive dvi-recursive html-recursive info-recursive \
 	install-data-recursive install-dvi-recursive \
@@ -229,9 +232,12 @@ ETAGS = etags
 CTAGS = ctags
 CSCOPE = cscope
 DIST_SUBDIRS = $(SUBDIRS)
-am__DIST_COMMON = $(srcdir)/Makefile.in $(srcdir)/config.h.in AUTHORS \
-	COPYING ChangeLog INSTALL NEWS README compile config.guess \
-	config.sub depcomp install-sh ltmain.sh missing
+am__DIST_COMMON = $(srcdir)/Makefile.in $(srcdir)/config.h.in \
+	$(top_srcdir)/../compile $(top_srcdir)/../config.guess \
+	$(top_srcdir)/../config.sub $(top_srcdir)/../depcomp \
+	$(top_srcdir)/../install-sh $(top_srcdir)/../ltmain.sh \
+	$(top_srcdir)/../missing AUTHORS COPYING ChangeLog INSTALL \
+	NEWS README
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
 distdir = $(PACKAGE)-$(VERSION)
 top_distdir = $(distdir)
@@ -326,6 +332,9 @@ INTLTOOL__v_MERGE_0 = @INTLTOOL__v_MERGE_0@
 INTL_MACOSX_LIBS = @INTL_MACOSX_LIBS@
 LD = @LD@
 LDFLAGS = @LDFLAGS@
+LEX = @LEX@
+LEXLIB = @LEXLIB@
+LEX_OUTPUT_ROOT = @LEX_OUTPUT_ROOT@
 LIBOBJS = @LIBOBJS@
 LIBS = @LIBS@
 LIBTOOL = @LIBTOOL@
@@ -371,6 +380,8 @@ STRIP = @STRIP@
 USE_NLS = @USE_NLS@
 VERSION = @VERSION@
 XGETTEXT = @XGETTEXT@
+YACC = @YACC@
+YFLAGS = @YFLAGS@
 abs_builddir = @abs_builddir@
 abs_srcdir = @abs_srcdir@
 abs_top_builddir = @abs_top_builddir@
@@ -425,7 +436,7 @@ target_alias = @target_alias@
 top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
-SUBDIRS = src po
+SUBDIRS = src po tests
 dist_doc_DATA = \
 	README \
 	COPYING \
@@ -441,19 +452,20 @@ INTLTOOL_FILES = intltool-extract.in \
 EXTRA_DIST = \
 	$(INTLTOOL_FILES)
 
-developing_SOURCES = \
-	develop.c
-
-developing_LDADD = libparserc.la 
 lib_LTLIBRARIES = \
 	libparserc.la
 
-libparserc_la_CFLAGS = -fPIC -Wl,-Bsymbolic -I/home/azael/develop/toolkit-c++/common/ $(top_builddir)
-libparserc_la_LDFLAGS = -shared -fPIC -Wl,-Bsymbolic 
+libparserc_la_CFLAGS = -fPIC -Wl,-Bsymbolic -I/home/azael/develop/toolkit-c++/common/ -I$(top_srcdir)
+libparserc_la_LDFLAGS = -shared -fPIC -Wl,-Bsymbolic
 libparserc_la_SOURCES = \
 	parser.tab.c \
 	lexer.c 
 
+develop_CFLAGS = -I/home/azael/develop/toolkit-c++/common/
+develop_SOURCES = \
+	develop.c
+
+develop_LDADD = libparserc.la 
 DISTCLEANFILES = intltool-extract \
 	intltool-merge \
 	intltool-update \
@@ -600,9 +612,9 @@ clean-binPROGRAMS:
 	echo " rm -f" $$list; \
 	rm -f $$list
 
-developing$(EXEEXT): $(developing_OBJECTS) $(developing_DEPENDENCIES) $(EXTRA_developing_DEPENDENCIES) 
-	@rm -f developing$(EXEEXT)
-	$(AM_V_CCLD)$(LINK) $(developing_OBJECTS) $(developing_LDADD) $(LIBS)
+develop$(EXEEXT): $(develop_OBJECTS) $(develop_DEPENDENCIES) $(EXTRA_develop_DEPENDENCIES) 
+	@rm -f develop$(EXEEXT)
+	$(AM_V_CCLD)$(develop_LINK) $(develop_OBJECTS) $(develop_LDADD) $(LIBS)
 
 mostlyclean-compile:
 	-rm -f *.$(OBJEXT)
@@ -610,7 +622,7 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/develop.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/develop-develop.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libparserc_la-lexer.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libparserc_la-parser.tab.Plo@am__quote@
 
@@ -648,6 +660,20 @@ libparserc_la-lexer.lo: lexer.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='lexer.c' object='libparserc_la-lexer.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libparserc_la_CFLAGS) $(CFLAGS) -c -o libparserc_la-lexer.lo `test -f 'lexer.c' || echo '$(srcdir)/'`lexer.c
+
+develop-develop.o: develop.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(develop_CFLAGS) $(CFLAGS) -MT develop-develop.o -MD -MP -MF $(DEPDIR)/develop-develop.Tpo -c -o develop-develop.o `test -f 'develop.c' || echo '$(srcdir)/'`develop.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/develop-develop.Tpo $(DEPDIR)/develop-develop.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='develop.c' object='develop-develop.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(develop_CFLAGS) $(CFLAGS) -c -o develop-develop.o `test -f 'develop.c' || echo '$(srcdir)/'`develop.c
+
+develop-develop.obj: develop.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(develop_CFLAGS) $(CFLAGS) -MT develop-develop.obj -MD -MP -MF $(DEPDIR)/develop-develop.Tpo -c -o develop-develop.obj `if test -f 'develop.c'; then $(CYGPATH_W) 'develop.c'; else $(CYGPATH_W) '$(srcdir)/develop.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/develop-develop.Tpo $(DEPDIR)/develop-develop.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='develop.c' object='develop-develop.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(develop_CFLAGS) $(CFLAGS) -c -o develop-develop.obj `if test -f 'develop.c'; then $(CYGPATH_W) 'develop.c'; else $(CYGPATH_W) '$(srcdir)/develop.c'; fi`
 
 mostlyclean-libtool:
 	-rm -f *.lo
@@ -1121,7 +1147,6 @@ parser.tab.c parser.tab.h : parser.y
 lexer.c : lexer.l
 	flex -o $@ $<
 
-# Remove doc directory on uninstall
 uninstall-local:
 	-rm -r $(docdir)
 

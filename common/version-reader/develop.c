@@ -3,14 +3,11 @@
 
 
 #include "driver.h"
-///#include "parser.tab.h"
-
-//extern int parse_string(struct Driver* drv,const char* in);
 
 int main()
 {
 	struct Tray ty1,ty2,ty3;
-		
+	
 	parse_string(&ty1,"1.6.55-alpha");    
     printf( "M: %d\n",ty1.version.major);
     printf( "m: %d\n",ty1.version.minor);

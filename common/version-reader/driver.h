@@ -10,14 +10,12 @@ struct Tray
 };
 
 #ifdef __cplusplus  
-extern "C" { 
+extern "C" {
 #endif 
-    /* Declarations of this file */
     int parse_string(struct Tray* ty,const char* in);
 #ifdef __cplusplus 
 } 
 #endif
-//
 
 #endif
 
