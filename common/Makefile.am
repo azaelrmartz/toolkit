@@ -1,6 +1,4 @@
 
-SUBDIRS = version-reader src po
-
 dist_doc_DATA = \
 	README \
 	COPYING \
@@ -32,8 +30,9 @@ libtoolkit_common_cpp_la_SOURCES =  \
 	Error.cpp \
 	Message.cpp \
 	Object.cpp \
-	Version.cpp\
-	Version-parser.cpp
+	Version.cpp \
+	Version-parser.cpp \
+	Licence.cpp
 
 DISTCLEANFILES = intltool-extract \
 	intltool-merge \
@@ -44,3 +43,6 @@ DISTCLEANFILES = intltool-extract \
 # Remove doc directory on uninstall
 uninstall-local:
 	-rm -r $(docdir)
+
+
+SUBDIRS = version-reader src po

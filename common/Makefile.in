@@ -138,7 +138,8 @@ am_libtoolkit_common_cpp_la_OBJECTS =  \
 	libtoolkit_common_cpp_la-Message.lo \
 	libtoolkit_common_cpp_la-Object.lo \
 	libtoolkit_common_cpp_la-Version.lo \
-	libtoolkit_common_cpp_la-Version-parser.lo
+	libtoolkit_common_cpp_la-Version-parser.lo \
+	libtoolkit_common_cpp_la-Licence.lo
 libtoolkit_common_cpp_la_OBJECTS =  \
 	$(am_libtoolkit_common_cpp_la_OBJECTS)
 AM_V_lt = $(am__v_lt_@AM_V@)
@@ -431,7 +432,6 @@ target_alias = @target_alias@
 top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
-SUBDIRS = version-reader src po
 dist_doc_DATA = \
 	README \
 	COPYING \
@@ -458,14 +458,16 @@ libtoolkit_common_cpp_la_SOURCES = \
 	Error.cpp \
 	Message.cpp \
 	Object.cpp \
-	Version.cpp\
-	Version-parser.cpp
+	Version.cpp \
+	Version-parser.cpp \
+	Licence.cpp
 
 DISTCLEANFILES = intltool-extract \
 	intltool-merge \
 	intltool-update \
 	po/.intltool-merge-cache
 
+SUBDIRS = version-reader src po
 all: config.h
 	$(MAKE) $(AM_MAKEFLAGS) all-recursive
 
@@ -565,6 +567,7 @@ distclean-compile:
 	-rm -f *.tab.c
 
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libtoolkit_common_cpp_la-Error.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libtoolkit_common_cpp_la-Licence.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libtoolkit_common_cpp_la-Message.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libtoolkit_common_cpp_la-Object.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libtoolkit_common_cpp_la-Version-parser.Plo@am__quote@
@@ -633,6 +636,13 @@ libtoolkit_common_cpp_la-Version-parser.lo: Version-parser.cpp
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='Version-parser.cpp' object='libtoolkit_common_cpp_la-Version-parser.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libtoolkit_common_cpp_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libtoolkit_common_cpp_la-Version-parser.lo `test -f 'Version-parser.cpp' || echo '$(srcdir)/'`Version-parser.cpp
+
+libtoolkit_common_cpp_la-Licence.lo: Licence.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libtoolkit_common_cpp_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libtoolkit_common_cpp_la-Licence.lo -MD -MP -MF $(DEPDIR)/libtoolkit_common_cpp_la-Licence.Tpo -c -o libtoolkit_common_cpp_la-Licence.lo `test -f 'Licence.cpp' || echo '$(srcdir)/'`Licence.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libtoolkit_common_cpp_la-Licence.Tpo $(DEPDIR)/libtoolkit_common_cpp_la-Licence.Plo
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='Licence.cpp' object='libtoolkit_common_cpp_la-Licence.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libtoolkit_common_cpp_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libtoolkit_common_cpp_la-Licence.lo `test -f 'Licence.cpp' || echo '$(srcdir)/'`Licence.cpp
 
 mostlyclean-libtool:
 	-rm -f *.lo

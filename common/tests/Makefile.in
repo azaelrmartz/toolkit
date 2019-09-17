@@ -88,9 +88,9 @@ PRE_UNINSTALL = :
 POST_UNINSTALL = :
 build_triplet = @build@
 host_triplet = @host@
-bin_PROGRAMS = toolkit_common$(EXEEXT)
+bin_PROGRAMS = toolkit_common$(EXEEXT) testing-v6$(EXEEXT)
 @NATIVE_WIN32_TRUE@am__append_1 = -mwindows
-subdir = src
+subdir = tests
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 am__aclocal_m4_deps = $(top_srcdir)/configure.ac
 am__configure_deps = $(am__aclocal_m4_deps) $(CONFIGURE_DEPENDENCIES) \
@@ -102,14 +102,21 @@ CONFIG_CLEAN_FILES =
 CONFIG_CLEAN_VPATH_FILES =
 am__installdirs = "$(DESTDIR)$(bindir)"
 PROGRAMS = $(bin_PROGRAMS)
-am_toolkit_common_OBJECTS = main.$(OBJEXT)
-toolkit_common_OBJECTS = $(am_toolkit_common_OBJECTS)
+am_testing_v6_OBJECTS = v6.$(OBJEXT)
+testing_v6_OBJECTS = $(am_testing_v6_OBJECTS)
 am__DEPENDENCIES_1 =
-toolkit_common_DEPENDENCIES = $(am__DEPENDENCIES_1)
+testing_v6_DEPENDENCIES = $(am__DEPENDENCIES_1) \
+	../libtoolkit-common-cpp.la
 AM_V_lt = $(am__v_lt_@AM_V@)
 am__v_lt_ = $(am__v_lt_@AM_DEFAULT_V@)
 am__v_lt_0 = --silent
 am__v_lt_1 = 
+testing_v6_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) \
+	$(LIBTOOLFLAGS) --mode=link $(CXXLD) $(AM_CXXFLAGS) \
+	$(CXXFLAGS) $(testing_v6_LDFLAGS) $(LDFLAGS) -o $@
+am_toolkit_common_OBJECTS = main.$(OBJEXT)
+toolkit_common_OBJECTS = $(am_toolkit_common_OBJECTS)
+toolkit_common_DEPENDENCIES = $(am__DEPENDENCIES_1)
 toolkit_common_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CXX \
 	$(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=link $(CXXLD) \
 	$(AM_CXXFLAGS) $(CXXFLAGS) $(toolkit_common_LDFLAGS) \
@@ -148,8 +155,8 @@ AM_V_CXXLD = $(am__v_CXXLD_@AM_V@)
 am__v_CXXLD_ = $(am__v_CXXLD_@AM_DEFAULT_V@)
 am__v_CXXLD_0 = @echo "  CXXLD   " $@;
 am__v_CXXLD_1 = 
-SOURCES = $(toolkit_common_SOURCES)
-DIST_SOURCES = $(toolkit_common_SOURCES)
+SOURCES = $(testing_v6_SOURCES) $(toolkit_common_SOURCES)
+DIST_SOURCES = $(testing_v6_SOURCES) $(toolkit_common_SOURCES)
 am__can_run_installinfo = \
   case $$AM_UPDATE_INFO_DIR in \
     n|no|NO) false;; \
@@ -348,6 +355,11 @@ toolkit_common_SOURCES = \
 
 toolkit_common_LDFLAGS = $(am__append_1)
 toolkit_common_LDADD = $(TOOLKIT_COMMON_LIBS)
+testing_v6_SOURCES = \
+	v6.cc
+
+testing_v6_LDFLAGS = 
+testing_v6_LDADD = $(TOOLKIT_COMMON_LIBS) ../libtoolkit-common-cpp.la
 all: all-am
 
 .SUFFIXES:
@@ -361,9 +373,9 @@ $(srcdir)/Makefile.in:  $(srcdir)/Makefile.am  $(am__configure_deps)
 	      exit 1;; \
 	  esac; \
 	done; \
-	echo ' cd $(top_srcdir) && $(AUTOMAKE) --gnu src/Makefile'; \
+	echo ' cd $(top_srcdir) && $(AUTOMAKE) --gnu tests/Makefile'; \
 	$(am__cd) $(top_srcdir) && \
-	  $(AUTOMAKE) --gnu src/Makefile
+	  $(AUTOMAKE) --gnu tests/Makefile
 Makefile: $(srcdir)/Makefile.in $(top_builddir)/config.status
 	@case '$?' in \
 	  *config.status*) \
@@ -431,6 +443,10 @@ clean-binPROGRAMS:
 	echo " rm -f" $$list; \
 	rm -f $$list
 
+testing-v6$(EXEEXT): $(testing_v6_OBJECTS) $(testing_v6_DEPENDENCIES) $(EXTRA_testing_v6_DEPENDENCIES) 
+	@rm -f testing-v6$(EXEEXT)
+	$(AM_V_CXXLD)$(testing_v6_LINK) $(testing_v6_OBJECTS) $(testing_v6_LDADD) $(LIBS)
+
 toolkit_common$(EXEEXT): $(toolkit_common_OBJECTS) $(toolkit_common_DEPENDENCIES) $(EXTRA_toolkit_common_DEPENDENCIES) 
 	@rm -f toolkit_common$(EXEEXT)
 	$(AM_V_CXXLD)$(toolkit_common_LINK) $(toolkit_common_OBJECTS) $(toolkit_common_LDADD) $(LIBS)
@@ -442,6 +458,7 @@ distclean-compile:
 	-rm -f *.tab.c
 
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/main.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/v6.Po@am__quote@
 
 .cc.o:
 @am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXXCOMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<
