@@ -5,22 +5,19 @@
 AM_CPPFLAGS = \
 	-DPACKAGE_LOCALE_DIR=\""$(localedir)"\" \
 	-DPACKAGE_SRC_DIR=\""$(srcdir)"\" \
-	-DPACKAGE_DATA_DIR=\""$(pkgdatadir)"\"
+	-DPACKAGE_DATA_DIR=\""$(pkgdatadir)"\" \
+	$(PARSER_C_CFLAGS)
 
 AM_CFLAGS =\
 	 -Wall\
 	 -g
 
-bin_PROGRAMS = version_reader_cpp
+bin_PROGRAMS = parser_c
 
-version_reader_cpp_SOURCES = \
-	main.cc
+parser_c_SOURCES = \
+	main.c
 
-version_reader_cpp_LDFLAGS = 
+parser_c_LDFLAGS = 
 
-version_reader_cpp_LDADD = 
+parser_c_LDADD = $(PARSER_C_LIBS)
 
-
-if NATIVE_WIN32
-version_reader_cpp_LDFLAGS += -mwindows
-endif

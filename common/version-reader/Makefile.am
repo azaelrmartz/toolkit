@@ -24,6 +24,12 @@ dist_doc_DATA = \
 	NEWS
 
 
+parser.tab.c parser.tab.h : parser.y
+	bison -d -o $@ $<
+
+lexer.c : lexer.l
+	flex -o $@ $<
+
 INTLTOOL_FILES = intltool-extract.in \
 	intltool-merge.in \
 	intltool-update.in
@@ -31,12 +37,20 @@ INTLTOOL_FILES = intltool-extract.in \
 EXTRA_DIST = \
 	$(INTLTOOL_FILES)
 
+bin_PROGRAMS =  \
+	developing
+
+developing_SOURCES =  \
+	develop.c
+
+developing_LDADD = libparserc.la 
+
 lib_LTLIBRARIES =  \
 	libparserc.la
 
 
-libparserc_la_CXXFLAGS=-fPIC -Wl,-Bsymbolic
-libparserc_la_LDFLAGS= -shared -fPIC -Wl,-Bsymbolic
+libparserc_la_CFLAGS=-fPIC -Wl,-Bsymbolic -I/home/azael/develop/toolkit-c++/common/ $(top_builddir)
+libparserc_la_LDFLAGS=-shared -fPIC -Wl,-Bsymbolic
 
 libparserc_la_SOURCES =  \
 	parser.tab.c \
