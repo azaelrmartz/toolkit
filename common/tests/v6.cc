@@ -185,39 +185,7 @@ void testComparators()
         CU_ASSERT(false);
     }
 }
-void testVersionGeneric()
-{
-	//for class Version
-	octetos::toolkit::Version ver;
-	
-    //valores iniciales
-	CU_ASSERT(ver.getMajor() == -1)
-	CU_ASSERT(ver.getMinor() == -1)
-	CU_ASSERT(ver.getPatch() == -1)	
-    CU_ASSERT(ver.getStage() == octetos::toolkit::Version::unknown)
-    CU_ASSERT(ver.getBuildUL() == 0);
-    CU_ASSERT(ver.getName().size() == 0);
-        
-    std::string fileNameVersion = "ver";
-    fileNameVersion += std::to_string(majorNumber);        
-    octetos::toolkit::Version ver2;
-    std::cout << "\nFile " << fileNameVersion << std::endl;
-    CU_ASSERT(ver2.fromFile(fileNameVersion));
-    CU_ASSERT(ver2.getMajor() == 12);
-    CU_ASSERT(ver2.getMinor() == 36);
-    CU_ASSERT(ver2.getPatch() == 56);
-    CU_ASSERT(ver2.getStage() == octetos::toolkit::Version::snapshot);
-    //CU_ASSERT(ver2.getBuildUL() == 12345678901233);        
-    //octetos::toolkit::Version ver3;
-    //CU_ASSERT(ver3.fromString("1.3.65"));//deve aceptar ;
-    //CU_ASSERT(ver3.fromString("11.3.65-SNAPSHOT"));//deve aceptar ;
-    //CU_ASSERT(ver3.fromString("12.36.56-DEVELOPING+12345678901233"));//deve aceptar ;
-    //CU_ASSERT_FALSE(ver3.fromString("12.36.56-GA+123456;78901233"));//error sintactico la sengun version esta incompleta
-    //CU_ASSERT_FALSE(ver3.fromString("12.36.56-RTM+12345678901233;devtest;"));//error sintactico la sengun version esta incompleta
-    //CU_ASSERT_FALSE(ver3.fromString("12.36.56-snaps;hot+12345678901233"));//error sintactico la sengun version esta incompleta
-    //CU_ASSERT_FALSE(ver3.fromString("12.36.56-snapshot+12345678901233;"));
-    //CU_ASSERT(ver3.fromString("12.36.56-snapshot+alpha"));
-}
+
 
 void testValidStatement()
 {
@@ -287,13 +255,7 @@ int main(int argc, char *argv[])
 		CU_cleanup_registry();
 		return CU_get_error();
 	}
-	
-	if ((NULL == CU_add_test(pSuite, "Pruebas Genericas.", testVersionGeneric)))
-	{
-		CU_cleanup_registry();
-		return CU_get_error();
-	}
-	
+		
 	if ((NULL == CU_add_test(pSuite, "Criterios de comparación", testComparators)))
 	{
 		CU_cleanup_registry();

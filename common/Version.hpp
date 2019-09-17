@@ -222,12 +222,12 @@ namespace toolkit
                  * \brief Asinga los valores con datos leidos desde un archivo
                  * \param filename nombre del archivo
                  * */
-		bool fromFile(const std::string& filename);       
+		//bool fromFile(const std::string& filename);       
 		/**
 		* \brief Asinga los valores con datos leidos desde ana cadena de texto
 		* \param str Texto a leer.
 		* */                 
-		bool fromString(const std::string& str); 
+		bool from(const std::string& str); 
                 
 		//static bool valid(const std::string& str);
 	};

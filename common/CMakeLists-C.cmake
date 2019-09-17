@@ -33,11 +33,14 @@ INCLUDE_DIRECTORIES(${PROJECT_BINARY_DIR})
 INCLUDE_DIRECTORIES(version-reader ${CMAKE_CURRENT_BINARY_DIR}/version-reader)
 
 
+include_directories(${PROJECT_SOURCE_DIR})
 set(OCTKCO_SRC_DIR ${PROJECT_SOURCE_DIR})
+INCLUDE_DIRECTORIES(version-reader ${CMAKE_CURRENT_BINARY_DIR}/version-reader)
 #################################################################################################
 
 SET(LIBREADER "NULL")
 ADD_SUBDIRECTORY(version-reader)
+
 ADD_LIBRARY(${PROJECT_NAME}-obj  OBJECT common.c)
 set_target_properties(${PROJECT_NAME}-obj  PROPERTIES POSITION_INDEPENDENT_CODE 1 )
 ADD_DEPENDENCIES(${PROJECT_NAME}-obj ${LIBREADER})
