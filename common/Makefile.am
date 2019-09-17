@@ -1,4 +1,3 @@
-#AM_CPPFLAGS = -I$(top_srcdir)/version-reader  -I$(top_builddir)/version-reader 
 
 SUBDIRS = version-reader src po
 
@@ -18,16 +17,14 @@ INTLTOOL_FILES = intltool-extract.in \
 EXTRA_DIST = \
 	$(INTLTOOL_FILES)
 
-AM_CPPFLAGS = $(cunit_CFLAGS) 
-
-
-lib_LTLIBRARIES = \
+lib_LTLIBRARIES =  \
 	libtoolkit-common-cpp.la
 
 
 libtoolkit_common_cpp_la_LIBADD = version-reader/libparserc.la
-#libtoolkit_common_cpp_la_CPPFLAGS=-fPIC -Wl,-Bsymbolic 
-libtoolkit_common_cpp_la_CPPFLAGS= -DENABLED_AUTOT -fPIC -Wl,-Bsymbolic -I$(top_srcdir)/version-reader  -I$(top_builddir)/version-reader 
+
+libtoolkit_common_cpp_la_CPPFLAGS= -DENABLED_AUTOT -fPIC -Wl,-Bsymbolic -I$(top_srcdir)/version-reader  -I$(top_builddir)/version-reader
+ 
 libtoolkit_common_cpp_la_LDFLAGS= -shared -fPIC -Wl,-Bsymbolic -version-info `$(top_srcdir)/versionInfo.sh toolkit-common-c++ --dd`
 
 libtoolkit_common_cpp_la_SOURCES =  \
@@ -36,8 +33,7 @@ libtoolkit_common_cpp_la_SOURCES =  \
 	Message.cpp \
 	Object.cpp \
 	Version.cpp\
-	Version-parser.cpp   
-
+	Version-parser.cpp
 
 DISTCLEANFILES = intltool-extract \
 	intltool-merge \

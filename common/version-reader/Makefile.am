@@ -25,7 +25,7 @@ EXTRA_DIST = \
 lib_LTLIBRARIES =  \
 	libparserc.la
 
-libparserc_la_CFLAGS=-fPIC -Wl,-Bsymbolic -I/home/azael/develop/toolkit-c++/common/ -I$(top_srcdir)
+libparserc_la_CFLAGS=-fPIC -Wl,-Bsymbolic -I/home/azael/develop/toolkit/common/ -I$(top_srcdir)
 
 libparserc_la_LDFLAGS=-shared -fPIC -Wl,-Bsymbolic
 
@@ -36,7 +36,7 @@ libparserc_la_SOURCES =  \
 bin_PROGRAMS =  \
 	develop
 
-develop_CFLAGS=-I/home/azael/develop/toolkit-c++/common/
+develop_CFLAGS=-I/home/azael/develop/toolkit/common/
 
 develop_SOURCES = \
 	develop.c

@@ -165,7 +165,7 @@ am__v_at_ = $(am__v_at_@AM_DEFAULT_V@)
 am__v_at_0 = @
 am__v_at_1 = 
 DEFAULT_INCLUDES = -I.@am__isrc@
-depcomp = $(SHELL) $(top_srcdir)/../depcomp
+depcomp = $(SHELL) $(top_srcdir)/depcomp
 am__depfiles_maybe = depfiles
 am__mv = mv -f
 COMPILE = $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) \
@@ -232,12 +232,9 @@ ETAGS = etags
 CTAGS = ctags
 CSCOPE = cscope
 DIST_SUBDIRS = $(SUBDIRS)
-am__DIST_COMMON = $(srcdir)/Makefile.in $(srcdir)/config.h.in \
-	$(top_srcdir)/../compile $(top_srcdir)/../config.guess \
-	$(top_srcdir)/../config.sub $(top_srcdir)/../depcomp \
-	$(top_srcdir)/../install-sh $(top_srcdir)/../ltmain.sh \
-	$(top_srcdir)/../missing AUTHORS COPYING ChangeLog INSTALL \
-	NEWS README
+am__DIST_COMMON = $(srcdir)/Makefile.in $(srcdir)/config.h.in AUTHORS \
+	COPYING ChangeLog INSTALL NEWS README compile config.guess \
+	config.sub depcomp install-sh ltmain.sh missing
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
 distdir = $(PACKAGE)-$(VERSION)
 top_distdir = $(distdir)
@@ -455,13 +452,13 @@ EXTRA_DIST = \
 lib_LTLIBRARIES = \
 	libparserc.la
 
-libparserc_la_CFLAGS = -fPIC -Wl,-Bsymbolic -I/home/azael/develop/toolkit-c++/common/ -I$(top_srcdir)
+libparserc_la_CFLAGS = -fPIC -Wl,-Bsymbolic -I/home/azael/develop/toolkit/common/ -I$(top_srcdir)
 libparserc_la_LDFLAGS = -shared -fPIC -Wl,-Bsymbolic
 libparserc_la_SOURCES = \
 	parser.tab.c \
 	lexer.c 
 
-develop_CFLAGS = -I/home/azael/develop/toolkit-c++/common/
+develop_CFLAGS = -I/home/azael/develop/toolkit/common/
 develop_SOURCES = \
 	develop.c
 

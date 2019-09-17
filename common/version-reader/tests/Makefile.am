@@ -12,8 +12,7 @@ AM_CFLAGS =\
 	 -Wall\
 	 -g
 
-bin_PROGRAMS = parser_c \
-	tests-v0
+bin_PROGRAMS = parser_c 
 
 parser_c_SOURCES = \
 	main.c
@@ -23,7 +22,7 @@ parser_c_LDFLAGS =
 parser_c_LDADD = $(PARSER_C_LIBS)
 
 
-tests_v0_CFLAGS = -I/home/azael/develop/toolkit-c++/common/
-tests_v0_LDADD = $(PARSER_C_LIBS) ../libparserc.la
-tests_v0_SOURCES =  \
+#tests_v0_CFLAGS = -I/home/azael/develop/toolkit-c++/common/
+#tests_v0_LDADD = $(PARSER_C_LIBS) ../libparserc.la
+#tests_v0_SOURCES =  \
 	v0.c
