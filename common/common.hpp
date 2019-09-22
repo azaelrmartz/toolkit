@@ -7,6 +7,8 @@
 #include "Object.hpp"
 #include "Version.hpp"
 #include "Package.hpp"
+#include "Licence.hpp"
+
 
 namespace octetos
 {

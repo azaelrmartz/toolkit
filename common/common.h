@@ -7,7 +7,6 @@ enum octetos_toolkit_Stage {
     unknown,
     developing,
     snapshot,  
-    prealpha,
     alpha,
     beta,
     betarelease,
@@ -25,7 +24,7 @@ enum octetos_toolkit_eBuild
 };
 union octetos_toolkit_vBuild
 {
-    const char* string;
+    char* string;
     unsigned long ul;
 };
 struct octetos_toolkit_Build

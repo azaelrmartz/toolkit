@@ -206,10 +206,10 @@ void testBuildExtension()
     CU_ASSERT(ver1.getBuildUL() == 12345678901233);
     octetos::toolkit::Version ver2;
     ver2.setNumbers(2,36,98);
-    ver2.setStage(octetos::toolkit::Version::alpha);
+    ver2.setStage(octetos::toolkit::Version::Stage::alpha);
     octetos::toolkit::Version ver3;
     ver3.setNumbers(1);
-    ver3.setStage(octetos::toolkit::Version::release);
+    ver3.setStage(octetos::toolkit::Version::Stage::release);
     ver2.setBuild("+200-r56");
     //std::cout << std::endl << "Build complejo " << ver2.toString() << std::endl;
     if(ver2.getBuildString().compare("+200-r56") == 0)
@@ -226,7 +226,7 @@ void testStageExtension()
 {
     octetos::toolkit::Version ver1;
     ver1.setNumbers(2,36,98);
-    ver1.setStage(octetos::toolkit::Version::alpha,2);
+    ver1.setStage(octetos::toolkit::Version::Stage::alpha,2);
     if(ver1.getStageNumber() == 2)
     {
         CU_ASSERT(true);

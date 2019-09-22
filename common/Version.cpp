@@ -1,10 +1,10 @@
 
-#include <string>
+#include <stdio.h>
+#include <string.h>
 //#include <iostream> //for test
 
 
 #include "Version.hpp"
-
 
 // Reference https://semver.org/
 
@@ -13,9 +13,16 @@ namespace octetos
 {
 namespace toolkit
 {
-    const std::string& Version::Build::getString()const
+    const char* Version::Build::getString()const
     {
-        return *val.string;
+        if(type == etype::string_e)
+        {
+            return value.string;
+        }
+        else
+        {
+            throw Error("El tipo de este dato no es 'una cadena de texto.'",0);
+        }
     }
     /*Version* Version::Build::getVersion() const
     {
@@ -30,9 +37,9 @@ namespace toolkit
     }*/
     unsigned long Version::Build::getUL() const
     {
-        if(type == etype::ul)
+        if(type == etype::ul_e)
         {
-                return val.ul;
+                return value.ul;
         }
         else
         {
@@ -52,15 +59,16 @@ namespace toolkit
     }*/
     Version::Build& Version::Build::operator =(unsigned long ul)
     {
-        val.ul = ul;
-        type = Build::etype::ul;
+        type = etype::ul_e;
+        value.ul = ul;
         
         return *this;
     }
-    Version::Build& Version::Build::operator =(const std::string* str)
+    Version::Build& Version::Build::operator =(const char* str)
     {
-        val.string = new std::string(*str);
-        type = etype::string;        
+        
+        strcpy(value.string,str);
+        type = etype::string_e;        
         return *this;
     }
     
@@ -70,9 +78,9 @@ namespace toolkit
         {
             delete this->build.getVersion();
         }*/
-        if(type == Build::etype::string)
+        if(type == Build::etype::string_e)
         {
-            delete this->val.string;
+            delete this->value.string;
         }
     }
     
@@ -100,7 +108,7 @@ namespace toolkit
     void Version::setBuild(const std::string& str)
     {
         //std::string* str = new std::string(v);
-        this->build = &str;
+        this->build = str.c_str();
     }
     /*void Version::setBuild(const Version* v)
     {
@@ -473,16 +481,13 @@ namespace toolkit
                         case snapshot:
                                 ver += "-snapshot";
                                 break;
-                        case prealpha:
-                                ver += "-prealpha";
-                                break;
                         case alpha:
                                 ver += "-alpha";
                                 break;
                         case beta:
                                 ver += "-beta";
                                 break;
-                        case betar:
+                        case betarelease:
                                 ver += "-betarelease";
                                 break;
                         case rc:
@@ -505,7 +510,7 @@ namespace toolkit
 							break;							
 		}
 
-		if(build.getType() == Build::etype::ul)
+		if(build.getType() == Build::etype::ul_e)
         {
             if(build.getUL() > 0)
             {
@@ -519,7 +524,7 @@ namespace toolkit
             ver += " ";
             ver += build.getVersion()->toString(formato);
         }*/
-        else if(build.getType() == Build::etype::string)
+        else if(build.getType() == Build::etype::string_e)
         {
             ver += build.getString();
         }

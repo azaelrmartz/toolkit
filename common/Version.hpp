@@ -6,6 +6,8 @@
 
 #include "Error.hpp"
 #include "Object.hpp"
+#include "common.h"
+
 
 namespace octetos
 {
@@ -30,7 +32,8 @@ namespace toolkit
 		* \brief Representa la fase del proyecto.
 		* \details Tipicamente un proyecto o sprint comienz en la vervion X-alpha, luego pasa a X-beta y finalmente se genera X-release, lo que sigue a continuacion del guion es la fase aqui representado
 		**/
-		enum Stage
+        typedef octetos_toolkit_Stage Stage;
+		/*enum Stage
 		{
 			unknown,
 			developing,
@@ -44,7 +47,7 @@ namespace toolkit
 			release,
 			ga,
 			rtm	
-		};
+		};*/
 		
 		/**
 		* \brief Paramaetro pasado a la funcion toString para determinar el formato de texto geneerado
@@ -55,10 +58,10 @@ namespace toolkit
 			ONLY_NUMBERS
 		};
 		
-        class Build
+        class Build : private octetos_toolkit_Build
         {
         public:
-            union types
+            /*union types
             {
                 unsigned long ul;
                 //Version* version;
@@ -69,21 +72,22 @@ namespace toolkit
                 ul,
                 //version,
 				string
-            };
-            
+            };*/
+            typedef octetos_toolkit_eBuild etype;
+            typedef octetos_toolkit_vBuild vtype;
         private:
-            types val;
-            etype type;
+            //vtype value;
+            //etype type;
         public:
             ~Build();
             Build& operator =(unsigned long);
             //Build& operator =(Version*);
-            Build& operator =(const std::string*);
+            Build& operator =(const char*);
             etype getType()const;
             //unsigned long operator(unsigned long)();
             unsigned long getUL()const;
             //Version* getVersion()const;
-            const std::string& getString()const;
+            const char* getString()const;
             
         };
         
