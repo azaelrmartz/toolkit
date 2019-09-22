@@ -43,6 +43,9 @@ develop_SOURCES = \
 
 develop_LDADD = libparserc.la 
 
+
+
+
 DISTCLEANFILES = intltool-extract \
 	intltool-merge \
 	intltool-update \

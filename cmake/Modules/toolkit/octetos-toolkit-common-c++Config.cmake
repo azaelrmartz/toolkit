@@ -1,27 +1,32 @@
 
-#  OCTETOS_TOOLKIT_COMMON_CPP_INCLUDE_DIR - where to find file.
-#  OCTETOS_TOOLKIT_COMMON_CPP_LIBRARIES   - List of libraries when using TK Common.
-#  OCTETOS_TOOLKIT_COMMON_CPP_FOUND       - True if TK Common found.
-
 IF (OCTETOS_TOOLKIT_COMMON_CPP_INCLUDE_DIR)
   # Already in cache, be silent
   SET(OCTETOS_TOOLKIT_COMMON_CPP_FIND_QUIETLY TRUE)
 ENDIF (OCTETOS_TOOLKIT_COMMON_CPP_INCLUDE_DIR)
 
 
-FIND_PATH(OCTETOS_TOOLKIT_COMMON_CPP_INCLUDE_DIR toolkit/common/common.hpp
-	/usr/include/octetos
-	/usr/local/include/octetos
-)
-
-
-SET(OCTETOS_TOOLKIT_COMMON_CPP_NAMES octetos-toolkit-common-c++)
-FIND_LIBRARY(OCTETOS_TOOLKIT_COMMON_CPP_LIBRARY
-	NAMES ${OCTETOS_TOOLKIT_COMMON_CPP_NAMES}
-	PATHS /lib /usr/lib /usr/lib/octetos/toolkit/common /usr/local/lib/octetos/toolkit/common /usr/lib/x86_64-linux-gnu/octetos/toolkit/common
-	PATH_SUFFIXES octetos-toolkit-common-c++
-)
-
+if(${OCTKCLCC_VERSION_STAGE} STREQUAL developing )
+    FIND_PATH(OCTETOS_TOOLKIT_COMMON_CPP_INCLUDE_DIR toolkit/common/common.hpp
+        $ENV{HOME}/develop 
+    )
+    SET(OCTETOS_TOOLKIT_COMMON_CPP_NAMES octetos-toolkit-common-c++)
+    FIND_LIBRARY(OCTETOS_TOOLKIT_COMMON_CPP_LIBRARY
+        NAMES ${OCTETOS_TOOLKIT_COMMON_CPP_NAMES}
+        PATHS $ENV{HOME}/develop/toolkit/common/build-c++
+        PATH_SUFFIXES octetos-toolkit-common-c++
+    )
+else()
+    FIND_PATH(OCTETOS_TOOLKIT_COMMON_CPP_INCLUDE_DIR toolkit/common/common.hpp
+        /usr/include/octetos
+        /usr/local/include/octetos
+    )
+    SET(OCTETOS_TOOLKIT_COMMON_CPP_NAMES octetos-toolkit-common-c++)
+    FIND_LIBRARY(OCTETOS_TOOLKIT_COMMON_CPP_LIBRARY
+        NAMES ${OCTETOS_TOOLKIT_COMMON_CPP_NAMES}
+        PATHS /lib /usr/lib /usr/lib/octetos/toolkit/common /usr/local/lib/octetos/toolkit/common /usr/lib/x86_64-linux-gnu/octetos/toolkit/common
+        PATH_SUFFIXES octetos-toolkit-common-c++
+    )
+endif()
 
 IF (OCTETOS_TOOLKIT_COMMON_CPP_INCLUDE_DIR AND OCTETOS_TOOLKIT_COMMON_CPP_LIBRARY)
   SET(OCTETOS_TOOLKIT_COMMON_CPP_FOUND TRUE)
