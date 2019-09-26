@@ -1,4 +1,4 @@
-PROJECT(octetos-toolkit-common-c++ VERSION 6.0.0.1 DESCRIPTION "Libreria C++ para soporte no especificado aun." HOMEPAGE_URL "https://github.com/azaeldevel/toolkit.git" LANGUAGES C CXX)
+PROJECT(octetos-toolkit-common-c++ VERSION 6.0.1.1 DESCRIPTION "Libreria C++ para soporte no especificado aun." HOMEPAGE_URL "https://github.com/azaeldevel/toolkit.git" LANGUAGES C CXX)
 
 add_definitions(-DENABLED_CMAKE)
 EXECUTE_PROCESS(COMMAND date +"%Y%m%d%H%M%S" OUTPUT_VARIABLE OTKCMCC_VERSION_BUILD)
@@ -83,6 +83,7 @@ ENDIF()
 
 
 INSTALL(TARGETS ${PROJECT_NAME} DESTINATION lib)
+INSTALL(FILES common.h DESTINATION include/octetos/toolkit/common/)
 INSTALL(FILES common.hpp DESTINATION include/octetos/toolkit/common/)
 INSTALL(FILES Version.hpp DESTINATION include/octetos/toolkit/common/)
 INSTALL(FILES Message.hpp DESTINATION include/octetos/toolkit/common/)

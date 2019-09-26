@@ -16,7 +16,9 @@ if(${OCTKCLCC_VERSION_STAGE} STREQUAL developing )
         PATH_SUFFIXES octetos-toolkit-common-c++
     )
 else()
+    MESSAGE(STATUS "Searching in system: ${OCTETOS_TOOLKIT_COMMON_CPP_LIBRARY}")
     FIND_PATH(OCTETOS_TOOLKIT_COMMON_CPP_INCLUDE_DIR toolkit/common/common.hpp
+        /include/octetos
         /usr/include/octetos
         /usr/local/include/octetos
     )
