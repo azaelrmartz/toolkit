@@ -1,6 +1,9 @@
 CMAKE_MINIMUM_REQUIRED(VERSION 3.0)
 
-add_subdirectory(common) 
-add_subdirectory(clientdb) 
+if(${SELCTPK} STREQUAL "COMMON")
+    add_subdirectory(common) 
+elseif(${SELCTPK} STREQUAL "CLIENTDB")
+    add_subdirectory(clientdb) 
+endif()
 
 
