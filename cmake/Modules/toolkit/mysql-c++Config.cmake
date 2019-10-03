@@ -13,7 +13,7 @@ FIND_PATH(TOOLKIT_CLIENTDB_INCLUDE_DIR clientdb/clientdb-mysql.hpp
 SET(TOOLKIT_CLIENTDB_NAMES ${TARGET_OBJECT_SUFFIX})
 FIND_LIBRARY(TOOLKIT_CLIENTDB_LIBRARIES
   NAMES ${TOOLKIT_CLIENTDB_NAMES}
-  PATHS /usr/lib/toolkit/clientdb/ /usr/local/lib/toolkit/clientdb/ /usr/lib/x86_64-linux-gnu/toolkit/clientdb/ /usr/lib/x86_64-linux-gnu/
+  PATHS /lib /lib64 /lib32 /usr/lib/toolkit/clientdb/ /usr/local/lib/toolkit/clientdb/ /usr/lib/x86_64-linux-gnu/toolkit/clientdb/ /usr/lib/x86_64-linux-gnu/
   PATH_SUFFIXES ${TARGET_OBJECT_SUFFIX}
 )
 
